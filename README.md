@@ -1,4 +1,4 @@
 # Sulley
 Fitting monster
 
-Some code to fit Kee
+Some code to fit Kee and friends
