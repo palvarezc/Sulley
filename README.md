@@ -1,5 +1,19 @@
 # Sulley
-Fitting monster
+Fitting monster.
 
-Some code to fit Kee and friends
-Works with ROOT 6.04/02
+The main classes are:
+
+* toystudy1DHistBremCatExpoBkg performs a toyMC study using a 1D fit
+* toystudy2DHistBremCatTsallisBkg performs a toyMC study using a 2D fit
+
+
+Tested with ROOT 6.04/02
+
+INSTALL
+
+Setup the environment for ROOT
+
+$ source setup.sh
+
+$ make
+
