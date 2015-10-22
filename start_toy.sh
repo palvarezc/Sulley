@@ -29,4 +29,4 @@ echo "       BDT cut : "${BDT_CUT}
 echo "       Reloading control samples? "$reply 
 echo "================================================================================"
 
-./bin/toystudy2DHistBremCatTsallisBkg $RELOAD_CTRL_SAMPLES $Y_SIG $Y_PART_RECO $Y_COMB $TRIGGER $N_TOYS $BDT_CUT
+$SULLEYROOT/bin/toystudy2DHistBremCatTsallisBkg $RELOAD_CTRL_SAMPLES $Y_SIG $Y_PART_RECO $Y_COMB $TRIGGER $N_TOYS $BDT_CUT
