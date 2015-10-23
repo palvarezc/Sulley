@@ -57,6 +57,10 @@ int main(int argc, char* argv[])
   int nGenPartReco(79);
   int nGenComb(31);
 
+  double nGenFracZeroGamma(0.368);
+  double nGenFracOneGamma(0.484);
+
+  
    //*********** Get arguments and set stuff
 
 
@@ -74,14 +78,25 @@ int main(int argc, char* argv[])
       nGenComb = atoi(argv[4]);
 
       int trigInt(atoi(argv[5]));
-      if(trigInt == 1) trigStr = "L0HTOSOnly_d";
-      if(trigInt == 2) trigStr = "L0TISOnly_d";
+      if(trigInt == 1) 
+      {
+        trigStr = "L0HTOSOnly_d";
+        nGenFracZeroGamma = 0.322;
+        nGenFracOneGamma = 0.484;
+      }      
+      if(trigInt == 2) 
+      {
+        trigStr = "L0TISOnly_d";
+        nGenFracZeroGamma = 0.330;
+        nGenFracOneGamma = 0.495;
+      }
+
       BDTcut = argv[7];
       ntoys = atoi(argv[6]);
    }
 
-   int nGenSignalZeroGamma(floor(0.368*nGenSignal));
-   int nGenSignalOneGamma(floor(0.484*nGenSignal));
+   int nGenSignalZeroGamma(floor(nGenFracZeroGamma*nGenSignal));
+   int nGenSignalOneGamma(floor(nGenFracOneGamma*nGenSignal));
    int nGenSignalTwoGamma(floor(nGenSignal-nGenSignalZeroGamma-nGenSignalOneGamma));
 
 
@@ -95,7 +110,7 @@ int main(int argc, char* argv[])
    TTree* tComb = (TTree*)fComb->Get("DecayTree"); 
 
 
-   RooRealVar B_plus_M_corr("B_plus_M_corr", "M_{cor}", 5000, 10000, "MeV/c^{2}");
+   RooRealVar B_plus_M_corr("B_plus_M_corr", "M_{cor}", 5000, 7000, "MeV/c^{2}");
    B_plus_M_corr.setBins(15);
    RooRealVar B_plus_DTFM_M_zero("B_plus_DTFM_M_zero", "M_{constr}", 0, 20000, "MeV/c^{2}"); 
    B_plus_DTFM_M_zero.setBins(100); 
