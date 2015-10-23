@@ -126,7 +126,7 @@ void fillTreeResult(TTree* t, RooFitResult* rfr, bool update)
    if(!update) t->Branch("logedm", &edm, "logedm/D");
    if(update) t->SetBranchAddress("logedm", &edm);
 
-   int status;
+   double status;
    status = rfr->status(); 
    if(!update) t->Branch("status", &status, "status/D");
    if(update) t->SetBranchAddress("status", &status);
