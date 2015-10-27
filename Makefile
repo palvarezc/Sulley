@@ -8,30 +8,40 @@ OBJ_DIR  = $(BASE_DIR)/obj
 INC_DIR  = $(BASE_DIR)/include
 BIN_DIR = $(BASE_DIR)/bin
 
+LCGBOOST = /usr/local
+BOOST_INC_DIR  = -I$(LCGBOOST)/include/
+BOOST_LIB_OPT  = -L$(LCGBOOST)/lib -lboost_filesystem
+
 ROOT_FLAGS   = $(shell $(ROOTSYS)/bin/root-config --cflags)
 ROOT_LIBS    = $(shell $(ROOTSYS)/bin/root-config --libs) -lTreePlayer -lTreeViewer -lMinuit -lXMLIO -lMLP -lRIO
 ROOFIT_LIBS  = ${ROOT_LIBS} -lRooFitCore -lRooFit -lRooStats
 
 FLAGS   = -O3 -Wall -fPIC -D__ROOFIT_NOBANNER -std=c++0x
-FLAGS       += ${ROOT_FLAGS} -lRooFitCore -lRooFit -lRooStats
+FLAGS       += ${ROOT_FLAGS} -lRooFitCore -lRooFit -lRooStats ${BOOST_LIB_OPT} ${BOOST_INC_DIR}
 FLAGS       += -I$(INC_DIR)
 
 # all: toystudy2DHistBremCatTsallisBkg # mainTestTsallis toystudy1DHistBremCatExpoBkg toystudy1DHistBremCatExpoBkgMHCut mainTestCB toystudy2DHOPHistBremCat 
-all: $(BIN_DIR)/toystudy2DHistBremCatTsallisBkg $(BIN_DIR)/toystudy1DHistBremCatExpoBkg 
+all: $(BIN_DIR)/toystudy $(BIN_DIR)/toystudy2DHistBremCatTsallisBkg $(BIN_DIR)/toystudy1DHistBremCatExpoBkg 
 
 
+$(BIN_DIR)/toystudy : $(OBJ_DIR)/toystudy.o $(OBJ_DIR)/RooMcorMvisTsallis.o $(OBJ_DIR)/usefulFunctions.o $(OBJ_DIR)/fitter_utils.o
+	$(CXX) $(FLAGS) -o $(BIN_DIR)/toystudy $(OBJ_DIR)/toystudy.o $(OBJ_DIR)/RooMcorMvisTsallis.o $(OBJ_DIR)/usefulFunctions.o $(OBJ_DIR)/fitter_utils.o $(ROOFIT_LIBS)
 
-$(BIN_DIR)/toystudy2DHistBremCatTsallisBkg : $(OBJ_DIR)/toystudy2DHistBremCatTsallisBkg.o $(OBJ_DIR)/RooMcorMvisTsallis.o $(OBJ_DIR)/usefulFunctions.o
-	$(CXX) $(FLAGS) -o $(BIN_DIR)/toystudy2DHistBremCatTsallisBkg $(OBJ_DIR)/toystudy2DHistBremCatTsallisBkg.o $(OBJ_DIR)/RooMcorMvisTsallis.o $(OBJ_DIR)/usefulFunctions.o $(ROOFIT_LIBS)
+$(OBJ_DIR)/toystudy.o : $(SRC_DIR)/toystudy.cc $(INC_DIR)/RooMcorMvisTsallis.h $(INC_DIR)/usefulFunctions.h $(INC_DIR)/fitter_utils.h
+	$(CXX) $(FLAGS) -c $(SRC_DIR)/toystudy.cc -o $(OBJ_DIR)/toystudy.o $(ROOFIT_LIBS)
 
-$(OBJ_DIR)/toystudy2DHistBremCatTsallisBkg.o : $(SRC_DIR)/toystudy2DHistBremCatTsallisBkg.cc $(INC_DIR)/RooMcorMvisTsallis.h $(INC_DIR)/usefulFunctions.h
+
+$(BIN_DIR)/toystudy2DHistBremCatTsallisBkg : $(OBJ_DIR)/toystudy2DHistBremCatTsallisBkg.o $(OBJ_DIR)/RooMcorMvisTsallis.o $(OBJ_DIR)/usefulFunctions.o $(OBJ_DIR)/fitter_utils.o
+	$(CXX) $(FLAGS) -o $(BIN_DIR)/toystudy2DHistBremCatTsallisBkg $(OBJ_DIR)/toystudy2DHistBremCatTsallisBkg.o $(OBJ_DIR)/RooMcorMvisTsallis.o $(OBJ_DIR)/usefulFunctions.o $(OBJ_DIR)/fitter_utils.o $(ROOFIT_LIBS)
+
+$(OBJ_DIR)/toystudy2DHistBremCatTsallisBkg.o : $(SRC_DIR)/toystudy2DHistBremCatTsallisBkg.cc $(INC_DIR)/RooMcorMvisTsallis.h $(INC_DIR)/usefulFunctions.h $(INC_DIR)/fitter_utils.h
 	$(CXX) $(FLAGS) -c $(SRC_DIR)/toystudy2DHistBremCatTsallisBkg.cc -o $(OBJ_DIR)/toystudy2DHistBremCatTsallisBkg.o $(ROOFIT_LIBS)
 
 
-$(BIN_DIR)/toystudy1DHistBremCatExpoBkg : $(OBJ_DIR)/toystudy1DHistBremCatExpoBkg.o $(OBJ_DIR)/usefulFunctions.o
+$(BIN_DIR)/toystudy1DHistBremCatExpoBkg : $(OBJ_DIR)/toystudy1DHistBremCatExpoBkg.o $(OBJ_DIR)/usefulFunctions.o 
 	$(CXX) $(FLAGS) -o $(BIN_DIR)/toystudy1DHistBremCatExpoBkg $(OBJ_DIR)/toystudy1DHistBremCatExpoBkg.o $(OBJ_DIR)/usefulFunctions.o $(ROOFIT_LIBS)
 
-$(OBJ_DIR)/toystudy1DHistBremCatExpoBkg.o : $(SRC_DIR)/toystudy1DHistBremCatExpoBkg.cc $(INC_DIR)/usefulFunctions.h
+$(OBJ_DIR)/toystudy1DHistBremCatExpoBkg.o : $(SRC_DIR)/toystudy1DHistBremCatExpoBkg.cc $(INC_DIR)/usefulFunctions.h 
 	$(CXX) $(FLAGS) -c $(SRC_DIR)/toystudy1DHistBremCatExpoBkg.cc -o $(OBJ_DIR)/toystudy1DHistBremCatExpoBkg.o $(ROOFIT_LIBS)
 
 
@@ -71,6 +81,9 @@ $(OBJ_DIR)/RooMcorMvisTsallis.o : $(SRC_DIR)/RooMcorMvisTsallis.cc $(INC_DIR)/Ro
 
 $(OBJ_DIR)/usefulFunctions.o: $(SRC_DIR)/usefulFunctions.cc $(INC_DIR)/usefulFunctions.h
 	$(CXX) $(FLAGS) -c $(SRC_DIR)/usefulFunctions.cc -o $(OBJ_DIR)/usefulFunctions.o $(ROOFIT_LIBS)
+
+$(OBJ_DIR)/fitter_utils.o: $(SRC_DIR)/fitter_utils.cc $(INC_DIR)/fitter_utils.h $(INC_DIR)/RooMcorMvisTsallis.h $(INC_DIR)/usefulFunctions.h
+	$(CXX) $(FLAGS) -c $(SRC_DIR)/fitter_utils.cc -o $(OBJ_DIR)/fitter_utils.o $(ROOFIT_LIBS)
 
 clean:
 	rm -f $(OBJ_DIR)/*.o $(BIN_DIR)/*

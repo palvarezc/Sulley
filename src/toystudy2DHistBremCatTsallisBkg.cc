@@ -32,6 +32,7 @@
 #include "usefulFunctions.h"
 #include "fitter_utils.h"
 
+
 using namespace std;
 using namespace RooFit;
 
@@ -41,9 +42,6 @@ void toystudy1DMakeFit(string workspacename,  bool wantplot,
       RooAbsPdf::GenSpec& GenSpecSigZeroGamma, RooAbsPdf::GenSpec& GenSpecSigOneGamma, RooAbsPdf::GenSpec& GenSpecSigTwoGamma, 
       RooAbsPdf::GenSpec& GenSpecPartReco, RooAbsPdf::GenSpec& GenSpecComb, int nGenSignalZeroGamma, int nGenSignalOneGamma,
       int nGenSignalTwoGamma, int nGenPartReco, int nGenComb, double expoConstGen, RooRealVar& expoConst, ofstream& out, TTree* t, bool update);
-void initiateParams(int nGenSignalZeroGamma, int nGenSignalOneGamma, int nGenSignalTwoGamma, int nGenPartRec, int nGenComb, double expoConstGen, RooRealVar& nSignal,
-      RooRealVar& nPartReco, 
-      RooRealVar& nComb, RooRealVar& fracZero, RooRealVar& fracOne, RooRealVar& expoConst);
 
 
 
@@ -101,40 +99,140 @@ int main(int argc, char* argv[])
 
 
    //***********Get the datasets
-   string fSignal = "/vols/lhcbdisk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/oldtrees/B2Kee_Strip21_BDT_ctrl_trigged.root";
-   string fPartReco = "/vols/lhcbdisk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/oldtrees/B2Kee_Strip21_BDT_prc_trigged.root";
-   string fComb = "/vols/lhcbdisk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/oldtrees/B2Kee_Strip21_piee_trigged.root";
+   TFile* fSignal = new TFile("/vols/lhcbdisk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/oldtrees/B2Kee_Strip21_BDT_ctrl_trigged.root");
+   TTree* tSignal = (TTree*)fSignal->Get("DecayTree");
+   TFile* fPartReco = new TFile("/vols/lhcbdisk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/oldtrees/B2Kee_Strip21_BDT_prc_trigged.root");
+   TTree* tPartReco = (TTree*)fPartReco->Get("DecayTree");
 
-   prepare_PDFs("mypdfs.root", trigStr, BDTcut, true, fSignal, fPartReco, fComb);
-
-   TFile *fw = new TFile("mypdfs.root");   
-   RooWorkspace* workspace = (RooWorkspace*)fw->Get("workspace");
-   RooRealVar *B_plus_M = workspace->var("B_plus_M");
-   RooRealVar *B_plus_M_corr = workspace->var("B_plus_M");
-   RooRealVar *T = workspace->var("T");
-   RooRealVar *n = workspace->var("n");
-   RooRealVar *expoConst = workspace->var("expoConst");
-   RooRealVar *trueExp = workspace->var("trueExp");
-
-   RooHistPdf *histPdfSignalZeroGamma = (RooHistPdf *) workspace->pdf("histPdfSignalZeroGamma");
-   RooHistPdf *histPdfSignalOneGamma = (RooHistPdf *) workspace->pdf("histPdfSignalOneGamma");
-   RooHistPdf *histPdfSignalTwoGamma = (RooHistPdf *) workspace->pdf("histPdfSignalTwoGamma");
-   RooHistPdf *histPdfPartReco = (RooHistPdf *) workspace->pdf("histPdfPartReco");
-   RooMcorMvisTsallis *McorMvis  = (RooMcorMvisTsallis *) workspace->pdf("McorMvis");
+   TFile* fComb = new TFile("/vols/lhcbdisk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/oldtrees/B2Kee_Strip21_piee_trigged.root");
+   TTree* tComb = (TTree*)fComb->Get("DecayTree"); 
 
 
-   double trueExpConst(trueExp->getValV());
-   expoConst->setVal(trueExpConst);
-   RooArgSet argset2(*B_plus_M, *B_plus_M_corr);
-   
+   RooRealVar B_plus_M_corr("B_plus_M_corr", "M_{cor}", 5000, 7000, "MeV/c^{2}");
+   B_plus_M_corr.setBins(15);
+   RooRealVar B_plus_DTFM_M_zero("B_plus_DTFM_M_zero", "M_{constr}", 0, 20000, "MeV/c^{2}"); 
+   B_plus_DTFM_M_zero.setBins(100); 
+   RooRealVar BDTKeeBig("BDTKeeBig3", "BDTKeeBig3", -1,1);
+   RooRealVar B_plus_M("B_plus_M", "M_{visible}", 4880, 5700, "MeV/c^{2}");
+   // RooRealVar L0ETOSOnly_d("L0ETOSOnly_d", "L0ETOSOnly_d", -10, 10);
+   RooRealVar trigVar(trigStr.c_str(), trigStr.c_str(), -10, 10);
+   RooRealVar e_plus_BremMultiplicity("e_plus_BremMultiplicity","e_plus_BremMultiplicity", -1,2);
+   RooRealVar e_minus_BremMultiplicity("e_minus_BremMultiplicity","e_minus_BremMultiplicity", -1,2);
+   B_plus_M.setBins(20);
+
+
+   // RooArgSet argset(BDTKeeBig, B_plus_DTFM_M_zero, B_plus_M_corr,  B_plus_M, L0ETOSOnly_d, e_plus_BremMultiplicity, e_minus_BremMultiplicity);
+   RooArgSet argset(BDTKeeBig, B_plus_DTFM_M_zero, B_plus_M_corr,  B_plus_M, trigVar, e_plus_BremMultiplicity, e_minus_BremMultiplicity);
+
+   cout<<"getting the datasets:"<<endl;
+
+   RooDataSet* dataSetSignalZeroGamma;
+   RooDataSet* dataSetSignalOneGamma;
+   RooDataSet* dataSetSignalTwoGamma;
+   RooDataSet* dataSetPartReco;
+   RooDataSet* dataSetComb;
+
+   TFile* fw;
+
+   if(!wantOldDataSet)
+   {
+      dataSetSignalZeroGamma = new RooDataSet("dataSetSignalZeroGamma", "dataSetSignalZeroGamma", tSignal, argset,( " ("+trigStr+"  > 0.9) && (BDTKeeBig3> "+BDTcut+") && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) > -0.5) && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) < 0.5)").c_str());
+      dataSetSignalOneGamma = new RooDataSet("dataSetSignalOneGamma", "dataSetSignalOneGamma", tSignal, argset, ("("+trigStr+"  > 0.9) && (BDTKeeBig3> "+BDTcut+") && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) > 0.5) && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) < 1.5)").c_str());
+      dataSetSignalTwoGamma = new RooDataSet("dataSetSignalTwoGamma", "dataSetSignalTwoGamma", tSignal, argset, ("("+trigStr+"  > 0.9) && (BDTKeeBig3> "+BDTcut+") && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) > 1.5) && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) < 2.5)").c_str());
+      dataSetPartReco = new RooDataSet("dataSetPartReco", "dataSetPartReco", tPartReco, argset, ("("+trigStr+"  > 0.9) && (BDTKeeBig3> "+BDTcut+")").c_str());
+      dataSetComb = new RooDataSet("dataSetComb", "dataSetComb", tComb, argset, ("("+trigStr+"  > 0.9)").c_str());
+
+   }
+
+   if(wantOldDataSet)
+   {
+      fw = new TFile("toystudy2DHistBremCatTsallisBkg_L0ETOS.root");
+      RooWorkspace* workspace = (RooWorkspace*)fw->Get("workspace");
+      dataSetSignalZeroGamma = (RooDataSet*)workspace->data("dataSetSignalZeroGamma");
+      dataSetSignalOneGamma = (RooDataSet*)workspace->data("dataSetSignalOneGamma");
+      dataSetSignalTwoGamma = (RooDataSet*)workspace->data("dataSetSignalTwoGamma");
+      dataSetPartReco = (RooDataSet*)workspace->data("dataSetPartReco");
+      dataSetComb = (RooDataSet*)workspace->data("dataSetComb");
+   }
+
+
+   cout<<"binning the datasets:"<<endl;
+
+   RooArgSet argset2(B_plus_M, B_plus_M_corr);
+   RooDataHist dataHistSignalZeroGamma("dataHistSignalZeroGamma", "dataHistSignalZeroGamma", argset2, *dataSetSignalZeroGamma); 
+   RooDataHist dataHistSignalOneGamma("dataHistSignalOneGamma", "dataHistSignalOneGamma", argset2, *dataSetSignalOneGamma); 
+   RooDataHist dataHistSignalTwoGamma("dataHistSignalTwoGamma", "dataHistSignalTwoGamma", argset2, *dataSetSignalTwoGamma); 
+   RooDataHist dataHistComb("dataHistComb", "dataHistComb", argset2, *dataSetComb); 
+   RooDataHist dataHistPartReco("dataHistPartReco", "dataHistPartReco", argset2, *dataSetPartReco); 
+
+   //***************Create 2D histogram estimates from data
+
+
+   cout<<"Preparing the 3 1D histPdf: 1"<<endl;
+   //   RooArgSet argset2(B_plus_M);
+   RooHistPdf histPdfSignalZeroGamma("histPdfSignalZeroGamma", "histPdfSignalZeroGamma", argset2, dataHistSignalZeroGamma,2); cout<<" 2"<<endl;
+   RooHistPdf histPdfSignalOneGamma("histPdfSignalOneGamma", "histPdfSignalOneGamma", argset2, dataHistSignalOneGamma,2); cout<<" 2"<<endl;
+   RooHistPdf histPdfSignalTwoGamma("histPdfSignalTwoGamma", "histPdfSignalTwoGamma", argset2, dataHistSignalTwoGamma,2); cout<<" 2"<<endl;
+   RooHistPdf histPdfPartReco("histPdfPartReco", "histPdfPartReco", argset2, dataHistPartReco,2); cout<<" 3"<<endl;
+
+   RooRealVar T("T", "T", 97, 0, 200);
+   RooRealVar n("n", "n", 3.5, 1., 5.5);
+   RooRealVar T_fit("T_fit", "T_fit", 97, 0, 200);
+   RooRealVar n_fit("n_fit", "n_fit", 3.5, 1., 5.5);
+   RooRealVar expoConst("expoConst", "expoConst", -1e-3, -1, 1);
+   //   n.setConstant(true);
+
+
+
+   //************2D Tsallis distributionn for combinatorial
+
+   RooMcorMvisTsallis McorMvis("McorMvis", "McorMvis", B_plus_M_corr, B_plus_M, T, n, expoConst);
+   McorMvis.fitTo(*dataSetComb); // 
+
+   T.setConstant(true);
+   n.setConstant(true);
+
+   std::cout<<"T generated is: "<<T.getVal()<<std::endl;
+
+
+   RooMcorMvisTsallis McorMvis_fit("McorMvis_fit", "McorMvis_fit", B_plus_M_corr, B_plus_M, T_fit, n_fit, expoConst);
+
+   // T_fit.setVal(50);
+   T_fit.setVal(T.getVal());
+   n_fit.setVal(n.getVal());
+   T_fit.setConstant(true);
+   n_fit.setConstant(true);
+
+   std::cout<<"T fitted is: "<<T_fit.getVal()<<std::endl;
+
+
+
+   double trueExpConst(expoConst.getValV());
+
    cout<<"Preparing the generation of events 1";
 
-   RooAbsPdf::GenSpec* GenSpecSignalZeroGamma = histPdfSignalZeroGamma->prepareMultiGen(argset2, RooFit::Extended(1), NumEvents(nGenSignalZeroGamma)); cout<<" 2 ";
-   RooAbsPdf::GenSpec* GenSpecSignalOneGamma = histPdfSignalOneGamma->prepareMultiGen(argset2, RooFit::Extended(1), NumEvents(nGenSignalOneGamma)); cout<<" 2 ";
-   RooAbsPdf::GenSpec* GenSpecSignalTwoGamma = histPdfSignalTwoGamma->prepareMultiGen(argset2, RooFit::Extended(1), NumEvents(nGenSignalTwoGamma)); cout<<" 2 ";
-   RooAbsPdf::GenSpec* GenSpecPartReco =  histPdfPartReco->prepareMultiGen(argset2, RooFit::Extended(1), NumEvents(nGenPartReco)); cout<<" 3 "<<endl;
-   RooAbsPdf::GenSpec* GenSpecComb = McorMvis->prepareMultiGen(argset2, RooFit::Extended(1), NumEvents(nGenComb));
+   RooAbsPdf::GenSpec* GenSpecSignalZeroGamma = histPdfSignalZeroGamma.prepareMultiGen(argset2, RooFit::Extended(1), NumEvents(nGenSignalZeroGamma)); cout<<" 2 ";
+   RooAbsPdf::GenSpec* GenSpecSignalOneGamma = histPdfSignalOneGamma.prepareMultiGen(argset2, RooFit::Extended(1), NumEvents(nGenSignalOneGamma)); cout<<" 2 ";
+   RooAbsPdf::GenSpec* GenSpecSignalTwoGamma = histPdfSignalTwoGamma.prepareMultiGen(argset2, RooFit::Extended(1), NumEvents(nGenSignalTwoGamma)); cout<<" 2 ";
+   RooAbsPdf::GenSpec* GenSpecPartReco =  histPdfPartReco.prepareMultiGen(argset2, RooFit::Extended(1), NumEvents(nGenPartReco)); cout<<" 3 "<<endl;
+   RooAbsPdf::GenSpec* GenSpecComb = McorMvis.prepareMultiGen(argset2, RooFit::Extended(1), NumEvents(nGenComb));
 
+
+   //***************Save everything on a workspace
+
+   if(!wantOldDataSet)
+   {
+      RooWorkspace workspace("workspace", "workspace");
+      workspace.import(B_plus_DTFM_M_zero);
+      //   workspace.import(B_plus_M);
+      workspace.import(*dataSetSignalZeroGamma);
+      workspace.import(*dataSetSignalOneGamma);
+      workspace.import(*dataSetSignalTwoGamma);
+      workspace.import(*dataSetPartReco);
+      workspace.import(*dataSetComb);
+      workspace.import(expoConst);
+      workspace.writeToFile("toystudy2DHistBremCatTsallisBkg_L0ETOS.root");
+   }
 
    //***************Prepare the stuff to generate events
 
@@ -162,12 +260,7 @@ int main(int argc, char* argv[])
       cout<<endl<<endl<<endl<<endl<<endl;
       cout<<"************************************"<<endl<<"*********** NEW FIT *****************"<<endl<<"*************************"<<endl;
       cout<<"Generation and fit number "<<i<<endl;
-      toystudy1DMakeFit("toystudy2DHistBremCatTsallisBkg_L0ETOS.root", wantPlots, 
-                        *histPdfSignalZeroGamma, *histPdfSignalOneGamma, *histPdfSignalTwoGamma, *histPdfPartReco, 
-                        *McorMvis, *McorMvis, *GenSpecSignalZeroGamma,*GenSpecSignalOneGamma, *GenSpecSignalTwoGamma,  
-                        *GenSpecPartReco, *GenSpecComb, 
-                        nGenSignalZeroGamma,nGenSignalOneGamma, nGenSignalTwoGamma, nGenPartReco, nGenComb, 
-                        trueExpConst, *expoConst,  out, &t,update);
+      toystudy1DMakeFit("toystudy2DHistBremCatTsallisBkg_L0ETOS.root", wantPlots, histPdfSignalZeroGamma, histPdfSignalOneGamma, histPdfSignalTwoGamma, histPdfPartReco, McorMvis, McorMvis_fit, *GenSpecSignalZeroGamma,*GenSpecSignalOneGamma, *GenSpecSignalTwoGamma,  *GenSpecPartReco, *GenSpecComb, nGenSignalZeroGamma,nGenSignalOneGamma, nGenSignalTwoGamma, nGenPartReco, nGenComb, trueExpConst, expoConst,  out, &t,update);
 
       wantPlots = false;
       update = true;
@@ -184,9 +277,15 @@ int main(int argc, char* argv[])
    out2.close();
 
 
+   fComb->Close();
+   fSignal->Close();
+   fPartReco->Close();
    f.Close();
    fw->Close();
 
+   delete fComb;
+   delete fSignal;
+   delete fPartReco;
    delete fw;
 
    return 0;
@@ -494,44 +593,4 @@ void toystudy1DMakeFit(string workspacename,  bool wantplot,
    delete nll;
    f.Close();
 }
-
-void initiateParams(int nGenSignalZeroGamma, int nGenSignalOneGamma, int nGenSignalTwoGamma, int nGenPartReco, int nGenComb, double expoConstGen, RooRealVar& nSignal,
-      RooRealVar& nPartReco, 
-      RooRealVar& nComb, RooRealVar& fracZero, RooRealVar& fracOne, RooRealVar& expoConst)
-{
-   TRandom rand;
-   rand.SetSeed();
-
-   int nGenSignal = nGenSignalZeroGamma + nGenSignalOneGamma + nGenSignalTwoGamma;
-   double nGenSignal2 = rand.Uniform(nGenSignal-5*sqrt(nGenSignal), nGenSignal+5*sqrt(nGenSignal));
-   double nGenPartReco2 = rand.Uniform(nGenPartReco-5*sqrt(nGenPartReco), nGenPartReco+5*sqrt(nGenPartReco));
-   double nGenComb2 = rand.Uniform(nGenComb-5*sqrt(nGenComb), nGenComb+5*sqrt(nGenComb));
-
-
-   nSignal.setVal(nGenSignal2);
-   nSignal.setRange(TMath::Max(0.,nGenSignal2-10.*sqrt(nGenSignal)) , nGenSignal2+10*sqrt(nGenSignal));
-
-   //fracPartReco.setVal(nGenPartReco2/nGenSignal2);
-   //fracPartReco.setRange(0,2);
-
-   nPartReco.setVal(nGenPartReco2);
-   nPartReco.setRange(TMath::Max(0.,nGenPartReco2-10.*sqrt(nGenPartReco)), nGenPartReco2+10*sqrt(nGenPartReco));
-
-   nComb.setVal(nGenComb2);
-   nComb.setRange(TMath::Max(0.,nGenComb2-10.*sqrt(nGenComb)), nGenComb2+10*sqrt(nGenComb));
-
-   double fracGenZero(nGenSignalZeroGamma/(1.*nGenSignal));
-   double fracGenOne(nGenSignalOneGamma/(1.*nGenSignal));
-
-
-   fracZero.setVal(rand.Gaus(fracGenZero, sqrt(nGenSignalZeroGamma)/(1.*nGenSignal))) ;
-   fracZero.setRange(0., 1.);
-   fracOne.setVal(rand.Gaus(fracGenOne, sqrt(nGenSignalOneGamma)/(1.*nGenSignal))) ;
-   fracOne.setRange(0., 1.);
-
-   expoConst.setVal(rand.Uniform(-TMath::Abs(5*expoConstGen), TMath::Abs(5*expoConstGen)));
-   expoConst.setRange(-TMath::Abs(7*expoConstGen), TMath::Abs(7*expoConstGen));
-}
-
-
 

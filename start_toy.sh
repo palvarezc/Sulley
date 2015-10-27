@@ -10,6 +10,9 @@ Y_COMB=12
 TRIGGER=2
 N_TOYS=1000
 BDT_CUT=0.369
+OUTPUT_FOLDER="toy_result/"
+CONSTRAINED=1
+NDIMS=2
 
 if [[ "$RELOAD_CTRL_SAMPLES" == '1' ]]; 
 then 
@@ -27,6 +30,8 @@ echo "       # comb. bkg. events  : "${Y_COMB}
 echo "       Trigger category (0=ETOS, 1=HTOS, 2=TIS) : "${TRIGGER}" "
 echo "       BDT cut : "${BDT_CUT}
 echo "       Reloading control samples? "$reply 
+echo "       Constraining Part. Reco? "$CONSTRAINED
+echo "       # dimensions: "$NDIMS
 echo "================================================================================"
 
-$SULLEYROOT/bin/toystudy2DHistBremCatTsallisBkg $RELOAD_CTRL_SAMPLES $Y_SIG $Y_PART_RECO $Y_COMB $TRIGGER $N_TOYS $BDT_CUT
+$SULLEYROOT/bin/toystudy2DHistBremCatTsallisBkg $RELOAD_CTRL_SAMPLES $Y_SIG $Y_PART_RECO $Y_COMB $TRIGGER $N_TOYS $BDT_CUT $CONSTRAINED $NDIMS $OUTPUT_FOLDER
