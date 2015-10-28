@@ -120,9 +120,9 @@ int main(int argc, char* argv[])
   //*************** Output files
 
   string plotsfile = outputfolder+"/plots2DHistBremCatTsallisBkgfit.root";
-  string resultsfile = outputfolder+"toystudy2DHistBremCatTsallisBkg_results.root";
-  string outfile = outputfolder+"fitResult2D.dat";
-  string tablefile = outputfolder+"resultToy.dat";
+  string resultsfile = outputfolder+"/toystudy2DHistBremCatTsallisBkg_results.root";
+  string outfile = outputfolder+"/fitResult2D.dat";
+  string tablefile = outputfolder+"/resultToy.dat";
   
 
    //***********Get the datasets
