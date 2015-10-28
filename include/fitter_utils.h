@@ -58,6 +58,11 @@ void generate_and_fit(string workspacename,  bool fit2D, bool wantplot, bool con
               double nGenFracZeroGamma,  double nGenFracOneGamma,
               ofstream& out, TTree* t, bool update, string plotsfile);
 
+void PlotShape(RooDataSet& originDataSet, RooDataSet& genDataSet, RooAbsPdf& shape, string plotsfile, string canvName, RooRealVar& B_plus_M, RooRealVar& B_plus_M_corr, bool fit2D);
+void PlotShape2D(RooDataSet& originDataSet, RooDataSet& genDataSet, RooAbsPdf& shape, string plotsfile, string canvName, RooRealVar& B_plus_M, RooRealVar& B_plus_M_corr);
+void PlotShape1D(RooDataSet& originDataSet, RooDataSet& genDataSet, RooAbsPdf& shape, string plotsfile, string canvName, RooRealVar& B_plus_M);
+
+
 
 
 #endif

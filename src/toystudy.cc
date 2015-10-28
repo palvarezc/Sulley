@@ -62,24 +62,26 @@ int main(int argc, char* argv[])
   bool fit2D(0);
   bool constPartReco(0);
   string outputfolder="fit_result";
-  
+  bool wantHOPCut(false);
 
-  if(argc != 11)
+  if(argc != 12)
   {
     cout<<"toystudy:  Launchs a ToyMC study of the fitter specified by the options"<<endl;
-    cout<<"Syntax: "<<argv[0]<<" <no_reload> <nsignal> <npartreco> <ncomb> <trigger_cat> <ntoys> <bdt_cut> <constPartReco> <ndims> <output_folder>"<<endl;
+    cout<<"Syntax: "<<argv[0]<<" <no_reload> <nsignal> <npartreco> <ncomb> <trigger_cat> <ntoys> <bdt_cut> <constPartReco> <ndims> <output_folder> <HOP cut>"<<endl;
     cout<<endl;
     cout<<endl;
     cout<<"no_reload: 0 (build PDFs from control channel), 1 (use PDFs in workspace)"<<endl;
     cout<<"trig_cat: 0 (ETOS), 1 (HTOS), 2 (TIS)"<<endl;
     cout<<"constPartReco: Constrain part. reco. fraction? 0 (No), 1 (Yes)"<<endl;
     cout<<"ndims: 1 (Mvis), 2 (Mvis x Mcorr)"<<endl;
+    if(wantHOPCut) cout<<"HOP cut applied"<<endl;
+    if(!wantHOPCut) cout<<"HOP cut not applied"<<endl;
   
     return 0;
   }
   
 
-  if(argc == 11)
+  if(argc == 12)
   {
     if(*argv[1] == '1') wantOldDataSet = true;
     
@@ -108,6 +110,8 @@ int main(int argc, char* argv[])
     if(*argv[9] == '2') fit2D = true;
     outputfolder = argv[10];
 
+    if(*argv[11] == '1') wantHOPCut = true;
+    if(*argv[11] == '0') wantHOPCut = false;
 
     fs::path data_dir("./"+outputfolder);
     if (!fs::is_directory(data_dir)){
@@ -119,17 +123,29 @@ int main(int argc, char* argv[])
   
   //*************** Output files
 
-  string plotsfile = outputfolder+"/plots2DHistBremCatTsallisBkgfit.root";
-  string resultsfile = outputfolder+"/toystudy2DHistBremCatTsallisBkg_results.root";
-  string outfile = outputfolder+"/fitResult2D.dat";
-  string tablefile = outputfolder+"/resultToy.dat";
-  
+  string plotsfile, resultsfile, outfile, tablefile, workspacename;
+  tablefile = outputfolder+"/resultToy.dat";
+
+  string extraString;
+  if(fit2D && wantHOPCut) extraString = "2D_HOPCut";
+  if(fit2D && !wantHOPCut) extraString = "2D";
+  if(!fit2D && wantHOPCut) extraString = "1D_HOPCut";
+  if(!fit2D && !wantHOPCut) extraString = "1D";
+
+  plotsfile = outputfolder+"/plotsHistBremCatTsallisBkgfit"+extraString+".root";
+  resultsfile = outputfolder+"/toystudyHistBremCatTsallisBkg_results"+extraString+".root";
+  outfile = outputfolder+"/fitResult"+extraString+".dat";
+  workspacename = outputfolder+"/workspace"+extraString+".root";
+
 
    //***********Get the datasets
-   string fSignal = "/vols/lhcbdisk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/oldtrees/B2Kee_Strip21_BDT_ctrl_trigged.root";
-   string fPartReco = "/vols/lhcbdisk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/oldtrees/B2Kee_Strip21_BDT_prc_trigged.root";
-   string fComb = "/vols/lhcbdisk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/oldtrees/B2Kee_Strip21_piee_trigged.root";
-   string workspacename = outputfolder+"/mypdfs.root";
+
+   if(wantHOPCut) extraString = "_MH";
+   if(!wantHOPCut) extraString = "";
+   string fSignal("/vols/lhcbdisk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/B2Kee_Strip21_BDT_ctrl_trigged"+extraString+".root");
+   string fPartReco("/vols/lhcbdisk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/B2Kee_Strip21_BDT_prc_trigged"+extraString+".root");
+   string fComb("/vols/lhcbdisk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/B2Kee_Strip21_piee_trigged"+extraString+".root");
+
    
    if (!wantOldDataSet) prepare_PDFs(workspacename, trigStr, BDTcut, fit2D, fSignal, fPartReco, fComb);
 

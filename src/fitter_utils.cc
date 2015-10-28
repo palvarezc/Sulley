@@ -221,7 +221,7 @@ void generate_and_fit(string workspacename,  bool fit2D, bool wantplot, bool con
   TFile *fw = new TFile(workspacename.c_str());   
   RooWorkspace* workspace = (RooWorkspace*)fw->Get("workspace");
   RooRealVar *B_plus_M = workspace->var("B_plus_M");
-  RooRealVar *B_plus_M_corr = workspace->var("B_plus_M");
+  RooRealVar *B_plus_M_corr = workspace->var("B_plus_M_corr");
   RooRealVar *T = workspace->var("T");
   RooRealVar *n = workspace->var("n");
   RooRealVar *expoConst = workspace->var("expoConst");
@@ -295,121 +295,13 @@ void generate_and_fit(string workspacename,  bool fit2D, bool wantplot, bool con
       RooDataSet* dataSetPartReco = (RooDataSet*)workspace->data("dataSetPartReco");
       RooDataSet* dataSetComb = (RooDataSet*)workspace->data("dataSetComb");
 
-      //**************Prepare TFile to save the plots
+      //**************Plot all the different components
 
-      TFile f2(plotsfile.c_str(), "UPDATE");
-
-      //**************Plot Signal Zero Gamma
-
-      TH2F* th2fKeySignalZeroGamma = (TH2F*)histPdfSignalZeroGamma->createHistogram("th2fKeySignalZeroGamma", *B_plus_M, Binning(20), YVar(*B_plus_M_corr, Binning(20)));
-      TH2F* th2fGenSignalZeroGamma = (TH2F*)dataGenSignalZeroGamma->createHistogram("th2fGenSignalZeroGamma", *B_plus_M, Binning(20), YVar(*B_plus_M_corr, Binning(20)));
-
-      RooPlot* plotMSignalZeroGamma = B_plus_M->frame();
-      dataSetSignalZeroGamma->plotOn(plotMSignalZeroGamma);
-      histPdfSignalZeroGamma->plotOn(plotMSignalZeroGamma);
-
-      RooPlot* plotMCorrSignalZeroGamma = B_plus_M_corr->frame();
-      dataSetSignalZeroGamma->plotOn(plotMCorrSignalZeroGamma);
-      histPdfSignalZeroGamma->plotOn(plotMCorrSignalZeroGamma);
-
-      TCanvas* cSignalZeroGamma = new TCanvas("cSignalZeroGamma", "cSignalZeroGamma", 800, 800);
-      cSignalZeroGamma->Divide(2,2);
-      cSignalZeroGamma->cd(1); th2fGenSignalZeroGamma->Draw("lego");
-      cSignalZeroGamma->cd(2); th2fKeySignalZeroGamma->Draw("surf");
-      cSignalZeroGamma->cd(3); plotMSignalZeroGamma->Draw();
-      cSignalZeroGamma->cd(4); plotMCorrSignalZeroGamma->Draw();
-
-      cSignalZeroGamma->Write();
-
-      //**************Plot Signal one Gamma
-
-      TH2F* th2fKeySignalOneGamma = (TH2F*)histPdfSignalOneGamma->createHistogram("th2fKeySignalOneGamma", *B_plus_M, Binning(20), YVar(*B_plus_M_corr, Binning(20)));
-      TH2F* th2fGenSignalOneGamma = (TH2F*)dataGenSignalOneGamma->createHistogram("th2fGenSignalOneGamma", *B_plus_M, Binning(20), YVar(*B_plus_M_corr, Binning(20)));
-
-      RooPlot* plotMSignalOneGamma = B_plus_M->frame();
-      dataSetSignalOneGamma->plotOn(plotMSignalOneGamma);
-      histPdfSignalOneGamma->plotOn(plotMSignalOneGamma);
-
-      RooPlot* plotMCorrSignalOneGamma = B_plus_M_corr->frame();
-      dataSetSignalOneGamma->plotOn(plotMCorrSignalOneGamma);
-      histPdfSignalOneGamma->plotOn(plotMCorrSignalOneGamma);
-
-      TCanvas* cSignalOneGamma = new TCanvas("cSignalOneGamma", "cSignalOneGamma", 800, 800);
-      cSignalOneGamma->Divide(2,2);
-      cSignalOneGamma->cd(1); th2fGenSignalOneGamma->Draw("lego");
-      cSignalOneGamma->cd(2); th2fKeySignalOneGamma->Draw("surf");
-      cSignalOneGamma->cd(3); plotMSignalOneGamma->Draw();
-      cSignalOneGamma->cd(4); plotMCorrSignalOneGamma->Draw();
-
-      cSignalOneGamma->Write();
-
-      //**************Plot Signal two Gamma
-
-      TH2F* th2fKeySignalTwoGamma = (TH2F*)histPdfSignalTwoGamma->createHistogram("th2fKeySignalTwoGamma", *B_plus_M, Binning(20), YVar(*B_plus_M_corr, Binning(20)));
-      TH2F* th2fGenSignalTwoGamma = (TH2F*)dataGenSignalTwoGamma->createHistogram("th2fGenSignalTwoGamma", *B_plus_M, Binning(20), YVar(*B_plus_M_corr, Binning(20)));
-
-      RooPlot* plotMSignalTwoGamma = B_plus_M->frame();
-      dataSetSignalTwoGamma->plotOn(plotMSignalTwoGamma);
-      histPdfSignalTwoGamma->plotOn(plotMSignalTwoGamma);
-
-      RooPlot* plotMCorrSignalTwoGamma = B_plus_M_corr->frame();
-      dataSetSignalTwoGamma->plotOn(plotMCorrSignalTwoGamma);
-      histPdfSignalTwoGamma->plotOn(plotMCorrSignalTwoGamma);
-
-      TCanvas* cSignalTwoGamma = new TCanvas("cSignalTwoGamma", "cSignalTwoGamma", 800, 800);
-      cSignalTwoGamma->Divide(2,2);
-      cSignalTwoGamma->cd(1); th2fGenSignalTwoGamma->Draw("lego");
-      cSignalTwoGamma->cd(2); th2fKeySignalTwoGamma->Draw("surf");
-      cSignalTwoGamma->cd(3); plotMSignalTwoGamma->Draw();
-      cSignalTwoGamma->cd(4); plotMCorrSignalTwoGamma->Draw();
-
-      cSignalTwoGamma->Write();
-
-      //**************Plot Part Reco 
-
-      TH2F* th2fKeyPartReco = (TH2F*)histPdfPartReco->createHistogram("th2fKeyPartReco", *B_plus_M, Binning(20), YVar(*B_plus_M_corr, Binning(20)));
-      TH2F* th2fGenPartReco = (TH2F*)dataGenPartReco->createHistogram("th2fGenPartReco", *B_plus_M, Binning(20), YVar(*B_plus_M_corr, Binning(20)));
-
-      RooPlot* plotMPartReco = B_plus_M->frame();
-      dataSetPartReco->plotOn(plotMPartReco);
-      histPdfPartReco->plotOn(plotMPartReco);
-
-      RooPlot* plotMCorrPartReco = B_plus_M_corr->frame();
-      dataSetPartReco->plotOn(plotMCorrPartReco);
-      histPdfPartReco->plotOn(plotMCorrPartReco);
-
-      TCanvas* cPartReco = new TCanvas("cPartReco", "cPartReco", 800, 800);
-      cPartReco->Divide(2,2);
-      cPartReco->cd(1); th2fGenPartReco->Draw("lego");
-      cPartReco->cd(2); th2fKeyPartReco->Draw("surf");
-      cPartReco->cd(3); plotMPartReco->Draw();
-      cPartReco->cd(4); plotMCorrPartReco->Draw();
-
-      cPartReco->Write();
-
-      //**************Plot Combinatorial 
-
-      TH2F* th2fKeyComb = (TH2F*)combPDF->createHistogram("th2fKeyComb", *B_plus_M, Binning(20), YVar(*B_plus_M_corr, Binning(20)));
-      TH2F* th2fGenComb = (TH2F*)dataGenComb->createHistogram("th2fGenComb", *B_plus_M, Binning(20), YVar(*B_plus_M_corr, Binning(20)));
-
-      RooPlot* plotMComb = B_plus_M->frame();
-      dataSetComb->plotOn(plotMComb);
-      combPDF->plotOn(plotMComb);
-
-      RooPlot* plotMCorrComb = B_plus_M_corr->frame();
-      dataSetComb->plotOn(plotMCorrComb);
-      combPDF->plotOn(plotMCorrComb);
-
-      TCanvas* cComb = new TCanvas("cComb", "cComb", 800, 800);
-      cComb->Divide(2,2);
-      cComb->cd(1); th2fGenComb->Draw("lego");
-      cComb->cd(2); th2fKeyComb->Draw("surf");
-      cComb->cd(3); plotMComb->Draw();
-      cComb->cd(4); plotMCorrComb->Draw();
-
-      cComb->Write();
-
-
+      PlotShape(*dataSetSignalZeroGamma, *dataGenSignalZeroGamma, *histPdfSignalZeroGamma, plotsfile, "cSignalZeroGamma", *B_plus_M, *B_plus_M_corr,fit2D);
+      PlotShape(*dataSetSignalOneGamma, *dataGenSignalOneGamma, *histPdfSignalOneGamma, plotsfile, "cSignalOneGamma", *B_plus_M, *B_plus_M_corr,fit2D);
+      PlotShape(*dataSetSignalTwoGamma, *dataGenSignalTwoGamma, *histPdfSignalTwoGamma, plotsfile, "cSignalTwoGamma", *B_plus_M, *B_plus_M_corr,fit2D);
+      PlotShape(*dataSetPartReco, *dataGenPartReco, *histPdfPartReco, plotsfile, "cPartReco", *B_plus_M, *B_plus_M_corr,fit2D);
+      PlotShape(*dataSetComb, *dataGenComb, *combPDF, plotsfile, "cComb", *B_plus_M, *B_plus_M_corr,fit2D);
    }
 
    //***************Merge datasets
@@ -570,4 +462,62 @@ void plot_fit_result(string plotsfile, RooAbsPdf &totPdf, RooDataSet dataGenTot)
   f2.Close();
     
   
+}
+
+void PlotShape(RooDataSet& originDataSet, RooDataSet& genDataSet, RooAbsPdf& shape, string plotsfile, string canvName, RooRealVar& B_plus_M, RooRealVar& B_plus_M_corr, bool fit2D)
+{
+   if(fit2D) PlotShape2D(originDataSet, genDataSet, shape, plotsfile, canvName, B_plus_M, B_plus_M_corr);
+   if(!fit2D) PlotShape1D(originDataSet, genDataSet, shape, plotsfile, canvName, B_plus_M);
+}
+
+void PlotShape2D(RooDataSet& originDataSet, RooDataSet& genDataSet, RooAbsPdf& shape, string plotsfile, string canvName, RooRealVar& B_plus_M, RooRealVar& B_plus_M_corr)
+{
+      //**************Prepare TFile to save the plots
+
+      TFile f2(plotsfile.c_str(), "UPDATE");
+
+      //**************Plot Signal Zero Gamma
+
+      TH2F* th2fKey = (TH2F*)shape.createHistogram("th2Shape", B_plus_M, Binning(20), YVar(B_plus_M_corr, Binning(20)));
+      TH2F* th2fGen = (TH2F*)genDataSet.createHistogram("th2fGen", B_plus_M, Binning(20), YVar(B_plus_M_corr, Binning(20)));
+
+      RooPlot* plotM = B_plus_M.frame();
+      originDataSet.plotOn(plotM);
+      shape.plotOn(plotM);
+
+      RooPlot* plotMCorr = B_plus_M_corr.frame();
+      originDataSet.plotOn(plotMCorr);
+      shape.plotOn(plotMCorr);
+
+      TCanvas canv(canvName.c_str(), canvName.c_str(), 800, 800);
+      canv.Divide(2,2);
+      canv.cd(1); th2fGen->Draw("lego");
+      canv.cd(2); th2fKey->Draw("surf");
+      canv.cd(3); plotM->Draw();
+      canv.cd(4); plotMCorr->Draw();
+
+      canv.Write();
+
+      f2.Close();
+}
+
+void PlotShape1D(RooDataSet& originDataSet, RooDataSet& genDataSet, RooAbsPdf& shape, string plotsfile, string canvName, RooRealVar& B_plus_M)
+{
+   TFile f2(plotsfile.c_str(), "UPDATE");
+
+   RooPlot* plotGen = B_plus_M.frame(Binning(20));
+   genDataSet.plotOn(plotGen);
+
+   RooPlot* plotM = B_plus_M.frame();
+   originDataSet.plotOn(plotM);
+   shape.plotOn(plotM);
+
+   TCanvas canv(canvName.c_str(), canvName.c_str(), 800, 800);
+   canv.Divide(1,2);
+   canv.cd(1); plotGen->Draw();
+   canv.cd(2); plotM->Draw();
+
+   canv.Write();
+
+   f2.Close();
 }
