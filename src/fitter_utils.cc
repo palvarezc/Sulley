@@ -209,9 +209,9 @@ void prepare_PDFs(string workspacefile, string trigStr, string BDTcut, bool fit2
 
 
 void generate_and_fit(string workspacename,  bool fit2D, bool wantplot, bool constPartReco,
-              int nGenSignal,  int nGenPartReco,  int nGenComb,
-              double nGenFracZeroGamma,  double nGenFracOneGamma,
-              ofstream& out, TTree* t, bool update, string plotsfile)
+                      int nGenSignal,  int nGenPartReco,  int nGenComb,
+                      double nGenFracZeroGamma,  double nGenFracOneGamma, double fracPartReco_const,
+                      ofstream& out, TTree* t, bool update, string plotsfile)
 {
 
 
@@ -340,16 +340,18 @@ void generate_and_fit(string workspacename,  bool fit2D, bool wantplot, bool con
 
    //**************** Constrain the fraction of zero and one photon
 
-   RooRealVar fracZeroConstMean("fracZeroConstMean", "fracZeroConstMean", nGenSignalZeroGamma/nGenSignal);
+   RooRealVar fracZeroConstMean("fracZeroConstMean", "fracZeroConstMean", nGenSignalZeroGamma*1./nGenSignal);
    RooRealVar fracZeroConstSigma("fracZeroConstSigma", "fracZeroConstSigma", sqrt(nGenSignalZeroGamma)/nGenSignal);
    RooGaussian fracZeroConst("fracZeroConst", "fracZeroConst", fracZero, fracZeroConstMean, fracZeroConstSigma); 
 
-   RooRealVar fracOneConstMean("fracOneConstMean", "fracOneConstMean", nGenSignalOneGamma/nGenSignal);
+   RooRealVar fracOneConstMean("fracOneConstMean", "fracOneConstMean", nGenSignalOneGamma*1./nGenSignal);
    RooRealVar fracOneConstSigma("fracOneConstSigma", "fracOneConstSigma", sqrt(nGenSignalOneGamma)/nGenSignal);
    RooGaussian fracOneConst("fracOneConst", "fracOneConst", fracOne, fracOneConstMean, fracOneConstSigma); 
 
    RooRealVar fracPartRecoMean("fracPartRecoMean", "fracPartRecoMean", nGenPartReco/(1.*nGenSignal));
-   RooRealVar fracPartRecoSigma("fracPartRecoSigma", "fracPartRecoSigma", (1./(1.*nGenSignal))*sqrt(nGenPartReco + (nGenPartReco*nGenPartReco/(1.*nGenSignal))) ) ;
+   RooRealVar fracPartRecoSigma("fracPartRecoSigma", "fracPartRecoSigma", fracPartReco_const*fracPartRecoMean.getVal());
+   // RooRealVar fracPartRecoSigma("fracPartRecoSigma", "fracPartRecoSigma", (1./(1.*nGenSignal))*sqrt(nGenPartReco + (nGenPartReco*nGenPartReco/(1.*nGenSignal))) ) ;
+
     RooGaussian fracPartRecoConst("fracPartRecoConst", "fracPartRecoConst", fracPartReco, fracPartRecoMean, fracPartRecoSigma);
 
     RooArgSet par_const(fracZero, fracOne);
