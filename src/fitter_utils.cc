@@ -22,14 +22,12 @@
 
 void initiateParams(RooArgSet* parset)
 {
-
   RooRealVar *var;
   TIterator *iter = parset->createIterator();
 
   while((var = (RooRealVar*) iter->Next()))
   {
-    if (var->isConstant()) continue;
-    var->randomize();
+    if ( !var->isConstant() ) var->randomize();
   }
 }
 
@@ -79,6 +77,7 @@ void initiateParams(int nGenSignalZeroGamma, int nGenSignalOneGamma, int nGenSig
 
 void prepare_PDFs(string workspacefile, string trigStr, string BDTcut, bool fit2D,
                   string signalfile, string partrecofile, string combfile,
+                  double minBMass, double maxBMass,
                   string signaltree, string partrecotree, string combtree)
 {
 
@@ -94,9 +93,9 @@ void prepare_PDFs(string workspacefile, string trigStr, string BDTcut, bool fit2
 
   //**********Define variables
   RooRealVar trigVar(trigStr.c_str(), trigStr.c_str(), -10, 10);
-  RooRealVar BDTKeeBig("BDTKeeBig3", "BDTKeeBig3", -1,1);
-  RooRealVar B_plus_M("B_plus_M", "M_{visible}", 4880, 5700, "MeV/c^{2}");
-  RooRealVar B_plus_M_corr("B_plus_M_corr", "M_{cor}", 5000, 7000, "MeV/c^{2}");
+  RooRealVar BDTKeeBig("BDTKeeBig", "BDTKeeBig", -1,1);
+  RooRealVar B_plus_M("B_plus_M", "M_{visible}", minBMass, maxBMass, "MeV/c^{2}");
+  RooRealVar B_plus_M_corr("B_plus_M_corr", "M_{cor}", minBMass+100, 7000, "MeV/c^{2}");
   RooRealVar B_plus_DTFM_M_zero("B_plus_DTFM_M_zero", "M_{constr}", 0, 20000, "MeV/c^{2}"); 
   RooRealVar e_plus_BremMultiplicity("e_plus_BremMultiplicity","e_plus_BremMultiplicity", -1,2);
   RooRealVar e_minus_BremMultiplicity("e_minus_BremMultiplicity","e_minus_BremMultiplicity", -1,2);
@@ -119,10 +118,10 @@ void prepare_PDFs(string workspacefile, string trigStr, string BDTcut, bool fit2
 
   TFile* fw;
 
-  dataSetSignalZeroGamma = new RooDataSet("dataSetSignalZeroGamma", "dataSetSignalZeroGamma", tSignal, argset,( " ("+trigStr+"  > 0.9) && (BDTKeeBig3> "+BDTcut+") && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) > -0.5) && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) < 0.5)").c_str());
-  dataSetSignalOneGamma = new RooDataSet("dataSetSignalOneGamma", "dataSetSignalOneGamma", tSignal, argset, ("("+trigStr+"  > 0.9) && (BDTKeeBig3> "+BDTcut+") && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) > 0.5) && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) < 1.5)").c_str());
-  dataSetSignalTwoGamma = new RooDataSet("dataSetSignalTwoGamma", "dataSetSignalTwoGamma", tSignal, argset, ("("+trigStr+"  > 0.9) && (BDTKeeBig3> "+BDTcut+") && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) > 1.5) && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) < 2.5)").c_str());
-  dataSetPartReco = new RooDataSet("dataSetPartReco", "dataSetPartReco", tPartReco, argset, ("("+trigStr+"  > 0.9) && (BDTKeeBig3> "+BDTcut+")").c_str());
+  dataSetSignalZeroGamma = new RooDataSet("dataSetSignalZeroGamma", "dataSetSignalZeroGamma", tSignal, argset,( " ("+trigStr+"  > 0.9) && (BDTKeeBig> "+BDTcut+") && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) > -0.5) && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) < 0.5)").c_str());
+  dataSetSignalOneGamma = new RooDataSet("dataSetSignalOneGamma", "dataSetSignalOneGamma", tSignal, argset, ("("+trigStr+"  > 0.9) && (BDTKeeBig> "+BDTcut+") && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) > 0.5) && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) < 1.5)").c_str());
+  dataSetSignalTwoGamma = new RooDataSet("dataSetSignalTwoGamma", "dataSetSignalTwoGamma", tSignal, argset, ("("+trigStr+"  > 0.9) && (BDTKeeBig> "+BDTcut+") && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) > 1.5) && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) < 2.5)").c_str());
+  dataSetPartReco = new RooDataSet("dataSetPartReco", "dataSetPartReco", tPartReco, argset, ("("+trigStr+"  > 0.9) && (BDTKeeBig> "+BDTcut+")").c_str());
   dataSetComb = new RooDataSet("dataSetComb", "dataSetComb", tComb, argset, ("("+trigStr+"  > 0.9)").c_str());
 
   cout<<"Number of zero: "<< dataSetSignalZeroGamma->sumEntries()<<endl;

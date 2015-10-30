@@ -63,25 +63,26 @@ int main(int argc, char* argv[])
   bool constPartReco(0);
   string outputfolder="fit_result";
   bool wantHOPCut(false);
+  double minBMass(4880);
+  double maxBMass(5700);
 
-  if(argc != 12)
+  if(argc != 14)
   {
     cout<<"toystudy:  Launchs a ToyMC study of the fitter specified by the options"<<endl;
-    cout<<"Syntax: "<<argv[0]<<" <no_reload> <nsignal> <npartreco> <ncomb> <trigger_cat> <ntoys> <bdt_cut> <constPartReco> <ndims> <output_folder> <HOP cut>"<<endl;
+    cout<<"Syntax: "<<argv[0]<<" <no_reload> <nsignal> <npartreco> <ncomb> <trigger_cat> <ntoys> <bdt_cut> <constPartReco> <ndims> <output_folder> <HOP cut> <minBMass> <maxBMass>"<<endl;
     cout<<endl;
     cout<<endl;
     cout<<"no_reload: 0 (build PDFs from control channel), 1 (use PDFs in workspace)"<<endl;
     cout<<"trig_cat: 0 (ETOS), 1 (HTOS), 2 (TIS)"<<endl;
     cout<<"constPartReco: Constrain part. reco. fraction? 0 (No), 1 (Yes)"<<endl;
     cout<<"ndims: 1 (Mvis), 2 (Mvis x Mcorr)"<<endl;
-    if(wantHOPCut) cout<<"HOP cut applied"<<endl;
-    if(!wantHOPCut) cout<<"HOP cut not applied"<<endl;
+    cout<<"Want HOP cut: 1 (HOP cut applied), 0 (no HOP cut)"<<endl;
   
-    return 0;
+    return 1;
   }
   
 
-  if(argc == 12)
+  if(argc == 14)
   {
     if(*argv[1] == '1') wantOldDataSet = true;
     
@@ -113,14 +114,23 @@ int main(int argc, char* argv[])
     if(*argv[11] == '1') wantHOPCut = true;
     if(*argv[11] == '0') wantHOPCut = false;
 
+    minBMass = atof(argv[12]);
+    maxBMass = atof(argv[13]);
+
     fs::path data_dir("./"+outputfolder);
     if (!fs::is_directory(data_dir)){
       cout<<"Output directory "<<outputfolder<<" does not exist."<<endl;
-      return 0;
+      return 1;
     }
     
   }
   
+  if(minBMass < 4280 || maxBMass > 6280) 
+  {
+      cout<<"ERROR: fitting range out of tuple range. Stop."<<endl;
+      return 1;
+  }
+
   //*************** Output files
 
   string plotsfile, resultsfile, outfile, tablefile, workspacename;
@@ -147,7 +157,8 @@ int main(int argc, char* argv[])
    string fComb("/vols/lhcbdisk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/B2Kee_Strip21_piee_trigged"+extraString+".root");
 
    
-   if (!wantOldDataSet) prepare_PDFs(workspacename, trigStr, BDTcut, fit2D, fSignal, fPartReco, fComb);
+   //RooMsgService::instance().addStream(DEBUG, Topic(Integration));
+   if (!wantOldDataSet) prepare_PDFs(workspacename, trigStr, BDTcut, fit2D, fSignal, fPartReco, fComb, minBMass, maxBMass);
 
 
    //***************Prepare the stuff to generate events
@@ -182,10 +193,23 @@ int main(int argc, char* argv[])
    f.cd();
    t.Write();
 
+   int w(10);
+
+
+   //save toy characteristics and results
+
    ofstream out2(tablefile, std::ios::app);
-   if (fit2D) out2<<"2D Mvis X MCorr with Tsallis bkg:"<<endl;
-   else out2<<"1D Mvis:"<<endl;
+   out2<<endl; for(int i(0); i<50; ++i) out2<<"="; out2<<endl;
+   if (fit2D) out2<<"2D Mvis X MCorr with Tsallis bkg";
+   else out2<<"1D Mvis with expo bkg";
+   if(wantHOPCut) out2<<" HOP CUT:"<<endl;
+   else out2<<":"<<endl;
    makeTableResults(&t, nGenSignal, nGenPartReco, nGenComb, out2 );
+   out2<<endl;
+   out2<<setw(w)<<"HOP CUT"<<setw(w)<<"min M"<<setw(w)<<"max M"<<setw(w)<<"Trigger"<<setw(w)<<"constrain"<<endl;
+   out2<<setw(w)<<(wantHOPCut==true ? "yes":"no")<<setw(w)<<minBMass<<setw(w)<<maxBMass<<setw(w)<<trigStr.substr(0, trigStr.size()-6)<<setw(w)<<(constPartReco==true? "yes":"no")<<endl;
+   out2<<endl;
+   out2<<endl; for(int i(0); i<50; ++i) out2<<"="; out2<<endl;
    out2.close();
 
 

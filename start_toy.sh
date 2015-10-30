@@ -3,17 +3,19 @@
 # Fitter arguments
 # Trigger category: 0=ETOS, 1=HTOS, 2=TIS
 # Reload control samples from tuples: 0=YES, 1=NO
-RELOAD_CTRL_SAMPLES=0
+RELOAD_CTRL_SAMPLES=1
 Y_SIG=56
 Y_PART_RECO=52
 Y_COMB=12
 TRIGGER=0
-N_TOYS=3
+N_TOYS=5
 BDT_CUT=0.369
 OUTPUT_FOLDER="toy_result/"
 CONSTRAINED=0
 NDIMS=2
 WANT_HOP_CUT=1 #0: no HOP cut, 1: HOP cut
+MIN_B_MASS=4500
+MAX_B_MASS=6200
 
 if [[ "$RELOAD_CTRL_SAMPLES" == '1' ]]; 
 then 
@@ -40,7 +42,8 @@ echo "       BDT cut : "${BDT_CUT}
 echo "       Reloading control samples? "$reply 
 echo "       Constraining Part. Reco? "$CONSTRAINED
 echo "       # dimensions: "$NDIMS
-echo "       HOP cut applied?: "$replyHOP
+echo "       HOP cut applied? "$replyHOP
+echo "       Visible mass range : "$MIN_B_MASS" < M < "$MAX_B_MASS
 echo "================================================================================"
 
-$SULLEYROOT/bin/toystudy $RELOAD_CTRL_SAMPLES $Y_SIG $Y_PART_RECO $Y_COMB $TRIGGER $N_TOYS $BDT_CUT $CONSTRAINED $NDIMS $OUTPUT_FOLDER $WANT_HOP_CUT
+$SULLEYROOT/bin/toystudy $RELOAD_CTRL_SAMPLES $Y_SIG $Y_PART_RECO $Y_COMB $TRIGGER $N_TOYS $BDT_CUT $CONSTRAINED $NDIMS $OUTPUT_FOLDER $WANT_HOP_CUT $MIN_B_MASS $MAX_B_MASS

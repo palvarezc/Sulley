@@ -26,6 +26,7 @@ class RooMcorMvisTsallis : public RooAbsPdf {
       virtual TObject* clone(const char* newname) const { return new RooMcorMvisTsallis(*this,newname); }
       inline virtual ~RooMcorMvisTsallis() { }
 
+      Double_t evaluate() const ;
    protected:
 
       RooRealProxy Mcor ;
@@ -34,7 +35,7 @@ class RooMcorMvisTsallis : public RooAbsPdf {
       RooRealProxy n ;
       RooRealProxy Lambda ;
 
-      Double_t evaluate() const ;
+
 
    private:
 

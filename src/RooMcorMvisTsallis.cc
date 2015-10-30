@@ -45,7 +45,7 @@ RooMcorMvisTsallis::RooMcorMvisTsallis(const RooMcorMvisTsallis& other, const ch
 
 Double_t RooMcorMvisTsallis::evaluate() const 
 { 
-   if(Mcor < Mvis) return 0;
+   if(Mcor < Mvis) return 1e-13;
    return corMassAtFixedMTsallis()*visMass1D();
 } 
 
@@ -64,7 +64,7 @@ Double_t RooMcorMvisTsallis::tsallis(Double_t& x) const
 
 Double_t RooMcorMvisTsallis::corMassAtFixedMTsallis() const
 {
-   if(Mcor < Mvis) return 0;
+   if(Mcor < Mvis) return 1e-13;
 
    double arg( (Mcor*Mcor -  Mvis*Mvis) / (2.*Mcor ));
    double factor( (Mcor*Mcor +  Mvis*Mvis)  / ( 2.*Mcor*Mcor ));
