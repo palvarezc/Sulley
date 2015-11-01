@@ -46,17 +46,19 @@ void initiateParams(int nGenSignalZeroGamma, int nGenSignalOneGamma, int nGenSig
       RooRealVar& nComb, RooRealVar& fracZero, RooRealVar& fracOne, RooRealVar& expoConst);
 
 void prepare_PDFs(string workspacename, string trigStr, string BDTcut, bool fit2D,
-                  string signalfile, string partrecofile, string combinatorialfile,
-                  string signaltree = "DecayTree", string partrecotree = "DecayTree", string combinatorialtree = "DecayTree");
+                  string signalfile, string partrecofile, string combinatorialfile, string JpsiLeakfile,
+                  double minBMass = 4880, double maxBMass = 5700,
+                  string signaltree = "DecayTree", string partrecotree = "DecayTree", string combinatorialtree = "DecayTree", string JpsiLeaktree = "DecayTree");
+
 
 void plot_fit_result(string plotsfile, RooAbsPdf &totPdf, RooDataSet dataGenTot);
 
 
-
 void generate_and_fit(string workspacename,  bool fit2D, bool wantplot, bool constPartReco,
-              int nGenSignal,  int nGenPartReco,  int nGenComb,
-              double nGenFracZeroGamma,  double nGenFracOneGamma,
-              ofstream& out, TTree* t, bool update, string plotsfile);
+             int nGenSignal,  int nGenPartReco,  int nGenComb, int nGenJpsiLeak,
+             double nGenFracZeroGamma,  double nGenFracOneGamma, double fracPartReco_const,
+             ofstream& out, TTree* t, bool update, string plotsfile);
+
 
 void PlotShape(RooDataSet& originDataSet, RooDataSet& genDataSet, RooAbsPdf& shape, string plotsfile, string canvName, RooRealVar& B_plus_M, RooRealVar& B_plus_M_corr, bool fit2D);
 void PlotShape2D(RooDataSet& originDataSet, RooDataSet& genDataSet, RooAbsPdf& shape, string plotsfile, string canvName, RooRealVar& B_plus_M, RooRealVar& B_plus_M_corr);

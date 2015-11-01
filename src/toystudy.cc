@@ -1,6 +1,6 @@
 #include<iostream>
-#include <boost/filesystem/operations.hpp>
-#include <boost/filesystem/path.hpp>
+#include<boost/filesystem/operations.hpp>
+#include<boost/filesystem/path.hpp>
 #include<TMath.h>
 #include<TFile.h>
 #include<TTree.h>
@@ -30,9 +30,9 @@
 #include<RooFitResult.h>
 #include<RooChebychev.h>
 #include<RooProdPdf.h>
-#include "RooMcorMvisTsallis.h"
-#include "usefulFunctions.h"
-#include "fitter_utils.h"
+#include"RooMcorMvisTsallis.h"
+#include"usefulFunctions.h"
+#include"fitter_utils.h"
 
 namespace fs = boost::filesystem;
 
@@ -43,12 +43,13 @@ using namespace RooFit;
 int main(int argc, char* argv[])
 {
 
-   //***********Number of events to generate
+   //***********Number of events to generata
   
   
   int nGenSignal(203);
   int nGenPartReco(79);
   int nGenComb(31);
+  int nGenJpsiLeak(10);
 
   double nGenFracZeroGamma(0.368);
   double nGenFracOneGamma(0.484);
@@ -66,10 +67,10 @@ int main(int argc, char* argv[])
   double minBMass(4880);
   double maxBMass(5700);
 
-  if(argc != 14)
+  if(argc != 15)
   {
     cout<<"toystudy:  Launchs a ToyMC study of the fitter specified by the options"<<endl;
-    cout<<"Syntax: "<<argv[0]<<" <no_reload> <nsignal> <npartreco> <ncomb> <trigger_cat> <ntoys> <bdt_cut> <constPartReco> <ndims> <output_folder> <HOP cut> <minBMass> <maxBMass>"<<endl;
+    cout<<"Syntax: "<<argv[0]<<" <no_reload> <nsignal> <npartreco> <ncomb> <nJpsiLeak> <trigger_cat> <ntoys> <bdt_cut> <constPartReco> <ndims> <output_folder> <HOP cut> <minBMass> <maxBMass>"<<endl;
     cout<<endl;
     cout<<endl;
     cout<<"no_reload: 0 (build PDFs from control channel), 1 (use PDFs in workspace)"<<endl;
@@ -82,15 +83,16 @@ int main(int argc, char* argv[])
   }
   
 
-  if(argc == 14)
+  if(argc == 15)
   {
     if(*argv[1] == '1') wantOldDataSet = true;
     
     nGenSignal = atoi(argv[2]);
     nGenPartReco = atoi(argv[3]);
     nGenComb = atoi(argv[4]);
+    nGenJpsiLeak = atoi(argv[5]);
     
-    int trigInt(atoi(argv[5]));
+    int trigInt(atoi(argv[6]));
     if(trigInt == 1) 
     {
       trigStr = "L0HTOSOnly_d";
@@ -104,18 +106,18 @@ int main(int argc, char* argv[])
       nGenFracOneGamma = 0.495;
     }
     
-    BDTcut = argv[7];
-    ntoys = atoi(argv[6]);
+    BDTcut = argv[8];
+    ntoys = atoi(argv[7]);
 
-    if(*argv[8] == '1') constPartReco = true;
-    if(*argv[9] == '2') fit2D = true;
-    outputfolder = argv[10];
+    if(*argv[9] == '1') constPartReco = true;
+    if(*argv[10] == '2') fit2D = true;
+    outputfolder = argv[11];
 
-    if(*argv[11] == '1') wantHOPCut = true;
-    if(*argv[11] == '0') wantHOPCut = false;
+    if(*argv[12] == '1') wantHOPCut = true;
+    if(*argv[13] == '0') wantHOPCut = false;
 
-    minBMass = atof(argv[12]);
-    maxBMass = atof(argv[13]);
+    minBMass = atof(argv[13]);
+    maxBMass = atof(argv[14]);
 
     fs::path data_dir("./"+outputfolder);
     if (!fs::is_directory(data_dir)){
@@ -153,12 +155,13 @@ int main(int argc, char* argv[])
    if(wantHOPCut) extraString = "_MH";
    if(!wantHOPCut) extraString = "";
    string fSignal("/vols/lhcbdisk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/B2Kee_Strip21_BDT_ctrl_trigged"+extraString+".root");
-   string fPartReco("/vols/lhcbdisk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/B2Kee_Strip21_BDT_prc_trigged"+extraString+".root");
+   string fPartReco("/vols/lhcbdisk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/BJpsiX_Strip21_MC2012_ctrlNoDTF_trigged_rarebkgs"+extraString+".root");
    string fComb("/vols/lhcbdisk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/B2Kee_Strip21_piee_trigged"+extraString+".root");
+   string fJpsiLeak("/vols/lhcbdisk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/BJpsiX_Strip21_MC2012_signal_trigged"+extraString+".root");
 
    
    //RooMsgService::instance().addStream(DEBUG, Topic(Integration));
-   if (!wantOldDataSet) prepare_PDFs(workspacename, trigStr, BDTcut, fit2D, fSignal, fPartReco, fComb, minBMass, maxBMass);
+   if (!wantOldDataSet) prepare_PDFs(workspacename, trigStr, BDTcut, fit2D, fSignal, fPartReco, fComb, fJpsiLeak, minBMass, maxBMass);
 
 
    //***************Prepare the stuff to generate events
@@ -179,8 +182,8 @@ int main(int argc, char* argv[])
       cout<<"Generation and fit number "<<i<<endl;
 
       generate_and_fit( workspacename, fit2D, wantPlots, constPartReco, 
-                nGenSignal,   nGenPartReco,   nGenComb,
-                nGenFracZeroGamma,   nGenFracOneGamma,
+                nGenSignal,   nGenPartReco,   nGenComb, nGenJpsiLeak,
+                nGenFracZeroGamma,   nGenFracOneGamma, 0.1,
                 out, &t,  update, plotsfile);
 
 
