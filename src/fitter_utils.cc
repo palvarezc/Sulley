@@ -95,7 +95,7 @@ void prepare_PDFs(string workspacefile, string trigStr, string BDTcut, bool fit2
 
   //**********Define variables
   RooRealVar trigVar(trigStr.c_str(), trigStr.c_str(), -10, 10);
-  RooRealVar BDTKeeBig("BDTKeeBig", "BDTKeeBig", -1,1);
+  RooRealVar BDTKeeBig2("BDTKeeBig2", "BDTKeeBig2", -1,1);
   RooRealVar B_plus_M("B_plus_M", "M_{visible}", minBMass, maxBMass, "MeV/c^{2}");
   RooRealVar B_plus_M_corr("B_plus_M_corr", "M_{cor}", minBMass+100, 7000, "MeV/c^{2}");
   RooRealVar B_plus_DTFM_M_zero("B_plus_DTFM_M_zero", "M_{constr}", 0, 20000, "MeV/c^{2}"); 
@@ -112,8 +112,8 @@ void prepare_PDFs(string workspacefile, string trigStr, string BDTcut, bool fit2
   B_plus_M_corr.setBins( floor((7000-minBMass-100)/120.) );
   B_plus_DTFM_M_zero.setBins(100);
 
-  RooArgSet argset(BDTKeeBig, B_plus_DTFM_M_zero, B_plus_M_corr,  B_plus_M, trigVar, e_plus_BremMultiplicity, e_minus_BremMultiplicity);
-  RooArgSet argsetPartReco(BDTKeeBig, B_plus_DTFM_M_zero, B_plus_M_corr,  B_plus_M, trigVar, e_plus_BremMultiplicity, e_minus_BremMultiplicity, weightPartReco);
+  RooArgSet argset(BDTKeeBig2, B_plus_DTFM_M_zero, B_plus_M_corr,  B_plus_M, trigVar, e_plus_BremMultiplicity, e_minus_BremMultiplicity);
+  RooArgSet argsetPartReco(BDTKeeBig2, B_plus_DTFM_M_zero, B_plus_M_corr,  B_plus_M, trigVar, e_plus_BremMultiplicity, e_minus_BremMultiplicity, weightPartReco);
 
   cout<<"getting the datasets:"<<endl;
   
@@ -126,16 +126,19 @@ void prepare_PDFs(string workspacefile, string trigStr, string BDTcut, bool fit2
 
   TFile* fw;
 
-  dataSetSignalZeroGamma = new RooDataSet("dataSetSignalZeroGamma", "dataSetSignalZeroGamma", tSignal, argset,( " ("+trigStr+"  > 0.9) && (BDTKeeBig> "+BDTcut+") && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) > -0.5) && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) < 0.5)").c_str());
-  dataSetSignalOneGamma = new RooDataSet("dataSetSignalOneGamma", "dataSetSignalOneGamma", tSignal, argset, ("("+trigStr+"  > 0.9) && (BDTKeeBig> "+BDTcut+") && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) > 0.5) && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) < 1.5)").c_str());
-  dataSetSignalTwoGamma = new RooDataSet("dataSetSignalTwoGamma", "dataSetSignalTwoGamma", tSignal, argset, ("("+trigStr+"  > 0.9) && (BDTKeeBig> "+BDTcut+") && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) > 1.5) && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) < 2.5)").c_str());
-  dataSetPartReco = new RooDataSet("dataSetPartReco", "dataSetPartReco",  argsetPartReco, Import(*tPartReco),Cut(("("+trigStr+"  > 0.9) && (BDTKeeBig> "+BDTcut+")").c_str()), WeightVar("weightPartReco"));
-  dataSetJpsiLeak = new RooDataSet("dataSetJpsiLeak", "dataSetJpsiLeak",  argsetPartReco, Import(*tJpsiLeak),Cut(("("+trigStr+"  > 0.9) && (BDTKeeBig> "+BDTcut+")").c_str()), WeightVar("weightPartReco"));
+  dataSetSignalZeroGamma = new RooDataSet("dataSetSignalZeroGamma", "dataSetSignalZeroGamma", tSignal, argset,( " ("+trigStr+"  > 0.9) && (BDTKeeBig2> "+BDTcut+") && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) > -0.5) && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) < 0.5)").c_str());
+  dataSetSignalOneGamma = new RooDataSet("dataSetSignalOneGamma", "dataSetSignalOneGamma", tSignal, argset, ("("+trigStr+"  > 0.9) && (BDTKeeBig2> "+BDTcut+") && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) > 0.5) && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) < 1.5)").c_str());
+  dataSetSignalTwoGamma = new RooDataSet("dataSetSignalTwoGamma", "dataSetSignalTwoGamma", tSignal, argset, ("("+trigStr+"  > 0.9) && (BDTKeeBig2> "+BDTcut+") && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) > 1.5) && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) < 2.5)").c_str());
+  dataSetPartReco = new RooDataSet("dataSetPartReco", "dataSetPartReco",  argsetPartReco, Import(*tPartReco),Cut(("("+trigStr+"  > 0.9) && (BDTKeeBig2> "+BDTcut+")").c_str()), WeightVar("weightPartReco"));
+  dataSetJpsiLeak = new RooDataSet("dataSetJpsiLeak", "dataSetJpsiLeak",  argsetPartReco, Import(*tJpsiLeak),Cut(("("+trigStr+"  > 0.9) && (BDTKeeBig2> "+BDTcut+")").c_str()), WeightVar("weightPartReco"));
   dataSetComb = new RooDataSet("dataSetComb", "dataSetComb", tComb, argset, ("("+trigStr+"  > 0.9)").c_str());
 
   cout<<"Number of zero: "<< dataSetSignalZeroGamma->sumEntries()<<endl;
   cout<<"Number of one: "<< dataSetSignalOneGamma->sumEntries()<<endl;
   cout<<"Number of two: "<< dataSetSignalTwoGamma->sumEntries()<<endl;
+  cout<<"Number of PartReco: "<< dataSetPartReco->sumEntries()<<endl;
+  cout<<"Number of Jpsi leaking:"<< dataSetJpsiLeak->sumEntries()<<endl;
+  cout<<"Number of combinatorial events:"<< dataSetComb->sumEntries()<<endl;
   
 
    cout<<"binning the datasets:"<<endl;
@@ -227,7 +230,6 @@ void generate_and_fit(string workspacename,  bool fit2D, bool wantplot, bool con
 {
 
 
-
    //***************Get the PDFs from the workspace
 
   TFile *fw = new TFile(workspacename.c_str());   
@@ -243,7 +245,9 @@ void generate_and_fit(string workspacename,  bool fit2D, bool wantplot, bool con
   RooHistPdf *histPdfSignalOneGamma = (RooHistPdf *) workspace->pdf("histPdfSignalOneGamma");
   RooHistPdf *histPdfSignalTwoGamma = (RooHistPdf *) workspace->pdf("histPdfSignalTwoGamma");
   RooHistPdf *histPdfPartReco = (RooHistPdf *) workspace->pdf("histPdfPartReco");
-  RooHistPdf *histPdfJpsiLeak = (RooHistPdf *) workspace->pdf("histPdfJpsiLeak");
+  RooHistPdf *histPdfJpsiLeak(0);
+  if(nGenJpsiLeak>1) histPdfJpsiLeak = (RooHistPdf *) workspace->pdf("histPdfJpsiLeak");
+
 
   RooAbsPdf *combPDF;
 
@@ -277,7 +281,8 @@ void generate_and_fit(string workspacename,  bool fit2D, bool wantplot, bool con
    RooAbsPdf::GenSpec* GenSpecSignalTwoGamma = histPdfSignalTwoGamma->prepareMultiGen(argset2, RooFit::Extended(1), NumEvents(nGenSignalTwoGamma)); cout<<" 2 ";
    RooAbsPdf::GenSpec* GenSpecPartReco =  histPdfPartReco->prepareMultiGen(argset2, RooFit::Extended(1), NumEvents(nGenPartReco)); cout<<" 3 "<<endl;
    RooAbsPdf::GenSpec* GenSpecComb = combPDF->prepareMultiGen(argset2, RooFit::Extended(1), NumEvents(nGenComb));
-   RooAbsPdf::GenSpec* GenSpecJpsiLeak = histPdfJpsiLeak->prepareMultiGen(argset2, RooFit::Extended(1), NumEvents(nGenJpsiLeak));
+   RooAbsPdf::GenSpec* GenSpecJpsiLeak(0);
+   if(nGenJpsiLeak>1) GenSpecJpsiLeak = histPdfJpsiLeak->prepareMultiGen(argset2, RooFit::Extended(1), NumEvents(nGenJpsiLeak));
 
 
    cout<<"Variable loaded:"<<endl;
@@ -297,8 +302,12 @@ void generate_and_fit(string workspacename,  bool fit2D, bool wantplot, bool con
    RooDataSet* dataGenComb = combPDF->generate(*GenSpecComb);//(argset, 100, false, true, "", false, true);
    cout<<"Generating PartReco"<<endl;
    RooDataSet* dataGenPartReco = histPdfPartReco->generate(*GenSpecPartReco);//argset, 160, false, true, "", false, true);
-   cout<<"Generating Leaking JPsi"<<endl;
-   RooDataSet* dataGenJpsiLeak = histPdfJpsiLeak->generate(*GenSpecJpsiLeak);//argset, 160, false, true, "", false, true);
+   RooDataSet* dataGenJpsiLeak(0);
+   if(nGenJpsiLeak>1)
+   {
+      cout<<"Generating Leaking JPsi"<<endl;
+      dataGenJpsiLeak = histPdfJpsiLeak->generate(*GenSpecJpsiLeak);//argset, 160, false, true, "", false, true);
+   }
 
  
    if(wantplot)
@@ -319,7 +328,7 @@ void generate_and_fit(string workspacename,  bool fit2D, bool wantplot, bool con
       PlotShape(*dataSetSignalTwoGamma, *dataGenSignalTwoGamma, *histPdfSignalTwoGamma, plotsfile, "cSignalTwoGamma", *B_plus_M, *B_plus_M_corr,fit2D);
       PlotShape(*dataSetPartReco, *dataGenPartReco, *histPdfPartReco, plotsfile, "cPartReco", *B_plus_M, *B_plus_M_corr,fit2D);
       PlotShape(*dataSetComb, *dataGenComb, *combPDF, plotsfile, "cComb", *B_plus_M, *B_plus_M_corr,fit2D);
-      PlotShape(*dataSetJpsiLeak, *dataGenJpsiLeak, *histPdfJpsiLeak, plotsfile, "cJpsiLeak", *B_plus_M, *B_plus_M_corr,fit2D);
+      if(nGenJpsiLeak>1) PlotShape(*dataSetJpsiLeak, *dataGenJpsiLeak, *histPdfJpsiLeak, plotsfile, "cJpsiLeak", *B_plus_M, *B_plus_M_corr,fit2D);
    }
 
    //***************Merge datasets
@@ -329,7 +338,7 @@ void generate_and_fit(string workspacename,  bool fit2D, bool wantplot, bool con
    dataGenTot->append(*dataGenSignalOneGamma);
    dataGenTot->append(*dataGenSignalTwoGamma);
    dataGenTot->append(*dataGenComb);
-   dataGenTot->append(*dataGenJpsiLeak);
+   if(nGenJpsiLeak>1) dataGenTot->append(*dataGenJpsiLeak);
 
    // RooWorkspace workspaceb("workspaceb", "workspaceb");
    // dataGenTot->SetNameTitle("myexperiment","myexperiment");
@@ -358,7 +367,15 @@ void generate_and_fit(string workspacename,  bool fit2D, bool wantplot, bool con
    // RooAddPdf histPdfSignal("histPdfSignal", "histPdfSignal", RooArgList(*histPdfSignalZeroGamma, *histPdfSignalOneGamma, *histPdfSignalTwoGamma), RooArgList(fracZero, fracOneRec));
    RooAddPdf histPdfSignal("histPdfSignal", "histPdfSignal", RooArgList(*histPdfSignalZeroGamma, *histPdfSignalOneGamma, *histPdfSignalTwoGamma), RooArgList(fracZero, fracOneRec));
 
-   RooAddPdf totPdf("totPdf", "totPdf", RooArgList(histPdfSignal, *histPdfPartReco, *combPDF, *histPdfJpsiLeak), RooArgList(nSignal, nPartReco, nComb, nJpsiLeak));
+   RooArgList pdfList(histPdfSignal, *histPdfPartReco, *combPDF);
+   RooArgList yieldList(nSignal, nPartReco, nComb);
+    
+   if(nGenJpsiLeak>1)
+   {
+      pdfList.add(*histPdfJpsiLeak);
+      yieldList.add(nJpsiLeak); 
+   }
+   RooAddPdf totPdf("totPdf", "totPdf", pdfList, yieldList);
 
    //**************** Constrain the fraction of zero and one photon
 
@@ -500,12 +517,13 @@ void PlotShape(RooDataSet& originDataSet, RooDataSet& genDataSet, RooAbsPdf& sha
 void PlotShape2D(RooDataSet& originDataSet, RooDataSet& genDataSet, RooAbsPdf& shape, string plotsfile, string canvName, RooRealVar& B_plus_M, RooRealVar& B_plus_M_corr)
 {
       //**************Prepare TFile to save the plots
-
+      
       TFile f2(plotsfile.c_str(), "UPDATE");
 
       //**************Plot Signal Zero Gamma
 
       TH2F* th2fKey = (TH2F*)shape.createHistogram("th2Shape", B_plus_M, Binning(20), YVar(B_plus_M_corr, Binning(20)));
+      cout<<genDataSet.sumEntries()<<endl;
       TH2F* th2fGen = (TH2F*)genDataSet.createHistogram("th2fGen", B_plus_M, Binning(20), YVar(B_plus_M_corr, Binning(20)));
 
       RooPlot* plotM = B_plus_M.frame();

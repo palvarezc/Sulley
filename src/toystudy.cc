@@ -145,7 +145,7 @@ int main(int argc, char* argv[])
   if(!fit2D && !wantHOPCut) extraString = "1D";
 
   plotsfile = outputfolder+"/plotsHistBremCatTsallisBkgfit"+extraString+".root";
-  resultsfile = outputfolder+"/toystudyHistBremCatTsallisBkg_results"+extraString+".root";
+  resultsfile = outputfolder+"/toystudyHistBremCatTsallisBkg_results"+extraString+trigStr+".root";
   outfile = outputfolder+"/fitResult"+extraString+".dat";
   workspacename = outputfolder+"/workspace"+extraString+".root";
 
@@ -157,7 +157,7 @@ int main(int argc, char* argv[])
    string fSignal("/vols/lhcbdisk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/B2Kee_Strip21_BDT_ctrl_trigged"+extraString+".root");
    string fPartReco("/vols/lhcbdisk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/BJpsiX_Strip21_MC2012_ctrlNoDTF_trigged_rarebkgs"+extraString+".root");
    string fComb("/vols/lhcbdisk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/B2Kee_Strip21_piee_trigged"+extraString+".root");
-   string fJpsiLeak("/vols/lhcbdisk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/BJpsiX_Strip21_MC2012_signal_trigged"+extraString+".root");
+   string fJpsiLeak("/vols/lhcbdisk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/BJpsiX_Strip21_MC2012_signal_leakage_trigged"+extraString+".root");
 
    
    //RooMsgService::instance().addStream(DEBUG, Topic(Integration));
@@ -168,7 +168,7 @@ int main(int argc, char* argv[])
 
 
    TFile f(resultsfile.c_str(),"recreate");
-   TTree t("paramsFloatingExpFloatingFracPartReco_L0ETOS", "paramsFloatingExpFloatingFracPartReco_L0ETOS");
+   TTree t(("paramsFloatingExpFloatingFracPartReco_"+trigStr).c_str(), ("paramsFloatingExpFloatingFracPartReco_"+trigStr).c_str());
 
    bool wantPlots(true);
    bool update(false);
