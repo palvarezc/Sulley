@@ -58,7 +58,7 @@ int main(int argc, char* argv[])
   //*********** Get arguments and set stuff
   string trigStr("L0ETOSOnly_d");
   bool wantOldDataSet(false);
-  string BDTcut("0.257");
+  double BDTcut(0.257);
   int ntoys(1000);
   bool fit2D(0);
   bool constPartReco(0);
@@ -106,7 +106,7 @@ int main(int argc, char* argv[])
       nGenFracOneGamma = 0.495;
     }
     
-    BDTcut = argv[8];
+    BDTcut = atof(argv[8]);
     ntoys = atoi(argv[7]);
 
     if(*argv[9] == '1') constPartReco = true;
@@ -157,7 +157,7 @@ int main(int argc, char* argv[])
    string fSignal("/vols/lhcbdisk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/B2Kee_Strip21_BDT_ctrl_trigged"+extraString+".root");
    string fPartReco("/vols/lhcbdisk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/BJpsiX_Strip21_MC2012_ctrlNoDTF_trigged_rarebkgs"+extraString+".root");
    string fComb("/vols/lhcbdisk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/B2Kee_Strip21_piee_trigged"+extraString+".root");
-   string fJpsiLeak("/vols/lhcbdisk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/BJpsiX_Strip21_MC2012_signal_leakage_trigged"+extraString+".root");
+   string fJpsiLeak("/vols/lhcbdisk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/total_signal_leakage_trigged"+extraString+".root");
 
    
    //RooMsgService::instance().addStream(DEBUG, Topic(Integration));
@@ -202,17 +202,17 @@ int main(int argc, char* argv[])
    //save toy characteristics and results
 
    ofstream out2(tablefile, std::ios::app);
-   out2<<endl; for(int i(0); i<50; ++i) out2<<"="; out2<<endl;
+   out2<<endl; for(int i(0); i<70; ++i) out2<<"="; out2<<endl;
    if (fit2D) out2<<"2D Mvis X MCorr with Tsallis bkg";
    else out2<<"1D Mvis with expo bkg";
    if(wantHOPCut) out2<<" HOP CUT:"<<endl;
    else out2<<":"<<endl;
-   makeTableResults(&t, nGenSignal, nGenPartReco, nGenComb, out2 );
+   makeTableResults(&t, nGenSignal, nGenPartReco, nGenComb, nGenJpsiLeak, out2 );
    out2<<endl;
-   out2<<setw(w)<<"HOP CUT"<<setw(w)<<"min M"<<setw(w)<<"max M"<<setw(w)<<"Trigger"<<setw(w)<<"constrain"<<endl;
-   out2<<setw(w)<<(wantHOPCut==true ? "yes":"no")<<setw(w)<<minBMass<<setw(w)<<maxBMass<<setw(w)<<trigStr.substr(0, trigStr.size()-6)<<setw(w)<<(constPartReco==true? "yes":"no")<<endl;
+   out2<<setw(w)<<"HOP CUT"<<setw(w)<<"min M"<<setw(w)<<"max M"<<setw(w)<<"Trigger"<<setw(w)<<"constrain"<<setw(w)<<"JPsi leak"<<endl;
+   out2<<setw(w)<<(wantHOPCut==true ? "yes":"no")<<setw(w)<<minBMass<<setw(w)<<maxBMass<<setw(w)<<trigStr.substr(0, trigStr.size()-6)<<setw(w)<<(constPartReco==true? "yes":"no")<<setw(w)<<nGenJpsiLeak<<endl;
    out2<<endl;
-   out2<<endl; for(int i(0); i<50; ++i) out2<<"="; out2<<endl;
+   out2<<endl; for(int i(0); i<70; ++i) out2<<"="; out2<<endl;
    out2.close();
 
 

@@ -21,7 +21,8 @@ FLAGS       += ${ROOT_FLAGS} -lRooFitCore -lRooFit -lRooStats ${BOOST_LIB_OPT} $
 FLAGS       += -I$(INC_DIR)
 
 # all: toystudy2DHistBremCatTsallisBkg # mainTestTsallis toystudy1DHistBremCatExpoBkg toystudy1DHistBremCatExpoBkgMHCut mainTestCB toystudy2DHOPHistBremCat 
-all: $(BIN_DIR)/maintest $(BIN_DIR)/toystudy $(BIN_DIR)/toystudy2DHistBremCatTsallisBkg $(BIN_DIR)/toystudy1DHistBremCatExpoBkg 
+all: $(BIN_DIR)/maintest $(BIN_DIR)/toystudy 
+# $(BIN_DIR)/toystudy2DHistBremCatTsallisBkg $(BIN_DIR)/toystudy1DHistBremCatExpoBkg 
 
 $(BIN_DIR)/maintest : $(OBJ_DIR)/maintest.o $(OBJ_DIR)/RooMcorMvisTsallis.o $(OBJ_DIR)/usefulFunctions.o
 	$(CXX) $(FLAGS) -o $(BIN_DIR)/maintest $(OBJ_DIR)/maintest.o $(OBJ_DIR)/RooMcorMvisTsallis.o $(OBJ_DIR)/usefulFunctions.o $(ROOFIT_LIBS)
@@ -37,18 +38,18 @@ $(OBJ_DIR)/toystudy.o : $(SRC_DIR)/toystudy.cc $(INC_DIR)/RooMcorMvisTsallis.h $
 	$(CXX) $(FLAGS) -c $(SRC_DIR)/toystudy.cc -o $(OBJ_DIR)/toystudy.o $(ROOFIT_LIBS)
 
 
-$(BIN_DIR)/toystudy2DHistBremCatTsallisBkg : $(OBJ_DIR)/toystudy2DHistBremCatTsallisBkg.o $(OBJ_DIR)/RooMcorMvisTsallis.o $(OBJ_DIR)/usefulFunctions.o $(OBJ_DIR)/fitter_utils.o
-	$(CXX) $(FLAGS) -o $(BIN_DIR)/toystudy2DHistBremCatTsallisBkg $(OBJ_DIR)/toystudy2DHistBremCatTsallisBkg.o $(OBJ_DIR)/RooMcorMvisTsallis.o $(OBJ_DIR)/usefulFunctions.o $(OBJ_DIR)/fitter_utils.o $(ROOFIT_LIBS)
+#$(BIN_DIR)/toystudy2DHistBremCatTsallisBkg : $(OBJ_DIR)/toystudy2DHistBremCatTsallisBkg.o $(OBJ_DIR)/RooMcorMvisTsallis.o $(OBJ_DIR)/usefulFunctions.o $(OBJ_DIR)/fitter_utils.o
+#	$(CXX) $(FLAGS) -o $(BIN_DIR)/toystudy2DHistBremCatTsallisBkg $(OBJ_DIR)/toystudy2DHistBremCatTsallisBkg.o $(OBJ_DIR)/RooMcorMvisTsallis.o $(OBJ_DIR)/usefulFunctions.o $(OBJ_DIR)/fitter_utils.o $(ROOFIT_LIBS)
 
-$(OBJ_DIR)/toystudy2DHistBremCatTsallisBkg.o : $(SRC_DIR)/toystudy2DHistBremCatTsallisBkg.cc $(INC_DIR)/RooMcorMvisTsallis.h $(INC_DIR)/usefulFunctions.h $(INC_DIR)/fitter_utils.h
-	$(CXX) $(FLAGS) -c $(SRC_DIR)/toystudy2DHistBremCatTsallisBkg.cc -o $(OBJ_DIR)/toystudy2DHistBremCatTsallisBkg.o $(ROOFIT_LIBS)
+#$(OBJ_DIR)/toystudy2DHistBremCatTsallisBkg.o : $(SRC_DIR)/toystudy2DHistBremCatTsallisBkg.cc $(INC_DIR)/RooMcorMvisTsallis.h $(INC_DIR)/usefulFunctions.h $(INC_DIR)/fitter_utils.h
+#	$(CXX) $(FLAGS) -c $(SRC_DIR)/toystudy2DHistBremCatTsallisBkg.cc -o $(OBJ_DIR)/toystudy2DHistBremCatTsallisBkg.o $(ROOFIT_LIBS)
 
 
-$(BIN_DIR)/toystudy1DHistBremCatExpoBkg : $(OBJ_DIR)/toystudy1DHistBremCatExpoBkg.o $(OBJ_DIR)/usefulFunctions.o 
-	$(CXX) $(FLAGS) -o $(BIN_DIR)/toystudy1DHistBremCatExpoBkg $(OBJ_DIR)/toystudy1DHistBremCatExpoBkg.o $(OBJ_DIR)/usefulFunctions.o $(ROOFIT_LIBS)
+#$(BIN_DIR)/toystudy1DHistBremCatExpoBkg : $(OBJ_DIR)/toystudy1DHistBremCatExpoBkg.o $(OBJ_DIR)/usefulFunctions.o 
+#	$(CXX) $(FLAGS) -o $(BIN_DIR)/toystudy1DHistBremCatExpoBkg $(OBJ_DIR)/toystudy1DHistBremCatExpoBkg.o $(OBJ_DIR)/usefulFunctions.o $(ROOFIT_LIBS)
 
-$(OBJ_DIR)/toystudy1DHistBremCatExpoBkg.o : $(SRC_DIR)/toystudy1DHistBremCatExpoBkg.cc $(INC_DIR)/usefulFunctions.h 
-	$(CXX) $(FLAGS) -c $(SRC_DIR)/toystudy1DHistBremCatExpoBkg.cc -o $(OBJ_DIR)/toystudy1DHistBremCatExpoBkg.o $(ROOFIT_LIBS)
+#$(OBJ_DIR)/toystudy1DHistBremCatExpoBkg.o : $(SRC_DIR)/toystudy1DHistBremCatExpoBkg.cc $(INC_DIR)/usefulFunctions.h 
+#	$(CXX) $(FLAGS) -c $(SRC_DIR)/toystudy1DHistBremCatExpoBkg.cc -o $(OBJ_DIR)/toystudy1DHistBremCatExpoBkg.o $(ROOFIT_LIBS)
 
 
 # toystudy2DHOPHistBremCat : toystudy2DHOPHistBremCat.o usefulFunctions.o

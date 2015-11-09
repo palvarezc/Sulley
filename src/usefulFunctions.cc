@@ -9,7 +9,7 @@ std::string legs = strs.str();
 return legs;
 }
 
-string dbl2str(double nbr, int nfixed )
+string d2s(double nbr, int nfixed )
 {
    stringstream ss;
    if(nfixed>=1) ss<<fixed<<setprecision(nfixed)<<nbr;
@@ -35,12 +35,12 @@ string roundToError(valError& ve)
    }
    ve.err = todivide*TMath::Nint(ve.err/todivide);
    ve.val = todivide*TMath::Nint(ve.val/todivide);
-   string ret(dbl2str(ve.val, nfixed)+"+-"+dbl2str(ve.err, nfixed));
+   string ret(d2s(ve.val, nfixed)+"+-"+d2s(ve.err, nfixed));
    return ret;
 }
 
 
-void makeTableResults(TTree* t, int nGenSignal, int nGenPartReco, int nGenComb, ostream& out )
+void makeTableResults(TTree* t, int nGenSignal, int nGenPartReco, int nGenComb, int nGenJpsiLeak, ostream& out )
 {
    valError ve;
    TH1F* hStock(0);
@@ -69,13 +69,23 @@ void makeTableResults(TTree* t, int nGenSignal, int nGenPartReco, int nGenComb, 
    double fracPartReco(100*ve.err/ve.val);
    string strPartReco = roundToError(ve);
 
-
+   double fracJpsiLeak(0);
+   string strJpsiLeak("0");
+   if(nGenJpsiLeak > 0)
+   {
+      t->Draw("nJpsiLeak>>h4");
+      hStock = (TH1F*)canv.GetPrimitive("h4");
+      ve.val = hStock->GetMean();
+      ve.err = hStock->GetStdDev();
+      fracJpsiLeak = 100*ve.err/ve.val;
+      strJpsiLeak = roundToError(ve);
+   }
 
    int w(16);
-   out<<setw(w)<<" "<<setw(w)<<"nSignal"<<setw(w)<<"nPartReco"<<setw(w)<<"nCombinatorial"<<endl;
-   out<<setw(w)<<"Generated"<<setw(w)<<nGenSignal<<setw(w)<<nGenPartReco<<setw(w)<<nGenComb<<endl;
-   out<<setw(w)<<"Fit"<<setw(w)<<strSig<<setw(w)<<strPartReco<<setw(w)<<strBkg<<endl;
-   out<<setw(w)<<"FracErr"<<setw(w)<<fracSig<<setw(w)<<fracPartReco<<setw(w)<<fracBkg<<endl;
+   out<<setw(w)<<" "<<setw(w)<<"nSignal"<<setw(w)<<"nPartReco"<<setw(w)<<"nCombinatorial"<<setw(w)<<"nJpsiLeak"<<endl;
+   out<<setw(w)<<"Generated"<<setw(w)<<nGenSignal<<setw(w)<<nGenPartReco<<setw(w)<<nGenComb<<setw(w)<<nGenJpsiLeak<<endl;
+   out<<setw(w)<<"Fit"<<setw(w)<<strSig<<setw(w)<<strPartReco<<setw(w)<<strBkg<<setw(w)<<strJpsiLeak<<endl;
+   out<<setw(w)<<"FracErr"<<setw(w)<<fracSig<<setw(w)<<fracPartReco<<setw(w)<<fracBkg<<setw(w)<<fracJpsiLeak<<endl;
 }
 
 

@@ -41,11 +41,11 @@ using namespace RooFit;
 
 void initiateParams(RooArgSet& parset);
 
-void initiateParams(int nGenSignalZeroGamma, int nGenSignalOneGamma, int nGenSignalTwoGamma, int nGenPartRec, int nGenComb, double expoConstGen, RooRealVar& nSignal,
-      RooRealVar& nPartReco, 
-      RooRealVar& nComb, RooRealVar& fracZero, RooRealVar& fracOne, RooRealVar& expoConst);
+void initiateParams(int nGenSignalZeroGamma, int nGenSignalOneGamma, int nGenSignalTwoGamma, int nGenPartRec, int nGenComb, int nGenJpsiLeak, double expoConstGen,
+       RooRealVar& nSignal, RooRealVar& nPartReco, 
+      RooRealVar& nComb, RooRealVar& fracZero, RooRealVar& fracOne, RooRealVar& expoConst, RooRealVar&  nJpsiLeak);
 
-void prepare_PDFs(string workspacename, string trigStr, string BDTcut, bool fit2D,
+void prepare_PDFs(string workspacename, string trigStr, double BDTcut, bool fit2D,
                   string signalfile, string partrecofile, string combinatorialfile, string JpsiLeakfile,
                   double minBMass = 4880, double maxBMass = 5700,
                   string signaltree = "DecayTree", string partrecotree = "DecayTree", string combinatorialtree = "DecayTree", string JpsiLeaktree = "DecayTree");
