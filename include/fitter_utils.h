@@ -43,7 +43,7 @@ void initiateParams(RooArgSet& parset);
 
 void initiateParams(int nGenSignalZeroGamma, int nGenSignalOneGamma, int nGenSignalTwoGamma, int nGenPartRec, int nGenComb, int nGenJpsiLeak, double expoConstGen,
        RooRealVar& nSignal, RooRealVar& nPartReco, 
-      RooRealVar& nComb, RooRealVar& fracZero, RooRealVar& fracOne, RooRealVar& expoConst, RooRealVar&  nJpsiLeak);
+      RooRealVar& nComb, RooRealVar& fracZero, RooRealVar& fracOne, RooRealVar& expoConst, RooRealVar&  nJpsiLeak, bool constPartReco, RooRealVar const& fracPartRecoSigma);
 
 void prepare_PDFs(string workspacename, string trigStr, double BDTcut, bool fit2D,
                   string signalfile, string partrecofile, string combinatorialfile, string JpsiLeakfile,

@@ -1,5 +1,6 @@
 #include "fitter_utils.h"
 #include "RooBinning.h"
+#include "RooRandom.h"
 
 
 // using namespace std;
@@ -36,26 +37,36 @@ void initiateParams(RooArgSet* parset)
 void initiateParams(int nGenSignalZeroGamma, int nGenSignalOneGamma, int nGenSignalTwoGamma, int nGenPartReco, 
                     int nGenComb, int nGenJpsiLeak, double expoConstGen, RooRealVar& nSignal,
                     RooRealVar& nPartReco, 
-                    RooRealVar& nComb, RooRealVar& fracZero, RooRealVar& fracOne, RooRealVar& expoConst, RooRealVar&  nJpsiLeak)
+                    RooRealVar& nComb, RooRealVar& fracZero, RooRealVar& fracOne, RooRealVar& expoConst, RooRealVar&  nJpsiLeak, bool constPartReco, RooRealVar const& fracPartRecoSigma)
 {
    TRandom rand;
    rand.SetSeed();
 
+
+
    int nGenSignal = nGenSignalZeroGamma + nGenSignalOneGamma + nGenSignalTwoGamma;
+   double fracPartReco2( nGenPartReco/(1.*nGenSignal));
    double nGenSignal2 = rand.Uniform(nGenSignal-5*sqrt(nGenSignal), nGenSignal+5*sqrt(nGenSignal));
-   double nGenPartReco2 = rand.Uniform(nGenPartReco-5*sqrt(nGenPartReco), nGenPartReco+5*sqrt(nGenPartReco));
+   double nGenPartReco2;
+   if(!constPartReco) nGenPartReco2 = rand.Uniform(nGenPartReco-5*sqrt(nGenPartReco), nGenPartReco+5*sqrt(nGenPartReco));
+   if(constPartReco) nGenPartReco2 = rand.Uniform( (fracPartReco2-5*fracPartRecoSigma.getVal())*nGenSignal2, (fracPartReco2+5*fracPartRecoSigma.getVal())*nGenSignal2);
    double nGenComb2 = rand.Uniform(nGenComb-5*sqrt(nGenComb), nGenComb+5*sqrt(nGenComb));
    double nGenJpsiLeak2 = rand.Uniform(nGenJpsiLeak-5*sqrt(nGenJpsiLeak), nGenJpsiLeak+5*sqrt(nGenJpsiLeak));
 
 
-   nSignal.setVal(nGenSignal2);
-   nSignal.setRange(TMath::Max(0.,nGenSignal2-10.*sqrt(nGenSignal)) , nGenSignal2+10*sqrt(nGenSignal));
+   if(!constPartReco)
+   {
+      nSignal.setVal(nGenSignal2);
+      nSignal.setRange(TMath::Max(0.,nGenSignal2-10.*sqrt(nGenSignal)) , nGenSignal2+10*sqrt(nGenSignal));
 
-   //fracPartReco.setVal(nGenPartReco2/nGenSignal2);
-   //fracPartReco.setRange(0,2);
+      nPartReco.setVal(nGenPartReco2);
+      nPartReco.setRange(TMath::Max(0.,nGenPartReco2-10.*sqrt(nGenPartReco)), nGenPartReco2+10*sqrt(nGenPartReco));
+   }
 
-   nPartReco.setVal(nGenPartReco2);
-   nPartReco.setRange(TMath::Max(0.,nGenPartReco2-10.*sqrt(nGenPartReco)), nGenPartReco2+10*sqrt(nGenPartReco));
+   if(constPartReco)
+   {
+      
+   }
 
    nComb.setVal(nGenComb2);
    nComb.setRange(TMath::Max(0.,nGenComb2-10.*sqrt(nGenComb)), nGenComb2+10*sqrt(nGenComb));
@@ -150,7 +161,7 @@ void prepare_PDFs(string workspacefile, string trigStr, double BDTcut, bool fit2
   dataSetJpsiLeak = new RooDataSet("dataSetJpsiLeak", "dataSetJpsiLeak",  argsetLeakage, Import(*tJpsiLeak),Cut(("B_plus_M > "+d2s(minBMass)+" && B_plus_M < "+d2s(maxBMass)).c_str()), WeightVar("weightLeakage"));
 
 //  dataSetComb = new RooDataSet("dataSetComb", "dataSetComb", tComb, argset, ("("+trigStr+"  > 0.9) && (BDTKeeBig2 > "+d2s(BDTcut-0.15)+")  && B_plus_M > "+d2s(minBMass)+" && B_plus_M < "+d2s(maxBMass)).c_str());
-  dataSetComb = new RooDataSet("dataSetComb", "dataSetComb", tComb, argset, ("("+trigStr+"  > 0.9) && (BDTKeeBig2 > "+d2s(BDTcut-3)+")  && B_plus_M > "+d2s(minBMass)+" && B_plus_M < "+d2s(maxBMass)).c_str());
+  dataSetComb = new RooDataSet("dataSetComb", "dataSetComb", tComb, argset, ("("+trigStr+"  > 0.9) && (BDTKeeBig2 > "+d2s(BDTcut-2)+")  && B_plus_M > "+d2s(minBMass)+" && B_plus_M < "+d2s(maxBMass)).c_str());
 
   cout<<"Number of zero: "<< dataSetSignalZeroGamma->sumEntries()<<endl;
   cout<<"Number of one: "<< dataSetSignalOneGamma->sumEntries()<<endl;
@@ -178,6 +189,8 @@ void prepare_PDFs(string workspacefile, string trigStr, double BDTcut, bool fit2
    double ErrorJpsi(0);
    if(dataSetJpsiLeak->sumEntries(("("+trigStr+"  > 0.9) && (BDTKeeBig2> "+d2s(BDTcut)+") && B_plus_M > "+d2s(minBMass)+" && B_plus_M < "+d2s(maxBMass)).c_str()) > 0) ErrorJpsi = 1./sqrt(dataSetJpsiLeak->sumEntries(("("+trigStr+"  > 0.9) && (BDTKeeBig2> "+d2s(BDTcut)+") && B_plus_M > "+d2s(minBMass)+" && B_plus_M < "+d2s(maxBMass)).c_str()));
    RooRealVar fractionalErrorJpsiLeak("fractionalErrorJpsiLeak", "fractionalErrorJpsiLeak", ErrorJpsi);
+   cout<<"JPSI LEAK: "<<dataSetJpsiLeak->sumEntries(("("+trigStr+"  > 0.9) && (BDTKeeBig2> "+d2s(BDTcut)+") && B_plus_M > "+d2s(minBMass)+" && B_plus_M < "+d2s(maxBMass)).c_str());
+   cout<<"JPSI LEAK fractional Error: "<<ErrorJpsi<<endl;
 
 
    //***************Create 2D histogram estimates from data
@@ -246,41 +259,54 @@ void prepare_PDFs(string workspacefile, string trigStr, double BDTcut, bool fit2
    // workspace.import(*combPDF);
    // workspace.importClassCode();
    workspace.writeToFile(workspacefile.c_str());
+
+   delete fComb;
+   delete fSignal;
+   delete fPartReco;
+   delete fw;
+   delete combPDF;
    
 
+
+   delete dataSetSignalZeroGamma; 
+   delete dataSetSignalOneGamma;
+   delete dataSetSignalTwoGamma;
+   delete dataSetPartReco;
+   delete dataSetJpsiLeak;
+   delete dataSetComb;
 }
 
 
 void generate_and_fit(string workspacename,  bool fit2D, bool wantplot, bool constPartReco,
-                      int nGenSignal,  int nGenPartReco,  int nGenComb, int nGenJpsiLeak,
-                      double nGenFracZeroGamma,  double nGenFracOneGamma, double fracPartReco_const,
-                      ofstream& out, TTree* t, bool update, string plotsfile)
+      int nGenSignal,  int nGenPartReco,  int nGenComb, int nGenJpsiLeak,
+      double nGenFracZeroGamma,  double nGenFracOneGamma, double fracPartReco_const,
+      ofstream& out, TTree* t, bool update, string plotsfile)
 {
 
 
    //***************Get the PDFs from the workspace
 
-  TFile *fw = new TFile(workspacename.c_str());   
-  RooWorkspace* workspace = (RooWorkspace*)fw->Get("workspace");
-  RooRealVar *B_plus_M = workspace->var("B_plus_M");
-  RooRealVar *B_plus_M_corr = workspace->var("B_plus_M_corr");
-  RooRealVar *T = workspace->var("T");
-  RooRealVar *n = workspace->var("n");
-  RooRealVar *expoConst = workspace->var("expoConst");
-  RooRealVar *trueExp = workspace->var("trueExp");
-  RooRealVar *fractionalErrorJpsiLeak = workspace->var("fractionalErrorJpsiLeak");
-  
-  RooHistPdf *histPdfSignalZeroGamma = (RooHistPdf *) workspace->pdf("histPdfSignalZeroGamma");
-  RooHistPdf *histPdfSignalOneGamma = (RooHistPdf *) workspace->pdf("histPdfSignalOneGamma");
-  RooHistPdf *histPdfSignalTwoGamma = (RooHistPdf *) workspace->pdf("histPdfSignalTwoGamma");
-  RooHistPdf *histPdfPartReco = (RooHistPdf *) workspace->pdf("histPdfPartReco");
-  RooHistPdf *histPdfJpsiLeak(0);
-  if(nGenJpsiLeak>1) histPdfJpsiLeak = (RooHistPdf *) workspace->pdf("histPdfJpsiLeak");
+   TFile *fw = new TFile(workspacename.c_str());   
+   RooWorkspace* workspace = (RooWorkspace*)fw->Get("workspace");
+   RooRealVar *B_plus_M = workspace->var("B_plus_M");
+   RooRealVar *B_plus_M_corr = workspace->var("B_plus_M_corr");
+   RooRealVar *T = workspace->var("T");
+   RooRealVar *n = workspace->var("n");
+   RooRealVar *expoConst = workspace->var("expoConst");
+   RooRealVar *trueExp = workspace->var("trueExp");
+   RooRealVar *fractionalErrorJpsiLeak = workspace->var("fractionalErrorJpsiLeak");
+
+   RooHistPdf *histPdfSignalZeroGamma = (RooHistPdf *) workspace->pdf("histPdfSignalZeroGamma");
+   RooHistPdf *histPdfSignalOneGamma = (RooHistPdf *) workspace->pdf("histPdfSignalOneGamma");
+   RooHistPdf *histPdfSignalTwoGamma = (RooHistPdf *) workspace->pdf("histPdfSignalTwoGamma");
+   RooHistPdf *histPdfPartReco = (RooHistPdf *) workspace->pdf("histPdfPartReco");
+   RooHistPdf *histPdfJpsiLeak(0);
+   if(nGenJpsiLeak>1) histPdfJpsiLeak = (RooHistPdf *) workspace->pdf("histPdfJpsiLeak");
 
 
-  RooAbsPdf *combPDF;
+   RooAbsPdf *combPDF;
 
-  if (fit2D)
+   if (fit2D)
    {  
       combPDF =  new RooMcorMvisTsallis("combPDF", "combPDF", *B_plus_M_corr, *B_plus_M, *T, *n, *expoConst);
    }
@@ -302,9 +328,10 @@ void generate_and_fit(string workspacename,  bool fit2D, bool wantplot, bool con
 
    RooArgSet argset2(*B_plus_M);
    if (fit2D) argset2.add(*B_plus_M_corr);
-   
+
    cout<<"Preparing the generation of events 1";
 
+   RooRandom::randomGenerator()->SetSeed();
    RooAbsPdf::GenSpec* GenSpecSignalZeroGamma = histPdfSignalZeroGamma->prepareMultiGen(argset2, RooFit::Extended(1), NumEvents(nGenSignalZeroGamma)); cout<<" 2 ";
    RooAbsPdf::GenSpec* GenSpecSignalOneGamma = histPdfSignalOneGamma->prepareMultiGen(argset2, RooFit::Extended(1), NumEvents(nGenSignalOneGamma)); cout<<" 2 ";
    RooAbsPdf::GenSpec* GenSpecSignalTwoGamma = histPdfSignalTwoGamma->prepareMultiGen(argset2, RooFit::Extended(1), NumEvents(nGenSignalTwoGamma)); cout<<" 2 ";
@@ -423,9 +450,9 @@ void generate_and_fit(string workspacename,  bool fit2D, bool wantplot, bool con
 
     RooGaussian fracPartRecoConst("fracPartRecoConst", "fracPartRecoConst", fracPartReco, fracPartRecoMean, fracPartRecoSigma);
 
-    RooRealVar meanJpsiLeak("meanJpsiLeak", "meanJpsiLeak", nGenJpsiLeak);
-    RooRealVar errorJpsiLeak("errorJpsiLeak", "errorJpsiLeak", nGenJpsiLeak*fractionalErrorJpsiLeak->getVal());
-    RooGaussian JpsiLeakConst("JpsiLeakConst", "JpsiLeakConst", nJpsiLeak, meanJpsiLeak, errorJpsiLeak); 
+    RooRealVar JpsiLeakMean("JpsiLeakMean", "JpsiLeakMean", nGenJpsiLeak);
+    RooRealVar JpsiLeakSigma("JpsiLeakSigma", "JpsiLeakSigma", nGenJpsiLeak*fractionalErrorJpsiLeak->getVal());
+    RooGaussian JpsiLeakConst("JpsiLeakConst", "JpsiLeakConst", nJpsiLeak, JpsiLeakMean, JpsiLeakSigma); 
 
 
    //**************** fit
@@ -433,11 +460,12 @@ void generate_and_fit(string workspacename,  bool fit2D, bool wantplot, bool con
     RooArgSet *par_set = totPdf.getParameters(dataGenTot);
     // initiateParams(par_set);
     initiateParams(nGenSignalZeroGamma, nGenSignalOneGamma, nGenSignalTwoGamma, 
-                   nGenPartReco, nGenComb, nGenJpsiLeak, trueExpConst, nSignal, nPartReco, nComb, fracZero, fracOne, *expoConst, nJpsiLeak);
+                   nGenPartReco, nGenComb, nGenJpsiLeak, trueExpConst, nSignal, nPartReco, nComb, fracZero, fracOne, *expoConst, nJpsiLeak,  constPartReco, fracPartRecoSigma);
 
     RooArgSet constraints(fracZeroConst, fracOneConst);
     if (constPartReco) constraints.add(fracPartRecoConst);
     if(nGenJpsiLeak>0) constraints.add(JpsiLeakConst);
+   //nJpsiLeak.setConstant(true);
 
     RooAbsReal* nll = totPdf.createNLL(*dataGenTot, Extended(), ExternalConstraints(constraints));
     RooMinuit minuit(*nll);
@@ -456,7 +484,7 @@ void generate_and_fit(string workspacename,  bool fit2D, bool wantplot, bool con
     {
       // initiateParams(par_set);
       initiateParams(nGenSignalZeroGamma, nGenSignalOneGamma, nGenSignalTwoGamma, 
-                     nGenPartReco, nGenComb, nGenJpsiLeak, trueExpConst, nSignal, nPartReco, nComb, fracZero, fracOne, *expoConst, nJpsiLeak);
+                     nGenPartReco, nGenComb, nGenJpsiLeak, trueExpConst, nSignal, nPartReco, nComb, fracZero, fracOne, *expoConst, nJpsiLeak, constPartReco, fracPartRecoSigma);
       cout<<"FITTING: starting with nsignal = "<<nSignal.getValV()<<" refit nbr. "<<i<<endl;
       if(fitRes != NULL && fitRes != 0) delete fitRes;
      
@@ -481,11 +509,13 @@ void generate_and_fit(string workspacename,  bool fit2D, bool wantplot, bool con
 
    if(wantplot) plot_fit_result(plotsfile, totPdf, *dataGenTot);
 
+   fw->Close();
    //delete and return
    delete nll;
    delete par_set;
    delete workspace;
    delete fw;
+   delete combPDF;
 
 }
 
@@ -524,14 +554,14 @@ void plot_fit_result(string plotsfile, RooAbsPdf &totPdf, RooDataSet dataGenTot)
   
   if (!(plots.size())) return;
 
-  TCanvas* cFit = new TCanvas("cFit", "cFit", 600, 800);
-  cFit->Divide(1,2);
-  cFit->cd(1); plots[0]->Draw();
+  TCanvas cFit("cFit", "cFit", 600, 800);
+  cFit.Divide(1,2);
+  cFit.cd(1); plots[0]->Draw();
   if (plots.size()>1){ 
-    cFit->cd(2); plots[1]->Draw();
+    cFit.cd(2); plots[1]->Draw();
   }
   
-  cFit->Write();
+  cFit.Write();
   f2.Close();
     
   

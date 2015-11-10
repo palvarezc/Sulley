@@ -156,6 +156,7 @@ int main(int argc, char* argv[])
    if(!wantHOPCut) extraString = "";
    string fSignal("/vols/lhcbdisk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/B2Kee_Strip21_BDT_ctrl_trigged"+extraString+".root");
    string fPartReco("/vols/lhcbdisk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/BJpsiX_Strip21_MC2012_ctrlNoDTF_trigged_rarebkgs"+extraString+".root");
+//   string fPartReco("/vols/lhcbdisk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/B2Kee_Strip21_BDT_prc_trigged.root");
    string fComb("/vols/lhcbdisk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/B2Kee_Strip21_piee_trigged"+extraString+".root");
    string fJpsiLeak("/vols/lhcbdisk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/total_signal_leakage_trigged"+extraString+".root");
 
@@ -167,7 +168,7 @@ int main(int argc, char* argv[])
    //***************Prepare the stuff to generate events
 
 
-   TFile f(resultsfile.c_str(),"recreate");
+   TFile f(resultsfile.c_str(),"update");
    TTree t(("paramsFloatingExpFloatingFracPartReco_"+trigStr).c_str(), ("paramsFloatingExpFloatingFracPartReco_"+trigStr).c_str());
 
    bool wantPlots(true);
