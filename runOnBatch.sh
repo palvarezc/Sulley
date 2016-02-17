@@ -8,7 +8,7 @@ source $ROOTSYS/bin/thisroot.sh
 
 
 
-LINE="$(sed $SGE_TASK_ID'q;d' allToys_jpsifixed.dat)"
+LINE="$(sed $SGE_TASK_ID'q;d' submitLines.dat)"
 OUTPUTDIR="$(echo $LINE | cut -d " " -f 12)"
 
 echo $OUTPUTDIR

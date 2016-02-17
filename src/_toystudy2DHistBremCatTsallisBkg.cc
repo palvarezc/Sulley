@@ -141,7 +141,6 @@ int main(int argc, char* argv[])
       dataSetSignalTwoGamma = new RooDataSet("dataSetSignalTwoGamma", "dataSetSignalTwoGamma", tSignal, argset, ("("+trigStr+"  > 0.9) && (BDTKeeBig3> "+BDTcut+") && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) > 1.5) && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) < 2.5)").c_str());
       dataSetPartReco = new RooDataSet("dataSetPartReco", "dataSetPartReco", tPartReco, argset, ("("+trigStr+"  > 0.9) && (BDTKeeBig3> "+BDTcut+")").c_str());
       dataSetComb = new RooDataSet("dataSetComb", "dataSetComb", tComb, argset, ("("+trigStr+"  > 0.9)").c_str());
-
    }
 
    if(wantOldDataSet)

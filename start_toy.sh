@@ -10,6 +10,7 @@ Y_COMB=12
 Y_JPSILEAK=10
 TRIGGER=0
 N_TOYS=5
+BDT_VAR_NAME="BDTKeeBig2"
 BDT_CUT=0.369
 OUTPUT_FOLDER="toy_result/"
 CONSTRAINED=0
@@ -40,6 +41,7 @@ echo "       # part. reco. events    : "${Y_PART_RECO}
 echo "       # comb. bkg. events     : "${Y_COMB}
 echo "       # J psi Leakage events  : "${Y_JPSILEAK}
 echo "       Trigger category (0=ETOS, 1=HTOS, 2=TIS) : "${TRIGGER}" "
+echo "       BDT Variable :"$BDT_VAR_NAME
 echo "       BDT cut : "${BDT_CUT}
 echo "       Reloading control samples? "$reply 
 echo "       Constraining Part. Reco? "$CONSTRAINED
@@ -48,4 +50,4 @@ echo "       HOP cut applied? "$replyHOP
 echo "       Visible mass range : "$MIN_B_MASS" < M < "$MAX_B_MASS
 echo "================================================================================"
 
-$SULLEYROOT/bin/toystudy $RELOAD_CTRL_SAMPLES $Y_SIG $Y_PART_RECO $Y_COMB $Y_JPSILEAK $TRIGGER $N_TOYS $BDT_CUT $CONSTRAINED $NDIMS $OUTPUT_FOLDER $WANT_HOP_CUT $MIN_B_MASS $MAX_B_MASS
+$SULLEYROOT/bin/toystudy $RELOAD_CTRL_SAMPLES $Y_SIG $Y_PART_RECO $Y_COMB $Y_JPSILEAK $TRIGGER $N_TOYS $BDT_VAR_NAME  $BDT_CUT $CONSTRAINED $NDIMS $OUTPUT_FOLDER $WANT_HOP_CUT $MIN_B_MASS $MAX_B_MASS

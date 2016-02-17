@@ -34,6 +34,7 @@
 #include<RooProdPdf.h>
 #include "RooMcorMvisTsallis.h"
 #include "usefulFunctions.h"
+#include "RooNumIntConfig.h"
 
 using namespace std;
 using namespace RooFit;
@@ -45,7 +46,7 @@ void initiateParams(int nGenSignalZeroGamma, int nGenSignalOneGamma, int nGenSig
        RooRealVar& nSignal, RooRealVar& nPartReco, 
       RooRealVar& nComb, RooRealVar& fracZero, RooRealVar& fracOne, RooRealVar& expoConst, RooRealVar&  nJpsiLeak, bool constPartReco, RooRealVar const& fracPartRecoSigma);
 
-void prepare_PDFs(string workspacename, string trigStr, double BDTcut, bool fit2D,
+void prepare_PDFs(string workspacename, string trigStr, string BDTVar, double BDTcut, bool fit2D,
                   string signalfile, string partrecofile, string combinatorialfile, string JpsiLeakfile,
                   double minBMass = 4880, double maxBMass = 5700,
                   string signaltree = "DecayTree", string partrecotree = "DecayTree", string combinatorialtree = "DecayTree", string JpsiLeaktree = "DecayTree");

@@ -26,9 +26,9 @@ struct valError{
 
 string makestring(int sigma);
 string d2s(double nbr, int nfixed = 0 );
-string roundToError(valError& ve);
-void makeTableResults(TTree* t, int nGenSignal, int nGenPartReco, int nGenComb, ostream& out = cout );
-void fillTreeResult(TTree* t, RooFitResult* rfr, bool update);
-void makeTableResults(TTree* t, int nGenSignal, int nGenPartReco, int nGenComb, int nGenJpsiLeak, ostream& out );
+string roundToError(valError& ve, bool wantLatex = false);
+void fillTreeResult(TTree* t, RooFitResult* rfr, bool update, int migradRes, int hesseRes,bool  hasConverged);
+void makeTableResults(string filename, string treename, int nGenSignal, int nGenPartReco, int nGenComb, int nGenJpsiLeak, ostream& out, bool wantLatex = false);
+void makeTableResults(TTree* t, int nGenSignal, int nGenPartReco, int nGenComb, int nGenJpsiLeak, ostream& out, bool wantLatex = false );
 
 #endif

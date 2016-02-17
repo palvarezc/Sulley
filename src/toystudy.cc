@@ -58,7 +58,8 @@ int main(int argc, char* argv[])
   //*********** Get arguments and set stuff
   string trigStr("L0ETOSOnly_d");
   bool wantOldDataSet(false);
-  double BDTcut(0.257);
+  double BDTCutVal(0.257);
+  string BDTVar;
   int ntoys(1000);
   bool fit2D(0);
   bool constPartReco(0);
@@ -67,10 +68,10 @@ int main(int argc, char* argv[])
   double minBMass(4880);
   double maxBMass(5700);
 
-  if(argc != 15)
+  if(argc != 16)
   {
     cout<<"toystudy:  Launchs a ToyMC study of the fitter specified by the options"<<endl;
-    cout<<"Syntax: "<<argv[0]<<" <no_reload> <nsignal> <npartreco> <ncomb> <nJpsiLeak> <trigger_cat> <ntoys> <bdt_cut> <constPartReco> <ndims> <output_folder> <HOP cut> <minBMass> <maxBMass>"<<endl;
+    cout<<"Syntax: "<<argv[0]<<" <no_reload> <nsignal> <npartreco> <ncomb> <nJpsiLeak> <trigger_cat> <ntoys> <bdt_var_name> <bdt_cut> <constPartReco> <ndims> <output_folder> <HOP cut> <minBMass> <maxBMass>"<<endl;
     cout<<endl;
     cout<<endl;
     cout<<"no_reload: 0 (build PDFs from control channel), 1 (use PDFs in workspace)"<<endl;
@@ -83,7 +84,7 @@ int main(int argc, char* argv[])
   }
   
 
-  if(argc == 15)
+  if(argc == 16)
   {
     if(*argv[1] == '1') wantOldDataSet = true;
     
@@ -106,18 +107,21 @@ int main(int argc, char* argv[])
       nGenFracOneGamma = 0.495;
     }
     
-    BDTcut = atof(argv[8]);
     ntoys = atoi(argv[7]);
 
-    if(*argv[9] == '1') constPartReco = true;
-    if(*argv[10] == '2') fit2D = true;
-    outputfolder = argv[11];
+    BDTVar = argv[8];
+    BDTCutVal = atof(argv[9]);
 
-    if(*argv[12] == '1') wantHOPCut = true;
+
+    if(*argv[10] == '1') constPartReco = true;
+    if(*argv[11] == '2') fit2D = true;
+    outputfolder = argv[12];
+
+    if(*argv[13] == '1') wantHOPCut = true;
     if(*argv[13] == '0') wantHOPCut = false;
 
-    minBMass = atof(argv[13]);
-    maxBMass = atof(argv[14]);
+    minBMass = atof(argv[14]);
+    maxBMass = atof(argv[15]);
 
     fs::path data_dir("./"+outputfolder);
     if (!fs::is_directory(data_dir)){
@@ -150,26 +154,41 @@ int main(int argc, char* argv[])
   workspacename = outputfolder+"/workspace"+extraString+".root";
 
 
-   //***********Get the datasets
+  //***********Get the datasets
 
-   if(wantHOPCut) extraString = "_MH";
-   if(!wantHOPCut) extraString = "";
-   string fSignal("/vols/lhcbdisk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/B2Kee_Strip21_BDT_ctrl_trigged"+extraString+".root");
-   string fPartReco("/vols/lhcbdisk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/BJpsiX_Strip21_MC2012_ctrlNoDTF_trigged_rarebkgs"+extraString+".root");
-//   string fPartReco("/vols/lhcbdisk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/B2Kee_Strip21_BDT_prc_trigged.root");
-   string fComb("/vols/lhcbdisk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/B2Kee_Strip21_piee_trigged"+extraString+".root");
-   string fJpsiLeak("/vols/lhcbdisk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/total_signal_leakage_trigged"+extraString+".root");
+  if(wantHOPCut) extraString = "_MH";
+  if(!wantHOPCut) extraString = "";
+
+
+  string fSignal("/home/hep/th1011/B2KeeData/tuples/strip21/tupleThibaud/newTuples/trigged/B2Kee_Strip21_MC_trigged.root");
+  string fComb("/home/hep/th1011/B2KeeData/tuples/strip21/tupleThibaud/newTuples/trigged/B2Kemu_Strip21_trigged.root");
+  string fJpsiLeak("/home/hep/th1011/B2KeeData/tuples/strip21/tupleThibaud/newTuples/trigged/total_signal_leakage_trigged.root");
+  string fPartReco("/home/hep/th1011/B2KeeData/tuples/strip21/tupleThibaud/newTuples/trigged/BJpsiX_Strip21_MC2012_ctrl_noDTFMAllmass_trigged_rarebkgs.root");
+
+
+
+  //   string fSignal("/vols/lhcbdesk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/B2Kee_Strip21_BDT_ctrl_trigged"+extraString+".root");
+  //   string fPartReco("/vols/lhcbdisk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/BJpsiX_Strip21_MC2012_ctrlNoDTF_trigged_rarebkgs"+extraString+".root");
+  // //  string fPartReco("/vols/lhcbdisk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/B2Kee_Strip21_BDT_prc_trigged.root");
+  //  // string fComb("/vols/lhcbdisk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/B2Kee_Strip21_piee_trigged"+extraString+".root");
+  //   string fComb("/vols/lhcbdisk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/B2Kemu_Strip21_trigged.root");
+  //   string fJpsiLeak("/vols/lhcbdisk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/total_signal_leakage_trigged"+extraString+".root");
+  //
+  ////   string fSignal("/vols/lhcbdisk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/oldStrippingTrees/B2Kee_Strip21_BDT_ctrl_trigged.root");
+////   string fPartReco("/vols/lhcbdisk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/oldStrippingTrees/B2Kee_Strip21_BDT_prc_trigged.root");
+////   string fComb("/vols/lhcbdisk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/oldStrippingTrees/B2Kee_Strip21_piee_trigged.root");
+////   string fJpsiLeak("/vols/lhcbdisk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/total_signal_leakage_trigged.root");
 
    
    //RooMsgService::instance().addStream(DEBUG, Topic(Integration));
-   if (!wantOldDataSet) prepare_PDFs(workspacename, trigStr, BDTcut, fit2D, fSignal, fPartReco, fComb, fJpsiLeak, minBMass, maxBMass);
+   if (!wantOldDataSet) prepare_PDFs(workspacename, trigStr, BDTVar, BDTCutVal, fit2D, fSignal, fPartReco, fComb, fJpsiLeak, minBMass, maxBMass);
 
 
    //***************Prepare the stuff to generate events
 
 
    TFile f(resultsfile.c_str(),"update");
-   TTree t(("paramsFloatingExpFloatingFracPartReco_"+trigStr).c_str(), ("paramsFloatingExpFloatingFracPartReco_"+trigStr).c_str());
+   TTree t(("params_"+trigStr).c_str(), ("params_"+trigStr).c_str());
 
    bool wantPlots(true);
    bool update(false);

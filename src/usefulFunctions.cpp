@@ -17,7 +17,7 @@ string d2s(double nbr, int nfixed )
    return ss.str();
 }
 
-string roundToError(valError& ve)
+string roundToError(valError& ve, bool wantLatex)
 {
    int power(floor(TMath::Log10(ve.err)));
    double todivide(TMath::Power(10, power-2));
@@ -36,11 +36,21 @@ string roundToError(valError& ve)
    ve.err = todivide*TMath::Nint(ve.err/todivide);
    ve.val = todivide*TMath::Nint(ve.val/todivide);
    string ret(d2s(ve.val, nfixed)+"+-"+d2s(ve.err, nfixed));
+   if(wantLatex) ret= "$"+d2s(ve.val, nfixed)+"\\pm"+d2s(ve.err, nfixed)+"$";
    return ret;
 }
 
+void makeTableResults(string filename, string treename, int nGenSignal, int nGenPartReco, int nGenComb, int nGenJpsiLeak, ostream& out, bool wantLatex )
+{
+   TFile f(filename.c_str());
+   TTree* t = (TTree*)f.Get(treename.c_str());
 
-void makeTableResults(TTree* t, int nGenSignal, int nGenPartReco, int nGenComb, int nGenJpsiLeak, ostream& out )
+   makeTableResults(t, nGenSignal, nGenPartReco,  nGenComb, nGenJpsiLeak, out, wantLatex);
+   
+   f.Close();
+}
+
+void makeTableResults(TTree* t, int nGenSignal, int nGenPartReco, int nGenComb, int nGenJpsiLeak, ostream& out, bool wantLatex)//, string titleString )
 {
    valError ve;
    TH1F* hStock(0);
@@ -51,7 +61,7 @@ void makeTableResults(TTree* t, int nGenSignal, int nGenPartReco, int nGenComb, 
    ve.val = hStock->GetMean();
    ve.err = hStock->GetStdDev();
    double fracSig(100*ve.err/ve.val);
-   string strSig(roundToError(ve));
+   string strSig(roundToError(ve, wantLatex));
 
 
    t->Draw("nComb>>h2");
@@ -59,7 +69,7 @@ void makeTableResults(TTree* t, int nGenSignal, int nGenPartReco, int nGenComb, 
    ve.val = hStock->GetMean();
    ve.err = hStock->GetStdDev();
    double fracBkg(100*ve.err/ve.val);
-   string strBkg = roundToError(ve);
+   string strBkg = roundToError(ve, wantLatex);
 
 
    t->Draw("nPartReco>>h3");
@@ -67,7 +77,7 @@ void makeTableResults(TTree* t, int nGenSignal, int nGenPartReco, int nGenComb, 
    ve.val = hStock->GetMean();
    ve.err = hStock->GetStdDev();
    double fracPartReco(100*ve.err/ve.val);
-   string strPartReco = roundToError(ve);
+   string strPartReco = roundToError(ve, wantLatex);
 
    double fracJpsiLeak(0);
    string strJpsiLeak("0");
@@ -78,18 +88,38 @@ void makeTableResults(TTree* t, int nGenSignal, int nGenPartReco, int nGenComb, 
       ve.val = hStock->GetMean();
       ve.err = hStock->GetStdDev();
       fracJpsiLeak = 100*ve.err/ve.val;
-      strJpsiLeak = roundToError(ve);
+      strJpsiLeak = roundToError(ve, wantLatex);
    }
 
    int w(16);
-   out<<setw(w)<<" "<<setw(w)<<"nSignal"<<setw(w)<<"nPartReco"<<setw(w)<<"nCombinatorial"<<setw(w)<<"nJpsiLeak"<<endl;
-   out<<setw(w)<<"Generated"<<setw(w)<<nGenSignal<<setw(w)<<nGenPartReco<<setw(w)<<nGenComb<<setw(w)<<nGenJpsiLeak<<endl;
-   out<<setw(w)<<"Fit"<<setw(w)<<strSig<<setw(w)<<strPartReco<<setw(w)<<strBkg<<setw(w)<<strJpsiLeak<<endl;
-   out<<setw(w)<<"FracErr"<<setw(w)<<fracSig<<setw(w)<<fracPartReco<<setw(w)<<fracBkg<<setw(w)<<fracJpsiLeak<<endl;
+   if(!wantLatex)
+   {
+      out<<setw(w)<<" "<<setw(w)<<"nSignal"<<setw(w)<<"nPartReco"<<setw(w)<<"nCombinatorial"<<setw(w)<<"nJpsiLeak"<<endl;
+      out<<setw(w)<<"Generated"<<setw(w)<<nGenSignal<<setw(w)<<nGenPartReco<<setw(w)<<nGenComb<<setw(w)<<nGenJpsiLeak<<endl;
+      out<<setw(w)<<"Fit"<<setw(w)<<strSig<<setw(w)<<strPartReco<<setw(w)<<strBkg<<setw(w)<<strJpsiLeak<<endl;
+      out<<setw(w)<<"FracErr"<<setw(w)<<fracSig<<setw(w)<<fracPartReco<<setw(w)<<fracBkg<<setw(w)<<fracJpsiLeak<<endl;
+   }
+
+   if(wantLatex)
+   {
+      out<<"\\documentclass[11pt]{article}"<<endl;
+      out<<"\\usepackage[left=0cm,right=0cm,top=0cm,bottom=0cm,paperwidth=12cm,paperheight=2.5cm]{geometry}"<<endl;
+      out<<"\\usepackage{xcolor,colortbl}"<<endl;
+      out<<"\\begin{document}"<<endl;
+      out<<"\\begin{tabular}{r r r r r}"<<endl;
+      out<<"  &    \\textbf{Signal}    &   \\textbf{PartReco} & \\textbf{Comb.}  & \\textbf{\\boldmath$J/\\psi$ leak}\\\\"<<endl;
+      out<<"\\cellcolor{gray} &  \\multicolumn{4}{c}{\\cellcolor{gray} 1D $M$ fit:} \\\\"<<endl;
+      out<<"Generated & $"<<nGenSignal<<"$ & $"<<nGenPartReco<<"$ & $"<<nGenComb<<"$ & $"<<nGenJpsiLeak<<"$ \\\\"<<endl;
+      out<<"From fit & "<<strSig<<" & "<<strPartReco<<" & "<<strBkg<<" & "<<strJpsiLeak<<" \\\\"<<endl;
+      out<<"Error (\\%) & \\textcolor{red}{$"<<setprecision(3)<<fracSig<<"$} & $"<<setprecision(3)<<fracPartReco<<"$ & $"<<setprecision(3)<<fracBkg<<"$ & $"<<setprecision(3)<<fracJpsiLeak<<"$ \\\\"<<endl;
+      out<<"\\end{tabular}"<<endl;
+      out<<"\\end{document}"<<endl;
+   }
+   cout<<"CACA "<<endl;
 }
 
 
-void fillTreeResult(TTree* t, RooFitResult* rfr, bool update)
+void fillTreeResult(TTree* t, RooFitResult* rfr, bool update, int migradRes, int hesseRes,bool  hasConverged)
 {
 
    RooArgList constPars = rfr->constPars();
@@ -103,6 +133,21 @@ void fillTreeResult(TTree* t, RooFitResult* rfr, bool update)
    double value;
 
    t->ResetBranchAddresses();
+
+   double minNll(rfr->minNll());
+
+
+   if(!update) t->Branch( "migradRes", &migradRes, "migradRes/I" );
+   if(update) t->SetBranchAddress("migradRes", &migradRes);
+
+   if(!update) t->Branch( "hesseRes", &hesseRes, "hesseRes/I" );
+   if(update) t->SetBranchAddress("hesseRes", &migradRes);
+
+   if(!update) t->Branch( "minNll", &minNll, "minNll/D" );
+   if(update) t->SetBranchAddress("minNll", &minNll);
+
+   if(!update) t->Branch( "hasConverged", &hasConverged, "hasConverged/O" );
+   if(update) t->SetBranchAddress("hasConverged", &hasConverged);
 
    for(int i(0); i < nConst; ++i)
    {   
@@ -143,3 +188,24 @@ void fillTreeResult(TTree* t, RooFitResult* rfr, bool update)
 
    t->Fill();
 }
+
+//void makePull(string nameFile, string nameTree, string nameVar, double centre, string namePlot)
+//{
+//   TFile f(nameFile.c_str());
+//   TTree* t = (TTree*)f.Get(nameTree.c_str());
+//
+//   TCanvas canv("canv", "canv", 600, 600);
+//   TH1F* hpull(0);
+//   t->Draw( ("("+nameVar+"-"+d2s(centre)+")/("+nameVar+"_err)>>hpull(100, -6, 6)").c_str());
+//
+//   hpull = (TH1F*)canv.GetPrimitive("hpull");
+//
+//   hpull->SetLineWidth(2);
+//   
+//   hpull->GetXaxis()->SetTitle( "(n-#lambda)/#sigma");
+//   hpull->GetYaxis()->SetTitle( "#events");
+//
+//   hpull->Draw();
+//   
+//   canv.Print(namePlot.c_str());
+//}
