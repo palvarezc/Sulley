@@ -39,33 +39,49 @@
 using namespace std;
 using namespace RooFit;
 
+class FitterUtils
+{
 
-void initiateParams(RooArgSet& parset);
+   public:
 
-void initiateParams(int nGenSignalZeroGamma, int nGenSignalOneGamma, int nGenSignalTwoGamma, int nGenPartRec, int nGenComb, int nGenJpsiLeak, double expoConstGen,
-       RooRealVar& nSignal, RooRealVar& nPartReco, 
-      RooRealVar& nComb, RooRealVar& fracZero, RooRealVar& fracOne, RooRealVar& expoConst, RooRealVar&  nJpsiLeak, bool constPartReco, RooRealVar const& fracPartRecoSigma);
+   FitterUtils(int nGenSignal_, int nGenPartReco_, int nGenComb_, int nGenJpsiLeak_, double nGenFracZeroGamma_, double nGenFracOneGamma_, bool fit2D_, string workspacename_);
 
-void prepare_PDFs(string workspacename, string trigStr, string BDTVar, double BDTcut, bool fit2D,
-                  string signalfile, string partrecofile, string combinatorialfile, string JpsiLeakfile,
-                  double minBMass = 4880, double maxBMass = 5700,
-                  string signaltree = "DecayTree", string partrecotree = "DecayTree", string combinatorialtree = "DecayTree", string JpsiLeaktree = "DecayTree");
-
-
-void plot_fit_result(string plotsfile, RooAbsPdf &totPdf, RooDataSet dataGenTot);
+   void prepare_PDFs(string trigStr, string BDTVar, double BDTcut,
+         string signalfile, string partrecofile, string combinatorialfile, string JpsiLeakfile,
+         double minBMass = 4880, double maxBMass = 5700,
+         string signaltree = "DecayTree", string partrecotree = "DecayTree", string combinatorialtree = "DecayTree", string JpsiLeaktree = "DecayTree");
 
 
-void generate_and_fit(string workspacename,  bool fit2D, bool wantplot, bool constPartReco,
-             int nGenSignal,  int nGenPartReco,  int nGenComb, int nGenJpsiLeak,
-             double nGenFracZeroGamma,  double nGenFracOneGamma, double fracPartReco_const,
-             ofstream& out, TTree* t, bool update, string plotsfile);
+   void generate();
+   void fit(bool wantplot, bool constPartReco,
+         double fracPartReco_const, ofstream& out, TTree* t, bool update, string plotsfile);
 
 
-void PlotShape(RooDataSet& originDataSet, RooDataSet& genDataSet, RooAbsPdf& shape, string plotsfile, string canvName, RooRealVar& B_plus_M, RooRealVar& B_plus_M_corr, bool fit2D);
-void PlotShape2D(RooDataSet& originDataSet, RooDataSet& genDataSet, RooAbsPdf& shape, string plotsfile, string canvName, RooRealVar& B_plus_M, RooRealVar& B_plus_M_corr);
-void PlotShape1D(RooDataSet& originDataSet, RooDataSet& genDataSet, RooAbsPdf& shape, string plotsfile, string canvName, RooRealVar& B_plus_M);
+   protected:
+
+   void initiateParams(RooArgSet* parset);
+
+   void initiateParams(int nGenSignalZeroGamma, int nGenSignalOneGamma, int nGenSignalTwoGamma, RooRealVar const& expoConstGen,
+         RooRealVar& nSignal, RooRealVar& nPartReco, 
+         RooRealVar& nComb, RooRealVar& fracZero, RooRealVar& fracOne, RooRealVar& expoConst, RooRealVar&  nJpsiLeak, bool constPartReco, RooRealVar const& fracPartRecoSigma);
+
+   void plot_fit_result(string plotsfile, RooAbsPdf &totPdf, RooDataSet dataGenTot);
+
+   void PlotShape(RooDataSet& originDataSet, RooDataSet& genDataSet, RooAbsPdf& shape, string plotsfile, string canvName, RooRealVar& B_plus_M, RooRealVar& B_plus_M_corr);
+   void PlotShape2D(RooDataSet& originDataSet, RooDataSet& genDataSet, RooAbsPdf& shape, string plotsfile, string canvName, RooRealVar& B_plus_M, RooRealVar& B_plus_M_corr);
+   void PlotShape1D(RooDataSet& originDataSet, RooDataSet& genDataSet, RooAbsPdf& shape, string plotsfile, string canvName, RooRealVar& B_plus_M);
 
 
+   int nGenSignal;
+   int nGenPartReco;
+   int nGenComb;
+   int nGenJpsiLeak;
+   double nGenFracZeroGamma;  
+   double nGenFracOneGamma;
+   bool fit2D;
+   string workspacename;
+
+};
 
 
 #endif
