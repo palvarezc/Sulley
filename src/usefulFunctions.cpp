@@ -17,6 +17,14 @@ string d2s(double nbr, int nfixed )
    return ss.str();
 }
 
+string roundToError(RooRealVar const& var, bool wantLatex)
+{
+  valError ve;
+  ve.val = var.getVal();
+  ve.err = var.getError();
+  return roundToError(ve, wantLatex);
+}
+
 string roundToError(valError& ve, bool wantLatex)
 {
    int power(floor(TMath::Log10(ve.err)));

@@ -2,21 +2,23 @@
 # Trigger category: 0=ETOS, 1=HTOS, 2=TIS
 # Reload control samples from tuples: 0=YES, 1=NO
 RELOAD_CTRL_SAMPLES=0
-Y_SIG=32
-Y_PART_RECO=16
-Y_COMB=12
-Y_JPSILEAK=0
+Y_SIG=51
+Y_PART_RECO=26
+Y_COMB=101
+Y_JPSILEAK=3
 TRIGGER=2
-N_TOYS=400
+N_TOYS=250
 BDT_VAR_NAME="BDTNewu4bR"
-BDT_CUT=0.932  #-0.0187   0.297
-OUTPUTDIR="toy_result_12_02/toy_result_TIS_BDTNewu4bRB/"
+BDT_CUT=0.5798  #-0.0187   0.297
+OUTPUTDIR="toy_result_12_02/toy_result_TIS_2DSimultaneous/"
 CONSTRAINED=0
-NDIMS=2
+MODE=3
 WANT_HOP_CUT=0 #0: no HOP cut, 1: HOP cut
 MIN_B_MASS=4880
 MAX_B_MASS=6200
-N_BATCH_JOBS=25
+N_BATCH_JOBS=40
+N_KEMU=425    #563 for ETOS, 553 for HTOS, 425 for TIS
+PPERP_CUT=600
 
 if [ ! -d $OUTPUTDIR ]
 then
@@ -50,7 +52,7 @@ fi
 
 for i in `seq 1 $N_BATCH_JOBS`;
 do
-   echo -e $CURRENTDIR/bin/toystudy $RELOAD_CTRL_SAMPLES $Y_SIG $Y_PART_RECO $Y_COMB $Y_JPSILEAK $TRIGGER $N_TOYS $BDT_VAR_NAME  $BDT_CUT $CONSTRAINED $NDIMS $FRACDIR"_"$i $WANT_HOP_CUT $MIN_B_MASS $MAX_B_MASS >> $FILESUBMITLINES
+   echo -e $CURRENTDIR/bin/toystudy $RELOAD_CTRL_SAMPLES $Y_SIG $Y_PART_RECO $Y_COMB $Y_JPSILEAK $TRIGGER $N_TOYS $BDT_VAR_NAME  $BDT_CUT $CONSTRAINED $MODE $FRACDIR"_"$i $WANT_HOP_CUT $MIN_B_MASS $MAX_B_MASS $N_KEMU $PPERP_CUT >> $FILESUBMITLINES
 done
 
 #copy the script that reads one line
@@ -76,6 +78,12 @@ then
    TRIGSTR="L0TISOnly_d"
 fi
 
+
+NDIMS=1
+if [ $MODE = 2 ] || [ $MODE = 3 ]
+then
+   NDIMS=2
+fi
 OUTPUTTREE="toystudyHistBremCatTsallisBkg_results"$NDIMS"D"$TRIGSTR".root"
 
 HADDSTRING="hadd -k -f "$CURRENTDIR$OUTPUTDIR$OUTPUTTREE
@@ -108,14 +116,24 @@ echo -e pdflatex $OUTPUTTABLETEX >> $CLEANUPSCRIPT
 
 #send to the batch
 
-if [ $NDIMS = 1 ]
+if [ $MODE = 1 ]
 then
    QUEUE="hepshort.q"
 fi
 
-if [ $NDIMS = 2 ]
+if [ $MODE = 2 ]
 then
    QUEUE="hepmedium.q"
+fi
+
+if [ $MODE = 3 ]
+then
+   QUEUE="hepmedium.q"
+fi
+
+if [ $MODE = 4 ]
+then
+   QUEUE="hepshort.q"
 fi
 
 QSUBSTRING="qsub -wd "$CURRENTDIR"/"$OUTPUTDIR" -q "$QUEUE" -t 1-"$N_BATCH_JOBS":1 "$runOnBatchScript

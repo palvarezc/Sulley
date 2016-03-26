@@ -131,7 +131,7 @@ void FitterUtils::prepare_PDFs(string trigStr, string BDTVar, double BDTcut,
    RooBinning defaultMBins(floor((maxBMass-minBMass)/(40.)), B_plus_M.getMin(), B_plus_M.getMax() ); 
    RooBinning defaultMCorrBins(floor((10000-minBMass)/120.), B_plus_M_corr.getMin(), B_plus_M_corr.getMax()); 
    RooBinning broaderMBins(floor((maxBMass-minBMass)/(80.)), B_plus_M.getMin(), B_plus_M.getMax()); 
-   RooBinning broaderMCorrBins(floor((10000-minBMass)/360.), B_plus_M_corr.getMin(), B_plus_M_corr.getMax()); 
+   RooBinning broaderMCorrBins(floor((10000-minBMass)/240.), B_plus_M_corr.getMin(), B_plus_M_corr.getMax()); 
 
    B_plus_M.setBinning( defaultMBins);
    B_plus_M_corr.setBinning( defaultMCorrBins );
@@ -562,6 +562,12 @@ void FitterUtils::fit(bool wantplot, bool constPartReco,
    RooRealVar JpsiLeakSigma("JpsiLeakSigma", "JpsiLeakSigma", nGenJpsiLeak*fractionalErrorJpsiLeak->getVal());
    RooGaussian JpsiLeakConst("JpsiLeakConst", "JpsiLeakConst", nJpsiLeak, JpsiLeakMean, JpsiLeakSigma); 
 
+   //Extra TEST CONSTRAINT
+
+
+   //RooRealVar combConstMean("combConstMean", "combConstMean", nGenComb);
+   //RooRealVar combConstSigma("combConstSigma", "combConstSigma", 7.7);
+   //RooGaussian combConst("combConst", "combConst", nComb, combConstMean, combConstSigma);
 
    //**************** fit
    

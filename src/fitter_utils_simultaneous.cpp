@@ -62,6 +62,8 @@ void FitterUtilsSimultaneous::generate()
 
    workspaceGen->Write("", TObject::kOverwrite);
    fw.Close();
+   delete dataGenKemu;
+   delete GenSpecKemu;
 }
 
 

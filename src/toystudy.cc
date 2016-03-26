@@ -34,6 +34,7 @@
 #include"usefulFunctions.h"
 #include"fitter_utils.h"
 #include"fitter_utils_simultaneous.h"
+#include"fitter_utils_1Dsimultaneous.h"
 
 namespace fs = boost::filesystem;
 
@@ -69,12 +70,13 @@ int main(int argc, char* argv[])
   bool wantHOPCut(false);
   double minBMass(4880);
   double maxBMass(5700);
-  bool wantSimultaneous(false);
+  int fitMode(1);
+  double PPerpCut(600);
 
-  if(argc != 16 && argc != 17)
+  if(argc != 16 && argc != 17 && argc!=18)
   {
     cout<<"toystudy:  Launchs a ToyMC study of the fitter specified by the options"<<endl;
-    cout<<"Syntax: "<<argv[0]<<" <no_reload> <nsignal> <npartreco> <ncomb> <nJpsiLeak> <trigger_cat> <ntoys> <bdt_var_name> <bdt_cut> <constPartReco> <mode> <output_folder> <HOP cut> <minBMass> <maxBMass> <nKemu (optional)>"<<endl;
+    cout<<"Syntax: "<<argv[0]<<" <no_reload> <nsignal> <npartreco> <ncomb> <nJpsiLeak> <trigger_cat> <ntoys> <bdt_var_name> <bdt_cut> <constPartReco> <mode> <output_folder> <HOP cut> <minBMass> <maxBMass> <nKemu (optional)> <misPTcut (optional)"<<endl;
     cout<<endl;
     cout<<endl;
     cout<<"no_reload: 0 (build PDFs from control channel), 1 (use PDFs in workspace)"<<endl;
@@ -82,13 +84,14 @@ int main(int argc, char* argv[])
     cout<<"constPartReco: Constrain part. reco. fraction? 0 (No), 1 (Yes)"<<endl;
     cout<<"mode: 1 (1D fit Mvis), 2 (2D fit Mvis x Mcorr), 3 (2D fit simultaneous with Kemu)"<<endl;
     cout<<"Want HOP cut: 1 (HOP cut applied), 0 (no HOP cut)"<<endl;
-    cout<<"nKemu: OPTIONAL, if mode = 3, must specify number of Kemu events"<<endl;
+    cout<<"nKemu: OPTIONAL, if mode = 3 or 4, must specify number of Kemu events"<<endl;
+    cout<<"misPT: OPTIONAL, if mode = 3 or 4, must put PT cut"<<endl;
   
     return 1;
   }
   
 
-  if(argc == 16 || argc == 17)
+  if(argc == 16 || argc == 17 || argc == 18)
   {
     if(*argv[1] == '1') wantOldDataSet = true;
     
@@ -118,8 +121,10 @@ int main(int argc, char* argv[])
 
 
     if(*argv[10] == '1') constPartReco = true;
-    if(*argv[11] == '2' || *argv[11] == '3') fit2D = true;
-    if(*argv[11] == '3') wantSimultaneous = true;
+
+   fitMode = atoi(argv[11]);
+
+    if(fitMode == 2 || fitMode == '3') fit2D = true;
     outputfolder = argv[12];
 
     if(*argv[13] == '1') wantHOPCut = true;
@@ -136,13 +141,20 @@ int main(int argc, char* argv[])
     
   }
 
-  if(argc == 16 && wantSimultaneous)
+  if(argc == 16 && fitMode >=3)
   {
      cerr<<"ERROR : fit mode set to simultaneous but no Kemu yield specified. Exit"<<endl;
      return 1;
   }
 
-  if(argc == 17 && wantSimultaneous) nGenKemu = atoi(argv[16]);
+  if(argc < 18 && fitMode == 4)
+  {
+      cerr<<"ERROR : fit mode set to binned simultaneous but no mis PT cut set. Exit."<<endl;
+      return 1;
+  }
+
+  if(argc == 17 && fitMode >=3) nGenKemu = atoi(argv[16]);
+  if(argc == 18 && fitMode ==4) PPerpCut = atof(argv[17]);
   
   if(minBMass < 4280 || maxBMass > 6280) 
   {
@@ -198,11 +210,14 @@ int main(int argc, char* argv[])
 
    FitterUtils fu(nGenSignal,nGenPartReco, nGenComb, nGenJpsiLeak, nGenFracZeroGamma, nGenFracOneGamma, fit2D, workspacename);
    FitterUtilsSimultaneous fuS(nGenKemu, nGenSignal,nGenPartReco, nGenComb, nGenJpsiLeak, nGenFracZeroGamma, nGenFracOneGamma, workspacename);
+   FitterUtils1DSimultaneous fuS1D(nGenKemu, nGenSignal,nGenPartReco, nGenComb, nGenJpsiLeak, nGenFracZeroGamma, nGenFracOneGamma, PPerpCut, workspacename);
+   
 
    if (!wantOldDataSet)
    { 
-      if(!wantSimultaneous) fu.prepare_PDFs(trigStr, BDTVar, BDTCutVal, fSignal, fPartReco, fComb, fJpsiLeak, minBMass, maxBMass);
-      if(wantSimultaneous) fuS.prepare_PDFs(trigStr, BDTVar, BDTCutVal, fSignal, fPartReco, fComb, fJpsiLeak, minBMass, maxBMass);
+      if(fitMode <= 2) fu.prepare_PDFs(trigStr, BDTVar, BDTCutVal, fSignal, fPartReco, fComb, fJpsiLeak, minBMass, maxBMass);
+      if(fitMode == 3) fuS.prepare_PDFs(trigStr, BDTVar, BDTCutVal, fSignal, fPartReco, fComb, fJpsiLeak, minBMass, maxBMass);
+      if(fitMode == 4) fuS1D.prepare_PDFs(trigStr, BDTVar, BDTCutVal, fSignal, fPartReco, fComb, fJpsiLeak, minBMass, maxBMass);
    }
 
 
@@ -212,6 +227,7 @@ int main(int argc, char* argv[])
 
    TFile f(resultsfile.c_str(),"update");
    TTree t(("params_"+trigStr).c_str(), ("params_"+trigStr).c_str());
+   TTree tKemu("tKemu", "tKemu");
 
    bool wantPlots(true);
    bool update(false);
@@ -225,18 +241,23 @@ int main(int argc, char* argv[])
       cout<<"************************************"<<endl<<"*********** NEW FIT *****************"<<endl<<"*************************"<<endl;
       cout<<"Generation and fit number "<<i<<endl;
 
-      if(!wantSimultaneous)
+      if(fitMode <=2)
       {
          fu.generate();
          fu.fit( wantPlots, constPartReco, 0.1, out, &t,  update, plotsfile);
       }
-      if(wantSimultaneous)
+      if(fitMode == 3)
       {
          fuS.generate();
          fuS.fit( wantPlots, constPartReco, 0.1, out, &t,  update, plotsfile);
       }
+      if(fitMode == 4)
+      {
+         fuS1D.generate();
+         fuS1D.fit( wantPlots, constPartReco, 0.1, out, &t, &tKemu,  update, plotsfile);
+      }
 
-      //wantPlots = false;
+      wantPlots = false;
       update = true;
    }
 
@@ -244,6 +265,7 @@ int main(int argc, char* argv[])
 
    f.cd();
    t.Write();
+   if(fitMode == 4) tKemu.Write();
 
    int w(10);
 
