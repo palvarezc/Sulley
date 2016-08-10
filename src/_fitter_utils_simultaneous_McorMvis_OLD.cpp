@@ -42,15 +42,15 @@ void FitterUtilsSimultaneous::generate()
    RooWorkspace* workspace = (RooWorkspace*)fw.Get("workspace");
 
    RooRealVar *B_plus_M = workspace->var("B_plus_M");
-   RooRealVar *misPT = workspace->var("misPT");
+   RooRealVar *B_plus_M_corr = workspace->var("B_plus_M_corr");
    RooRealVar *trueT = workspace->var("trueT");
    RooRealVar *trueN = workspace->var("trueN");
    RooRealVar *trueExp = workspace->var("trueExp");
 
 
-   RooPTMVis kemuPDF("kemuPDF", "kemuPDF", *misPT, *B_plus_M, *trueT, *trueN, *trueExp);
+   RooMcorMvisTsallis kemuPDF("kemuPDF", "kemuPDF", *B_plus_M_corr, *B_plus_M, *trueT, *trueN, *trueExp);
 
-   RooAbsPdf::GenSpec* GenSpecKemu = kemuPDF.prepareMultiGen(RooArgSet(*B_plus_M, *misPT), RooFit::Extended(1), NumEvents(nGenKemu));
+   RooAbsPdf::GenSpec* GenSpecKemu = kemuPDF.prepareMultiGen(RooArgSet(*B_plus_M, *B_plus_M_corr), RooFit::Extended(1), NumEvents(nGenKemu));
 
    cout<<"Generating Kemu"<<endl;
    RooDataSet* dataGenKemu = kemuPDF.generate(*GenSpecKemu);//(argset, 100, false, true, "", false, true);
@@ -77,7 +77,7 @@ void FitterUtilsSimultaneous::fit(bool wantplot, bool constPartReco,
    TFile fw(workspacename.c_str());   
    RooWorkspace* workspace = (RooWorkspace*)fw.Get("workspace");
    RooRealVar *B_plus_M = workspace->var("B_plus_M");
-   RooRealVar *misPT = workspace->var("misPT");
+   RooRealVar *B_plus_M_corr = workspace->var("B_plus_M_corr");
    RooRealVar *T = workspace->var("T");
    RooRealVar *n = workspace->var("n");
    RooRealVar *expoConst = workspace->var("expoConst");
@@ -103,8 +103,8 @@ void FitterUtilsSimultaneous::fit(bool wantplot, bool constPartReco,
    RooHistPdf *histPdfJpsiLeak(0);
    if(nGenJpsiLeak>0) histPdfJpsiLeak = (RooHistPdf *) workspace->pdf("histPdfJpsiLeak");
 
-   RooPTMVis* combPDF =  new RooPTMVis("combPDF", "combPDF", *misPT, *B_plus_M, *T, *n, *expoConst);
-   RooPTMVis* KemuPDF =  new RooPTMVis("KemuPDF", "KemuPDF", *misPT, *B_plus_M, *T, *n, expoConstKemu);
+   RooMcorMvisTsallis* combPDF =  new RooMcorMvisTsallis("combPDF", "combPDF", *B_plus_M_corr, *B_plus_M, *T, *n, *expoConst);
+   RooMcorMvisTsallis* KemuPDF =  new RooMcorMvisTsallis("KemuPDF", "KemuPDF", *B_plus_M_corr, *B_plus_M, *T, *n, expoConstKemu);
 
    expoConst->setVal(trueExp->getVal());
 
@@ -134,12 +134,12 @@ void FitterUtilsSimultaneous::fit(bool wantplot, bool constPartReco,
       //**************Plot all the different components
 
       cout<<"dataGenSignalZeroGamma: "<<dataGenSignalZeroGamma<<endl;
-      PlotShape(*dataSetSignalZeroGamma, *dataGenSignalZeroGamma, *histPdfSignalZeroGamma, plotsfile, "cSignalZeroGamma", *B_plus_M, *misPT);
-      PlotShape(*dataSetSignalOneGamma, *dataGenSignalOneGamma, *histPdfSignalOneGamma, plotsfile, "cSignalOneGamma", *B_plus_M, *misPT);
-      PlotShape(*dataSetSignalTwoGamma, *dataGenSignalTwoGamma, *histPdfSignalTwoGamma, plotsfile, "cSignalTwoGamma", *B_plus_M, *misPT);
-      PlotShape(*dataSetPartReco, *dataGenPartReco, *histPdfPartReco, plotsfile, "cPartReco", *B_plus_M, *misPT);
-      PlotShape(*dataSetComb, *dataGenComb, *combPDF, plotsfile, "cComb", *B_plus_M, *misPT);
-      if(nGenJpsiLeak>1) PlotShape(*dataSetJpsiLeak, *dataGenJpsiLeak, *histPdfJpsiLeak, plotsfile, "cJpsiLeak", *B_plus_M, *misPT);
+      PlotShape(*dataSetSignalZeroGamma, *dataGenSignalZeroGamma, *histPdfSignalZeroGamma, plotsfile, "cSignalZeroGamma", *B_plus_M, *B_plus_M_corr);
+      PlotShape(*dataSetSignalOneGamma, *dataGenSignalOneGamma, *histPdfSignalOneGamma, plotsfile, "cSignalOneGamma", *B_plus_M, *B_plus_M_corr);
+      PlotShape(*dataSetSignalTwoGamma, *dataGenSignalTwoGamma, *histPdfSignalTwoGamma, plotsfile, "cSignalTwoGamma", *B_plus_M, *B_plus_M_corr);
+      PlotShape(*dataSetPartReco, *dataGenPartReco, *histPdfPartReco, plotsfile, "cPartReco", *B_plus_M, *B_plus_M_corr);
+      PlotShape(*dataSetComb, *dataGenComb, *combPDF, plotsfile, "cComb", *B_plus_M, *B_plus_M_corr);
+      if(nGenJpsiLeak>1) PlotShape(*dataSetJpsiLeak, *dataGenJpsiLeak, *histPdfJpsiLeak, plotsfile, "cJpsiLeak", *B_plus_M, *B_plus_M_corr);
    }
 
    //***************Merge datasets
@@ -157,7 +157,7 @@ void FitterUtilsSimultaneous::fit(bool wantplot, bool constPartReco,
    category.defineType("Kee");
    category.defineType("Kemu");
 
-   RooDataSet dataGenSimultaneous("dataGenSimultaneous", "dataGenSimultaneous", RooArgSet(*B_plus_M, *misPT), Index(category), Import("Kee", *dataGenTot), Import("Kemu", *dataGenKemu));
+   RooDataSet dataGenSimultaneous("dataGenSimultaneous", "dataGenSimultaneous", RooArgSet(*B_plus_M, *B_plus_M_corr), Index(category), Import("Kee", *dataGenTot), Import("Kemu", *dataGenKemu));
 
    //**************Prepare fitting function
 

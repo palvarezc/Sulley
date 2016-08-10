@@ -33,7 +33,6 @@
 #include<RooChebychev.h>
 #include<RooProdPdf.h>
 #include "RooMcorMvisTsallis.h"
-#include "RooPTMVis.h"
 #include "usefulFunctions.h"
 #include "RooNumIntConfig.h"
 
@@ -68,8 +67,8 @@ class FitterUtils
 
    void plot_fit_result(string plotsfile, RooAbsPdf &totPdf, RooDataSet dataGenTot);
 
-   void PlotShape(RooDataSet& originDataSet, RooDataSet& genDataSet, RooAbsPdf& shape, string plotsfile, string canvName, RooRealVar& B_plus_M, RooRealVar& misPT);
-   void PlotShape2D(RooDataSet& originDataSet, RooDataSet& genDataSet, RooAbsPdf& shape, string plotsfile, string canvName, RooRealVar& B_plus_M, RooRealVar& misPT);
+   void PlotShape(RooDataSet& originDataSet, RooDataSet& genDataSet, RooAbsPdf& shape, string plotsfile, string canvName, RooRealVar& B_plus_M, RooRealVar& B_plus_M_corr);
+   void PlotShape2D(RooDataSet& originDataSet, RooDataSet& genDataSet, RooAbsPdf& shape, string plotsfile, string canvName, RooRealVar& B_plus_M, RooRealVar& B_plus_M_corr);
    void PlotShape1D(RooDataSet& originDataSet, RooDataSet& genDataSet, RooAbsPdf& shape, string plotsfile, string canvName, RooRealVar& B_plus_M);
 
 

@@ -1,5 +1,5 @@
-#ifndef FITTER_UTILS_H
-#define FITTER_UTILS_H
+#ifndef FITTER_UTILS_EXPOFPOLY_H
+#define FITTER_UTILS_EXPOFPOLY_H
 
 #include<iostream>
 #include<TMath.h>
@@ -40,12 +40,12 @@
 using namespace std;
 using namespace RooFit;
 
-class FitterUtils
+class FitterUtilsExpOfPolyTimesX
 {
 
    public:
 
-   FitterUtils(int nGenSignal_, int nGenPartReco_, int nGenComb_, int nGenJpsiLeak_, double nGenFracZeroGamma_, double nGenFracOneGamma_, bool fit2D_, string workspacename_);
+   FitterUtilsExpOfPolyTimesX(int nGenSignal_, int nGenPartReco_, int nGenComb_, int nGenJpsiLeak_, double nGenFracZeroGamma_, double nGenFracOneGamma_, string workspacename_);
 
    void prepare_PDFs(string trigStr, string BDTVar, double BDTcut,
          string signalfile, string partrecofile, string combinatorialfile, string JpsiLeakfile,
@@ -53,7 +53,7 @@ class FitterUtils
          string signaltree = "DecayTree", string partrecotree = "DecayTree", string combinatorialtree = "DecayTree", string JpsiLeaktree = "DecayTree");
 
 
-   void generate();
+   void generate(bool wantPlots = false, string plotsfile = "toErase.root");
    void fit(bool wantplot, bool constPartReco,
          double fracPartReco_const, ofstream& out, TTree* t, bool update, string plotsfile);
 
@@ -62,9 +62,11 @@ class FitterUtils
 
    void initiateParams(RooArgSet* parset);
 
-   void initiateParams(int nGenSignalZeroGamma, int nGenSignalOneGamma, int nGenSignalTwoGamma, RooRealVar const& expoConstGen,
-         RooRealVar& nSignal, RooRealVar& nPartReco, 
-         RooRealVar& nComb, RooRealVar& fracZero, RooRealVar& fracOne, RooRealVar& expoConst, RooRealVar&  nJpsiLeak, bool constPartReco, RooRealVar const& fracPartRecoSigma);
+   void initiateParams(int nGenSignalZeroGamma, int nGenSignalOneGamma, int nGenSignalTwoGamma, RooRealVar& nSignal, RooRealVar& nPartReco,
+         RooRealVar& nComb, RooRealVar& fracZero, RooRealVar& fracOne, RooRealVar&  nJpsiLeak, bool constPartReco, RooRealVar const& fracPartRecoSigma,
+         RooRealVar& l1Kee, RooRealVar& l2Kee, RooRealVar& l3Kee, RooRealVar& l4Kee, RooRealVar& l5Kee,
+         RooRealVar const& l1KeeGen, RooRealVar const& l2KeeGen, RooRealVar const& l3KeeGen, RooRealVar const& l4KeeGen, RooRealVar const& l5KeeGen );
+
 
    void plot_fit_result(string plotsfile, RooAbsPdf &totPdf, RooDataSet dataGenTot);
 
@@ -79,8 +81,8 @@ class FitterUtils
    int nGenJpsiLeak;
    double nGenFracZeroGamma;  
    double nGenFracOneGamma;
-   bool fit2D;
    string workspacename;
+
 
 };
 

@@ -35,7 +35,6 @@
 #include<RooSimultaneous.h>
 #include<RooCategory.h>
 #include "RooMcorMvisTsallis.h"
-#include "RooPTMVis.h"
 #include "usefulFunctions.h"
 #include "RooNumIntConfig.h"
 #include "RooExtendPdf.h"

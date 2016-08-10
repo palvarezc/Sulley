@@ -1,23 +1,31 @@
-#include "fitter_utils_simultaneous.h"
+#include "fitter_utils_simultaneous_ExpOfPolyTimesX.h"
+#include "RooExpOfPolyTimesX.h"
 #include "RooBinning.h"
 #include "RooRandom.h"
 
 
-FitterUtilsSimultaneous::FitterUtilsSimultaneous(int nGenKemu_, int nGenSignal_, int nGenPartReco_, int nGenComb_, int nGenJpsiLeak_, double nGenFracZeroGamma_, double nGenFracOneGamma_, string workspacename_)
-   :FitterUtils(nGenSignal_, nGenPartReco_, nGenComb_, nGenJpsiLeak_, nGenFracZeroGamma_, nGenFracOneGamma_, true, workspacename_), nGenKemu(nGenKemu_)
+FitterUtilsSimultaneousExpOfPolyTimesX::FitterUtilsSimultaneousExpOfPolyTimesX(int nGenKemu_, int nGenSignal_, int nGenPartReco_, int nGenComb_, int nGenJpsiLeak_,
+    double nGenFracZeroGamma_, double nGenFracOneGamma_, string workspacename_)
+   :FitterUtilsExpOfPolyTimesX(nGenSignal_, nGenPartReco_, nGenComb_, nGenJpsiLeak_, nGenFracZeroGamma_, nGenFracOneGamma_, workspacename_), nGenKemu(nGenKemu_)
    {}
 
 
-void FitterUtilsSimultaneous::initiateParams(int nGenSignalZeroGamma, int nGenSignalOneGamma, int nGenSignalTwoGamma, RooRealVar const& expoConstGen,
-      RooRealVar const& TGen, RooRealVar const& nGen,
+void FitterUtilsSimultaneousExpOfPolyTimesX::initiateParams(int nGenSignalZeroGamma, int nGenSignalOneGamma, int nGenSignalTwoGamma,
       RooRealVar& nKemu, RooRealVar& nSignal, RooRealVar& nPartReco,
       RooRealVar& nComb, RooRealVar& fracZero, RooRealVar& fracOne,
-      RooRealVar& expoConst, RooRealVar& expoConstKemu,
-      RooRealVar& T, RooRealVar& n,
-      RooRealVar&  nJpsiLeak, bool constPartReco, RooRealVar const& fracPartRecoSigma)
+      RooRealVar&  nJpsiLeak, bool constPartReco, RooRealVar const& fracPartRecoSigma,
+      RooRealVar& l1Kee, RooRealVar& l2Kee, RooRealVar& l3Kee, RooRealVar& l4Kee, RooRealVar& l5Kee,
+      RooRealVar& l1Kemu, RooRealVar& l2Kemu, RooRealVar& l3Kemu, RooRealVar& l4Kemu, RooRealVar& l5Kemu,
+      RooRealVar const& l1KeeGen, RooRealVar const& l2KeeGen, RooRealVar const& l3KeeGen, RooRealVar const& l4KeeGen, RooRealVar const& l5KeeGen 
+
+      )
 {
-  FitterUtils::initiateParams(nGenSignalZeroGamma, nGenSignalOneGamma, nGenSignalTwoGamma, expoConstGen,
-           nSignal, nPartReco, nComb, fracZero, fracOne, expoConst, nJpsiLeak, constPartReco, fracPartRecoSigma); 
+  FitterUtilsExpOfPolyTimesX::initiateParams(nGenSignalZeroGamma, nGenSignalOneGamma, nGenSignalTwoGamma,
+           nSignal, nPartReco, nComb, fracZero, fracOne, nJpsiLeak, constPartReco, fracPartRecoSigma,
+           l1Kee, l2Kee, l3Kee, l4Kee, l5Kee,
+           l1KeeGen, l2KeeGen, l3KeeGen, l4KeeGen, l5KeeGen ); 
+
+
 
   TRandom rand;
   rand.SetSeed();
@@ -25,30 +33,65 @@ void FitterUtilsSimultaneous::initiateParams(int nGenSignalZeroGamma, int nGenSi
   nKemu.setVal(rand.Uniform(nGenKemu-5*sqrt(nGenKemu), nGenKemu+5*sqrt(nGenKemu)));
   nKemu.setRange(nGenKemu-10*sqrt(nGenKemu), nGenKemu+10*sqrt(nGenKemu));
 
-  T.setVal(rand.Uniform( TMath::Max(0.,TGen.getVal() - 5*TGen.getError()), TGen.getVal() + 5*TGen.getError()));
-  T.setRange(TMath::Max(TGen.getVal() - 10*TGen.getError(),0.), TGen.getVal() + 10*TGen.getError());
+  l1Kemu.setVal(rand.Uniform( l1KeeGen.getVal() - 5*l1KeeGen.getError(), l1KeeGen.getVal() + 5*l1KeeGen.getError() ) );
+  l1Kemu.setRange( l1KeeGen.getVal() - 10*l1KeeGen.getError(), l1KeeGen.getVal() + 10*l1KeeGen.getError() );
 
-  n.setVal(rand.Uniform(TMath::Max( nGen.getVal() - 5*nGen.getError(),2.), nGen.getVal() + 5*nGen.getError()));
-  n.setRange(TMath::Max(nGen.getVal() - 10*nGen.getError(),2.), nGen.getVal() + 10*nGen.getError());
+  l2Kemu.setVal(rand.Uniform( l2KeeGen.getVal() - 5*l2KeeGen.getError(), l2KeeGen.getVal() + 5*l2KeeGen.getError() ) );
+  l2Kemu.setRange( l2KeeGen.getVal() - 10*l2KeeGen.getError(), l2KeeGen.getVal() + 10*l2KeeGen.getError() );
 
-  expoConstKemu.setVal(rand.Uniform( expoConstGen.getVal() - 5*expoConstGen.getError(), expoConstGen.getVal() + 5*expoConstGen.getError() ) );
-  expoConstKemu.setRange( expoConstGen.getVal() - 10*expoConstGen.getError(), expoConstGen.getVal() + 10*expoConstGen.getError() );
+  l3Kemu.setVal(rand.Uniform( l3KeeGen.getVal() - 5*l3KeeGen.getError(), l3KeeGen.getVal() + 5*l3KeeGen.getError() ) );
+  l3Kemu.setRange( l3KeeGen.getVal() - 10*l3KeeGen.getError(), l3KeeGen.getVal() + 10*l3KeeGen.getError() );
+
+  l4Kemu.setVal(rand.Uniform( l4KeeGen.getVal() - 5*l4KeeGen.getError(), l4KeeGen.getVal() + 5*l4KeeGen.getError() ) );
+  l4Kemu.setRange( l4KeeGen.getVal() - 10*l4KeeGen.getError(), l4KeeGen.getVal() + 10*l4KeeGen.getError() );
+
+  l5Kemu.setVal(rand.Uniform( l5KeeGen.getVal() - 5*l5KeeGen.getError(), l5KeeGen.getVal() + 5*l5KeeGen.getError() ) );
+  l5Kemu.setRange( l5KeeGen.getVal() - 10*l5KeeGen.getError(), l5KeeGen.getVal() + 10*l5KeeGen.getError() );
+
 }
 
-void FitterUtilsSimultaneous::generate()
+void FitterUtilsSimultaneousExpOfPolyTimesX::generate(bool wantPlots, string plotsfile)
 {
-   FitterUtils::generate();
+   FitterUtilsExpOfPolyTimesX::generate(wantPlots, plotsfile);
    TFile fw(workspacename.c_str(), "UPDATE");
    RooWorkspace* workspace = (RooWorkspace*)fw.Get("workspace");
 
    RooRealVar *B_plus_M = workspace->var("B_plus_M");
    RooRealVar *misPT = workspace->var("misPT");
-   RooRealVar *trueT = workspace->var("trueT");
-   RooRealVar *trueN = workspace->var("trueN");
-   RooRealVar *trueExp = workspace->var("trueExp");
+   RooDataSet* dataSetCombExt = (RooDataSet*)workspace->data("dataSetCombExt");
+   RooDataSet* dataSetComb = (RooDataSet*)workspace->data("dataSetComb");
+//   RooRealVar *l1KeeGen = workspace->var("l1KeeGen");  
+//   RooRealVar *l2KeeGen = workspace->var("l2KeeGen");  
+//   RooRealVar *l3KeeGen = workspace->var("l3KeeGen");  
+//   RooRealVar *l4KeeGen = workspace->var("l4KeeGen");  
+//   RooRealVar *l5KeeGen = workspace->var("l5KeeGen");  
+//
+//
+//   RooExpOfPolyTimesX kemuPDF("kemuPDF", "kemuPDF",  *B_plus_M, *misPT,  *l1KeeGen, *l2KeeGen, *l3KeeGen, *l4KeeGen, *l5KeeGen);
+//
+//   RooAbsPdf::GenSpec* GenSpecKemu = kemuPDF.prepareMultiGen(RooArgSet(*B_plus_M, *misPT), RooFit::Extended(1), NumEvents(nGenKemu));
+//
+//   cout<<"Generating Kemu"<<endl;
+//   RooDataSet* dataGenKemu = kemuPDF.generate(*GenSpecKemu);//(argset, 100, false, true, "", false, true);
+//   dataGenKemu->SetName("dataGenKemu"); dataGenKemu->SetTitle("dataGenKemu");
+//
+//
+//   RooWorkspace* workspaceGen = (RooWorkspace*)fw.Get("workspaceGen");
+//   workspaceGen->import(*dataGenKemu);
+//
+//   workspaceGen->Write("", TObject::kOverwrite);
+//   fw.Close();
+//   delete dataGenKemu;
+//   delete GenSpecKemu;
 
 
-   RooPTMVis kemuPDF("kemuPDF", "kemuPDF", *misPT, *B_plus_M, *trueT, *trueN, *trueExp);
+   TVectorD rho(2);
+   rho[0] = 2.5;
+   rho[1] = 1.5;
+   misPT->setRange(-2000, 5000);
+   RooNDKeysPdf kemuPDF("kemuPDF", "kemuPDF", RooArgList(*B_plus_M, *misPT), *dataSetCombExt, rho, "ma",3, true);
+   misPT->setRange(0, 5000);
+
 
    RooAbsPdf::GenSpec* GenSpecKemu = kemuPDF.prepareMultiGen(RooArgSet(*B_plus_M, *misPT), RooFit::Extended(1), NumEvents(nGenKemu));
 
@@ -60,6 +103,9 @@ void FitterUtilsSimultaneous::generate()
    RooWorkspace* workspaceGen = (RooWorkspace*)fw.Get("workspaceGen");
    workspaceGen->import(*dataGenKemu);
 
+   if(wantPlots) PlotShape(*dataSetComb, *dataGenKemu, kemuPDF, plotsfile, "cKemuKeys", *B_plus_M, *misPT);
+
+   fw.cd();
    workspaceGen->Write("", TObject::kOverwrite);
    fw.Close();
    delete dataGenKemu;
@@ -67,7 +113,7 @@ void FitterUtilsSimultaneous::generate()
 }
 
 
-void FitterUtilsSimultaneous::fit(bool wantplot, bool constPartReco,
+void FitterUtilsSimultaneousExpOfPolyTimesX::fit(bool wantplot, bool constPartReco,
       double fracPartReco_const,
       ofstream& out, TTree* t, bool update, string plotsfile)
 {
@@ -78,23 +124,30 @@ void FitterUtilsSimultaneous::fit(bool wantplot, bool constPartReco,
    RooWorkspace* workspace = (RooWorkspace*)fw.Get("workspace");
    RooRealVar *B_plus_M = workspace->var("B_plus_M");
    RooRealVar *misPT = workspace->var("misPT");
-   RooRealVar *T = workspace->var("T");
-   RooRealVar *n = workspace->var("n");
-   RooRealVar *expoConst = workspace->var("expoConst");
-   RooRealVar *trueExp = workspace->var("trueExp");
-   RooRealVar *trueT = workspace->var("trueT");
-   RooRealVar *trueN = workspace->var("trueN");
+   RooRealVar *l1Kee = workspace->var("l1Kee");
+   RooRealVar *l2Kee = workspace->var("l2Kee");
+   RooRealVar *l3Kee = workspace->var("l3Kee");
+   RooRealVar *l4Kee = workspace->var("l4Kee");
+   RooRealVar *l5Kee = workspace->var("l5Kee");
+   RooRealVar *l1KeeGen = workspace->var("l1KeeGen");
+   RooRealVar *l2KeeGen = workspace->var("l2KeeGen");
+   RooRealVar *l3KeeGen = workspace->var("l3KeeGen");
+   RooRealVar *l4KeeGen = workspace->var("l4KeeGen");
+   RooRealVar *l5KeeGen = workspace->var("l5KeeGen");
    RooRealVar *fractionalErrorJpsiLeak = workspace->var("fractionalErrorJpsiLeak");
 
-   RooRealVar expoConstKemu(*expoConst);
-   expoConstKemu.SetName("expoConstKemu");
-   expoConstKemu.SetTitle("expoConstKemu");
 
-   T->setConstant(false);
-   n->setConstant(false);
+   RooRealVar l1Kemu(*l1Kee);
+   l1Kemu.SetName("l1Kemu"); l1Kemu.SetTitle("l1Kemu");    
+   RooRealVar l2Kemu(*l2Kee);
+   l2Kemu.SetName("l2Kemu"); l2Kemu.SetTitle("l2Kemu");    
+   RooRealVar l3Kemu(*l3Kee);
+   l3Kemu.SetName("l3Kemu"); l3Kemu.SetTitle("l3Kemu");    
+   RooRealVar l4Kemu(*l4Kee);
+   l4Kemu.SetName("l4Kemu"); l4Kemu.SetTitle("l4Kemu");    
+   RooRealVar l5Kemu(*l5Kee);
+   l5Kemu.SetName("l5Kemu"); l5Kemu.SetTitle("l5Kemu");    
 
-   cout<<"VALUE OF T IN FIT: "<<T->getVal()<<" +- "<<T->getError()<<endl;
-   cout<<"VALUE OF n IN FIT: "<<n->getVal()<<" +- "<<n->getError()<<endl;
 
    RooHistPdf *histPdfSignalZeroGamma = (RooHistPdf *) workspace->pdf("histPdfSignalZeroGamma");
    RooHistPdf *histPdfSignalOneGamma = (RooHistPdf *) workspace->pdf("histPdfSignalOneGamma");
@@ -103,10 +156,11 @@ void FitterUtilsSimultaneous::fit(bool wantplot, bool constPartReco,
    RooHistPdf *histPdfJpsiLeak(0);
    if(nGenJpsiLeak>0) histPdfJpsiLeak = (RooHistPdf *) workspace->pdf("histPdfJpsiLeak");
 
-   RooPTMVis* combPDF =  new RooPTMVis("combPDF", "combPDF", *misPT, *B_plus_M, *T, *n, *expoConst);
-   RooPTMVis* KemuPDF =  new RooPTMVis("KemuPDF", "KemuPDF", *misPT, *B_plus_M, *T, *n, expoConstKemu);
+   //Here set in the Kemu PDF the parameters that have to be shared
 
-   expoConst->setVal(trueExp->getVal());
+   RooExpOfPolyTimesX* combPDF = new RooExpOfPolyTimesX("combPDF", "combPDF",  *B_plus_M, *misPT,  *l1Kee, *l2Kee, *l3Kee, *l4Kee, *l5Kee);
+   RooExpOfPolyTimesX* KemuPDF = new RooExpOfPolyTimesX("kemuPDF", "kemuPDF",  *B_plus_M, *misPT,  l1Kemu, *l2Kee, *l3Kee, *l4Kee, *l5Kee);
+
 
 
    RooWorkspace* workspaceGen = (RooWorkspace*)fw.Get("workspaceGen");
@@ -220,12 +274,11 @@ void FitterUtilsSimultaneous::fit(bool wantplot, bool constPartReco,
    RooAbsReal::defaultIntegratorConfig()->setEpsRel(1e-8) ;
 
 
-   initiateParams(nGenSignalZeroGamma, nGenSignalOneGamma, nGenSignalTwoGamma, *trueExp,
-         *trueT, *trueN,
-         nKemu, nSignal, nPartReco,
-         nComb, fracZero, fracOne,
-         *expoConst, expoConstKemu, *T, *n,
-         nJpsiLeak, constPartReco, fracPartRecoSigma);
+   initiateParams(nGenSignalZeroGamma, nGenSignalOneGamma, nGenSignalTwoGamma, 
+         nKemu, nSignal, nPartReco, nComb, fracZero, fracOne,
+         nJpsiLeak, constPartReco, fracPartRecoSigma, 
+         *l1Kee, *l2Kee, *l3Kee, *l4Kee, *l5Kee, l1Kemu, l2Kemu, l3Kemu, l4Kemu, l5Kemu, 
+         *l1KeeGen, *l2KeeGen, *l3KeeGen, *l4KeeGen, *l5KeeGen);
 
    RooArgSet constraints(fracZeroConst, fracOneConst);
    if (constPartReco) constraints.add(fracPartRecoConst);
@@ -250,14 +303,14 @@ void FitterUtilsSimultaneous::fit(bool wantplot, bool constPartReco,
 
    bool hasConverged(false);
 
-   for(int i(0); (i<10) && !hasConverged ; ++i)
+   for(int i(0); (i<15) && !hasConverged ; ++i)
    {
-      initiateParams(nGenSignalZeroGamma, nGenSignalOneGamma, nGenSignalTwoGamma, *trueExp,
-            *trueT, *trueN,
-            nKemu, nSignal, nPartReco,
-            nComb, fracZero, fracOne,
-            *expoConst, expoConstKemu, *T, *n,
-            nJpsiLeak, constPartReco, fracPartRecoSigma);
+      initiateParams(nGenSignalZeroGamma, nGenSignalOneGamma, nGenSignalTwoGamma, 
+            nKemu, nSignal, nPartReco, nComb, fracZero, fracOne,
+            nJpsiLeak, constPartReco, fracPartRecoSigma, 
+            *l1Kee, *l2Kee, *l3Kee, *l4Kee, *l5Kee, l1Kemu, l2Kemu, l3Kemu, l4Kemu, l5Kemu, 
+            *l1KeeGen, *l2KeeGen, *l3KeeGen, *l4KeeGen, *l5KeeGen);
+
       cout<<"FITTING: starting with nsignal = "<<nSignal.getValV()<<" refit nbr. "<<i<<endl;
       //if(fitRes != NULL && fitRes != 0) delete fitRes;
 
@@ -322,7 +375,7 @@ void FitterUtilsSimultaneous::fit(bool wantplot, bool constPartReco,
 }
 
 
-void FitterUtilsSimultaneous::plot_kemu_fit_result(string plotsfile, RooAbsPdf &totKemuPdf, RooDataSet const& dataGenKemu)
+void FitterUtilsSimultaneousExpOfPolyTimesX::plot_kemu_fit_result(string plotsfile, RooAbsPdf &totKemuPdf, RooDataSet const& dataGenKemu)
 {
 
    //**************Prepare TFile to save the plots
@@ -357,7 +410,5 @@ void FitterUtilsSimultaneous::plot_kemu_fit_result(string plotsfile, RooAbsPdf &
 
    cFit.Write();
    f2.Close();
-
-
 }
 
