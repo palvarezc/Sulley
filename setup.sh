@@ -24,7 +24,7 @@ fi
 export SULLEYROOT=${PWD}
 
 
-# export ROOTSYS=/cvmfs/lhcb.cern.ch/lib/lcg/releases/LCG_79/ROOT/6.04.02/x86_64-slc6-gcc48-opt/root
-# source $ROOTSYS/bin/thisroot.sh
+#export ROOTSYS=/cvmfs/lhcb.cern.ch/lib/lcg/releases/LCG_79/ROOT/6.04.02/x86_64-slc6-gcc48-opt/root
+#source $ROOTSYS/bin/thisroot.sh
 
 

@@ -9,6 +9,15 @@ std::string legs = strs.str();
 return legs;
 }
 
+
+string i2s(int nbr)
+{
+   stringstream ss;
+   ss<<nbr;
+   return ss.str();
+}
+
+
 string d2s(double nbr, int nfixed )
 {
    stringstream ss;

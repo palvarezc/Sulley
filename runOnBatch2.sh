@@ -1,23 +1,25 @@
 # Fitter arguments
 # Trigger category: 0=ETOS, 1=HTOS, 2=TIS
 # Reload control samples from tuples: 0=YES, 1=NO
+#"mode: 1 (1D fit Mvis), 2 (2D fit Mvis x misPT), 3 (2D fit simultaneous with Kemu), 4 (binned), 5 (2D fit Mvis x misPT, RooPolyTimesX fit function),
+# 6: (2D fit Mvis x misPT, RooPolyTimesX fit function, simultaneous with kemu)"
 RELOAD_CTRL_SAMPLES=0
-Y_SIG=51
-Y_PART_RECO=26
-Y_COMB=101
-Y_JPSILEAK=3
-TRIGGER=2
-N_TOYS=250
+Y_SIG=199
+Y_PART_RECO=92
+Y_COMB=440
+Y_JPSILEAK=16
+TRIGGER=0
+N_TOYS=200
 BDT_VAR_NAME="BDTNewu4bR"
-BDT_CUT=0.5798  #-0.0187   0.297
-OUTPUTDIR="toy_result_12_02/toy_result_TIS_2DSimultaneous/"
+BDT_CUT=0.1428  #-0.0187   0.297
+OUTPUTDIR="toy_result_26_03/toy_result_ETOS_2D_KisNotMuon_ExpOfPolyTimesX_LambdaAllFree_systematic6/"
 CONSTRAINED=0
-MODE=3
+MODE=5
 WANT_HOP_CUT=0 #0: no HOP cut, 1: HOP cut
 MIN_B_MASS=4880
 MAX_B_MASS=6200
-N_BATCH_JOBS=40
-N_KEMU=425    #563 for ETOS, 553 for HTOS, 425 for TIS
+N_BATCH_JOBS=35
+N_KEMU=420   #420 for ETOS, 542 for HTOS, 299 for TIS                     #OLD:: 563 for ETOS, 553 for HTOS, 425 for TIS
 PPERP_CUT=600
 
 if [ ! -d $OUTPUTDIR ]
@@ -84,7 +86,7 @@ if [ $MODE = 2 ] || [ $MODE = 3 ]
 then
    NDIMS=2
 fi
-OUTPUTTREE="toystudyHistBremCatTsallisBkg_results"$NDIMS"D"$TRIGSTR".root"
+OUTPUTTREE="toystudyHistBremCatTsallisBkg_resultsMode"$MODE""$TRIGSTR".root"
 
 HADDSTRING="hadd -k -f "$CURRENTDIR$OUTPUTDIR$OUTPUTTREE
 
@@ -134,6 +136,16 @@ fi
 if [ $MODE = 4 ]
 then
    QUEUE="hepshort.q"
+fi
+
+if [ $MODE = 5 ]
+then
+   QUEUE="hepmedium.q"
+fi
+
+if [ $MODE = 6 ]
+then
+   QUEUE="hepmedium.q"
 fi
 
 QSUBSTRING="qsub -wd "$CURRENTDIR"/"$OUTPUTDIR" -q "$QUEUE" -t 1-"$N_BATCH_JOBS":1 "$runOnBatchScript

@@ -97,9 +97,9 @@ void FitterUtils::prepare_PDFs(string trigStr, string BDTVar, double BDTcut,
    //**********Define variables
    RooRealVar trigVar(trigStr.c_str(), trigStr.c_str(), -10, 10);
    RooRealVar BDTRooRealVar(BDTVar.c_str(), BDTVar.c_str(), -1,1);
-   RooRealVar B_plus_M("B_plus_M", "M_{visible}", minBMass, maxBMass, "MeV/c^{2}");
-   RooRealVar B_plus_M_corr("B_plus_M_corr", "M_{cor}", minBMass, 10000, "MeV/c^{2}");
-   RooRealVar B_plus_DTFM_M_zero("B_plus_DTFM_M_zero", "M_{constr}", 0, 20000, "MeV/c^{2}"); 
+   RooRealVar B_plus_M("B_plus_M", "M_{visible}", minBMass, maxBMass, "MeV");
+   RooRealVar misPT("misPT", "p_{#perp}", 0, 5000, "MeV");
+   RooRealVar B_plus_DTFM_M_zero("B_plus_DTFM_M_zero", "M_{constr}", 0, 20000, "MeV"); 
    RooRealVar e_plus_BremMultiplicity("e_plus_BremMultiplicity","e_plus_BremMultiplicity", -1,2);
    RooRealVar e_minus_BremMultiplicity("e_minus_BremMultiplicity","e_minus_BremMultiplicity", -1,2);
 
@@ -110,16 +110,16 @@ void FitterUtils::prepare_PDFs(string trigStr, string BDTVar, double BDTcut,
 
    //***********Set only variables needed
 
-   tSignal->SetBranchStatus("*", 0); tSignal->SetBranchStatus("B_plus_M", 1); tSignal->SetBranchStatus("B_plus_M_corr", 1); tSignal->SetBranchStatus("B_plus_DTFM_M_zero", 1); tSignal->SetBranchStatus(BDTVar.c_str(),1);
+   tSignal->SetBranchStatus("*", 0); tSignal->SetBranchStatus("B_plus_M", 1); tSignal->SetBranchStatus("misPT", 1); tSignal->SetBranchStatus("B_plus_DTFM_M_zero", 1); tSignal->SetBranchStatus(BDTVar.c_str(),1);
    tSignal->SetBranchStatus("e_plus_BremMultiplicity", 1); tSignal->SetBranchStatus("e_minus_BremMultiplicity", 1); tSignal->SetBranchStatus(trigStr.c_str()); tSignal->SetBranchStatus("DataMCWeightee",1);
 
-   tPartReco->SetBranchStatus("*", 0); tPartReco->SetBranchStatus("B_plus_M", 1); tPartReco->SetBranchStatus("B_plus_M_corr", 1); tPartReco->SetBranchStatus("B_plus_DTFM_M_zero", 1);tPartReco->SetBranchStatus(BDTVar.c_str(),1);
+   tPartReco->SetBranchStatus("*", 0); tPartReco->SetBranchStatus("B_plus_M", 1); tPartReco->SetBranchStatus("misPT", 1); tPartReco->SetBranchStatus("B_plus_DTFM_M_zero", 1);tPartReco->SetBranchStatus(BDTVar.c_str(),1);
    tPartReco->SetBranchStatus("e_plus_BremMultiplicity", 1); tPartReco->SetBranchStatus("e_minus_BremMultiplicity", 1); tPartReco->SetBranchStatus(trigStr.c_str()); tPartReco->SetBranchStatus("weightPartReco",1);
 
-   tComb->SetBranchStatus("*", 0); tComb->SetBranchStatus("B_plus_M", 1); tComb->SetBranchStatus("B_plus_M_corr", 1); tComb->SetBranchStatus("B_plus_DTFM_M_zero", 1);tComb->SetBranchStatus(BDTVar.c_str(),1);
+   tComb->SetBranchStatus("*", 0); tComb->SetBranchStatus("B_plus_M", 1); tComb->SetBranchStatus("misPT", 1); tComb->SetBranchStatus("B_plus_DTFM_M_zero", 1);tComb->SetBranchStatus(BDTVar.c_str(),1);
    tComb->SetBranchStatus("e_plus_BremMultiplicity", 1); tComb->SetBranchStatus("e_minus_BremMultiplicity", 1); tComb->SetBranchStatus(trigStr.c_str());
 
-   tJpsiLeak->SetBranchStatus("*", 0); tJpsiLeak->SetBranchStatus("B_plus_M", 1); tJpsiLeak->SetBranchStatus("B_plus_M_corr", 1); 
+   tJpsiLeak->SetBranchStatus("*", 0); tJpsiLeak->SetBranchStatus("B_plus_M", 1); tJpsiLeak->SetBranchStatus("misPT", 1); 
    tJpsiLeak->SetBranchStatus("B_plus_DTFM_M_zero", 1);tJpsiLeak->SetBranchStatus(BDTVar.c_str(),1);
    tJpsiLeak->SetBranchStatus("e_plus_BremMultiplicity", 1); tJpsiLeak->SetBranchStatus("e_minus_BremMultiplicity", 1); tJpsiLeak->SetBranchStatus(trigStr.c_str()); 
    tJpsiLeak->SetBranchStatus("weightLeakage",1);
@@ -129,21 +129,21 @@ void FitterUtils::prepare_PDFs(string trigStr, string BDTVar, double BDTcut,
 
 
    RooBinning defaultMBins(floor((maxBMass-minBMass)/(40.)), B_plus_M.getMin(), B_plus_M.getMax() ); 
-   RooBinning defaultMCorrBins(floor((10000-minBMass)/120.), B_plus_M_corr.getMin(), B_plus_M_corr.getMax()); 
+   RooBinning defaultMisPTBins(floor(40), misPT.getMin(), misPT.getMax()); 
    RooBinning broaderMBins(floor((maxBMass-minBMass)/(80.)), B_plus_M.getMin(), B_plus_M.getMax()); 
-   RooBinning broaderMCorrBins(floor((10000-minBMass)/240.), B_plus_M_corr.getMin(), B_plus_M_corr.getMax()); 
+   RooBinning broaderMisPTBins(floor(40), misPT.getMin(), misPT.getMax()); 
 
    B_plus_M.setBinning( defaultMBins);
-   B_plus_M_corr.setBinning( defaultMCorrBins );
+   misPT.setBinning( defaultMisPTBins );
    B_plus_M.setBinning( broaderMBins, "broaderBins");
-   B_plus_M_corr.setBinning( broaderMCorrBins, "broaderBins" );
+   misPT.setBinning( broaderMisPTBins, "broaderBins" );
 
    B_plus_DTFM_M_zero.setBins(100);
 
-   RooArgSet argset(BDTRooRealVar, B_plus_DTFM_M_zero, B_plus_M_corr,  B_plus_M, trigVar, e_plus_BremMultiplicity, e_minus_BremMultiplicity);
-   RooArgSet argsetPartReco(BDTRooRealVar, B_plus_DTFM_M_zero, B_plus_M_corr,  B_plus_M, trigVar, e_plus_BremMultiplicity, e_minus_BremMultiplicity, weightPartReco);
-   RooArgSet argsetLeakage(BDTRooRealVar, B_plus_DTFM_M_zero, B_plus_M_corr,  B_plus_M, trigVar, e_plus_BremMultiplicity, e_minus_BremMultiplicity, weightLeakage);
-   RooArgSet argsetSignal(BDTRooRealVar, B_plus_DTFM_M_zero, B_plus_M_corr,  B_plus_M, trigVar, e_plus_BremMultiplicity, e_minus_BremMultiplicity, dataMCWeightee);
+   RooArgSet argset(BDTRooRealVar, B_plus_DTFM_M_zero, misPT,  B_plus_M, trigVar, e_plus_BremMultiplicity, e_minus_BremMultiplicity);
+   RooArgSet argsetPartReco(BDTRooRealVar, B_plus_DTFM_M_zero, misPT,  B_plus_M, trigVar, e_plus_BremMultiplicity, e_minus_BremMultiplicity, weightPartReco);
+   RooArgSet argsetLeakage(BDTRooRealVar, B_plus_DTFM_M_zero, misPT,  B_plus_M, trigVar, e_plus_BremMultiplicity, e_minus_BremMultiplicity, weightLeakage);
+   RooArgSet argsetSignal(BDTRooRealVar, B_plus_DTFM_M_zero, misPT,  B_plus_M, trigVar, e_plus_BremMultiplicity, e_minus_BremMultiplicity, dataMCWeightee);
 
    cout<<"getting the datasets:"<<endl;
 
@@ -183,7 +183,7 @@ void FitterUtils::prepare_PDFs(string trigStr, string BDTVar, double BDTcut,
    cout<<"binning the datasets:"<<endl;
 
    RooArgSet argset2(B_plus_M);
-   if (fit2D) argset2.add(B_plus_M_corr);
+   if (fit2D) argset2.add(misPT);
 
    RooDataHist dataHistSignalZeroGamma("dataHistSignalZeroGamma", "dataHistSignalZeroGamma", argset2, *dataSetSignalZeroGamma); 
    RooDataHist dataHistSignalOneGamma("dataHistSignalOneGamma", "dataHistSignalOneGamma", argset2, *dataSetSignalOneGamma); 
@@ -223,7 +223,7 @@ void FitterUtils::prepare_PDFs(string trigStr, string BDTVar, double BDTcut,
 
    if (fit2D)
    {  
-      combPDF =  new RooMcorMvisTsallis("McorMvis", "McorMvis", B_plus_M_corr, B_plus_M, T, n, expoConst);
+      combPDF =  new RooPTMVis("PTMVis", "PTMVis", misPT, B_plus_M, T, n, expoConst);
    }
    else
    {
@@ -255,7 +255,7 @@ void FitterUtils::prepare_PDFs(string trigStr, string BDTVar, double BDTcut,
    RooWorkspace workspace("workspace", "workspace");
    workspace.import(B_plus_DTFM_M_zero);
    workspace.import(B_plus_M);
-   workspace.import(B_plus_M_corr);
+   workspace.import(misPT);
    workspace.import(expoConst);
    workspace.import(trueExp);
    workspace.import(T);
@@ -300,7 +300,7 @@ void FitterUtils::generate()
    TFile fw(workspacename.c_str(), "UPDATE");   
    RooWorkspace* workspace = (RooWorkspace*)fw.Get("workspace");
    RooRealVar *B_plus_M = workspace->var("B_plus_M");
-   RooRealVar *B_plus_M_corr = workspace->var("B_plus_M_corr");
+   RooRealVar *misPT = workspace->var("misPT");
    RooRealVar *T = workspace->var("T");
    RooRealVar *n = workspace->var("n");
    RooRealVar *expoConst = workspace->var("expoConst");
@@ -322,7 +322,7 @@ void FitterUtils::generate()
 
    if (fit2D)
    {  
-      combPDF =  new RooMcorMvisTsallis("combPDF", "combPDF", *B_plus_M_corr, *B_plus_M, *T, *n, *expoConst);
+      combPDF =  new RooPTMVis("combPDF", "combPDF", *misPT, *B_plus_M, *T, *n, *expoConst);
    }
    else
    {
@@ -341,7 +341,7 @@ void FitterUtils::generate()
 
 
    RooArgSet argset2(*B_plus_M);
-   if (fit2D) argset2.add(*B_plus_M_corr);
+   if (fit2D) argset2.add(*misPT);
 
    cout<<"Preparing the generation of events 1";
 
@@ -357,7 +357,7 @@ void FitterUtils::generate()
 
    cout<<"Variable loaded:"<<endl;
    B_plus_M->Print(); expoConst->Print(); //B_plus_DTFM_M_zero->Print();
-   if (fit2D) B_plus_M_corr->Print(); 
+   if (fit2D) misPT->Print(); 
 
 
    //***************Generate some datasets
@@ -441,7 +441,7 @@ void FitterUtils::fit(bool wantplot, bool constPartReco,
    TFile fw(workspacename.c_str());   
    RooWorkspace* workspace = (RooWorkspace*)fw.Get("workspace");
    RooRealVar *B_plus_M = workspace->var("B_plus_M");
-   RooRealVar *B_plus_M_corr = workspace->var("B_plus_M_corr");
+   RooRealVar *misPT = workspace->var("misPT");
    RooRealVar *T = workspace->var("T");
    RooRealVar *n = workspace->var("n");
    RooRealVar *expoConst = workspace->var("expoConst");
@@ -462,7 +462,7 @@ void FitterUtils::fit(bool wantplot, bool constPartReco,
 
    if (fit2D)
    {  
-      combPDF =  new RooMcorMvisTsallis("combPDF", "combPDF", *B_plus_M_corr, *B_plus_M, *T, *n, *expoConst);
+      combPDF =  new RooPTMVis("combPDF", "combPDF", *misPT, *B_plus_M, *T, *n, *expoConst);
    }
    else
    {
@@ -496,12 +496,12 @@ void FitterUtils::fit(bool wantplot, bool constPartReco,
       //**************Plot all the different components
 
       cout<<"dataGenSignalZeroGamma: "<<dataGenSignalZeroGamma<<endl;
-      PlotShape(*dataSetSignalZeroGamma, *dataGenSignalZeroGamma, *histPdfSignalZeroGamma, plotsfile, "cSignalZeroGamma", *B_plus_M, *B_plus_M_corr);
-      PlotShape(*dataSetSignalOneGamma, *dataGenSignalOneGamma, *histPdfSignalOneGamma, plotsfile, "cSignalOneGamma", *B_plus_M, *B_plus_M_corr);
-      PlotShape(*dataSetSignalTwoGamma, *dataGenSignalTwoGamma, *histPdfSignalTwoGamma, plotsfile, "cSignalTwoGamma", *B_plus_M, *B_plus_M_corr);
-      PlotShape(*dataSetPartReco, *dataGenPartReco, *histPdfPartReco, plotsfile, "cPartReco", *B_plus_M, *B_plus_M_corr);
-      PlotShape(*dataSetComb, *dataGenComb, *combPDF, plotsfile, "cComb", *B_plus_M, *B_plus_M_corr);
-      if(nGenJpsiLeak>1) PlotShape(*dataSetJpsiLeak, *dataGenJpsiLeak, *histPdfJpsiLeak, plotsfile, "cJpsiLeak", *B_plus_M, *B_plus_M_corr);
+      PlotShape(*dataSetSignalZeroGamma, *dataGenSignalZeroGamma, *histPdfSignalZeroGamma, plotsfile, "cSignalZeroGamma", *B_plus_M, *misPT);
+      PlotShape(*dataSetSignalOneGamma, *dataGenSignalOneGamma, *histPdfSignalOneGamma, plotsfile, "cSignalOneGamma", *B_plus_M, *misPT);
+      PlotShape(*dataSetSignalTwoGamma, *dataGenSignalTwoGamma, *histPdfSignalTwoGamma, plotsfile, "cSignalTwoGamma", *B_plus_M, *misPT);
+      PlotShape(*dataSetPartReco, *dataGenPartReco, *histPdfPartReco, plotsfile, "cPartReco", *B_plus_M, *misPT);
+      PlotShape(*dataSetComb, *dataGenComb, *combPDF, plotsfile, "cComb", *B_plus_M, *misPT);
+      if(nGenJpsiLeak>1) PlotShape(*dataSetJpsiLeak, *dataGenJpsiLeak, *histPdfJpsiLeak, plotsfile, "cJpsiLeak", *B_plus_M, *misPT);
    }
 
    //***************Merge datasets
@@ -717,13 +717,13 @@ void FitterUtils::plot_fit_result(string plotsfile, RooAbsPdf &totPdf, RooDataSe
 
 }
 
-void FitterUtils::PlotShape(RooDataSet& originDataSet, RooDataSet& genDataSet, RooAbsPdf& shape, string plotsfile, string canvName, RooRealVar& B_plus_M, RooRealVar& B_plus_M_corr)
+void FitterUtils::PlotShape(RooDataSet& originDataSet, RooDataSet& genDataSet, RooAbsPdf& shape, string plotsfile, string canvName, RooRealVar& B_plus_M, RooRealVar& misPT)
 {
-   if(fit2D) PlotShape2D(originDataSet, genDataSet, shape, plotsfile, canvName, B_plus_M, B_plus_M_corr);
+   if(fit2D) PlotShape2D(originDataSet, genDataSet, shape, plotsfile, canvName, B_plus_M, misPT);
    if(!fit2D) PlotShape1D(originDataSet, genDataSet, shape, plotsfile, canvName, B_plus_M);
 }
 
-void FitterUtils::PlotShape2D(RooDataSet& originDataSet, RooDataSet& genDataSet, RooAbsPdf& shape, string plotsfile, string canvName, RooRealVar& B_plus_M, RooRealVar& B_plus_M_corr)
+void FitterUtils::PlotShape2D(RooDataSet& originDataSet, RooDataSet& genDataSet, RooAbsPdf& shape, string plotsfile, string canvName, RooRealVar& B_plus_M, RooRealVar& misPT)
 {
    //**************Prepare TFile to save the plots
 
@@ -731,24 +731,24 @@ void FitterUtils::PlotShape2D(RooDataSet& originDataSet, RooDataSet& genDataSet,
 
    //**************Plot Signal Zero Gamma
 
-   TH2F* th2fKey = (TH2F*)shape.createHistogram("th2Shape", B_plus_M, Binning(20), YVar(B_plus_M_corr, Binning(20)));
+   TH2F* th2fKey = (TH2F*)shape.createHistogram("th2Shape", B_plus_M, Binning(20), YVar(misPT, Binning(20)));
    cout<<genDataSet.sumEntries()<<endl;
-   TH2F* th2fGen = (TH2F*)genDataSet.createHistogram("th2fGen", B_plus_M, Binning(20), YVar(B_plus_M_corr, Binning(20)));
+   TH2F* th2fGen = (TH2F*)genDataSet.createHistogram("th2fGen", B_plus_M, Binning(20), YVar(misPT, Binning(20)));
 
    RooPlot* plotM = B_plus_M.frame();
    originDataSet.plotOn(plotM);
    shape.plotOn(plotM);
 
-   RooPlot* plotMCorr = B_plus_M_corr.frame();
-   originDataSet.plotOn(plotMCorr);
-   shape.plotOn(plotMCorr);
+   RooPlot* plotMisPT = misPT.frame();
+   originDataSet.plotOn(plotMisPT);
+   shape.plotOn(plotMisPT);
 
    TCanvas canv(canvName.c_str(), canvName.c_str(), 800, 800);
    canv.Divide(2,2);
    canv.cd(1); th2fGen->Draw("lego");
    canv.cd(2); th2fKey->Draw("surf");
    canv.cd(3); plotM->Draw();
-   canv.cd(4); plotMCorr->Draw();
+   canv.cd(4); plotMisPT->Draw();
 
    canv.Write();
 

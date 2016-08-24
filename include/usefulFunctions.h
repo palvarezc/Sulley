@@ -25,6 +25,7 @@ struct valError{
 };
 
 string makestring(int sigma);
+string i2s(int nbr);
 string d2s(double nbr, int nfixed = 0 );
 string roundToError(valError& ve, bool wantLatex = false);
 string roundToError(RooRealVar const& var, bool wantLatex = false);
