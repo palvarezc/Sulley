@@ -93,7 +93,7 @@ void FitterUtilsExpOfPolyTimesX::initiateParams(int nGenSignalZeroGamma, int nGe
 }
 
 
-void FitterUtilsExpOfPolyTimesX::prepare_PDFs(string trigStr, string BDTVar, double BDTcut,
+void FitterUtilsExpOfPolyTimesX::prepare_PDFs(string trigStr, string weightStr, string BDTVar, double BDTcut,
       string signalfile, string partrecofile, string combfile, string JpsiLeakfile,
       double minBMass, double maxBMass,
       string signaltree, string partrecotree, string combtree, string JpsiLeaktree)
@@ -113,6 +113,7 @@ void FitterUtilsExpOfPolyTimesX::prepare_PDFs(string trigStr, string BDTVar, dou
 
    //**********Define variables
    RooRealVar trigVar(trigStr.c_str(), trigStr.c_str(), -10, 10);
+   RooRealVar weightVar(weightStr.c_str(), weightStr.c_str(), -10, 10);
    RooRealVar BDTRooRealVar(BDTVar.c_str(), BDTVar.c_str(), -1,1);
    RooRealVar B_plus_M("B_plus_M", "M_{visible}", minBMass, maxBMass, "MeV");
    RooRealVar misPT("misPT", "p_{#perp}", 0, 5000, "MeV");
@@ -128,19 +129,37 @@ void FitterUtilsExpOfPolyTimesX::prepare_PDFs(string trigStr, string BDTVar, dou
 
    //***********Set only variables needed
 
+   // tSignal->SetBranchStatus("*", 0); tSignal->SetBranchStatus("B_plus_M", 1); tSignal->SetBranchStatus("misPT", 1); tSignal->SetBranchStatus("B_plus_DTFM_M_zero", 1); tSignal->SetBranchStatus(BDTVar.c_str(),1);
+   // tSignal->SetBranchStatus("e_plus_BremMultiplicity", 1); tSignal->SetBranchStatus("e_minus_BremMultiplicity", 1); tSignal->SetBranchStatus(trigStr.c_str()); tSignal->SetBranchStatus("DataMCWeightee",1); tSignal->SetBranchStatus("K_Kst_isMuon", 1);
+
+   // tPartReco->SetBranchStatus("*", 0); tPartReco->SetBranchStatus("B_plus_M", 1); tPartReco->SetBranchStatus("misPT", 1); tPartReco->SetBranchStatus("B_plus_DTFM_M_zero", 1);tPartReco->SetBranchStatus(BDTVar.c_str(),1); tPartReco->SetBranchStatus("K_Kst_isMuon", 1);
+   // tPartReco->SetBranchStatus("e_plus_BremMultiplicity", 1); tPartReco->SetBranchStatus("e_minus_BremMultiplicity", 1); tPartReco->SetBranchStatus(trigStr.c_str()); tPartReco->SetBranchStatus("weightPartReco",1);
+
+   // tComb->SetBranchStatus("*", 0); tComb->SetBranchStatus("B_plus_M", 1); tComb->SetBranchStatus("misPT", 1); tComb->SetBranchStatus("B_plus_DTFM_M_zero", 1);tComb->SetBranchStatus(BDTVar.c_str(),1);
+   // tComb->SetBranchStatus("e_plus_BremMultiplicity", 1); tComb->SetBranchStatus("e_minus_BremMultiplicity", 1); tComb->SetBranchStatus(trigStr.c_str()); tComb->SetBranchStatus("K_Kst_isMuon");
+
+   // tJpsiLeak->SetBranchStatus("*", 0); tJpsiLeak->SetBranchStatus("B_plus_M", 1); tJpsiLeak->SetBranchStatus("misPT", 1); 
+   // tJpsiLeak->SetBranchStatus("B_plus_DTFM_M_zero", 1);tJpsiLeak->SetBranchStatus(BDTVar.c_str(),1);
+   // tJpsiLeak->SetBranchStatus("e_plus_BremMultiplicity", 1); tJpsiLeak->SetBranchStatus("e_minus_BremMultiplicity", 1); tJpsiLeak->SetBranchStatus(trigStr.c_str()); 
+   // tJpsiLeak->SetBranchStatus("weightLeakage",1); tJpsiLeak->SetBranchStatus("K_Kst_isMuon");
+
+
+
    tSignal->SetBranchStatus("*", 0); tSignal->SetBranchStatus("B_plus_M", 1); tSignal->SetBranchStatus("misPT", 1); tSignal->SetBranchStatus("B_plus_DTFM_M_zero", 1); tSignal->SetBranchStatus(BDTVar.c_str(),1);
-   tSignal->SetBranchStatus("e_plus_BremMultiplicity", 1); tSignal->SetBranchStatus("e_minus_BremMultiplicity", 1); tSignal->SetBranchStatus(trigStr.c_str()); tSignal->SetBranchStatus("DataMCWeightee",1); tSignal->SetBranchStatus("K_Kst_isMuon", 1);
+   tSignal->SetBranchStatus("e_plus_BremMultiplicity", 1); tSignal->SetBranchStatus("e_minus_BremMultiplicity", 1); tSignal->SetBranchStatus(trigStr.c_str()); tSignal->SetBranchStatus(weightStr.c_str(),1); tSignal->SetBranchStatus("K_Kst_isMuon", 1);
 
    tPartReco->SetBranchStatus("*", 0); tPartReco->SetBranchStatus("B_plus_M", 1); tPartReco->SetBranchStatus("misPT", 1); tPartReco->SetBranchStatus("B_plus_DTFM_M_zero", 1);tPartReco->SetBranchStatus(BDTVar.c_str(),1); tPartReco->SetBranchStatus("K_Kst_isMuon", 1);
-   tPartReco->SetBranchStatus("e_plus_BremMultiplicity", 1); tPartReco->SetBranchStatus("e_minus_BremMultiplicity", 1); tPartReco->SetBranchStatus(trigStr.c_str()); tPartReco->SetBranchStatus("weightPartReco",1);
+   tPartReco->SetBranchStatus("e_plus_BremMultiplicity", 1); tPartReco->SetBranchStatus("e_minus_BremMultiplicity", 1); 
+   tPartReco->SetBranchStatus(trigStr.c_str()); tPartReco->SetBranchStatus(weightStr.c_str(),1);
 
    tComb->SetBranchStatus("*", 0); tComb->SetBranchStatus("B_plus_M", 1); tComb->SetBranchStatus("misPT", 1); tComb->SetBranchStatus("B_plus_DTFM_M_zero", 1);tComb->SetBranchStatus(BDTVar.c_str(),1);
    tComb->SetBranchStatus("e_plus_BremMultiplicity", 1); tComb->SetBranchStatus("e_minus_BremMultiplicity", 1); tComb->SetBranchStatus(trigStr.c_str()); tComb->SetBranchStatus("K_Kst_isMuon");
 
    tJpsiLeak->SetBranchStatus("*", 0); tJpsiLeak->SetBranchStatus("B_plus_M", 1); tJpsiLeak->SetBranchStatus("misPT", 1); 
    tJpsiLeak->SetBranchStatus("B_plus_DTFM_M_zero", 1);tJpsiLeak->SetBranchStatus(BDTVar.c_str(),1);
-   tJpsiLeak->SetBranchStatus("e_plus_BremMultiplicity", 1); tJpsiLeak->SetBranchStatus("e_minus_BremMultiplicity", 1); tJpsiLeak->SetBranchStatus(trigStr.c_str()); 
-   tJpsiLeak->SetBranchStatus("weightLeakage",1); tJpsiLeak->SetBranchStatus("K_Kst_isMuon");
+   tJpsiLeak->SetBranchStatus("e_plus_BremMultiplicity", 1); tJpsiLeak->SetBranchStatus("e_minus_BremMultiplicity", 1); 
+   tJpsiLeak->SetBranchStatus(trigStr.c_str()); 
+   tJpsiLeak->SetBranchStatus(weightStr.c_str(),1); tJpsiLeak->SetBranchStatus("K_Kst_isMuon");
 
 
    //***********Set Binning
@@ -158,10 +177,18 @@ void FitterUtilsExpOfPolyTimesX::prepare_PDFs(string trigStr, string BDTVar, dou
 
    B_plus_DTFM_M_zero.setBins(100);
 
+   // RooArgSet argset(BDTRooRealVar, B_plus_DTFM_M_zero, misPT,  B_plus_M, trigVar, e_plus_BremMultiplicity, e_minus_BremMultiplicity, K_Kst_isMuon);
+   // RooArgSet argsetPartReco(BDTRooRealVar, B_plus_DTFM_M_zero, misPT,  B_plus_M, trigVar, e_plus_BremMultiplicity, e_minus_BremMultiplicity, weightPartReco);
+   // RooArgSet argsetLeakage(BDTRooRealVar, B_plus_DTFM_M_zero, misPT,  B_plus_M, trigVar, e_plus_BremMultiplicity, e_minus_BremMultiplicity, weightLeakage);
+   // RooArgSet argsetSignal(BDTRooRealVar, B_plus_DTFM_M_zero, misPT,  B_plus_M, trigVar, e_plus_BremMultiplicity, e_minus_BremMultiplicity, dataMCWeightee);
+
+
    RooArgSet argset(BDTRooRealVar, B_plus_DTFM_M_zero, misPT,  B_plus_M, trigVar, e_plus_BremMultiplicity, e_minus_BremMultiplicity, K_Kst_isMuon);
-   RooArgSet argsetPartReco(BDTRooRealVar, B_plus_DTFM_M_zero, misPT,  B_plus_M, trigVar, e_plus_BremMultiplicity, e_minus_BremMultiplicity, weightPartReco);
-   RooArgSet argsetLeakage(BDTRooRealVar, B_plus_DTFM_M_zero, misPT,  B_plus_M, trigVar, e_plus_BremMultiplicity, e_minus_BremMultiplicity, weightLeakage);
-   RooArgSet argsetSignal(BDTRooRealVar, B_plus_DTFM_M_zero, misPT,  B_plus_M, trigVar, e_plus_BremMultiplicity, e_minus_BremMultiplicity, dataMCWeightee);
+   RooArgSet argsetPartReco(BDTRooRealVar, B_plus_DTFM_M_zero, misPT,  B_plus_M, trigVar, e_plus_BremMultiplicity, e_minus_BremMultiplicity, weightVar);
+   RooArgSet argsetLeakage(BDTRooRealVar, B_plus_DTFM_M_zero, misPT,  B_plus_M, trigVar, e_plus_BremMultiplicity, e_minus_BremMultiplicity, weightVar);
+   RooArgSet argsetSignal(BDTRooRealVar, B_plus_DTFM_M_zero, misPT,  B_plus_M, trigVar, e_plus_BremMultiplicity, e_minus_BremMultiplicity, weightVar);
+
+
 
    cout<<"getting the datasets:"<<endl;
 
@@ -176,23 +203,44 @@ void FitterUtilsExpOfPolyTimesX::prepare_PDFs(string trigStr, string BDTVar, dou
 
    string BDTCutString( ("("+BDTVar+">"+d2s(BDTcut)+")").c_str()  );
 
-   dataSetSignalZeroGamma = new RooDataSet("dataSetSignalZeroGamma", "dataSetSignalZeroGamma", argsetSignal, Import(*tSignal), Cut(( " ("+trigStr+"  > 0.9) && "+BDTCutString+" && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) > -0.5) && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) < 0.5) && B_plus_M > "+d2s(minBMass)+" && B_plus_M < "+d2s(maxBMass)).c_str()), WeightVar("DataMCWeightee")  );
+   // dataSetSignalZeroGamma = new RooDataSet("dataSetSignalZeroGamma", "dataSetSignalZeroGamma", argsetSignal, Import(*tSignal), Cut(( " ("+trigStr+"  > 0.9) && "+BDTCutString+" && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) > -0.5) && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) < 0.5) && B_plus_M > "+d2s(minBMass)+" && B_plus_M < "+d2s(maxBMass)).c_str()), WeightVar("DataMCWeightee")  );
 
-   dataSetSignalOneGamma = new RooDataSet("dataSetSignalOneGamma", "dataSetSignalOneGamma", argsetSignal, Import(*tSignal), Cut(( " ("+trigStr+"  > 0.9) && "+BDTCutString+" && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) > 0.5) && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) < 1.5) && B_plus_M > "+d2s(minBMass)+" && B_plus_M < "+d2s(maxBMass)).c_str()), WeightVar("DataMCWeightee")  );
+   // dataSetSignalOneGamma = new RooDataSet("dataSetSignalOneGamma", "dataSetSignalOneGamma", argsetSignal, Import(*tSignal), Cut(( " ("+trigStr+"  > 0.9) && "+BDTCutString+" && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) > 0.5) && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) < 1.5) && B_plus_M > "+d2s(minBMass)+" && B_plus_M < "+d2s(maxBMass)).c_str()), WeightVar("DataMCWeightee")  );
 
-   dataSetSignalTwoGamma = new RooDataSet("dataSetSignalTwoGamma", "dataSetSignalTwoGamma", argsetSignal, Import(*tSignal), Cut(( " ("+trigStr+"  > 0.9) && "+BDTCutString+" && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) > 1.5) && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) < 2.5) && B_plus_M > "+d2s(minBMass)+" && B_plus_M < "+d2s(maxBMass)).c_str()), WeightVar("DataMCWeightee")  );
+   // dataSetSignalTwoGamma = new RooDataSet("dataSetSignalTwoGamma", "dataSetSignalTwoGamma", argsetSignal, Import(*tSignal), Cut(( " ("+trigStr+"  > 0.9) && "+BDTCutString+" && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) > 1.5) && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) < 2.5) && B_plus_M > "+d2s(minBMass)+" && B_plus_M < "+d2s(maxBMass)).c_str()), WeightVar("DataMCWeightee")  );
 
 
-   dataSetPartReco = new RooDataSet("dataSetPartReco", "dataSetPartReco",  argsetPartReco, Import(*tPartReco),Cut(("("+trigStr+"  > 0.9) && "+BDTCutString+ " && B_plus_M > "+d2s(minBMass)+" && B_plus_M < "+d2s(maxBMass)).c_str()), WeightVar("weightPartReco"));
+   // dataSetPartReco = new RooDataSet("dataSetPartReco", "dataSetPartReco",  argsetPartReco, Import(*tPartReco),Cut(("("+trigStr+"  > 0.9) && "+BDTCutString+ " && B_plus_M > "+d2s(minBMass)+" && B_plus_M < "+d2s(maxBMass)).c_str()), WeightVar("weightPartReco"));
 
-   dataSetJpsiLeak = new RooDataSet("dataSetJpsiLeak", "dataSetJpsiLeak",  argsetLeakage, Import(*tJpsiLeak),Cut(("B_plus_M > "+d2s(minBMass)+" && B_plus_M < "+d2s(maxBMass)).c_str()), WeightVar("weightLeakage"));
+   // dataSetJpsiLeak = new RooDataSet("dataSetJpsiLeak", "dataSetJpsiLeak",  argsetLeakage, Import(*tJpsiLeak),Cut(("B_plus_M > "+d2s(minBMass)+" && B_plus_M < "+d2s(maxBMass)).c_str()), WeightVar("weightLeakage"));
+
+   //  // dataSetComb = new RooDataSet("dataSetComb", "dataSetComb", tComb, argset, ("("+trigStr+"  > 0.9) && (UBDT3R > "+d2s(BDTcut-0.03)+")  && B_plus_M > "+d2s(minBMass)+" && B_plus_M < "+d2s(maxBMass)).c_str());
+   // dataSetComb = new RooDataSet("dataSetComb", "dataSetComb", tComb, argset, ("K_Kst_isMuon == 0 && ("+trigStr+"  > 0.9) && "+BDTCutString+"  && B_plus_M > "+d2s(minBMass)+" && B_plus_M < "+d2s(maxBMass)).c_str());
+
+   // misPT.setRange(-2000, 5000);
+   // RooDataSet* dataSetCombExt = new RooDataSet("dataSetCombExt", "dataSetCombExt", tComb, argset, ("K_Kst_isMuon == 0 && ("+trigStr+"  > 0.9) && "+BDTCutString+"  && B_plus_M > "+d2s(minBMass)+" && B_plus_M < "+d2s(maxBMass)).c_str());
+   // misPT.setRange(0, 5000);
+
+
+
+   dataSetSignalZeroGamma = new RooDataSet("dataSetSignalZeroGamma", "dataSetSignalZeroGamma", argsetSignal, Import(*tSignal), Cut(( " ("+trigStr+"  > 0.9) && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) > -0.5) && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) < 0.5) && B_plus_M > "+d2s(minBMass)+" && B_plus_M < "+d2s(maxBMass)).c_str()), WeightVar(weightStr.c_str())  );
+
+   dataSetSignalOneGamma = new RooDataSet("dataSetSignalOneGamma", "dataSetSignalOneGamma", argsetSignal, Import(*tSignal), Cut(( " ("+trigStr+"  > 0.9) && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) > 0.5) && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) < 1.5) && B_plus_M > "+d2s(minBMass)+" && B_plus_M < "+d2s(maxBMass)).c_str()), WeightVar(weightStr.c_str())  );
+
+   dataSetSignalTwoGamma = new RooDataSet("dataSetSignalTwoGamma", "dataSetSignalTwoGamma", argsetSignal, Import(*tSignal), Cut(( " ("+trigStr+"  > 0.9) && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) > 1.5) && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) < 2.5) && B_plus_M > "+d2s(minBMass)+" && B_plus_M < "+d2s(maxBMass)).c_str()), WeightVar(weightStr.c_str())  );
+
+
+   dataSetPartReco = new RooDataSet("dataSetPartReco", "dataSetPartReco",  argsetPartReco, Import(*tPartReco),Cut(("("+trigStr+"  > 0.9) && B_plus_M > "+d2s(minBMass)+" && B_plus_M < "+d2s(maxBMass)).c_str()), WeightVar("weightPartReco"));
+
+   dataSetJpsiLeak = new RooDataSet("dataSetJpsiLeak", "dataSetJpsiLeak",  argsetLeakage, Import(*tJpsiLeak),Cut(("B_plus_M > "+d2s(minBMass)+" && B_plus_M < "+d2s(maxBMass)).c_str()), WeightVar(weightStr.c_str()));
 
     // dataSetComb = new RooDataSet("dataSetComb", "dataSetComb", tComb, argset, ("("+trigStr+"  > 0.9) && (UBDT3R > "+d2s(BDTcut-0.03)+")  && B_plus_M > "+d2s(minBMass)+" && B_plus_M < "+d2s(maxBMass)).c_str());
-   dataSetComb = new RooDataSet("dataSetComb", "dataSetComb", tComb, argset, ("K_Kst_isMuon == 0 && ("+trigStr+"  > 0.9) && "+BDTCutString+"  && B_plus_M > "+d2s(minBMass)+" && B_plus_M < "+d2s(maxBMass)).c_str());
+   dataSetComb = new RooDataSet("dataSetComb", "dataSetComb", tComb, argset, ("K_Kst_isMuon == 0 && ("+trigStr+"  > 0.9) && B_plus_M > "+d2s(minBMass)+" && B_plus_M < "+d2s(maxBMass)).c_str());
 
    misPT.setRange(-2000, 5000);
    RooDataSet* dataSetCombExt = new RooDataSet("dataSetCombExt", "dataSetCombExt", tComb, argset, ("K_Kst_isMuon == 0 && ("+trigStr+"  > 0.9) && "+BDTCutString+"  && B_plus_M > "+d2s(minBMass)+" && B_plus_M < "+d2s(maxBMass)).c_str());
    misPT.setRange(0, 5000);
+
 
    cout<<"Number of zero: "<< dataSetSignalZeroGamma->sumEntries()<<endl;
    cout<<"Number of one: "<< dataSetSignalOneGamma->sumEntries()<<endl;
@@ -216,10 +264,17 @@ void FitterUtilsExpOfPolyTimesX::prepare_PDFs(string trigStr, string BDTVar, dou
 
    //*************** Compute Error on J/psi leak
 
+   // double ErrorJpsi(0);
+   // if(dataSetJpsiLeak->sumEntries(("("+trigStr+"  > 0.9) && "+BDTCutString+" && B_plus_M > "+d2s(minBMass)+" && B_plus_M < "+d2s(maxBMass)).c_str()) > 0) ErrorJpsi = 1./sqrt(dataSetJpsiLeak->sumEntries(("("+trigStr+"  > 0.9) && "+BDTCutString+" && B_plus_M > "+d2s(minBMass)+" && B_plus_M < "+d2s(maxBMass)).c_str()));
+   // RooRealVar fractionalErrorJpsiLeak("fractionalErrorJpsiLeak", "fractionalErrorJpsiLeak", ErrorJpsi);
+   // cout<<"JPSI LEAK: "<<dataSetJpsiLeak->sumEntries(("("+trigStr+"  > 0.9) && "+BDTCutString+" && B_plus_M > "+d2s(minBMass)+" && B_plus_M < "+d2s(maxBMass)).c_str());
+   // cout<<"JPSI LEAK fractional Error: "<<ErrorJpsi<<endl;
+
+
    double ErrorJpsi(0);
-   if(dataSetJpsiLeak->sumEntries(("("+trigStr+"  > 0.9) && "+BDTCutString+" && B_plus_M > "+d2s(minBMass)+" && B_plus_M < "+d2s(maxBMass)).c_str()) > 0) ErrorJpsi = 1./sqrt(dataSetJpsiLeak->sumEntries(("("+trigStr+"  > 0.9) && "+BDTCutString+" && B_plus_M > "+d2s(minBMass)+" && B_plus_M < "+d2s(maxBMass)).c_str()));
+   if(dataSetJpsiLeak->sumEntries(("("+trigStr+"  > 0.9) && B_plus_M > "+d2s(minBMass)+" && B_plus_M < "+d2s(maxBMass)).c_str()) > 0) ErrorJpsi = 1./sqrt(dataSetJpsiLeak->sumEntries(("("+trigStr+"  > 0.9) && B_plus_M > "+d2s(minBMass)+" && B_plus_M < "+d2s(maxBMass)).c_str()));
    RooRealVar fractionalErrorJpsiLeak("fractionalErrorJpsiLeak", "fractionalErrorJpsiLeak", ErrorJpsi);
-   cout<<"JPSI LEAK: "<<dataSetJpsiLeak->sumEntries(("("+trigStr+"  > 0.9) && "+BDTCutString+" && B_plus_M > "+d2s(minBMass)+" && B_plus_M < "+d2s(maxBMass)).c_str());
+   cout<<"JPSI LEAK: "<<dataSetJpsiLeak->sumEntries(("("+trigStr+"  > 0.9) && B_plus_M > "+d2s(minBMass)+" && B_plus_M < "+d2s(maxBMass)).c_str());
    cout<<"JPSI LEAK fractional Error: "<<ErrorJpsi<<endl;
 
 

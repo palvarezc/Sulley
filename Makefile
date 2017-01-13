@@ -36,7 +36,7 @@ FLAGS += ${BOOST_LIB_OPT} ${BOOST_INC_DIR}
 #FLAGS += -I/home/hep/th1011/Documents/MVA/dendrology-master/include
 
 
-ROOFIT_LIBS  = ${ROOT_LIBS} -lRooFitCore -lRooFit -lRooStats -lTreePlayer -lTreeViewer
+ROOFIT_LIBS  = ${ROOT_LIBS} -lRooFitCore -lRooFit -lRooStats -lHistFactory -lTreePlayer -lTreeViewer
 ROOFIT_LIBS += $(USERLIBS)
 
 

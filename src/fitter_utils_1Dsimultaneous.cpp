@@ -41,12 +41,13 @@ FitterUtils1DSimultaneous::FitterUtils1DSimultaneous(int nGenKemu_, int nGenSign
 {}
 
 
-void FitterUtils1DSimultaneous::prepare_PDFs(string trigStr, string BDTVar, double BDTcut,
+void FitterUtils1DSimultaneous::prepare_PDFs(string trigStr, string weightStr, string BDTVar, double BDTcut,
       string signalfile, string partrecofile, string combfile, string JpsiLeakfile,
       double minBMass, double maxBMass,
       string signaltree, string partrecotree, string combtree, string JpsiLeaktree)
 {
 
+  // ADDED WEIGHTSTR BUT NOT USED!
 
    //***********Get the datasets
    TFile* fSignal = new TFile(signalfile.c_str());

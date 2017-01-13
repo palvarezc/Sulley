@@ -3,7 +3,8 @@
 
 
 . ~lhcb/grouplogin/lhcb_login.sh
-ROOTSYS=/cvmfs/lhcb.cern.ch/lib/lcg/releases/LCG_79/ROOT/6.04.02/x86_64-slc6-gcc48-opt
+# ROOTSYS=/cvmfs/lhcb.cern.ch/lib/lcg/releases/LCG_79/ROOT/6.04.02/x86_64-slc6-gcc48-opt
+ROOTSYS=/vols/build/lhcb/ROOT_6.06.02_patch_histfactory
 source $ROOTSYS/bin/thisroot.sh
 
 

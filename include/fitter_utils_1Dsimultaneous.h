@@ -13,7 +13,7 @@ class FitterUtils1DSimultaneous: public FitterUtils
 
       FitterUtils1DSimultaneous(int nGenKemu_, int nGenSignal_, int nGenPartReco_, int nGenComb_, int nGenJpsiLeak_, double nGenFracZeroGamma_, double nGenFracOneGamma_, double PPerpCut_, string workspacename_);
 
-      void prepare_PDFs(string trigStr, string BDTVar, double BDTcut,
+  void prepare_PDFs(string trigStr, string weightStr, string BDTVar, double BDTcut,
             string signalfile, string partrecofile, string combinatorialfile, string JpsiLeakfile,
             double minBMass = 4880, double maxBMass = 5700,
             string signaltree = "DecayTree", string partrecotree = "DecayTree", string combinatorialtree = "DecayTree", string JpsiLeaktree = "DecayTree");

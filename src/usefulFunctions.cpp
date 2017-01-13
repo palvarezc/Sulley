@@ -40,16 +40,16 @@ string roundToError(valError& ve, bool wantLatex)
    double todivide(TMath::Power(10, power-2));
    int err3dig(TMath::Nint(ve.err/todivide));
    int nfixed;
-   if(err3dig<=354 || err3dig>=950)
-   {
+   // if(err3dig<=354 || err3dig>=950)
+   // {
       todivide = TMath::Power(10, power-1);
       nfixed = 1-power;
-   }
-   if(err3dig>=355 && err3dig<=949)
-   {
-      todivide = TMath::Power(10, power);
-      nfixed = 0-power;
-   }
+  //   }
+  // if(err3dig>=355 && err3dig<=949)
+  //  {
+  //     todivide = TMath::Power(10, power);
+  //     nfixed = 0-power;
+  //  }
    ve.err = todivide*TMath::Nint(ve.err/todivide);
    ve.val = todivide*TMath::Nint(ve.val/todivide);
    string ret(d2s(ve.val, nfixed)+"+-"+d2s(ve.err, nfixed));
@@ -73,10 +73,15 @@ void makeTableResults(TTree* t, int nGenSignal, int nGenPartReco, int nGenComb, 
    TH1F* hStock(0);
    TCanvas canv("canv", "canv", 600, 600);
 
+
    t->Draw("nSignal>>hStock");
+   cout<<"nsignal: "<<t->GetEntries("nSignal>0")<<endl;
    hStock = (TH1F*)canv.GetPrimitive("hStock");
+   cout<<"Mean is: "<<hStock->GetMean()<<endl;
+
    ve.val = hStock->GetMean();
    ve.err = hStock->GetStdDev();
+   cout<<"I break here..."<<endl;
    double fracSig(100*ve.err/ve.val);
    string strSig(roundToError(ve, wantLatex));
 

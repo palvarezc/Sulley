@@ -28,3 +28,6 @@ export SULLEYROOT=${PWD}
 #source $ROOTSYS/bin/thisroot.sh
 
 
+export ROOTSYS=/vols/build/lhcb/ROOT_6.06.02_patch_histfactory
+source $ROOTSYS/bin/thisroot.sh
+

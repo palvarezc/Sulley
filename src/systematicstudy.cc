@@ -198,7 +198,11 @@ int main(int argc, char* argv[])
 
    FitterUtils fu(nGenSignal,nGenPartReco, nGenComb, nGenJpsiLeak, nGenFracZeroGamma, nGenFracOneGamma, fit2D, workspacename);
 
-   if (!wantOldDataSet) fu.prepare_PDFs(trigStr, BDTVar, BDTCutVal, fSignal, fPartReco, fComb, fJpsiLeak, minBMass, maxBMass);
+   // if (!wantOldDataSet) fu.prepare_PDFs(trigStr, BDTVar, BDTCutVal, fSignal, fPartReco, fComb, fJpsiLeak, minBMass, maxBMass);
+
+   // THIS IS WRONG, CHANGE BEFORE USING!!
+   string weightStr("PIDTrigDataCondWeight_ETOSOnly");
+   if (!wantOldDataSet) fu.prepare_PDFs(trigStr, weightStr, BDTVar, BDTCutVal, fSignal, fPartReco, fComb, fJpsiLeak, minBMass, maxBMass);
 
 
    //***************Prepare the stuff to generate events

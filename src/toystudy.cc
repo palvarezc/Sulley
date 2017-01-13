@@ -37,6 +37,8 @@
 #include"fitter_utils_1Dsimultaneous.h"
 #include "fitter_utils_ExpOfPolyTimesX.h"
 #include"fitter_utils_simultaneous_ExpOfPolyTimesX.h"
+#include "fitter_utils_HistFact.h"
+#include "TObjectTable.h"
 
 namespace fs = boost::filesystem;
 
@@ -61,7 +63,8 @@ int main(int argc, char* argv[])
 
 
    //*********** Get arguments and set stuff
-   string trigStr("L0ETOSOnly_d");
+   string trigStr("B_plus_ETA"); // no requirement (trigStr>0.9)
+   string weightStr("PIDTrigDataCondWeight_ETOSOnly");
    bool wantOldDataSet(false);
    double BDTCutVal(0.257);
    string BDTVar;
@@ -74,6 +77,7 @@ int main(int argc, char* argv[])
    double maxBMass(5700);
    int fitMode(1);
    double PPerpCut(600);
+
 
    if(argc != 16 && argc != 17 && argc!=18)
    {
@@ -106,13 +110,16 @@ int main(int argc, char* argv[])
       int trigInt(atoi(argv[6]));
       if(trigInt == 1) 
       {
-         trigStr = "L0HTOSOnly_d";
+        weightStr = "PIDTrigDataCondWeight_HTOSOnly";
+         // trigStr = "L0HTOSOnly_d";
          nGenFracZeroGamma = 0.322;
          nGenFracOneGamma = 0.484;
       }      
       if(trigInt == 2) 
       {
-         trigStr = "L0TISOnly_d";
+        weightStr = "PIDTrigDataCondWeight_TISOnly";
+        trigStr = "B_plus_L0Global_TIS";
+         // trigStr = "L0TISOnly_d";
          nGenFracZeroGamma = 0.330;
          nGenFracOneGamma = 0.495;
       }
@@ -126,7 +133,7 @@ int main(int argc, char* argv[])
       if(*argv[10] == '1') constPartReco = true;
 
       fitMode = atoi(argv[11]);
-      if(fitMode == 2 or fitMode == 3 or fitMode == 6 or fitMode == 5) fit2D = true;
+      if(fitMode == 2 or fitMode == 3 or fitMode == 6 or fitMode == 5 or fitMode==7) fit2D = true;
       outputfolder = argv[12];
 
       if(*argv[13] == '1') wantHOPCut = true;
@@ -187,11 +194,15 @@ int main(int argc, char* argv[])
    if(!wantHOPCut) extraString = "";
 
 
-   string fSignal("/home/hep/th1011/B2KeeData/tuples/strip21/tupleThibaud/newTuples/trigged/B2Kee_Strip21_MC_trigged.root");
-   string fComb("/home/hep/th1011/B2KeeData/tuples/strip21/tupleThibaud/newTuples/trigged/B2Kemu_Strip21_trigged.root");
-   string fJpsiLeak("/home/hep/th1011/B2KeeData/tuples/strip21/tupleThibaud/newTuples/trigged/total_signal_leakage_trigged.root");
-   string fPartReco("/home/hep/th1011/B2KeeData/tuples/strip21/tupleThibaud/newTuples/trigged/BJpsiX_Strip21_MC2012_ctrl_noDTFMAllmass_trigged_rarebkgs.root");
+  string fSignal("/vols/lhcb/th1011/KeeTuples/MC/HltTOS/Kee_RedoCalo_signalPresel_HltTrigged.root");
+  string fComb("/vols/lhcb/palvare1/B2Kee_Kmumu/Marcin/B2XMuMu_Line_Strip21_Kemu_presel.root");
+  string fJpsiLeak("/vols/lhcb/th1011/KeeTuples/MC/HltTOS/B_JpsiX_2012RedoCalo_presel_KisKorPi_HltTrigged_charmBkg.root");
+  string fPartReco("/vols/lhcb/th1011/KeeTuples/MC/HltTOS/B_JpsiX_2012RedoCalo_presel_KisKorPi_HltTrigged_rareBkg.root");
 
+   // string fSignal("/home/hep/th1011/B2KeeData/tuples/strip21/tupleThibaud/newTuples/trigged/B2Kee_Strip21_MC_trigged.root");
+   // string fComb("/home/hep/th1011/B2KeeData/tuples/strip21/tupleThibaud/newTuples/trigged/B2Kemu_Strip21_trigged.root");
+   // string fJpsiLeak("/home/hep/th1011/B2KeeData/tuples/strip21/tupleThibaud/newTuples/trigged/total_signal_leakage_trigged.root");
+   // string fPartReco("/home/hep/th1011/B2KeeData/tuples/strip21/tupleThibaud/newTuples/trigged/BJpsiX_Strip21_MC2012_ctrl_noDTFMAllmass_trigged_rarebkgs.root");
 
 
    //   string fSignal("/vols/lhcbdesk04/thibaud/tuples/B2Kee/tuples/strip21/tupleThibaud/B2Kee_Strip21_BDT_ctrl_trigged"+extraString+".root");
@@ -216,21 +227,24 @@ int main(int argc, char* argv[])
    FitterUtils1DSimultaneous fuS1D(nGenKemu, nGenSignal,nGenPartReco, nGenComb, nGenJpsiLeak, nGenFracZeroGamma, nGenFracOneGamma, PPerpCut, workspacename);
    FitterUtilsExpOfPolyTimesX fuExpOfPoly(nGenSignal,nGenPartReco, nGenComb, nGenJpsiLeak, nGenFracZeroGamma, nGenFracOneGamma, workspacename);
    FitterUtilsSimultaneousExpOfPolyTimesX fuSExpOfPoly(nGenKemu, nGenSignal,nGenPartReco, nGenComb, nGenJpsiLeak, nGenFracZeroGamma, nGenFracOneGamma, workspacename);
+   FitterUtilsHistFact fuHistFact(nGenSignal,nGenPartReco, nGenComb, nGenJpsiLeak, nGenFracZeroGamma, nGenFracOneGamma, workspacename);
 
 
 
    if (!wantOldDataSet)
    { 
-      if(fitMode <= 2) fu.prepare_PDFs(trigStr, BDTVar, BDTCutVal, fSignal, fPartReco, fComb, fJpsiLeak, minBMass, maxBMass);
-      if(fitMode == 3) fuS.prepare_PDFs(trigStr, BDTVar, BDTCutVal, fSignal, fPartReco, fComb, fJpsiLeak, minBMass, maxBMass);
-      if(fitMode == 4) fuS1D.prepare_PDFs(trigStr, BDTVar, BDTCutVal, fSignal, fPartReco, fComb, fJpsiLeak, minBMass, maxBMass);
-      if(fitMode == 5) fuExpOfPoly.prepare_PDFs(trigStr, BDTVar, BDTCutVal, fSignal, fPartReco, fComb, fJpsiLeak, minBMass, maxBMass);
-      if(fitMode == 6) fuSExpOfPoly.prepare_PDFs(trigStr, BDTVar, BDTCutVal, fSignal, fPartReco, fComb, fJpsiLeak, minBMass, maxBMass);
+      if(fitMode <= 2) fu.prepare_PDFs(trigStr, weightStr, BDTVar, BDTCutVal, fSignal, fPartReco, fComb, fJpsiLeak, minBMass, maxBMass);
+      if(fitMode == 3) fuS.prepare_PDFs(trigStr, weightStr, BDTVar, BDTCutVal, fSignal, fPartReco, fComb, fJpsiLeak, minBMass, maxBMass);
+      if(fitMode == 4) fuS1D.prepare_PDFs(trigStr, weightStr, BDTVar, BDTCutVal, fSignal, fPartReco, fComb, fJpsiLeak, minBMass, maxBMass);
+      if(fitMode == 5) fuExpOfPoly.prepare_PDFs(trigStr, weightStr, BDTVar, BDTCutVal, fSignal, fPartReco, fComb, fJpsiLeak, minBMass, maxBMass);
+      if(fitMode == 6) fuSExpOfPoly.prepare_PDFs(trigStr, weightStr, BDTVar, BDTCutVal, fSignal, fPartReco, fComb, fJpsiLeak, minBMass, maxBMass);
+      if(fitMode == 7) fuHistFact.prepare_PDFs(trigStr, weightStr, BDTVar, BDTCutVal, fSignal, fPartReco, fComb, fJpsiLeak, minBMass, maxBMass);
    }
 
 
 
    //***************Prepare the stuff to generate events
+
 
 
    TFile f(resultsfile.c_str(),"update");
@@ -274,12 +288,21 @@ int main(int argc, char* argv[])
          fuSExpOfPoly.generate(wantPlots, plotsfile);
          fuSExpOfPoly.fit( wantPlots, constPartReco, 0.1, out, &t,  update, plotsfile);
       }
+      if(fitMode == 7)
+      {
+         fuHistFact.generate(wantPlots, plotsfile);
+         fuHistFact.fit( wantPlots, constPartReco, 0.1, out, &t,  update, plotsfile);
+         cout<<"HERE toy"<<endl;
+
+         
+      }
 
       wantPlots = false;
       update = true;
    }
 
    out.close();
+
 
    f.cd();
    t.Write();

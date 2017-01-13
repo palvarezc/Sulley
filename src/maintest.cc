@@ -48,7 +48,11 @@ int main()
 
    FitterUtils1DSimultaneous fuS(180,93, 500, 8, 600, 0.3, 0.4, 600, "workspacecaca.root");
 
-   fuS.prepare_PDFs("L0ETOSOnly_d", "BDTNewu4bR", 0.14,
+   // fuS.prepare_PDFs("L0ETOSOnly_d", "BDTNewu4bR", 0.14,
+   //       fSignal, fPartReco, fComb, fJpsiLeak, 4880, 6200);
+
+   // ADDED WEIGHTSTR BUT NOT USED!
+   fuS.prepare_PDFs("L0ETOSOnly_d", "L0ETOSOnly_d", "BDTNewu4bR", 0.14,
          fSignal, fPartReco, fComb, fJpsiLeak, 4880, 6200);
 
    fuS.display();
