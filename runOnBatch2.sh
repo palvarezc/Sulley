@@ -12,7 +12,7 @@ TRIGGER=-1
 N_TOYS=50
 BDT_VAR_NAME="BDTNewu4bR"
 BDT_CUT=0.1428  #-0.0187   0.297
-OUTPUTDIR="/vols/lhcb/palvare1/RK_analysis/Fit_Toys/toy_result_01_13/"
+OUTPUTDIR="/vols/lhcb/palvare1/RK_analysis/Fit_Toys/toy_result_01_26_exp_brem_stat/"
 CONSTRAINED=0
 MODE=7
 WANT_HOP_CUT=0 #0: no HOP cut, 1: HOP cut
@@ -145,7 +145,8 @@ fi
 
 if [ $MODE = 5 ]
 then
-   QUEUE="hepmedium.q"
+   # QUEUE="hepmedium.q"
+   QUEUE="hep.q"
 fi
 
 if [ $MODE = 6 ]

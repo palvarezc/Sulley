@@ -23,7 +23,7 @@ void FitterUtilsSimultaneousExpOfPolyTimesX::initiateParams(int nGenSignalZeroGa
   FitterUtilsExpOfPolyTimesX::initiateParams(nGenSignalZeroGamma, nGenSignalOneGamma, nGenSignalTwoGamma,
            nSignal, nPartReco, nComb, fracZero, fracOne, nJpsiLeak, constPartReco, fracPartRecoSigma,
            l1Kee, l2Kee, l3Kee, l4Kee, l5Kee,
-           l1KeeGen, l2KeeGen, l3KeeGen, l4KeeGen, l5KeeGen ); 
+                                             l1KeeGen, l2KeeGen, l3KeeGen, l4KeeGen, l5KeeGen ,0,0); 
 
 
 

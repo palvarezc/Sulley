@@ -40,7 +40,7 @@ void FitterUtilsHistFact::initiateParams(RooArgSet* parset)
 void FitterUtilsHistFact::initiateParams(int nGenSignalZeroGamma, int nGenSignalOneGamma, int nGenSignalTwoGamma, RooRealVar& nSignal, RooRealVar& nPartReco, 
       RooRealVar& nComb, RooRealVar& fracZero, RooRealVar& fracOne, RooRealVar&  nJpsiLeak, bool constPartReco, RooRealVar const& fracPartRecoSigma, 
       RooRealVar& l1Kee, RooRealVar& l2Kee, RooRealVar& l3Kee, RooRealVar& l4Kee, RooRealVar& l5Kee, 
-      RooRealVar const& l1KeeGen, RooRealVar const& l2KeeGen, RooRealVar const& l3KeeGen, RooRealVar const& l4KeeGen, RooRealVar const& l5KeeGen )
+                                         RooRealVar const& l1KeeGen, RooRealVar const& l2KeeGen, RooRealVar const& l3KeeGen, RooRealVar const& l4KeeGen, RooRealVar const& l5KeeGen , bool constFracs, bool constComb)
 {
    TRandom rand;
    rand.SetSeed();
@@ -76,7 +76,7 @@ void FitterUtilsHistFact::initiateParams(int nGenSignalZeroGamma, int nGenSignal
 
 
    nComb.setVal(nGenComb2);
-   nComb.setRange(TMath::Max(0.,nGenComb2-10.*sqrt(nGenComb)), nGenComb2+10*sqrt(nGenComb));
+   nComb.setRange(TMath::Max(0.,nGenComb2-20.*sqrt(nGenComb)), nGenComb2+20*sqrt(nGenComb));
 
    nJpsiLeak.setVal(nGenJpsiLeak2);
    nJpsiLeak.setRange(TMath::Max(0., nGenJpsiLeak2-10*sqrt(nGenJpsiLeak)), nGenJpsiLeak2+10*sqrt(nGenJpsiLeak));
@@ -84,11 +84,19 @@ void FitterUtilsHistFact::initiateParams(int nGenSignalZeroGamma, int nGenSignal
    double fracGenZero(nGenSignalZeroGamma/(1.*nGenSignal));
    double fracGenOne(nGenSignalOneGamma/(1.*nGenSignal));
 
+   if (!constFracs)
+   {
+     
    fracZero.setVal(rand.Gaus(fracGenZero, sqrt(nGenSignalZeroGamma)/(1.*nGenSignal))) ;
    fracZero.setRange(0., 1.);
    fracOne.setVal(rand.Gaus(fracGenOne, sqrt(nGenSignalOneGamma)/(1.*nGenSignal))) ;
    fracOne.setRange(0., 1.);
+   }
+   
 
+   if (!constComb)
+   {
+     
    l1Kee.setVal(rand.Uniform( l1KeeGen.getVal() - 5*l1KeeGen.getError(), l1KeeGen.getVal() + 5*l1KeeGen.getError() ) );
    l1Kee.setRange( l1KeeGen.getVal() - 10*l1KeeGen.getError(), l1KeeGen.getVal() + 10*l1KeeGen.getError() );
 
@@ -103,8 +111,9 @@ void FitterUtilsHistFact::initiateParams(int nGenSignalZeroGamma, int nGenSignal
 
    l5Kee.setVal(rand.Uniform( l5KeeGen.getVal() - 5*l5KeeGen.getError(), l5KeeGen.getVal() + 5*l5KeeGen.getError() ) );
    l5Kee.setRange( l5KeeGen.getVal() - 10*l5KeeGen.getError(), l5KeeGen.getVal() + 10*l5KeeGen.getError() );
-}
+   }
 
+}
 
 TH2D* FitterUtilsHistFact::make_base_histogram(string componentName, string componentFile, string componentTree,
                                               string cut, vector<string> varset, RooRealVar &x, RooRealVar &y, 
@@ -150,7 +159,7 @@ TH2D* FitterUtilsHistFact::make_base_histogram(string componentName, string comp
    // cout<<"Integral "<<componentName<<" : "<<tcomponent->GetEntries(cut.c_str())<<endl;
    // cout<<"Integral "<<componentName<<" : "<<hcomponent.GetSumOfWeights()<<endl;
    
- 
+   
    hcomponent->SetDirectory(0);
    delete tcomponent;
    delete fcomponent;
@@ -401,6 +410,8 @@ void FitterUtilsHistFact::prepare_PDFs(string trigStr, string weightStr, string 
   
   meas.SetPOI("nSignal");
 
+  
+
   meas.SetLumi(1.0);
   meas.SetLumiRelErr(0.05);  
   
@@ -425,10 +436,11 @@ void FitterUtilsHistFact::prepare_PDFs(string trigStr, string weightStr, string 
   sigone.SetHisto(h_SignalOne);
   sigone.SetNormalizeByTheory(kFALSE);
   sigone.AddNormFactor("nSignal",  1.*nGenSignal, nGenSignal-7*sqrt(nGenSignal), nGenSignal+7*sqrt(nGenSignal));
-  sigone.AddNormFactor("fracOne", fone,0.,1.);
+  sigone.AddNormFactor("fracOneRec", fone,0.,1.);
   sigone.AddNormFactor("mcNorm_sigone", 1./h_SignalOne->Integral(), 1e-9, 1.);
   // sigone.AddOverallSys("fracOneConstraint",0.9,1.1); // Relative to fracOne
   chan.AddSample(sigone);
+
 
 
   //Setup the two brem 
@@ -455,6 +467,7 @@ void FitterUtilsHistFact::prepare_PDFs(string trigStr, string weightStr, string 
   
 
   //Setup the jpsi leak
+    
   RooStats::HistFactory::Sample jpsileak("JpsiLeakSample");
   if(templateStat) jpsileak.ActivateStatError();
   jpsileak.SetHisto(h_JpsiLeak);
@@ -462,10 +475,13 @@ void FitterUtilsHistFact::prepare_PDFs(string trigStr, string weightStr, string 
   jpsileak.AddNormFactor("nJpsiLeak", 1.*nGenJpsiLeak, nGenJpsiLeak-7*sqrt(nGenJpsiLeak), nGenJpsiLeak+7*sqrt(nGenJpsiLeak));
   jpsileak.AddNormFactor("mcNorm_jpsileak", 1./h_JpsiLeak->Integral(), 1e-9, 1.);
   // if (constJpsiLeak) jpsileak.AddOverallSys("JpsiLeakConstraint",0.9,1.1); // Relative to nJpsiLeak
-  chan.AddSample(jpsileak); 
-
+  if (nGenJpsiLeak>1)    chan.AddSample(jpsileak); 
+  
+  
 
   meas.AddChannel(chan);
+  meas.AddPreprocessFunction("fracOneRec","(1-fracZero)*fracOne","fracOne[0,1],fracZero[0,1]");
+  meas.AddPreprocessFunction("fracTwo","1-fracZero-(1-fracZero)*fracOne","fracOne[0,1],fracZero[0,1]");
 
   // meas.CollectHistograms();
 
@@ -499,7 +515,10 @@ void FitterUtilsHistFact::prepare_PDFs(string trigStr, string weightStr, string 
                     B_plus_M, misPT, workspace);
   
   RooRealVar nComb("nComb", "#nComb", 1.*nGenComb, nGenComb-7*sqrt(nGenComb), nGenComb+7*sqrt(nGenComb));
+  RooRealVar nComb_fit("nComb_fit", "#nComb_fit", 1.*nGenComb, nGenComb-7*sqrt(nGenComb), nGenComb+7*sqrt(nGenComb));
   workspace->import(nComb);  
+  workspace->import(nComb_fit);  
+
 
 
   //***************Save some extra factors
@@ -507,10 +526,9 @@ void FitterUtilsHistFact::prepare_PDFs(string trigStr, string weightStr, string 
   workspace->factory(Form("nMC_SignalOne[%f]",h_SignalOne->Integral()));
   workspace->factory(Form("nMC_SignalTwo[%f]",h_SignalTwo->Integral()));
   workspace->factory(Form("nMC_PartReco[%f]",h_PartReco->Integral()));
-  workspace->factory(Form("nMC_JpsiLeak[%f]",h_JpsiLeak->Integral()));
+  if (nGenJpsiLeak>1) workspace->factory(Form("nMC_JpsiLeak[%f]",h_JpsiLeak->Integral()));
   workspace->factory(Form("nMC_Comb[%f]",h_Comb->Integral()));
   workspace->factory(Form("nMC_CombExt[%f]",h_CombExt->Integral()));
-
 
 
   //***************Create RooHistPdfs for generation
@@ -523,17 +541,25 @@ void FitterUtilsHistFact::prepare_PDFs(string trigStr, string weightStr, string 
   RooDataHist dataHistSignalTwoGamma("dataHistSignalTwoGamma", "dataHistSignalTwoGamma", arglist, h_SignalTwo); 
   RooDataHist dataHistComb("dataHistComb", "dataHistComb", arglist, h_Comb); 
   RooDataHist dataHistPartReco("dataHistPartReco", "dataHistPartReco", arglist, h_PartReco); 
-  RooDataHist dataHistJpsiLeak("dataHistJpsiLeak", "dataHistJpsiLeak", arglist, h_JpsiLeakbroader); 
+  RooDataHist dataHistJpsiLeak("dataHistJpsiLeak", "dataHistJpsiLeak", arglist, h_JpsiLeak); //h_JpsiLeakbroader
 
    cout<<"Preparing the 3 2D histPdf: 1";
    RooArgSet argset2(*B_plus_M_mod, *misPT_mod);
    // RooArgSet argset2(B_plus_M, misPT);
-   RooHistPdf histPdfSignalZeroGamma("histPdfSignalZeroGamma", "histPdfSignalZeroGamma", argset2, dataHistSignalZeroGamma,2); cout<<" 2";
-   RooHistPdf histPdfSignalOneGamma("histPdfSignalOneGamma", "histPdfSignalOneGamma", argset2, dataHistSignalOneGamma,2); cout<<" 3";
-   RooHistPdf histPdfSignalTwoGamma("histPdfSignalTwoGamma", "histPdfSignalTwoGamma", argset2, dataHistSignalTwoGamma,2); cout<<" 4";
-   RooHistPdf histPdfPartReco("histPdfPartReco", "histPdfPartReco", argset2, dataHistPartReco,2); cout<<" 5";
-   RooHistPdf histPdfJpsiLeak("histPdfJpsiLeak", "histPdfJpsiLeak", argset2, dataHistJpsiLeak,2); cout<<" 6";
-   RooHistPdf histPdfComb("histPdfComb", "histPdfComb", argset2, dataHistComb,2);
+   // RooHistPdf histPdfSignalZeroGamma("histPdfSignalZeroGamma", "histPdfSignalZeroGamma", argset2, dataHistSignalZeroGamma,2); cout<<" 2";
+   // RooHistPdf histPdfSignalOneGamma("histPdfSignalOneGamma", "histPdfSignalOneGamma", argset2, dataHistSignalOneGamma,2); cout<<" 3";
+   // RooHistPdf histPdfSignalTwoGamma("histPdfSignalTwoGamma", "histPdfSignalTwoGamma", argset2, dataHistSignalTwoGamma,2); cout<<" 4";
+   // RooHistPdf histPdfPartReco("histPdfPartReco", "histPdfPartReco", argset2, dataHistPartReco,2); cout<<" 5";
+   // RooHistPdf histPdfJpsiLeak("histPdfJpsiLeak", "histPdfJpsiLeak", argset2, dataHistJpsiLeak,2); cout<<" 6";
+   // RooHistPdf histPdfComb("histPdfComb", "histPdfComb", argset2, dataHistComb,2);
+
+
+   RooHistPdf histPdfSignalZeroGamma("histPdfSignalZeroGamma", "histPdfSignalZeroGamma", argset2, dataHistSignalZeroGamma); cout<<" 2";
+   RooHistPdf histPdfSignalOneGamma("histPdfSignalOneGamma", "histPdfSignalOneGamma", argset2, dataHistSignalOneGamma); cout<<" 3";
+   RooHistPdf histPdfSignalTwoGamma("histPdfSignalTwoGamma", "histPdfSignalTwoGamma", argset2, dataHistSignalTwoGamma); cout<<" 4";
+   RooHistPdf histPdfPartReco("histPdfPartReco", "histPdfPartReco", argset2, dataHistPartReco); cout<<" 5";
+   RooHistPdf histPdfJpsiLeak("histPdfJpsiLeak", "histPdfJpsiLeak", argset2, dataHistJpsiLeak); cout<<" 6";
+   RooHistPdf histPdfComb("histPdfComb", "histPdfComb", argset2, dataHistComb);
 
    workspace->import(histPdfSignalZeroGamma);
    workspace->import(histPdfSignalOneGamma);
@@ -754,7 +780,8 @@ void FitterUtilsHistFact::fit(bool wantplot, bool constPartReco,
 {
 
 
-  //***************** Define parameters and observables
+  bool constFracs = 0;  //***************** Define parameters and observables
+  bool constComb = 0;  //***************** Define parameters and observables
 
    // TFile fw(workspacename.c_str(), "UPDATE");   
    TFile *fw = new TFile(workspacename.c_str(), "UPDATE");   
@@ -770,10 +797,13 @@ void FitterUtilsHistFact::fit(bool wantplot, bool constPartReco,
    RooRealVar* nSignal = workspace->var("nSignal");
    RooRealVar* nPartReco = workspace->var("nPartReco");
    RooRealVar* nComb = workspace->var("nComb");
+   RooRealVar* nComb_fit = workspace->var("nComb_fit");
    RooRealVar* fracZero = workspace->var("fracZero");
    RooRealVar* fracOne = workspace->var("fracOne");
-   RooRealVar* fracTwo = workspace->var("fracTwo");
-   RooRealVar* nJpsiLeak = workspace->var("nJpsiLeak");
+   RooFormulaVar* fracTwo = (RooFormulaVar*) workspace->obj("fracTwo");
+   RooRealVar* nJpsiLeak;
+   if (nGenJpsiLeak>0)  nJpsiLeak = workspace->var("nJpsiLeak");
+   else nJpsiLeak = new RooRealVar("nJpsiLeak", "#nJpsiLeak", 1.*nGenJpsiLeak, nGenJpsiLeak-7*sqrt(nGenJpsiLeak), nGenJpsiLeak+7*sqrt(nGenJpsiLeak));
    RooRealVar *l1KeeGen = workspace->var("l1KeeGen");
    RooRealVar *l2KeeGen = workspace->var("l2KeeGen");
    RooRealVar *l3KeeGen = workspace->var("l3KeeGen");
@@ -840,14 +870,16 @@ void FitterUtilsHistFact::fit(bool wantplot, bool constPartReco,
    RooBinning m_binning(nMassBins,B_plus_M->getMin(),B_plus_M->getMax(),"m_binning");
    RooBinning pT_binning(nmisPTBins,misPT->getMin(),misPT->getMax(),"pT_binning");
    RooExpOfPolyTimesXBinned *combPDF_unnorm =  new RooExpOfPolyTimesXBinned("combPDF_unnorm", "combPDF_unnorm", 
-                                                                            *B_plus_M, *misPT, *l1Kee, *l2Kee, *l3Kee, *l4Kee, *l5Kee,
+                                                                            *B_plus_M, *misPT, *l1Kee, *l2KeeGen, *l3KeeGen, *l4KeeGen, *l5KeeGen,
                                                                             m_binning, pT_binning);
 
    RooAbsReal *combIntegral = combPDF_unnorm->createIntegral(RooArgSet(*B_plus_M, *misPT));
    combIntegral->SetNameTitle("combIntegral","combIntegral");
    // RooFormulaVar *combNorm = new RooFormulaVar("combNorm","1./combIntegral",RooArgList(*combIntegral));
    RooRealVar *combNorm = new RooRealVar("combNorm","combNorm",1./combIntegral->getVal());
+   // RooRealVar *combNorm = new RooRealVar("combNorm","combNorm",1.);
    RooProduct *combPDF = new RooProduct("combPDF","combPDF",RooArgList(*combPDF_unnorm,*combNorm));  
+   
 
    model_nocomb_pdf_coefList->add(*nComb);
    model_nocomb_pdf_funcList->add(*combPDF); //normalization
@@ -890,7 +922,7 @@ void FitterUtilsHistFact::fit(bool wantplot, bool constPartReco,
    RooDataSet* dataGenComb = (RooDataSet*)workspaceGen->data("dataGenComb");
    cout<<"CACA2d"<<endl;
    RooDataSet* dataGenJpsiLeak(0);
-   if(nGenJpsiLeak>0) dataGenJpsiLeak = (RooDataSet*)workspaceGen->data("dataGenJpsiLeak");
+   if(nGenJpsiLeak>1) dataGenJpsiLeak = (RooDataSet*)workspaceGen->data("dataGenJpsiLeak");
 
 
    cout<<"CACA3"<<endl;
@@ -930,7 +962,7 @@ void FitterUtilsHistFact::fit(bool wantplot, bool constPartReco,
    dataGenTot_chan->append(*dataGenSignalOneGamma);
    dataGenTot_chan->append(*dataGenSignalTwoGamma);
    dataGenTot_chan->append(*dataGenComb);
-   if(nGenJpsiLeak>0) dataGenTot_chan->append(*dataGenJpsiLeak);
+   if(nGenJpsiLeak>1) dataGenTot_chan->append(*dataGenJpsiLeak);
 
    RooDataHist *dataGenTot_chan_bin = dataGenTot_chan->binnedClone();
    RooDataHist *dataGenTot = new RooDataHist("dataGenTot","dataGenTot",RooArgSet(*B_plus_M, *misPT),
@@ -940,20 +972,23 @@ void FitterUtilsHistFact::fit(bool wantplot, bool constPartReco,
    
 
    //**************Setup constant parameters
-  ((RooRealVar*)(mc->GetNuisanceParameters()->find("fracZero")))->setConstant(kTRUE);
-  ((RooRealVar*)(mc->GetNuisanceParameters()->find("fracOne")))->setConstant(kTRUE);
-  ((RooRealVar*)(mc->GetNuisanceParameters()->find("fracTwo")))->setConstant(kTRUE);
+  // ((RooRealVar*)(mc->GetNuisanceParameters()->find("fracZero")))->setConstant(kTRUE);
+  // ((RooRealVar*)(mc->GetNuisanceParameters()->find("fracOne")))->setConstant(kTRUE);
+  // ((RooRealVar*)(mc->GetNuisanceParameters()->find("fracTwo")))->setConstant(kTRUE);
   ((RooRealVar*)(mc->GetNuisanceParameters()->find("mcNorm_sigzero")))->setConstant(kTRUE);
   ((RooRealVar*)(mc->GetNuisanceParameters()->find("mcNorm_sigone")))->setConstant(kTRUE);
   ((RooRealVar*)(mc->GetNuisanceParameters()->find("mcNorm_sigtwo")))->setConstant(kTRUE);
   ((RooRealVar*)(mc->GetNuisanceParameters()->find("mcNorm_partreco")))->setConstant(kTRUE);
-  ((RooRealVar*)(mc->GetNuisanceParameters()->find("mcNorm_jpsileak")))->setConstant(kTRUE);
+  if(nGenJpsiLeak>1) ((RooRealVar*)(mc->GetNuisanceParameters()->find("mcNorm_jpsileak")))->setConstant(kTRUE);
   ((RooRealVar*)(mc->GetNuisanceParameters()->find("Lumi")))->setConstant(kTRUE);
   // l1Kee->setConstant(kTRUE);
   l2Kee->setConstant(kTRUE);
   l3Kee->setConstant(kTRUE);
   l4Kee->setConstant(kTRUE);
   l5Kee->setConstant(kTRUE);
+  
+  // nJpsiLeak->setVal(nGenJpsiLeak);
+  // nJpsiLeak->setConstant(kTRUE);
   
    cout<<"CACA7"<<endl;
   
@@ -971,7 +1006,8 @@ void FitterUtilsHistFact::fit(bool wantplot, bool constPartReco,
 
    RooRealVar fracOneConstMean("fracOneConstMean", "fracOneConstMean", nGenSignalOneGamma*1./nGenSignal/(1-fracZeroConstMean.getVal()));
    RooRealVar fracOneConstSigma("fracOneConstSigma", "fracOneConstSigma", sqrt(nGenSignalOneGamma)/nGenSignal/(1-fracZeroConstMean.getVal()));
-   RooGaussian fracOneConst("fracOneConst", "fracOneConst", *fracOne, fracOneConstMean, fracOneConstSigma); 
+   RooGaussian fracOneConst("fracOneConst", "fracOneConst", *fracOne, fracOneConstMean, fracOneConstSigma);
+
 
    RooRealVar fracPartRecoMean("fracPartRecoMean", "fracPartRecoMean", nGenPartReco/(1.*nGenSignal));
    RooRealVar fracPartRecoSigma("fracPartRecoSigma", "fracPartRecoSigma", fracPartReco_const*fracPartRecoMean.getVal());
@@ -982,6 +1018,15 @@ void FitterUtilsHistFact::fit(bool wantplot, bool constPartReco,
    RooRealVar JpsiLeakSigma("JpsiLeakSigma", "JpsiLeakSigma", nGenJpsiLeak*fractionalErrorJpsiLeak->getVal());
    RooGaussian JpsiLeakConst("JpsiLeakConst", "JpsiLeakConst", *nJpsiLeak, JpsiLeakMean, JpsiLeakSigma); 
    
+
+   fracZero->setVal(fracZeroConstMean.getVal());
+   fracOne->setVal(fracOneConstMean.getVal());
+   
+   
+   cout<<"Evaluating fracTwo... "<<endl;
+   cout<<"    fracZero = "<<fracZero->getVal()<<endl;
+   cout<<"    fracOne = "<<fracOne->getVal()<<endl;
+   cout<<"    fracTwo = "<<fracTwo->getVal()<<endl;
    
    cout<<"CACA10"<<endl;
    //Extra TEST CONSTRAINT
@@ -1002,21 +1047,23 @@ void FitterUtilsHistFact::fit(bool wantplot, bool constPartReco,
 
    initiateParams(nGenSignalZeroGamma, nGenSignalOneGamma, nGenSignalTwoGamma, 
           *nSignal, *nPartReco, *nComb, *fracZero, *fracOne, *nJpsiLeak,  constPartReco, fracPartRecoSigma,
-          *l1Kee, *l2Kee, *l3Kee, *l4Kee, *l5Kee, *l1KeeGen, *l2KeeGen, *l3KeeGen, *l4KeeGen, *l5KeeGen);
+                  *l1Kee, *l2Kee, *l3Kee, *l4Kee, *l5Kee, *l1KeeGen, *l2KeeGen, *l3KeeGen, *l4KeeGen, *l5KeeGen, constFracs, constComb);
 
    RooArgSet constraints(fracZeroConst, fracOneConst);
    if (constPartReco) constraints.add(fracPartRecoConst);
-   if(nGenJpsiLeak>0) constraints.add(JpsiLeakConst);
+   if (nGenJpsiLeak>1) constraints.add(JpsiLeakConst);
 
    RooArgList* gammas = new RooArgList();
    ParamHistFunc* param_func=NULL;
    // bool hasStatUncert = getStatUncertaintyFromChannel(model_nocomb_pdf , param_func, gammas );
-   bool hasStatUncert = getStatUncertaintyFromChannel(model_pdf_constrain , param_func, gammas );
+   cout<<"CACA11b"<<endl;
+   
+   // bool hasStatUncert = getStatUncertaintyFromChannel(model_pdf_constrain , param_func, gammas );
 
-   cout<< "Param_func nbins: "<<param_func->numBins()<<endl;
+   // cout<< "Param_func nbins: "<<param_func->numBins()<<endl;
    
 
-   RooAbsReal* nll = totPdf.createNLL(*dataGenTot, Offset(kTRUE), Verbose(kTRUE));
+   RooAbsReal* nll = totPdf.createNLL(*dataGenTot, Verbose(kTRUE), ExternalConstraints(constraints));
    // RooAbsReal* nll = totPdf.createNLL(*dataGenTot, ExternalConstraints(constraints),Offset(kTRUE));
    // RooAbsReal* nll = totPdf.createNLL(*dataGenTot, Extended(), ExternalConstraints(constraints));
    RooMinuit minuit(*nll);
@@ -1047,12 +1094,14 @@ void FitterUtilsHistFact::fit(bool wantplot, bool constPartReco,
 
    bool hasConverged(false);
 
+   // double int_comb = 1;
+   
 
    for(int i(0); (i<15) && !hasConverged ; ++i)
    {
       initiateParams(nGenSignalZeroGamma, nGenSignalOneGamma, nGenSignalTwoGamma, 
           *nSignal, *nPartReco, *nComb, *fracZero, *fracOne, *nJpsiLeak,  constPartReco, fracPartRecoSigma,
-          *l1Kee, *l2Kee, *l3Kee, *l4Kee, *l5Kee, *l1KeeGen, *l2KeeGen, *l3KeeGen, *l4KeeGen, *l5KeeGen);
+                     *l1Kee, *l2Kee, *l3Kee, *l4Kee, *l5Kee, *l1KeeGen, *l2KeeGen, *l3KeeGen, *l4KeeGen, *l5KeeGen, constFracs, constComb);
 
       cout<<"FITTING: starting with nsignal = "<<nSignal->getValV()<<" refit nbr. "<<i<<endl;
       //if(fitRes != NULL && fitRes != 0) delete fitRes;
@@ -1066,6 +1115,13 @@ void FitterUtilsHistFact::fit(bool wantplot, bool constPartReco,
 
       fitRes = minuit.save();
       edm = fitRes->edm();
+
+
+      // int_comb = combIntegral->getVal();
+      // nComb->setVal(nComb_fit->getVal()*int_comb);
+      // nComb->setError(nComb_fit->getError()*int_comb);
+      
+      
 
       fitResVec.push_back(fitRes); 
       migradResVec.push_back(migradRes);
@@ -1082,24 +1138,33 @@ void FitterUtilsHistFact::fit(bool wantplot, bool constPartReco,
 
    if(!hasConverged)
    {
-      double minNll(1e20);
-      int minIndex(-1);
-      for(unsigned int i(0); i<fitResVec.size(); ++i)
-      {
-         if( fitResVec.at(i)->minNll() < minNll)
-         {
-            minIndex = i;
-            minNll = fitResVec[i]->minNll();
-         }
-      }
+     cout<<"Fit did not converged in the end"<<endl;
+     
+
+      // double minNll(1e20);
+      // int minIndex(-1);
+      // for(unsigned int j(0); j<fitResVec.size(); ++j)
+      // {
+      //    if( fitResVec.at(j)->minNll() < minNll)
+      //    {
+      //       minIndex = j;
+      //       minNll = fitResVec.at(j)->minNll();
+      //    }
+      // }
       
-      migradRes = migradResVec.at(minIndex);
-      hesseRes = hesseResVec.at(minIndex);
-      cout<<"Fit not converged, choose fit "<<minIndex<<". Hesse: "<<hesseRes<<" migrad: "<<migradRes<<" edm: "<<edm<<" minNll: "<<fitRes->minNll()<<endl;
+
+      // migradRes = migradResVec.at(minIndex);
+      // hesseRes = hesseResVec.at(minIndex);
+      // cout<<"Fit not converged, choose fit "<<minIndex<<". Hesse: "<<hesseRes<<" migrad: "<<migradRes<<" edm: "<<edm<<" minNll: "<<fitRes->minNll()<<endl;
    }
 
 
-   fillTreeResult(t, fitRes,  update, migradRes, hesseRes, hasConverged);
+   if (hasConverged) 
+   {
+     cout<<"Filling tree"<<endl;
+
+     fillTreeResult(t, fitRes,  update, migradRes, hesseRes, hasConverged);
+   }
    
    for(unsigned int i(0); i<fitResVec.size(); ++i) delete fitResVec.at(i);
    //totPdf.fitTo(*dataGenTot, Extended(), Save(), Warnings(false));
@@ -1108,7 +1173,7 @@ void FitterUtilsHistFact::fit(bool wantplot, bool constPartReco,
 
 
    int w(12);
-   out<<setw(w)<<migradRes<<setw(w)<<hesseRes<<setw(w)<<edm<<setw(w)<<nrefit<<endl;
+   if (hasConverged) out<<setw(w)<<migradRes<<setw(w)<<hesseRes<<setw(w)<<edm<<setw(w)<<nrefit<<endl;
 
    if(wantplot) plot_fit_result(plotsfile, totPdf, dataGenTot);
 

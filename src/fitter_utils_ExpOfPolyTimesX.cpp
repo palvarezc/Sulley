@@ -27,7 +27,7 @@ void FitterUtilsExpOfPolyTimesX::initiateParams(RooArgSet* parset)
 void FitterUtilsExpOfPolyTimesX::initiateParams(int nGenSignalZeroGamma, int nGenSignalOneGamma, int nGenSignalTwoGamma, RooRealVar& nSignal, RooRealVar& nPartReco, 
       RooRealVar& nComb, RooRealVar& fracZero, RooRealVar& fracOne, RooRealVar&  nJpsiLeak, bool constPartReco, RooRealVar const& fracPartRecoSigma, 
       RooRealVar& l1Kee, RooRealVar& l2Kee, RooRealVar& l3Kee, RooRealVar& l4Kee, RooRealVar& l5Kee, 
-      RooRealVar const& l1KeeGen, RooRealVar const& l2KeeGen, RooRealVar const& l3KeeGen, RooRealVar const& l4KeeGen, RooRealVar const& l5KeeGen )
+                                                RooRealVar const& l1KeeGen, RooRealVar const& l2KeeGen, RooRealVar const& l3KeeGen, RooRealVar const& l4KeeGen, RooRealVar const& l5KeeGen , bool constFracs, bool constComb)
 {
    TRandom rand;
    rand.SetSeed();
@@ -71,11 +71,19 @@ void FitterUtilsExpOfPolyTimesX::initiateParams(int nGenSignalZeroGamma, int nGe
    double fracGenZero(nGenSignalZeroGamma/(1.*nGenSignal));
    double fracGenOne(nGenSignalOneGamma/(1.*nGenSignal));
 
+   if (!constFracs)
+   {
+     
    fracZero.setVal(rand.Gaus(fracGenZero, sqrt(nGenSignalZeroGamma)/(1.*nGenSignal))) ;
    fracZero.setRange(0., 1.);
    fracOne.setVal(rand.Gaus(fracGenOne, sqrt(nGenSignalOneGamma)/(1.*nGenSignal))) ;
    fracOne.setRange(0., 1.);
+   }
 
+
+   if(!constComb)
+   {
+     
    l1Kee.setVal(rand.Uniform( l1KeeGen.getVal() - 5*l1KeeGen.getError(), l1KeeGen.getVal() + 5*l1KeeGen.getError() ) );
    l1Kee.setRange( l1KeeGen.getVal() - 10*l1KeeGen.getError(), l1KeeGen.getVal() + 10*l1KeeGen.getError() );
 
@@ -90,6 +98,7 @@ void FitterUtilsExpOfPolyTimesX::initiateParams(int nGenSignalZeroGamma, int nGe
 
    l5Kee.setVal(rand.Uniform( l5KeeGen.getVal() - 5*l5KeeGen.getError(), l5KeeGen.getVal() + 5*l5KeeGen.getError() ) );
    l5Kee.setRange( l5KeeGen.getVal() - 10*l5KeeGen.getError(), l5KeeGen.getVal() + 10*l5KeeGen.getError() );
+   }
 }
 
 
@@ -201,7 +210,9 @@ void FitterUtilsExpOfPolyTimesX::prepare_PDFs(string trigStr, string weightStr, 
 
    TFile* fw(NULL);
 
-   string BDTCutString( ("("+BDTVar+">"+d2s(BDTcut)+")").c_str()  );
+   // Uncomment to recover the BDT cut!!!
+   // string BDTCutString( ("("+BDTVar+">"+d2s(BDTcut)+")").c_str()  );
+   string BDTCutString = "1";
 
    // dataSetSignalZeroGamma = new RooDataSet("dataSetSignalZeroGamma", "dataSetSignalZeroGamma", argsetSignal, Import(*tSignal), Cut(( " ("+trigStr+"  > 0.9) && "+BDTCutString+" && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) > -0.5) && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) < 0.5) && B_plus_M > "+d2s(minBMass)+" && B_plus_M < "+d2s(maxBMass)).c_str()), WeightVar("DataMCWeightee")  );
 
@@ -259,8 +270,9 @@ void FitterUtilsExpOfPolyTimesX::prepare_PDFs(string trigStr, string weightStr, 
    RooDataHist dataHistSignalTwoGamma("dataHistSignalTwoGamma", "dataHistSignalTwoGamma", argset2, *dataSetSignalTwoGamma); 
    RooDataHist dataHistComb("dataHistComb", "dataHistComb", argset2, *dataSetComb); 
    RooDataHist dataHistPartReco("dataHistPartReco", "dataHistPartReco", argset2, *dataSetPartReco); 
-   RooDataHist dataHistJpsiLeak("dataHistJpsiLeak", "dataHistJpsiLeak", argset2, "broaderBins");
-   dataHistJpsiLeak.add(*dataSetJpsiLeak); 
+   // RooDataHist dataHistJpsiLeak("dataHistJpsiLeak", "dataHistJpsiLeak", argset2, "broaderBins");
+   // dataHistJpsiLeak.add(*dataSetJpsiLeak); 
+   RooDataHist dataHistJpsiLeak("dataHistJpsiLeak", "dataHistJpsiLeak", argset2, *dataSetJpsiLeak); 
 
    //*************** Compute Error on J/psi leak
 
@@ -283,11 +295,19 @@ void FitterUtilsExpOfPolyTimesX::prepare_PDFs(string trigStr, string weightStr, 
 
    cout<<"Preparing the 3 2D histPdf: 1";
    //   RooArgSet argset2(B_plus_M);
-   RooHistPdf histPdfSignalZeroGamma("histPdfSignalZeroGamma", "histPdfSignalZeroGamma", argset2, dataHistSignalZeroGamma,2); cout<<" 2";
-   RooHistPdf histPdfSignalOneGamma("histPdfSignalOneGamma", "histPdfSignalOneGamma", argset2, dataHistSignalOneGamma,2); cout<<" 3";
-   RooHistPdf histPdfSignalTwoGamma("histPdfSignalTwoGamma", "histPdfSignalTwoGamma", argset2, dataHistSignalTwoGamma,2); cout<<" 4";
-   RooHistPdf histPdfPartReco("histPdfPartReco", "histPdfPartReco", argset2, dataHistPartReco,2); cout<<" 5";
-   RooHistPdf histPdfJpsiLeak("histPdfJpsiLeak", "histPdfJpsiLeak", argset2, dataHistJpsiLeak,2); cout<<" 6";
+
+   // RooHistPdf histPdfSignalZeroGamma("histPdfSignalZeroGamma", "histPdfSignalZeroGamma", argset2, dataHistSignalZeroGamma,2); cout<<" 2";
+   // RooHistPdf histPdfSignalOneGamma("histPdfSignalOneGamma", "histPdfSignalOneGamma", argset2, dataHistSignalOneGamma,2); cout<<" 3";
+   // RooHistPdf histPdfSignalTwoGamma("histPdfSignalTwoGamma", "histPdfSignalTwoGamma", argset2, dataHistSignalTwoGamma,2); cout<<" 4";
+   // RooHistPdf histPdfPartReco("histPdfPartReco", "histPdfPartReco", argset2, dataHistPartReco,2); cout<<" 5";
+   // RooHistPdf histPdfJpsiLeak("histPdfJpsiLeak", "histPdfJpsiLeak", argset2, dataHistJpsiLeak,2); cout<<" 6";
+
+   // No interpolation
+   RooHistPdf histPdfSignalZeroGamma("histPdfSignalZeroGamma", "histPdfSignalZeroGamma", argset2, dataHistSignalZeroGamma); cout<<" 2";
+   RooHistPdf histPdfSignalOneGamma("histPdfSignalOneGamma", "histPdfSignalOneGamma", argset2, dataHistSignalOneGamma); cout<<" 3";
+   RooHistPdf histPdfSignalTwoGamma("histPdfSignalTwoGamma", "histPdfSignalTwoGamma", argset2, dataHistSignalTwoGamma); cout<<" 4";
+   RooHistPdf histPdfPartReco("histPdfPartReco", "histPdfPartReco", argset2, dataHistPartReco); cout<<" 5";
+   RooHistPdf histPdfJpsiLeak("histPdfJpsiLeak", "histPdfJpsiLeak", argset2, dataHistJpsiLeak); cout<<" 6";
 
 
 
@@ -442,7 +462,7 @@ void FitterUtilsExpOfPolyTimesX::generate(bool wantPlots, string plotsfile)
 
 
    RooAbsPdf *combPDF;
-   //combPDF =  new RooExpOfPolyTimesX("combPDF", "combPDF", *B_plus_M, *misPT, *l1KeeGen, *l2KeeGen, *l3KeeGen, *l4KeeGen, *l5KeeGen );
+   combPDF =  new RooExpOfPolyTimesX("combPDF", "combPDF", *B_plus_M, *misPT, *l1KeeGen, *l2KeeGen, *l3KeeGen, *l4KeeGen, *l5KeeGen );
 
    //WARNING WARNING WARNING WARNING LITTLE FUCKER: USE THESE LINES ONLY IF YOU WANT TO ESTIMATE SYSTEMATICS
 
@@ -454,16 +474,16 @@ void FitterUtilsExpOfPolyTimesX::generate(bool wantPlots, string plotsfile)
 
 
    ///////////////create a keysPdf also for systematics
-   cout<<"HELLO0b"<<endl;
-   TVectorD rho(2);
-   rho[0] = 2.5;
-   rho[1] = 1.5;
-   cout<<"HELLO0c"<<endl;
-   misPT->setRange(-2000, 5000);
-   cout<<"HELLO0d "<<dataSetCombExt<<endl;
-   combPDF = new RooNDKeysPdf("keysPDFComb", "keysPDFComb", RooArgList(*B_plus_M, *misPT), *dataSetCombExt, rho, "ma",3, true);
-   cout<<"HELLO0e"<<endl;
-   misPT->setRange(0, 5000);
+   // cout<<"HELLO0b"<<endl;
+   // TVectorD rho(2);
+   // rho[0] = 2.5;
+   // rho[1] = 1.5;
+   // cout<<"HELLO0c"<<endl;
+   // misPT->setRange(-2000, 5000);
+   // cout<<"HELLO0d "<<dataSetCombExt<<endl;
+   // combPDF = new RooNDKeysPdf("keysPDFComb", "keysPDFComb", RooArgList(*B_plus_M, *misPT), *dataSetCombExt, rho, "ma",3, true);
+   // cout<<"HELLO0e"<<endl;
+   // misPT->setRange(0, 5000);
 
    cout<<"HELLO1"<<endl;
 
@@ -581,6 +601,10 @@ void FitterUtilsExpOfPolyTimesX::fit(bool wantplot, bool constPartReco,
       ofstream& out, TTree* t, bool update, string plotsfile)
 {
 
+
+  bool constFracs =0;
+  bool constComb =0;
+  
    //***************Get the PDFs from the workspace
 
    TFile fw(workspacename.c_str());   
@@ -632,7 +656,8 @@ void FitterUtilsExpOfPolyTimesX::fit(bool wantplot, bool constPartReco,
   // l5Kee->setVal(l5KeeSyst->getVal());
    //*********************************
 
-   combPDF =  new RooExpOfPolyTimesX("combPDF", "combPDF", *B_plus_M, *misPT, *l1Kee, *l2Kee, *l3Kee, *l4Kee, *l5Kee);
+   // combPDF =  new RooExpOfPolyTimesX("combPDF", "combPDF", *B_plus_M, *misPT, *l1Kee, *l2Kee, *l3Kee, *l4Kee, *l5Kee);
+   combPDF =  new RooExpOfPolyTimesX("combPDF", "combPDF", *B_plus_M, *misPT, *l1Kee, *l2KeeGen, *l3KeeGen, *l4KeeGen, *l5KeeGen);
 
 
    cout<<"CACA2"<<endl;
@@ -689,6 +714,8 @@ void FitterUtilsExpOfPolyTimesX::fit(bool wantplot, bool constPartReco,
    dataGenTot->append(*dataGenComb);
    if(nGenJpsiLeak>0) dataGenTot->append(*dataGenJpsiLeak);
 
+   RooDataHist *dataGenTotHist = dataGenTot->binnedClone("dataGenTotHist","dataGenTotHist");
+   
 
    cout<<"CACA7"<<endl;
    //**************Prepare fitting function
@@ -702,12 +729,18 @@ void FitterUtilsExpOfPolyTimesX::fit(bool wantplot, bool constPartReco,
    RooFormulaVar fracPartReco("fracPartReco", "nPartReco/nSignal", RooArgList(nPartReco,nSignal));
    RooFormulaVar fracOneRec("fracOneRec", "(1-fracZero)*fracOne", RooArgList(fracZero, fracOne));
 
+   // nJpsiLeak.setConstant(kTRUE);
+   
+
    cout<<"CACA8"<<endl;
 
    RooAddPdf histPdfSignal("histPdfSignal", "histPdfSignal", RooArgList(*histPdfSignalZeroGamma, *histPdfSignalOneGamma, *histPdfSignalTwoGamma), RooArgList(fracZero, fracOneRec));
 
    RooArgList pdfList(histPdfSignal, *histPdfPartReco, *combPDF);
    RooArgList yieldList(nSignal, nPartReco, nComb);
+
+   // RooArgList pdfList(histPdfSignal, *histPdfPartReco);
+   // RooArgList yieldList(nSignal, nPartReco);
 
    if(nGenJpsiLeak>0)
    {
@@ -724,6 +757,8 @@ void FitterUtilsExpOfPolyTimesX::fit(bool wantplot, bool constPartReco,
    int nGenSignalOneGamma(floor(nGenFracOneGamma*nGenSignal));
    int nGenSignalTwoGamma(floor(nGenSignal-nGenSignalZeroGamma-nGenSignalOneGamma));
 
+
+   //   This is the code from Thibaud
    RooRealVar fracZeroConstMean("fracZeroConstMean", "fracZeroConstMean", nGenSignalZeroGamma*1./nGenSignal);
    RooRealVar fracZeroConstSigma("fracZeroConstSigma", "fracZeroConstSigma", sqrt(nGenSignalZeroGamma)/nGenSignal);
    RooGaussian fracZeroConst("fracZeroConst", "fracZeroConst", fracZero, fracZeroConstMean, fracZeroConstSigma); 
@@ -731,6 +766,7 @@ void FitterUtilsExpOfPolyTimesX::fit(bool wantplot, bool constPartReco,
    RooRealVar fracOneConstMean("fracOneConstMean", "fracOneConstMean", nGenSignalOneGamma*1./nGenSignal/(1-fracZeroConstMean.getVal()));
    RooRealVar fracOneConstSigma("fracOneConstSigma", "fracOneConstSigma", sqrt(nGenSignalOneGamma)/nGenSignal/(1-fracZeroConstMean.getVal()));
    RooGaussian fracOneConst("fracOneConst", "fracOneConst", fracOne, fracOneConstMean, fracOneConstSigma); 
+
 
    RooRealVar fracPartRecoMean("fracPartRecoMean", "fracPartRecoMean", nGenPartReco/(1.*nGenSignal));
    RooRealVar fracPartRecoSigma("fracPartRecoSigma", "fracPartRecoSigma", fracPartReco_const*fracPartRecoMean.getVal());
@@ -742,7 +778,8 @@ void FitterUtilsExpOfPolyTimesX::fit(bool wantplot, bool constPartReco,
    RooGaussian JpsiLeakConst("JpsiLeakConst", "JpsiLeakConst", nJpsiLeak, JpsiLeakMean, JpsiLeakSigma); 
    cout<<"CACA10"<<endl;
 
-   //Extra TEST CONSTRAINT
+   //Extra TEST CONSTRAINT   
+   
 
 
    //RooRealVar combConstMean("combConstMean", "combConstMean", nGenComb);
@@ -754,19 +791,21 @@ void FitterUtilsExpOfPolyTimesX::fit(bool wantplot, bool constPartReco,
    RooAbsReal::defaultIntegratorConfig()->setEpsAbs(1e-8) ;
    RooAbsReal::defaultIntegratorConfig()->setEpsRel(1e-8) ;
 
-   RooArgSet *par_set = totPdf.getParameters(dataGenTot);
+   // RooArgSet *par_set = totPdf.getParameters(dataGenTot);
+   RooArgSet *par_set = totPdf.getParameters(dataGenTotHist);
 
    cout<<"CACA11"<<endl;
 
    initiateParams(nGenSignalZeroGamma, nGenSignalOneGamma, nGenSignalTwoGamma, 
           nSignal, nPartReco, nComb, fracZero, fracOne, nJpsiLeak,  constPartReco, fracPartRecoSigma,
-          *l1Kee, *l2Kee, *l3Kee, *l4Kee, *l5Kee, *l1KeeGen, *l2KeeGen, *l3KeeGen, *l4KeeGen, *l5KeeGen);
+                  *l1Kee, *l2Kee, *l3Kee, *l4Kee, *l5Kee, *l1KeeGen, *l2KeeGen, *l3KeeGen, *l4KeeGen, *l5KeeGen, constFracs, constComb);
 
    RooArgSet constraints(fracZeroConst, fracOneConst);
    if (constPartReco) constraints.add(fracPartRecoConst);
    if(nGenJpsiLeak>0) constraints.add(JpsiLeakConst);
 
-   RooAbsReal* nll = totPdf.createNLL(*dataGenTot, Extended(), ExternalConstraints(constraints));
+   // RooAbsReal* nll = totPdf.createNLL(*dataGenTot, Extended(), ExternalConstraints(constraints));
+   RooAbsReal* nll = totPdf.createNLL(*dataGenTotHist, Extended(), ExternalConstraints(constraints));
    RooMinuit minuit(*nll);
    minuit.setStrategy(2);
 
@@ -789,7 +828,7 @@ void FitterUtilsExpOfPolyTimesX::fit(bool wantplot, bool constPartReco,
    {
       initiateParams(nGenSignalZeroGamma, nGenSignalOneGamma, nGenSignalTwoGamma, 
           nSignal, nPartReco, nComb, fracZero, fracOne, nJpsiLeak,  constPartReco, fracPartRecoSigma,
-          *l1Kee, *l2Kee, *l3Kee, *l4Kee, *l5Kee, *l1KeeGen, *l2KeeGen, *l3KeeGen, *l4KeeGen, *l5KeeGen);
+                     *l1Kee, *l2Kee, *l3Kee, *l4Kee, *l5Kee, *l1KeeGen, *l2KeeGen, *l3KeeGen, *l4KeeGen, *l5KeeGen, constFracs, constComb);
 
       cout<<"FITTING: starting with nsignal = "<<nSignal.getValV()<<" refit nbr. "<<i<<endl;
       //if(fitRes != NULL && fitRes != 0) delete fitRes;
@@ -843,7 +882,8 @@ void FitterUtilsExpOfPolyTimesX::fit(bool wantplot, bool constPartReco,
    int w(12);
    out<<setw(w)<<migradRes<<setw(w)<<hesseRes<<setw(w)<<edm<<setw(w)<<nrefit<<endl;
 
-   if(wantplot) plot_fit_result(plotsfile, totPdf, *dataGenTot);
+   if(wantplot) plot_fit_result(plotsfile, totPdf, *dataGenTotHist);
+
 
    fw.Close();
    //delete and return
@@ -902,6 +942,56 @@ void FitterUtilsExpOfPolyTimesX::plot_fit_result(string plotsfile, RooAbsPdf &to
 
 
 }
+
+
+
+void FitterUtilsExpOfPolyTimesX::plot_fit_result(string plotsfile, RooAbsPdf &totPdf, RooDataHist dataGenTot)
+{
+
+   //**************Prepare TFile to save the plots
+
+   TFile f2(plotsfile.c_str(), "UPDATE");
+   //**************Plot the results of the fit
+
+   RooArgSet *var_set = totPdf.getObservables(dataGenTot);
+   TIterator *iter = var_set->createIterator();
+   RooRealVar *var;
+
+   std::vector<RooPlot*> plots;
+   RooPlot* frame;
+
+   while((var = (RooRealVar*) iter->Next()))
+   {
+
+      frame = var->frame();
+      dataGenTot.plotOn(frame);
+      totPdf.plotOn(frame, Components("histPdfPartReco"), LineColor(kBlue));
+      totPdf.plotOn(frame, Components("histPdfSignalZeroGamma"), LineColor(kGreen));
+      totPdf.plotOn(frame, Components("histPdfSignalOneGamma"), LineColor(kMagenta));
+      totPdf.plotOn(frame, Components("histPdfSignalTwoGamma"), LineColor(kOrange));
+      totPdf.plotOn(frame, Components("histPdfJpsiLeak"), LineColor(14));
+      totPdf.plotOn(frame, Components("combPDF"), LineColor(kBlack));
+      totPdf.plotOn(frame, LineColor(kRed));
+
+      plots.push_back(frame);
+
+   }  
+
+   if (!(plots.size())) return;
+
+   TCanvas cFit("cFit", "cFit", 600, 800);
+   cFit.Divide(1,2);
+   cFit.cd(1); plots[0]->Draw();
+   if (plots.size()>1){ 
+      cFit.cd(2); plots[1]->Draw();
+   }
+
+   cFit.Write();
+   f2.Close();
+
+
+}
+
 
 void FitterUtilsExpOfPolyTimesX::PlotShape(RooDataSet& originDataSet, RooDataSet& genDataSet, RooAbsPdf& shape, string plotsfile, string canvName, RooRealVar& B_plus_M, RooRealVar& misPT)
 {

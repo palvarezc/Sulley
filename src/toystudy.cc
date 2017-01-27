@@ -241,7 +241,7 @@ int main(int argc, char* argv[])
       if(fitMode == 7) fuHistFact.prepare_PDFs(trigStr, weightStr, BDTVar, BDTCutVal, fSignal, fPartReco, fComb, fJpsiLeak, minBMass, maxBMass);
    }
 
-
+   cout<<"PDFs prepared!"<<endl;
 
    //***************Prepare the stuff to generate events
 
