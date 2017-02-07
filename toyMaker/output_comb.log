@@ -1,0 +1,19 @@
+   ----------------------------------------------------------------
+  | Welcome to ROOT 6.06/02                    http://root.cern.ch |
+  |                                   (c) 1995-2014, The ROOT Team |
+  | Built for linuxx8664gcc                                        |
+  | From heads/master@v6-07-02-437-gb06340c, Mar 02 2016, 19:01:57 |
+  | Try '.help', '.demo', '.license', '.credits', '.quit'/'.q'     |
+   ----------------------------------------------------------------
+
+
+Processing analysis_histfact.C...
+
+[1mRooFit v3.60 -- Developed by Wouter Verkerke and David Kirkby[0m 
+                Copyright (C) 2000-2013 NIKHEF, University of California & Stanford University
+                All rights reserved, please read http://roofit.sourceforge.net/license.txt
+
+In file included from input_line_9:1:
+/home/hep/palvare1/B2Kmumu_Kee/Sulley/analysis_histfact.C:254:3: error: use of undeclared identifier 'model_pdf_sim'
+  model_pdf_sim.addPdf(model_pdf_comb_constrain,idx->getLabel());
+  ^

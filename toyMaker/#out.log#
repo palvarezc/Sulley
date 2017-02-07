@@ -1,0 +1,333 @@
+
+[1mRooFit v3.60 -- Developed by Wouter Verkerke and David Kirkby[0m 
+                Copyright (C) 2000-2013 NIKHEF, University of California & Stanford University
+                All rights reserved, please read http://roofit.sourceforge.net/license.txt
+
+25875
+mcN_signal_zero = 1926.13
+mcN_signal_one = 4134.13
+mcN_signal_two = 2251.69
+mcN_partreco = 6788.54
+Getting histogram.  InputFile toyMaker/histograms.root HistoPath  HistoName dataToy
+Opened input file: toyMaker/histograms.root: 0x4658b10
+Collecting Nominal Histogram
+Getting histogram.  InputFile toyMaker/histograms.root HistoPath  HistoName signal_zero
+Opened input file: toyMaker/histograms.root: 0x412d9b0
+Collecting Nominal Histogram
+Getting histogram.  InputFile toyMaker/histograms.root HistoPath  HistoName signal_one
+Opened input file: toyMaker/histograms.root: 0x4653550
+Collecting Nominal Histogram
+Getting histogram.  InputFile toyMaker/histograms.root HistoPath  HistoName signal_two
+Opened input file: toyMaker/histograms.root: 0x413ac80
+Collecting Nominal Histogram
+Getting histogram.  InputFile toyMaker/histograms.root HistoPath  HistoName partreco
+Opened input file: toyMaker/histograms.root: 0x4657420
+Making Model and Measurements (Fast) for measurement: my_measurement
+using lumi = 1 and lumiError = 0.05 including bins between 0 and 1
+fixing the following parameters:
+Checking if output directory : results -  exists
+Creating the output file: results/my_measurement_my_measurement.root
+Creating the table file: results/my_measurement_results.table
+Creating the HistoToWorkspaceFactoryFast factory
+Setting preprocess functions
+Starting to process channel: RK_kinematic
+
+
+-------------------
+Starting to process RK_kinematic channel with 2 observables
+lumi str = [1,0,10]
+lumi Error str = nominalLumi[1,0,1.5],0.05
+making normFactor: Nsig
+making normFactor: blindEff
+making normFactor: fzero
+making normFactor: mcNorm_sigzero
+signal_zero_sample_RK_kinematic has no variation histograms 
+processing hist signal_zero
+making normFactor: fone
+making normFactor: mcNorm_sigone
+signal_one_sample_RK_kinematic has no variation histograms 
+processing hist signal_one
+making normFactor: ftwo
+making normFactor: mcNorm_sigtwo
+signal_two_sample_RK_kinematic has no variation histograms 
+processing hist signal_two
+making normFactor: Npartreco
+making normFactor: mcNorm_partreco
+partreco_sample_RK_kinematic has no variation histograms 
+processing hist partreco
+-----------------------------------------
+import model into workspace
+RooDataSet::AsimovData[obs_x_RK_kinematic,obs_y_RK_kinematic,weight:binWeightAsimov] = 1890 entries (1110 weighted)
+
+RooWorkspace(RK_kinematic) RK_kinematic workspace contents
+
+variables
+---------
+(Lumi,Npartreco,Nsig,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_0,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_1,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_2,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_3,blindEff,fone,ftwo,fzero,mcNorm_partreco,mcNorm_sigone,mcNorm_sigtwo,mcNorm_sigzero,nominalLumi,obs_x_RK_kinematic,obs_y_RK_kinematic,weightVar)
+
+p.d.f.s
+-------
+RooRealSumPdf::RK_kinematic_model[ binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_0 * L_x_signal_zero_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_1 * L_x_signal_one_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_2 * L_x_signal_two_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_3 * L_x_partreco_sample_RK_kinematic_overallSyst_x_Exp ] = 5.86972e-14/1110
+RooGaussian::lumiConstraint[ x=Lumi mean=nominalLumi sigma=0.05 ] = 1
+RooProdPdf::model_RK_kinematic[ lumiConstraint * RK_kinematic_model(obs_x_RK_kinematic,obs_y_RK_kinematic) ] = 5.86972e-14
+
+functions
+--------
+RooProduct::L_x_partreco_sample_RK_kinematic_overallSyst_x_Exp[ 1 * partreco_sample_RK_kinematic_overallSyst_x_Exp ] = 8.10189e-11
+RooProduct::L_x_signal_one_sample_RK_kinematic_overallSyst_x_Exp[ 1 * signal_one_sample_RK_kinematic_overallSyst_x_Exp ] = 6.55616e-11
+RooProduct::L_x_signal_two_sample_RK_kinematic_overallSyst_x_Exp[ 1 * signal_two_sample_RK_kinematic_overallSyst_x_Exp ] = 3.68078e-11
+RooProduct::L_x_signal_zero_sample_RK_kinematic_overallSyst_x_Exp[ 1 * signal_zero_sample_RK_kinematic_overallSyst_x_Exp ] = 1.06992e-10
+RooHistFunc::partreco_sample_RK_kinematic_nominal[ depList=(obs_x_RK_kinematic,obs_y_RK_kinematic) ] = 1e-09
+RooProduct::partreco_sample_RK_kinematic_overallNorm_x_sigma_epsilon[ Npartreco * mcNorm_partreco * partreco_sample_RK_kinematic_epsilon ] = 0.0810189
+RooProduct::partreco_sample_RK_kinematic_overallSyst_x_Exp[ partreco_sample_RK_kinematic_nominal * partreco_sample_RK_kinematic_overallNorm_x_sigma_epsilon ] = 8.10189e-11
+RooHistFunc::signal_one_sample_RK_kinematic_nominal[ depList=(obs_x_RK_kinematic,obs_y_RK_kinematic) ] = 1e-09
+RooProduct::signal_one_sample_RK_kinematic_overallNorm_x_sigma_epsilon[ Nsig * blindEff * fone * mcNorm_sigone * signal_one_sample_RK_kinematic_epsilon ] = 0.0655616
+RooProduct::signal_one_sample_RK_kinematic_overallSyst_x_Exp[ signal_one_sample_RK_kinematic_nominal * signal_one_sample_RK_kinematic_overallNorm_x_sigma_epsilon ] = 6.55616e-11
+RooHistFunc::signal_two_sample_RK_kinematic_nominal[ depList=(obs_x_RK_kinematic,obs_y_RK_kinematic) ] = 1e-09
+RooProduct::signal_two_sample_RK_kinematic_overallNorm_x_sigma_epsilon[ Nsig * blindEff * ftwo * mcNorm_sigtwo * signal_two_sample_RK_kinematic_epsilon ] = 0.0368078
+RooProduct::signal_two_sample_RK_kinematic_overallSyst_x_Exp[ signal_two_sample_RK_kinematic_nominal * signal_two_sample_RK_kinematic_overallNorm_x_sigma_epsilon ] = 3.68078e-11
+RooHistFunc::signal_zero_sample_RK_kinematic_nominal[ depList=(obs_x_RK_kinematic,obs_y_RK_kinematic) ] = 1e-09
+RooProduct::signal_zero_sample_RK_kinematic_overallNorm_x_sigma_epsilon[ Nsig * blindEff * fzero * mcNorm_sigzero * signal_zero_sample_RK_kinematic_epsilon ] = 0.106992
+RooProduct::signal_zero_sample_RK_kinematic_overallSyst_x_Exp[ signal_zero_sample_RK_kinematic_nominal * signal_zero_sample_RK_kinematic_overallNorm_x_sigma_epsilon ] = 1.06992e-10
+
+datasets
+--------
+RooDataSet::asimovData(obs_x_RK_kinematic,obs_y_RK_kinematic)
+RooDataSet::obsData(obs_x_RK_kinematic,obs_y_RK_kinematic)
+
+embedded datasets (in pdfs and functions)
+-----------------------------------------
+RooDataHist::signal_zero_sample_RK_kinematicnominalDHist(obs_x_RK_kinematic,obs_y_RK_kinematic)
+RooDataHist::signal_one_sample_RK_kinematicnominalDHist(obs_x_RK_kinematic,obs_y_RK_kinematic)
+RooDataHist::signal_two_sample_RK_kinematicnominalDHist(obs_x_RK_kinematic,obs_y_RK_kinematic)
+RooDataHist::partreco_sample_RK_kinematicnominalDHist(obs_x_RK_kinematic,obs_y_RK_kinematic)
+
+named sets
+----------
+ModelConfig_GlobalObservables:(nominalLumi)
+ModelConfig_Observables:(obs_x_RK_kinematic,obs_y_RK_kinematic)
+coefList:(binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_0,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_1,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_2,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_3)
+constraintTerms:(lumiConstraint)
+globalObservables:(nominalLumi)
+likelihoodTerms:(RK_kinematic_model)
+obsAndWeight:(weightVar,obs_x_RK_kinematic,obs_y_RK_kinematic)
+observables:(obs_x_RK_kinematic,obs_y_RK_kinematic)
+observablesSet:(obs_x_RK_kinematic,obs_y_RK_kinematic)
+shapeList:(L_x_signal_zero_sample_RK_kinematic_overallSyst_x_Exp,L_x_signal_one_sample_RK_kinematic_overallSyst_x_Exp,L_x_signal_two_sample_RK_kinematic_overallSyst_x_Exp,L_x_partreco_sample_RK_kinematic_overallSyst_x_Exp)
+
+generic objects
+---------------
+RooStats::ModelConfig::ModelConfig
+
+embedded precalculated expensive components
+-------------------------------------------
+uid = 0 key=RK_kinematic_model_Int[obs_x_RK_kinematic,obs_y_RK_kinematic] value=RooDouble::1109.999392 parameters=( 1=1 Npartreco=550 Nsig=560 binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_0=0.000202139 binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_1=0.000202139 binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_2=0.000202139 binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_3=0.000202139 blindEff=1 fone=0.484 ftwo=0.148 fzero=0.368 mcNorm_partreco=0.000147307 mcNorm_sigone=0.000241889 mcNorm_sigtwo=0.00044411 mcNorm_sigzero=0.000519177 partreco_sample_RK_kinematic_epsilon=1 signal_one_sample_RK_kinematic_epsilon=1 signal_two_sample_RK_kinematic_epsilon=1 signal_zero_sample_RK_kinematic_epsilon=1 )
+Setting Parameter(s) of Interest as: Nsig 
+Opening File to hold channel: results/my_measurement_RK_kinematic_my_measurement_model.root
+About to write channel measurement to file
+Writing sample: signal_zero_sample
+Writing sample: signal_one_sample
+Writing sample: signal_two_sample
+Writing sample: partreco_sample
+Saved all histograms
+Saved Measurement
+Successfully wrote channel to file
+full list of observables:
+RooArgList:: = (obs_x_RK_kinematic,obs_y_RK_kinematic)
+
+
+------------------
+ Entering combination
+-----------------------------------------
+create toy data for RK_kinematic
+RooDataSet::AsimovData0[obs_x_RK_kinematic,obs_y_RK_kinematic,channelCat,weight:binWeightAsimov] = 1890 entries (1110 weighted)
+Merging data for channel RK_kinematic
+
+RooWorkspace(combined) combined contents
+
+variables
+---------
+(channelCat,nominalLumi,obs_x_RK_kinematic,obs_y_RK_kinematic,weightVar)
+
+datasets
+--------
+RooDataSet::asimovData(obs_x_RK_kinematic,obs_y_RK_kinematic,weightVar,channelCat)
+RooDataSet::obsData(channelCat,obs_x_RK_kinematic,obs_y_RK_kinematic)
+
+named sets
+----------
+ModelConfig_GlobalObservables:(nominalLumi)
+ModelConfig_Observables:(obs_x_RK_kinematic,obs_y_RK_kinematic,weightVar,channelCat)
+globalObservables:(nominalLumi)
+observables:(obs_x_RK_kinematic,obs_y_RK_kinematic,weightVar,channelCat)
+
+
+
+----------------
+ Importing combined model
+Setting Parameter(s) of Interest as: Nsig 
+Writing combined workspace to file: results/my_measurement_combined_my_measurement_model.root
+Writing combined measurement to file: results/my_measurement_combined_my_measurement_model.root
+Writing sample: signal_zero_sample
+Writing sample: signal_one_sample
+Writing sample: signal_two_sample
+Writing sample: partreco_sample
+Saved all histograms
+Saved Measurement
+RooSimultaneous::simPdf[ indexCat=channelCat RK_kinematic=model_RK_kinematic ] = 5.86972e-14
+here!
+Param of Interest: Nsig
+[#0] ERROR:ObjectHandling -- RooWorkSpace::import(combined) ERROR importing object named simPdf: another instance with same name already in the workspace and no conflict resolution protocol specified
+DEBUG MESSAGE: USING BRIAN'S PATCH
+  1) RooRealVar::                                             Lumi = 1
+  2) RooRealVar::                                        Npartreco = 550
+  3) RooRealVar::                                             Nsig = 560
+  4) RooRealVar:: binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_0 = 0.000202139
+  5) RooRealVar:: binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_1 = 0.000202139
+  6) RooRealVar:: binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_2 = 0.000202139
+  7) RooRealVar:: binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_3 = 0.000202139
+  8) RooRealVar::                                         blindEff = 1
+  9) RooRealVar::                                             fone = 0.484
+ 10) RooRealVar::                                             ftwo = 0.148
+ 11) RooRealVar::                                            fzero = 0.368
+ 12) RooRealVar::                                  mcNorm_partreco = 0.000147307
+ 13) RooRealVar::                                    mcNorm_sigone = 0.000241889
+ 14) RooRealVar::                                    mcNorm_sigtwo = 0.00044411
+ 15) RooRealVar::                                   mcNorm_sigzero = 0.000519177
+ 16) RooRealVar::                                      nominalLumi = 1
+**********************************************************************
+ **********
+ **    9 **SET ERR         0.5
+ **********
+ **********
+ **   10 **SET PRINT           1
+ **********
+Minimizing the Minuit (Migrad)
+ **********
+ **   11 **SET STR           2
+ **********
+ NOW USING STRATEGY  2: MAKE SURE MINIMUM TRUE, ERRORS CORRECT  
+ **********
+ **   16 **HESSE        1000
+ **********
+ FIRST CALL TO USER FUNCTION AT NEW START POINT, WITH IFLAG=4.
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=3.9563e-11 FROM HESSE     STATUS=OK             14 CALLS          15 TOTAL
+                     EDM=1599.25    STRATEGY= 2      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                INTERNAL      INTERNAL  
+  NO.   NAME      VALUE            ERROR       STEP SIZE       VALUE   
+   1  Npartreco    5.50000e+02   3.23891e+01   1.21429e-04  -1.52389e+00
+   2  Nsig         5.60000e+02   3.25212e+01   1.22528e-04  -1.52346e+00
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  34    NPAR=  2    ERR DEF=0.5
+  1.049e+03 -5.023e+01 
+ -5.023e+01  1.058e+03 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2
+        1  0.04769   1.000 -0.048
+        2  0.04769  -0.048  1.000
+ **********
+ **   21 **MIGRAD        1000           1
+ **********
+ START MIGRAD MINIMIZATION.  STRATEGY  2.  CONVERGENCE WHEN EDM .LT. 1.00e-03
+ FCN=3.9563e-11 FROM MIGRAD    STATUS=INITIATE        4 CALLS          19 TOTAL
+                     EDM=799.623    STRATEGY= 2      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Npartreco    5.50000e+02   3.23891e+01   1.21429e-04   2.10447e+04
+   2  Nsig         5.60000e+02   3.25212e+01   1.22528e-04   2.10098e+04
+                               ERR DEF= 0.5
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=-725.497 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          51 TOTAL
+                     EDM=5.83987e-06    STRATEGY= 2      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Npartreco    5.38873e+01   9.03702e+00   2.17028e-05  -1.23985e+00
+   2  Nsig         6.51135e+01   9.63890e+00   2.10569e-05   1.21307e+00
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  34    NPAR=  2    ERR DEF=0.5
+  8.167e+01 -2.777e+01 
+ -2.777e+01  9.291e+01 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2
+        1  0.31877   1.000 -0.319
+        2  0.31877  -0.319  1.000
+ **********
+ **   26 **HESSE        1000
+ **********
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=-725.497 FROM HESSE     STATUS=OK             10 CALLS          61 TOTAL
+                     EDM=5.84317e-06    STRATEGY= 2      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                INTERNAL      INTERNAL  
+  NO.   NAME      VALUE            ERROR       STEP SIZE       VALUE   
+   1  Npartreco    5.38873e+01   9.03818e+00   4.34056e-06  -1.55611e+00
+   2  Nsig         6.51135e+01   9.64014e+00   4.21139e-06  -1.55466e+00
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  34    NPAR=  2    ERR DEF=0.5
+  8.169e+01 -2.781e+01 
+ -2.781e+01  9.293e+01 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2
+        1  0.31913   1.000 -0.319
+        2  0.31913  -0.319  1.000
+5.84317e-06
+ **********
+ **   31 **MINOS        1000           2
+ **********
+ FCN=-725.497 FROM MINOS     STATUS=SUCCESSFUL     27 CALLS          88 TOTAL
+                     EDM=5.84317e-06    STRATEGY= 2      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                  PARABOLIC         MINOS ERRORS        
+  NO.   NAME      VALUE            ERROR      NEGATIVE      POSITIVE   
+   1  Npartreco    5.38873e+01   9.03818e+00                            
+   2  Nsig         6.51135e+01   9.64014e+00  -9.25030e+00   1.00301e+01
+                               ERR DEF= 0.5
+Fit ran with status 0
+Stat error on Nsig is 9.640144
+EDM at end was 0.000006
+RooArgList:: = (Npartreco,Nsig)
+CURRENT PARAMETERS:
+0: Npartreco			 = 53.8873 +/- 9.03818
+1: Nsig			 = 65.1135 +/- 9.64014
+
+2x2 matrix is as follows
+
+     |      0    |      1    |
+-------------------------------
+   0 |          1     -0.3191 
+   1 |    -0.3191           1 
+
+[#0] WARNING:Plotting -- At observable [x]=4661.9 RooRealSumPdf::RK_kinematic_model[ binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_0 * L_x_signal_zero_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_1 * L_x_signal_one_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_2 * L_x_signal_two_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_3 * L_x_partreco_sample_RK_kinematic_overallSyst_x_Exp ]
+     p.d.f value is less than zero (-0.000000), forcing value to zero @ !funcList=(L_x_signal_zero_sample_RK_kinematic_overallSyst_x_Exp = -6.24789e-06,L_x_signal_one_sample_RK_kinematic_overallSyst_x_Exp = 7.62311e-12,L_x_signal_two_sample_RK_kinematic_overallSyst_x_Exp = 4.2798e-12,L_x_partreco_sample_RK_kinematic_overallSyst_x_Exp = 0.00951275), !coefList=(binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_0 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_1 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_2 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_3 = 0.000202139)
+[#0] WARNING:Plotting -- At observable [x]=4702.38 RooRealSumPdf::RK_kinematic_model[ binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_0 * L_x_signal_zero_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_1 * L_x_signal_one_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_2 * L_x_signal_two_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_3 * L_x_partreco_sample_RK_kinematic_overallSyst_x_Exp ]
+     p.d.f value is less than zero (-0.000000), forcing value to zero @ !funcList=(L_x_signal_zero_sample_RK_kinematic_overallSyst_x_Exp = -6.24789e-06,L_x_signal_one_sample_RK_kinematic_overallSyst_x_Exp = 7.62311e-12,L_x_signal_two_sample_RK_kinematic_overallSyst_x_Exp = 4.2798e-12,L_x_partreco_sample_RK_kinematic_overallSyst_x_Exp = 0.00951275), !coefList=(binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_0 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_1 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_2 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_3 = 0.000202139)
+[#0] WARNING:Plotting -- At observable [x]=4682.14 RooRealSumPdf::RK_kinematic_model[ binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_0 * L_x_signal_zero_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_1 * L_x_signal_one_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_2 * L_x_signal_two_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_3 * L_x_partreco_sample_RK_kinematic_overallSyst_x_Exp ]
+     p.d.f value is less than zero (-0.000000), forcing value to zero @ !funcList=(L_x_signal_zero_sample_RK_kinematic_overallSyst_x_Exp = -6.24789e-06,L_x_signal_one_sample_RK_kinematic_overallSyst_x_Exp = 7.62311e-12,L_x_signal_two_sample_RK_kinematic_overallSyst_x_Exp = 4.2798e-12,L_x_partreco_sample_RK_kinematic_overallSyst_x_Exp = 0.00951275), !coefList=(binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_0 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_1 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_2 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_3 = 0.000202139)
+[#0] WARNING:Plotting -- At observable [x]=4702.38 RooRealSumPdf::RK_kinematic_model[ binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_0 * L_x_signal_zero_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_1 * L_x_signal_one_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_2 * L_x_signal_two_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_3 * L_x_partreco_sample_RK_kinematic_overallSyst_x_Exp ]
+     p.d.f value is less than zero (-0.000000), forcing value to zero @ !funcList=(L_x_signal_zero_sample_RK_kinematic_overallSyst_x_Exp = -6.24789e-06,L_x_signal_one_sample_RK_kinematic_overallSyst_x_Exp = 7.62311e-12,L_x_signal_two_sample_RK_kinematic_overallSyst_x_Exp = 4.2798e-12,L_x_partreco_sample_RK_kinematic_overallSyst_x_Exp = 0.00951275), !coefList=(binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_0 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_1 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_2 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_3 = 0.000202139)
+[#0] WARNING:Plotting -- At observable [x]=4661.9 RooRealSumPdf::RK_kinematic_model[ binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_0 * L_x_signal_zero_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_1 * L_x_signal_one_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_2 * L_x_signal_two_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_3 * L_x_partreco_sample_RK_kinematic_overallSyst_x_Exp ]
+     p.d.f value is less than zero (-0.000000), forcing value to zero @ !funcList=(L_x_signal_zero_sample_RK_kinematic_overallSyst_x_Exp = -6.24789e-06,L_x_signal_one_sample_RK_kinematic_overallSyst_x_Exp = 7.62311e-12,L_x_signal_two_sample_RK_kinematic_overallSyst_x_Exp = 4.2798e-12,L_x_partreco_sample_RK_kinematic_overallSyst_x_Exp = 0.00951275), !coefList=(binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_0 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_1 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_2 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_3 = 0.000202139)
+[#0] WARNING:Plotting -- At observable [x]=4702.38 RooRealSumPdf::RK_kinematic_model[ binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_0 * L_x_signal_zero_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_1 * L_x_signal_one_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_2 * L_x_signal_two_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_3 * L_x_partreco_sample_RK_kinematic_overallSyst_x_Exp ]
+     p.d.f value is less than zero (-0.000000), forcing value to zero @ !funcList=(L_x_signal_zero_sample_RK_kinematic_overallSyst_x_Exp = -6.24789e-06,L_x_signal_one_sample_RK_kinematic_overallSyst_x_Exp = 7.62311e-12,L_x_signal_two_sample_RK_kinematic_overallSyst_x_Exp = 4.2798e-12,L_x_partreco_sample_RK_kinematic_overallSyst_x_Exp = 0.00951275), !coefList=(binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_0 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_1 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_2 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_3 = 0.000202139)
+[#0] WARNING:Plotting -- At observable [x]=4682.14 RooRealSumPdf::RK_kinematic_model[ binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_0 * L_x_signal_zero_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_1 * L_x_signal_one_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_2 * L_x_signal_two_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_3 * L_x_partreco_sample_RK_kinematic_overallSyst_x_Exp ]
+     p.d.f value is less than zero (-0.000000), forcing value to zero @ !funcList=(L_x_signal_zero_sample_RK_kinematic_overallSyst_x_Exp = -6.24789e-06,L_x_signal_one_sample_RK_kinematic_overallSyst_x_Exp = 7.62311e-12,L_x_signal_two_sample_RK_kinematic_overallSyst_x_Exp = 4.2798e-12,L_x_partreco_sample_RK_kinematic_overallSyst_x_Exp = 0.00951275), !coefList=(binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_0 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_1 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_2 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_3 = 0.000202139)
+[#0] WARNING:Plotting -- At observable [x]=4702.38 RooRealSumPdf::RK_kinematic_model[ binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_0 * L_x_signal_zero_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_1 * L_x_signal_one_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_2 * L_x_signal_two_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_3 * L_x_partreco_sample_RK_kinematic_overallSyst_x_Exp ]
+     p.d.f value is less than zero (-0.000000), forcing value to zero @ !funcList=(L_x_signal_zero_sample_RK_kinematic_overallSyst_x_Exp = -6.24789e-06,L_x_signal_one_sample_RK_kinematic_overallSyst_x_Exp = 7.62311e-12,L_x_signal_two_sample_RK_kinematic_overallSyst_x_Exp = 4.2798e-12,L_x_partreco_sample_RK_kinematic_overallSyst_x_Exp = 0.00951275), !coefList=(binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_0 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_1 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_2 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_3 = 0.000202139)
+[#0] WARNING:Plotting -- At observable [x]=6333.33 RooRealSumPdf::RK_kinematic_model[ binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_0 * L_x_signal_zero_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_1 * L_x_signal_one_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_2 * L_x_signal_two_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_3 * L_x_partreco_sample_RK_kinematic_overallSyst_x_Exp ]
+     p.d.f value is less than zero (-0.000000), forcing value to zero @ !funcList=(L_x_signal_zero_sample_RK_kinematic_overallSyst_x_Exp = -6.24789e-06,L_x_signal_one_sample_RK_kinematic_overallSyst_x_Exp = 7.62311e-12,L_x_signal_two_sample_RK_kinematic_overallSyst_x_Exp = 4.2798e-12,L_x_partreco_sample_RK_kinematic_overallSyst_x_Exp = 0.00951275), !coefList=(binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_0 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_1 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_2 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_3 = 0.000202139)
+[#0] WARNING:Plotting -- At observable [x]=6455.56 RooRealSumPdf::RK_kinematic_model[ binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_0 * L_x_signal_zero_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_1 * L_x_signal_one_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_2 * L_x_signal_two_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_3 * L_x_partreco_sample_RK_kinematic_overallSyst_x_Exp ]
+     p.d.f value is less than zero (-0.000000), forcing value to zero @ !funcList=(L_x_signal_zero_sample_RK_kinematic_overallSyst_x_Exp = -6.24789e-06,L_x_signal_one_sample_RK_kinematic_overallSyst_x_Exp = 7.62311e-12,L_x_signal_two_sample_RK_kinematic_overallSyst_x_Exp = 4.2798e-12,L_x_partreco_sample_RK_kinematic_overallSyst_x_Exp = 0.00951275), !coefList=(binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_0 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_1 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_2 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_3 = 0.000202139)
+[#0] WARNING:Plotting -- At observable [x]=6333.33 RooRealSumPdf::RK_kinematic_model[ binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_0 * L_x_signal_zero_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_1 * L_x_signal_one_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_2 * L_x_signal_two_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_3 * L_x_partreco_sample_RK_kinematic_overallSyst_x_Exp ]
+     p.d.f value is less than zero (-0.000000), forcing value to zero @ !funcList=(L_x_signal_zero_sample_RK_kinematic_overallSyst_x_Exp = -6.24789e-06,L_x_signal_one_sample_RK_kinematic_overallSyst_x_Exp = 7.62311e-12,L_x_signal_two_sample_RK_kinematic_overallSyst_x_Exp = 4.2798e-12,L_x_partreco_sample_RK_kinematic_overallSyst_x_Exp = 0.00951275), !coefList=(binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_0 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_1 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_2 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_3 = 0.000202139)
+[#0] WARNING:Plotting -- At observable [x]=6394.44 RooRealSumPdf::RK_kinematic_model[ binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_0 * L_x_signal_zero_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_1 * L_x_signal_one_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_2 * L_x_signal_two_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_3 * L_x_partreco_sample_RK_kinematic_overallSyst_x_Exp ]
+     p.d.f value is less than zero (-0.000000), forcing value to zero @ !funcList=(L_x_signal_zero_sample_RK_kinematic_overallSyst_x_Exp = -6.24789e-06,L_x_signal_one_sample_RK_kinematic_overallSyst_x_Exp = 7.62311e-12,L_x_signal_two_sample_RK_kinematic_overallSyst_x_Exp = 4.2798e-12,L_x_partreco_sample_RK_kinematic_overallSyst_x_Exp = 0.00951275), !coefList=(binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_0 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_1 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_2 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_3 = 0.000202139)
+[#0] WARNING:Plotting -- At observable [x]=6333.33 RooRealSumPdf::RK_kinematic_model[ binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_0 * L_x_signal_zero_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_1 * L_x_signal_one_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_2 * L_x_signal_two_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_3 * L_x_partreco_sample_RK_kinematic_overallSyst_x_Exp ]
+     p.d.f value is less than zero (-0.000000), forcing value to zero @ !funcList=(L_x_signal_zero_sample_RK_kinematic_overallSyst_x_Exp = -6.24789e-06,L_x_signal_one_sample_RK_kinematic_overallSyst_x_Exp = 7.62311e-12,L_x_signal_two_sample_RK_kinematic_overallSyst_x_Exp = 4.2798e-12,L_x_partreco_sample_RK_kinematic_overallSyst_x_Exp = 0.00951275), !coefList=(binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_0 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_1 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_2 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_3 = 0.000202139)
+[#0] WARNING:Plotting -- At observable [x]=6455.56 RooRealSumPdf::RK_kinematic_model[ binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_0 * L_x_signal_zero_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_1 * L_x_signal_one_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_2 * L_x_signal_two_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_3 * L_x_partreco_sample_RK_kinematic_overallSyst_x_Exp ]
+     p.d.f value is less than zero (-0.000000), forcing value to zero @ !funcList=(L_x_signal_zero_sample_RK_kinematic_overallSyst_x_Exp = -6.24789e-06,L_x_signal_one_sample_RK_kinematic_overallSyst_x_Exp = 7.62311e-12,L_x_signal_two_sample_RK_kinematic_overallSyst_x_Exp = 4.2798e-12,L_x_partreco_sample_RK_kinematic_overallSyst_x_Exp = 0.00951275), !coefList=(binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_0 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_1 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_2 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_3 = 0.000202139)
+[#0] WARNING:Plotting -- At observable [x]=6333.33 RooRealSumPdf::RK_kinematic_model[ binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_0 * L_x_signal_zero_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_1 * L_x_signal_one_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_2 * L_x_signal_two_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_3 * L_x_partreco_sample_RK_kinematic_overallSyst_x_Exp ]
+     p.d.f value is less than zero (-0.000000), forcing value to zero @ !funcList=(L_x_signal_zero_sample_RK_kinematic_overallSyst_x_Exp = -6.24789e-06,L_x_signal_one_sample_RK_kinematic_overallSyst_x_Exp = 7.62311e-12,L_x_signal_two_sample_RK_kinematic_overallSyst_x_Exp = 4.2798e-12,L_x_partreco_sample_RK_kinematic_overallSyst_x_Exp = 0.00951275), !coefList=(binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_0 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_1 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_2 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_3 = 0.000202139)
+[#0] WARNING:Plotting -- At observable [x]=6394.44 RooRealSumPdf::RK_kinematic_model[ binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_0 * L_x_signal_zero_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_1 * L_x_signal_one_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_2 * L_x_signal_two_sample_RK_kinematic_overallSyst_x_Exp + binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_3 * L_x_partreco_sample_RK_kinematic_overallSyst_x_Exp ]
+     p.d.f value is less than zero (-0.000000), forcing value to zero @ !funcList=(L_x_signal_zero_sample_RK_kinematic_overallSyst_x_Exp = -6.24789e-06,L_x_signal_one_sample_RK_kinematic_overallSyst_x_Exp = 7.62311e-12,L_x_signal_two_sample_RK_kinematic_overallSyst_x_Exp = 4.2798e-12,L_x_partreco_sample_RK_kinematic_overallSyst_x_Exp = 0.00951275), !coefList=(binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_0 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_1 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_2 = 0.000202139,binWidth_obs_x_RK_kinematic_obs_y_RK_kinematic_3 = 0.000202139)
+end

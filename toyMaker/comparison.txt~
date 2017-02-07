@@ -1,0 +1,16 @@
+
+WITH ERRORS
+
+MINUIT WARNING IN MIGRAD                                                                                                                                    
+ ============== VARIABLE1 IS AT ITS LOWER ALLOWED LIMIT.                                                                                                     
+ FCN=69.9363 FROM MINOS     STATUS=SUCCESSFUL    185 CALLS         624 TOTAL                                                                                 
+                     EDM=0.00117734    STRATEGY= 2      ERROR MATRIX ACCURATE                                                                                
+  EXT PARAMETER                  PARABOLIC         MINOS ERRORS                                                                                              
+  NO.   NAME      VALUE            ERROR      NEGATIVE      POSITIVE                                                                                         
+   1  Ncomb        8.37901e-03   4.91600e-01                                                                                                                 
+                                 WARNING -   - ABOVE PARAMETER IS AT LIMIT.                                                                                  
+   2  Npartreco    5.23795e+01   1.03042e+01                                                                                                                 
+   3  Nsig         5.88291e+01   9.51345e+00  -9.09580e+00   9.91113e+00                                                                                     
+   4  expoConst    2.98200e-04   2.69507e-03                                                                                                                 
+
+WITHOUR ERRORS

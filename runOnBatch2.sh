@@ -12,9 +12,9 @@ TRIGGER=-1
 N_TOYS=50
 BDT_VAR_NAME="BDTNewu4bR"
 BDT_CUT=0.1428  #-0.0187   0.297
-OUTPUTDIR="/vols/lhcb/palvare1/RK_analysis/Fit_Toys/toy_result_01_26_exp_brem_stat/"
+OUTPUTDIR="/vols/lhcb/palvare1/RK_analysis/Fit_Toys/toy_result_01_26_exp_brem_1D/"
 CONSTRAINED=0
-MODE=7
+MODE=8
 WANT_HOP_CUT=0 #0: no HOP cut, 1: HOP cut
 MIN_B_MASS=4880
 MAX_B_MASS=6200
@@ -159,7 +159,12 @@ then
    QUEUE="hep.q"
 fi
 
-QSUBSTRING="qsub -wd "$OUTPUTDIR" -l h_rt=48:00:00 -M alvarezc@cern.ch -q "$QUEUE" -t 1-"$N_BATCH_JOBS":1 "$runOnBatchScript
+if [ $MODE = 8 ]
+then
+   QUEUE="hep.q"
+fi
+
+QSUBSTRING="qsub -wd "$OUTPUTDIR" -l h_rt=48:00:00 -M paula.alvarez@cern.ch -q "$QUEUE" -t 1-"$N_BATCH_JOBS":1 "$runOnBatchScript
 
 echo  $QSUBSTRING
 read -p "Do you want to submit to the batch? " -n 1 -r

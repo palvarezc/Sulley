@@ -1,0 +1,119 @@
+
+[1mRooFit v3.60 -- Developed by Wouter Verkerke and David Kirkby[0m 
+                Copyright (C) 2000-2013 NIKHEF, University of California & Stanford University
+                All rights reserved, please read http://roofit.sourceforge.net/license.txt
+
+32995
+mcN_signal_zero = 1926.13
+mcN_signal_one = 4134.13
+mcN_signal_two = 2251.69
+mcN_partreco = 6788.54
+  1) RooRealVar:: Npartreco = 550
+  2) RooRealVar::      Nsig = 560
+  3) RooRealVar::      fone = 0.484
+  4) RooRealVar::     fzero = 0.368
+**********************************************************************
+ **********
+ **    9 **SET ERR         0.5
+ **********
+ **********
+ **   10 **SET PRINT           1
+ **********
+Minimizing the Minuit (Migrad)
+ **********
+ **   11 **SET STR           2
+ **********
+ NOW USING STRATEGY  2: MAKE SURE MINIMUM TRUE, ERRORS CORRECT  
+ **********
+ **   16 **HESSE        1000
+ **********
+ FIRST CALL TO USER FUNCTION AT NEW START POINT, WITH IFLAG=4.
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=3.9563e-11 FROM HESSE     STATUS=OK             14 CALLS          15 TOTAL
+                     EDM=1599.25    STRATEGY= 2      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                INTERNAL      INTERNAL  
+  NO.   NAME      VALUE            ERROR       STEP SIZE       VALUE   
+   1  Npartreco    5.50000e+02   3.23891e+01   1.21429e-04  -1.52389e+00
+   2  Nsig         5.60000e+02   3.25212e+01   1.22528e-04  -1.52346e+00
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  2    ERR DEF=0.5
+  1.049e+03 -5.023e+01 
+ -5.023e+01  1.058e+03 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2
+        1  0.04769   1.000 -0.048
+        2  0.04769  -0.048  1.000
+ **********
+ **   21 **MIGRAD        1000           1
+ **********
+ START MIGRAD MINIMIZATION.  STRATEGY  2.  CONVERGENCE WHEN EDM .LT. 1.00e-03
+ FCN=3.9563e-11 FROM MIGRAD    STATUS=INITIATE        4 CALLS          19 TOTAL
+                     EDM=799.623    STRATEGY= 2      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Npartreco    5.50000e+02   3.23891e+01   1.21429e-04   2.10447e+04
+   2  Nsig         5.60000e+02   3.25212e+01   1.22528e-04   2.10098e+04
+                               ERR DEF= 0.5
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=-725.498 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          51 TOTAL
+                     EDM=5.83995e-06    STRATEGY= 2      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Npartreco    5.38872e+01   9.03701e+00   2.17028e-05  -1.23986e+00
+   2  Nsig         6.51134e+01   9.63890e+00   2.10570e-05   1.21308e+00
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  2    ERR DEF=0.5
+  8.167e+01 -2.777e+01 
+ -2.777e+01  9.291e+01 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2
+        1  0.31877   1.000 -0.319
+        2  0.31877  -0.319  1.000
+ **********
+ **   26 **HESSE        1000
+ **********
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=-725.498 FROM HESSE     STATUS=OK             10 CALLS          61 TOTAL
+                     EDM=5.84321e-06    STRATEGY= 2      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                INTERNAL      INTERNAL  
+  NO.   NAME      VALUE            ERROR       STEP SIZE       VALUE   
+   1  Npartreco    5.38872e+01   9.03816e+00   4.34056e-06  -1.55611e+00
+   2  Nsig         6.51134e+01   9.64013e+00   4.21139e-06  -1.55466e+00
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  2    ERR DEF=0.5
+  8.169e+01 -2.781e+01 
+ -2.781e+01  9.293e+01 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2
+        1  0.31913   1.000 -0.319
+        2  0.31913  -0.319  1.000
+5.84321e-06
+ **********
+ **   31 **MINOS        1000           2
+ **********
+ FCN=-725.498 FROM MINOS     STATUS=SUCCESSFUL     27 CALLS          88 TOTAL
+                     EDM=5.84321e-06    STRATEGY= 2      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                  PARABOLIC         MINOS ERRORS        
+  NO.   NAME      VALUE            ERROR      NEGATIVE      POSITIVE   
+   1  Npartreco    5.38872e+01   9.03816e+00                            
+   2  Nsig         6.51134e+01   9.64013e+00  -9.25030e+00   1.00301e+01
+                               ERR DEF= 0.5
+Fit ran with status 0
+Stat error on Nsig is 9.640134
+EDM at end was 0.000006
+RooArgList:: = (Npartreco,Nsig)
+CURRENT PARAMETERS:
+0: Npartreco			 = 53.8872 +/- 9.03816
+1: Nsig			 = 65.1134 +/- 9.64013
+
+2x2 matrix is as follows
+
+     |      0    |      1    |
+-------------------------------
+   0 |          1     -0.3191 
+   1 |    -0.3191           1 
+
+[#0] ERROR:InputArguments -- RooPlot::findObject(frame_x_31aa2b0) cannot find object model
+end

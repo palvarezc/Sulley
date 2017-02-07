@@ -1,0 +1,913 @@
+================================================================================
+   Starting 1 toys with the following configuration: 
+   
+       # signal events         : 199
+       # part. reco. events    : 92
+       # comb. bkg. events     : 440
+       # J psi Leakage events  : 16
+       Trigger category (0=ETOS, 1=HTOS, 2=TIS) : 0 
+       BDT Variable :BDTNewu4bR
+       BDT cut : 0.1428
+       Reloading control samples? Yes
+       Constraining Part. Reco? 0
+       # dimensions: 8
+       HOP cut applied? No
+       Visible mass range : 4880 < M < 6200
+================================================================================
+
+[1mRooFit v3.60 -- Developed by Wouter Verkerke and David Kirkby[0m 
+                Copyright (C) 2000-2013 NIKHEF, University of California & Stanford University
+                All rights reserved, please read http://roofit.sourceforge.net/license.txt
+
+Creating histograms...
+Error in <TTree::SetBranchStatus>: unknown branch -> BDTNewu4bR
+Info in <TCanvas::MakeDefCanvas>:  created default TCanvas with name c1
+Error in <TTree::SetBranchStatus>: unknown branch -> BDTNewu4bR
+Error in <TTree::SetBranchStatus>: unknown branch -> BDTNewu4bR
+Error in <TTree::SetBranchStatus>: unknown branch -> BDTNewu4bR
+Error in <TTree::SetBranchStatus>: unknown branch -> BDTNewu4bR
+Error in <TTree::SetBranchStatus>: unknown branch -> BDTNewu4bR
+Error in <TTree::SetBranchStatus>: unknown branch -> B_plus_DTFM_M_zero
+Error in <TTree::SetBranchStatus>: unknown branch -> BDTNewu4bR
+Error in <TTree::SetBranchStatus>: unknown branch -> e_minus_BremMultiplicity
+h_SignalZero bins: 33
+h_SignalOne bins: 33
+h_SignalTwo bins: 33
+h_PartReco bins: 33
+h_JpsiLeak bins: 33
+h_Comb bins: 33
+Number of JpsiLeak : 2752.03
+Number of SignalZero: 3678.69
+Number of SignalOne: 7786.34
+Number of SignalTwo: 4115.16
+Number of PartReco: 8772.52
+Number of Comb: 93745
+Creating pdfs...
+Making Model and Measurements (Fast) for measurement: my_measurement
+using lumi = 1 and lumiError = 0.05 including bins between 0 and 1
+fixing the following parameters:
+Checking if output directory : toy_result -  exists
+Creating the output file: toy_result/_my_measurement.root
+Creating the table file: toy_result/_results.table
+Creating the HistoToWorkspaceFactoryFast factory
+Setting preprocess functions
+Starting to process channel: B2Kee
+
+
+-------------------
+Starting to process B2Kee channel with 1 observables
+will preprocess this line: expr::fracOneRec('(1-fracZero)*fracOne',{fracOne[0,1],fracZero[0,1]})
+
+RooWorkspace(B2Kee) B2Kee workspace contents
+
+variables
+---------
+(fracOne,fracZero)
+
+functions
+--------
+RooFormulaVar::fracOneRec[ actualVars=(fracOne,fracZero) formula="(1-fracZero)*fracOne" ] = 0.25
+
+will preprocess this line: expr::fracTwo('1-fracZero-(1-fracZero)*fracOne',{fracOne[0,1],fracZero[0,1]})
+[#1] INFO:ObjectHandling -- RooWorkSpace::import(B2Kee) Recycling existing object fracOne created with identical factory specification
+[#1] INFO:ObjectHandling -- RooWorkSpace::import(B2Kee) Recycling existing object fracZero created with identical factory specification
+
+RooWorkspace(B2Kee) B2Kee workspace contents
+
+variables
+---------
+(fracOne,fracZero)
+
+functions
+--------
+RooFormulaVar::fracOneRec[ actualVars=(fracOne,fracZero) formula="(1-fracZero)*fracOne" ] = 0.25
+RooFormulaVar::fracTwo[ actualVars=(fracOne,fracZero) formula="1-fracZero-(1-fracZero)*fracOne" ] = 0.25
+
+lumi str = [1,0,10]
+lumi Error str = nominalLumi[1,0,1.5],0.05
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) importing RooConstVar::SignalZeroSample_B2Kee_epsilon
+making normFactor: nSignal
+making normFactor: mcNorm_sigzero
+SignalZeroSample_B2Kee has no variation histograms 
+processing hist SignalZero
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(SignalZeroSample_B2KeenominalDHist): fit range of variable obs_x_B2Kee expanded to nearest bin boundaries: [4880,6200] --> [4880,6200]
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) importing dataset SignalZeroSample_B2KeenominalDHist
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) importing RooHistFunc::SignalZeroSample_B2Kee_nominal
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) importing RooConstVar::SignalOneSample_B2Kee_epsilon
+making normFactor: mcNorm_sigone
+SignalOneSample_B2Kee has no variation histograms 
+processing hist SignalOne
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(SignalOneSample_B2KeenominalDHist): fit range of variable obs_x_B2Kee expanded to nearest bin boundaries: [4880,6200] --> [4880,6200]
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) importing dataset SignalOneSample_B2KeenominalDHist
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) importing RooHistFunc::SignalOneSample_B2Kee_nominal
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) importing RooConstVar::SignalTwoSample_B2Kee_epsilon
+making normFactor: mcNorm_sigtwo
+SignalTwoSample_B2Kee has no variation histograms 
+processing hist SignalTwo
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(SignalTwoSample_B2KeenominalDHist): fit range of variable obs_x_B2Kee expanded to nearest bin boundaries: [4880,6200] --> [4880,6200]
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) importing dataset SignalTwoSample_B2KeenominalDHist
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) importing RooHistFunc::SignalTwoSample_B2Kee_nominal
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) importing RooConstVar::PartRecoSample_B2Kee_epsilon
+making normFactor: nPartReco
+making normFactor: mcNorm_partreco
+PartRecoSample_B2Kee has no variation histograms 
+processing hist PartReco
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(PartRecoSample_B2KeenominalDHist): fit range of variable obs_x_B2Kee expanded to nearest bin boundaries: [4880,6200] --> [4880,6200]
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) importing dataset PartRecoSample_B2KeenominalDHist
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) importing RooHistFunc::PartRecoSample_B2Kee_nominal
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) importing RooConstVar::JpsiLeakSample_B2Kee_epsilon
+making normFactor: nJpsiLeak
+making normFactor: mcNorm_jpsileak
+JpsiLeakSample_B2Kee has no variation histograms 
+processing hist JpsiLeak
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(JpsiLeakSample_B2KeenominalDHist): fit range of variable obs_x_B2Kee expanded to nearest bin boundaries: [4880,6200] --> [4880,6200]
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) importing dataset JpsiLeakSample_B2KeenominalDHist
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) importing RooHistFunc::JpsiLeakSample_B2Kee_nominal
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) importing RooRealSumPdf::B2Kee_model
+-----------------------------------------
+import model into workspace
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) importing RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooGaussian::lumiConstraint for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooConstVar::0.05 for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooRealVar::Lumi for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooRealVar::nominalLumi for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooRealSumPdf::B2Kee_model for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooProduct::L_x_SignalZeroSample_B2Kee_overallSyst_x_Exp for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooConstVar::1 for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooProduct::SignalZeroSample_B2Kee_overallSyst_x_Exp for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooHistFunc::SignalZeroSample_B2Kee_nominal for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooRealVar::obs_x_B2Kee for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooProduct::SignalZeroSample_B2Kee_overallNorm_x_sigma_epsilon for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooRealVar::nSignal for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooRealVar::fracZero for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooRealVar::mcNorm_sigzero for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooConstVar::SignalZeroSample_B2Kee_epsilon for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooRealVar::binWidth_obs_x_B2Kee_0 for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooProduct::L_x_SignalOneSample_B2Kee_overallSyst_x_Exp for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooProduct::SignalOneSample_B2Kee_overallSyst_x_Exp for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooHistFunc::SignalOneSample_B2Kee_nominal for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooProduct::SignalOneSample_B2Kee_overallNorm_x_sigma_epsilon for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooFormulaVar::fracOneRec for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooRealVar::fracOne for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooRealVar::mcNorm_sigone for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooConstVar::SignalOneSample_B2Kee_epsilon for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooRealVar::binWidth_obs_x_B2Kee_1 for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooProduct::L_x_SignalTwoSample_B2Kee_overallSyst_x_Exp for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooProduct::SignalTwoSample_B2Kee_overallSyst_x_Exp for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooHistFunc::SignalTwoSample_B2Kee_nominal for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooProduct::SignalTwoSample_B2Kee_overallNorm_x_sigma_epsilon for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooFormulaVar::fracTwo for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooRealVar::mcNorm_sigtwo for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooConstVar::SignalTwoSample_B2Kee_epsilon for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooRealVar::binWidth_obs_x_B2Kee_2 for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooProduct::L_x_PartRecoSample_B2Kee_overallSyst_x_Exp for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooProduct::PartRecoSample_B2Kee_overallSyst_x_Exp for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooHistFunc::PartRecoSample_B2Kee_nominal for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooProduct::PartRecoSample_B2Kee_overallNorm_x_sigma_epsilon for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooRealVar::nPartReco for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooRealVar::mcNorm_partreco for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooConstVar::PartRecoSample_B2Kee_epsilon for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooRealVar::binWidth_obs_x_B2Kee_3 for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooProduct::L_x_JpsiLeakSample_B2Kee_overallSyst_x_Exp for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooProduct::JpsiLeakSample_B2Kee_overallSyst_x_Exp for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooHistFunc::JpsiLeakSample_B2Kee_nominal for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooProduct::JpsiLeakSample_B2Kee_overallNorm_x_sigma_epsilon for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooRealVar::nJpsiLeak for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooRealVar::mcNorm_jpsileak for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooConstVar::JpsiLeakSample_B2Kee_epsilon for import of RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) using existing copy of RooRealVar::binWidth_obs_x_B2Kee_4 for import of RooProdPdf::model_B2Kee
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(B2Kee_model_Int[obs_x_B2Kee]) using numeric integrator RooBinIntegrator to calculate Int(obs_x_B2Kee)
+RooDataSet::AsimovData[obs_x_B2Kee,weight:binWeightAsimov] = 33 entries (307 weighted)
+[#1] INFO:ObjectHandling -- RooWorkspace::import(B2Kee) importing dataset AsimovData
+[#1] INFO:ObjectHandling -- RooWorkSpace::import(B2Kee) changing name of dataset from  AsimovData to asimovData
+
+RooWorkspace(B2Kee) B2Kee workspace contents
+
+variables
+---------
+(Lumi,binWidth_obs_x_B2Kee_0,binWidth_obs_x_B2Kee_1,binWidth_obs_x_B2Kee_2,binWidth_obs_x_B2Kee_3,binWidth_obs_x_B2Kee_4,fracOne,fracZero,mcNorm_jpsileak,mcNorm_partreco,mcNorm_sigone,mcNorm_sigtwo,mcNorm_sigzero,nJpsiLeak,nPartReco,nSignal,nominalLumi,obs_x_B2Kee,weightVar)
+
+p.d.f.s
+-------
+RooRealSumPdf::B2Kee_model[ binWidth_obs_x_B2Kee_0 * L_x_SignalZeroSample_B2Kee_overallSyst_x_Exp + binWidth_obs_x_B2Kee_1 * L_x_SignalOneSample_B2Kee_overallSyst_x_Exp + binWidth_obs_x_B2Kee_2 * L_x_SignalTwoSample_B2Kee_overallSyst_x_Exp + binWidth_obs_x_B2Kee_3 * L_x_PartRecoSample_B2Kee_overallSyst_x_Exp + binWidth_obs_x_B2Kee_4 * L_x_JpsiLeakSample_B2Kee_overallSyst_x_Exp ] = 0.588436/307
+RooGaussian::lumiConstraint[ x=Lumi mean=nominalLumi sigma=0.05 ] = 1
+RooProdPdf::model_B2Kee[ lumiConstraint * B2Kee_model(obs_x_B2Kee) ] = 0.588436
+
+functions
+--------
+RooHistFunc::JpsiLeakSample_B2Kee_nominal[ depList=(obs_x_B2Kee) ] = 550.497
+RooProduct::JpsiLeakSample_B2Kee_overallNorm_x_sigma_epsilon[ nJpsiLeak * mcNorm_jpsileak * JpsiLeakSample_B2Kee_epsilon ] = 0.00581389
+RooProduct::JpsiLeakSample_B2Kee_overallSyst_x_Exp[ JpsiLeakSample_B2Kee_nominal * JpsiLeakSample_B2Kee_overallNorm_x_sigma_epsilon ] = 3.20053
+RooProduct::L_x_JpsiLeakSample_B2Kee_overallSyst_x_Exp[ 1 * JpsiLeakSample_B2Kee_overallSyst_x_Exp ] = 3.20053
+RooProduct::L_x_PartRecoSample_B2Kee_overallSyst_x_Exp[ 1 * PartRecoSample_B2Kee_overallSyst_x_Exp ] = 14.9771
+RooProduct::L_x_SignalOneSample_B2Kee_overallSyst_x_Exp[ 1 * SignalOneSample_B2Kee_overallSyst_x_Exp ] = 0.98465
+RooProduct::L_x_SignalTwoSample_B2Kee_overallSyst_x_Exp[ 1 * SignalTwoSample_B2Kee_overallSyst_x_Exp ] = 0.646182
+RooProduct::L_x_SignalZeroSample_B2Kee_overallSyst_x_Exp[ 1 * SignalZeroSample_B2Kee_overallSyst_x_Exp ] = 3.72898
+RooHistFunc::PartRecoSample_B2Kee_nominal[ depList=(obs_x_B2Kee) ] = 1428.12
+RooProduct::PartRecoSample_B2Kee_overallNorm_x_sigma_epsilon[ nPartReco * mcNorm_partreco * PartRecoSample_B2Kee_epsilon ] = 0.0104873
+RooProduct::PartRecoSample_B2Kee_overallSyst_x_Exp[ PartRecoSample_B2Kee_nominal * PartRecoSample_B2Kee_overallNorm_x_sigma_epsilon ] = 14.9771
+RooHistFunc::SignalOneSample_B2Kee_nominal[ depList=(obs_x_B2Kee) ] = 154.107
+RooProduct::SignalOneSample_B2Kee_overallNorm_x_sigma_epsilon[ nSignal * fracOneRec * mcNorm_sigone * SignalOneSample_B2Kee_epsilon ] = 0.00638939
+RooProduct::SignalOneSample_B2Kee_overallSyst_x_Exp[ SignalOneSample_B2Kee_nominal * SignalOneSample_B2Kee_overallNorm_x_sigma_epsilon ] = 0.98465
+RooHistFunc::SignalTwoSample_B2Kee_nominal[ depList=(obs_x_B2Kee) ] = 53.4501
+RooProduct::SignalTwoSample_B2Kee_overallNorm_x_sigma_epsilon[ nSignal * fracTwo * mcNorm_sigtwo * SignalTwoSample_B2Kee_epsilon ] = 0.0120894
+RooProduct::SignalTwoSample_B2Kee_overallSyst_x_Exp[ SignalTwoSample_B2Kee_nominal * SignalTwoSample_B2Kee_overallNorm_x_sigma_epsilon ] = 0.646182
+RooHistFunc::SignalZeroSample_B2Kee_nominal[ depList=(obs_x_B2Kee) ] = 137.867
+RooProduct::SignalZeroSample_B2Kee_overallNorm_x_sigma_epsilon[ nSignal * fracZero * mcNorm_sigzero * SignalZeroSample_B2Kee_epsilon ] = 0.0270477
+RooProduct::SignalZeroSample_B2Kee_overallSyst_x_Exp[ SignalZeroSample_B2Kee_nominal * SignalZeroSample_B2Kee_overallNorm_x_sigma_epsilon ] = 3.72898
+RooFormulaVar::fracOneRec[ actualVars=(fracOne,fracZero) formula="(1-fracZero)*fracOne" ] = 0.25
+RooFormulaVar::fracTwo[ actualVars=(fracOne,fracZero) formula="1-fracZero-(1-fracZero)*fracOne" ] = 0.25
+
+datasets
+--------
+RooDataSet::asimovData(obs_x_B2Kee)
+
+embedded datasets (in pdfs and functions)
+-----------------------------------------
+RooDataHist::SignalZeroSample_B2KeenominalDHist(obs_x_B2Kee)
+RooDataHist::SignalOneSample_B2KeenominalDHist(obs_x_B2Kee)
+RooDataHist::SignalTwoSample_B2KeenominalDHist(obs_x_B2Kee)
+RooDataHist::PartRecoSample_B2KeenominalDHist(obs_x_B2Kee)
+RooDataHist::JpsiLeakSample_B2KeenominalDHist(obs_x_B2Kee)
+
+named sets
+----------
+ModelConfig_GlobalObservables:(nominalLumi)
+ModelConfig_Observables:(obs_x_B2Kee)
+coefList:(binWidth_obs_x_B2Kee_0,binWidth_obs_x_B2Kee_1,binWidth_obs_x_B2Kee_2,binWidth_obs_x_B2Kee_3,binWidth_obs_x_B2Kee_4)
+constraintTerms:(lumiConstraint)
+globalObservables:(nominalLumi)
+likelihoodTerms:(B2Kee_model)
+obsAndWeight:(weightVar,obs_x_B2Kee)
+observables:(obs_x_B2Kee)
+observablesSet:(obs_x_B2Kee)
+shapeList:(L_x_SignalZeroSample_B2Kee_overallSyst_x_Exp,L_x_SignalOneSample_B2Kee_overallSyst_x_Exp,L_x_SignalTwoSample_B2Kee_overallSyst_x_Exp,L_x_PartRecoSample_B2Kee_overallSyst_x_Exp,L_x_JpsiLeakSample_B2Kee_overallSyst_x_Exp)
+
+generic objects
+---------------
+RooStats::ModelConfig::ModelConfig
+
+Setting Parameter(s) of Interest as: nSignal 
+
+=== Using the following for ModelConfig ===
+Observables:             RooArgSet:: = (obs_x_B2Kee)
+Parameters of Interest:  RooArgSet:: = (nSignal)
+Nuisance Parameters:     RooArgSet:: = (Lumi,fracOne,fracZero,mcNorm_jpsileak,mcNorm_partreco,mcNorm_sigone,mcNorm_sigtwo,mcNorm_sigzero,nJpsiLeak,nPartReco)
+Global Observables:      RooArgSet:: = (nominalLumi)
+PDF:                     RooProdPdf::model_B2Kee[ lumiConstraint * B2Kee_model(obs_x_B2Kee) ] = 0.588436
+
+Opening File to hold channel: toy_result/_B2Kee_my_measurement_model.root
+About to write channel measurement to file
+Writing sample: SignalZeroSample
+Writing sample: SignalOneSample
+Writing sample: SignalTwoSample
+Writing sample: PartRecoSample
+Writing sample: JpsiLeakSample
+Saved all histograms
+Saved Measurement
+Successfully wrote channel to file
+full list of observables:
+RooArgList:: = (obs_x_B2Kee)
+
+
+------------------
+ Entering combination
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooRealVar::nominalLumi
+-----------------------------------------
+create toy data for B2Kee
+RooDataSet::AsimovData0[obs_x_B2Kee,channelCat,weight:binWeightAsimov] = 33 entries (307 weighted)
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing dataset asimovDataFullModel
+[#1] INFO:ObjectHandling -- RooWorkSpace::import(combined) changing name of dataset from  asimovDataFullModel to asimovData
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooRealVar::obs_x_B2Kee
+
+RooWorkspace(combined) combined contents
+
+variables
+---------
+(channelCat,nominalLumi,obs_x_B2Kee,weightVar)
+
+datasets
+--------
+RooDataSet::asimovData(obs_x_B2Kee,weightVar,channelCat)
+
+named sets
+----------
+ModelConfig_GlobalObservables:(nominalLumi)
+ModelConfig_Observables:(obs_x_B2Kee,weightVar,channelCat)
+globalObservables:(nominalLumi)
+observables:(obs_x_B2Kee,weightVar,channelCat)
+
+
+
+----------------
+ Importing combined model
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing dataset SignalZeroSample_B2KeenominalDHist
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing dataset SignalOneSample_B2KeenominalDHist
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing dataset SignalTwoSample_B2KeenominalDHist
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing dataset PartRecoSample_B2KeenominalDHist
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing dataset JpsiLeakSample_B2KeenominalDHist
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooSimultaneous::simPdf
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) using existing copy of RooCategory::channelCat for import of RooSimultaneous::simPdf
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooProdPdf::model_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooGaussian::lumiConstraint
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooConstVar::0.05
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooRealVar::Lumi
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) using existing copy of RooRealVar::nominalLumi for import of RooSimultaneous::simPdf
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooRealSumPdf::B2Kee_model
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooProduct::L_x_SignalZeroSample_B2Kee_overallSyst_x_Exp
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooConstVar::1
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooProduct::SignalZeroSample_B2Kee_overallSyst_x_Exp
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooHistFunc::SignalZeroSample_B2Kee_nominal
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) using existing copy of RooRealVar::obs_x_B2Kee for import of RooSimultaneous::simPdf
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooProduct::SignalZeroSample_B2Kee_overallNorm_x_sigma_epsilon
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooRealVar::nSignal
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooRealVar::fracZero
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooRealVar::mcNorm_sigzero
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooConstVar::SignalZeroSample_B2Kee_epsilon
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooRealVar::binWidth_obs_x_B2Kee_0
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooProduct::L_x_SignalOneSample_B2Kee_overallSyst_x_Exp
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooProduct::SignalOneSample_B2Kee_overallSyst_x_Exp
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooHistFunc::SignalOneSample_B2Kee_nominal
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooProduct::SignalOneSample_B2Kee_overallNorm_x_sigma_epsilon
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooFormulaVar::fracOneRec
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooRealVar::fracOne
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooRealVar::mcNorm_sigone
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooConstVar::SignalOneSample_B2Kee_epsilon
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooRealVar::binWidth_obs_x_B2Kee_1
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooProduct::L_x_SignalTwoSample_B2Kee_overallSyst_x_Exp
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooProduct::SignalTwoSample_B2Kee_overallSyst_x_Exp
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooHistFunc::SignalTwoSample_B2Kee_nominal
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooProduct::SignalTwoSample_B2Kee_overallNorm_x_sigma_epsilon
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooFormulaVar::fracTwo
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooRealVar::mcNorm_sigtwo
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooConstVar::SignalTwoSample_B2Kee_epsilon
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooRealVar::binWidth_obs_x_B2Kee_2
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooProduct::L_x_PartRecoSample_B2Kee_overallSyst_x_Exp
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooProduct::PartRecoSample_B2Kee_overallSyst_x_Exp
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooHistFunc::PartRecoSample_B2Kee_nominal
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooProduct::PartRecoSample_B2Kee_overallNorm_x_sigma_epsilon
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooRealVar::nPartReco
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooRealVar::mcNorm_partreco
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooConstVar::PartRecoSample_B2Kee_epsilon
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooRealVar::binWidth_obs_x_B2Kee_3
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooProduct::L_x_JpsiLeakSample_B2Kee_overallSyst_x_Exp
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooProduct::JpsiLeakSample_B2Kee_overallSyst_x_Exp
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooHistFunc::JpsiLeakSample_B2Kee_nominal
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooProduct::JpsiLeakSample_B2Kee_overallNorm_x_sigma_epsilon
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooRealVar::nJpsiLeak
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooRealVar::mcNorm_jpsileak
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooConstVar::JpsiLeakSample_B2Kee_epsilon
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooRealVar::binWidth_obs_x_B2Kee_4
+Setting Parameter(s) of Interest as: nSignal 
+
+=== Using the following for ModelConfig ===
+Observables:             RooArgSet:: = (obs_x_B2Kee,weightVar,channelCat)
+Parameters of Interest:  RooArgSet:: = (nSignal)
+Nuisance Parameters:     RooArgSet:: = (Lumi,fracOne,fracZero,mcNorm_jpsileak,mcNorm_partreco,mcNorm_sigone,mcNorm_sigtwo,mcNorm_sigzero,nJpsiLeak,nPartReco)
+Global Observables:      RooArgSet:: = (nominalLumi)
+PDF:                     RooSimultaneous::simPdf[ indexCat=channelCat B2Kee=model_B2Kee ] = 0.000163595
+
+Writing combined workspace to file: toy_result/_combined_my_measurement_model.root
+Writing combined measurement to file: toy_result/_combined_my_measurement_model.root
+Writing sample: SignalZeroSample
+Writing sample: SignalOneSample
+Writing sample: SignalTwoSample
+Writing sample: PartRecoSample
+Writing sample: JpsiLeakSample
+Saved all histograms
+Saved Measurement
+Error in <TTree::SetBranchStatus>: unknown branch -> B_plus_DTFM_M_zero
+Error in <TTree::SetBranchStatus>: unknown branch -> BDTNewu4bR
+Error in <TTree::SetBranchStatus>: unknown branch -> e_minus_BremMultiplicity
+[#1] INFO:Eval -- RooAbsReal::attachToTree(K_Kst_isMuon) TTree Bool_t branch K_Kst_isMuon will be converted to double precision
+[#1] INFO:Eval -- RooTreeDataStore::loadValues(dataSetComb) Ignored 113421 out of range events
+[#1] INFO:Minization -- RooMinuit::optimizeConst: activating const optimization
+ **********
+ **   13 **MIGRAD         500           1
+ **********
+ FIRST CALL TO USER FUNCTION AT NEW START POINT, WITH IFLAG=4.
+ START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 1.00e-03
+ FCN=736626 FROM MIGRAD    STATUS=INITIATE        6 CALLS           7 TOTAL
+                     EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
+  EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  l1Kee        2.30000e-03   2.00000e-02   2.01414e-01   4.01450e+06
+                               ERR DEF= 0.5
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=667482 FROM MIGRAD    STATUS=CONVERGED      23 CALLS          24 TOTAL
+                     EDM=2.54855e-06    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  l1Kee       -9.66101e-04   8.91849e-06   5.03113e-05  -1.78993e+01
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  1    ERR DEF=0.5
+  7.954e-11 
+ **********
+ **   18 **HESSE         500
+ **********
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=667482 FROM HESSE     STATUS=OK              5 CALLS          29 TOTAL
+                     EDM=2.55789e-06    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                INTERNAL      INTERNAL  
+  NO.   NAME      VALUE            ERROR       STEP SIZE       VALUE   
+   1  l1Kee       -9.66101e-04   8.91849e-06   1.00623e-05  -9.66116e-03
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  1    ERR DEF=0.5
+  7.954e-11 
+[#1] INFO:Minization -- RooMinuit::optimizeConst: deactivating const optimization
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooRealVar::l1Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooRealVar::l1KeeGen
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooRealVar::nComb
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooRealVar::nComb_fit
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(dataHistSignalZeroGamma): fit range of variable obs_x_B2Kee expanded to nearest bin boundaries: [4880,6200] --> [4880,6200]
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(dataHistSignalOneGamma): fit range of variable obs_x_B2Kee expanded to nearest bin boundaries: [4880,6200] --> [4880,6200]
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(dataHistSignalTwoGamma): fit range of variable obs_x_B2Kee expanded to nearest bin boundaries: [4880,6200] --> [4880,6200]
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(dataHistComb): fit range of variable obs_x_B2Kee expanded to nearest bin boundaries: [4880,6200] --> [4880,6200]
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(dataHistPartReco): fit range of variable obs_x_B2Kee expanded to nearest bin boundaries: [4880,6200] --> [4880,6200]
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(dataHistJpsiLeak): fit range of variable obs_x_B2Kee expanded to nearest bin boundaries: [4880,6200] --> [4880,6200]
+Preparing the 3 2D histPdf: 1 2 3 4 5 6[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing dataset dataHistSignalZeroGamma
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooHistPdf::histPdfSignalZeroGamma
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing dataset dataHistSignalOneGamma
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooHistPdf::histPdfSignalOneGamma
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing dataset dataHistSignalTwoGamma
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooHistPdf::histPdfSignalTwoGamma
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing dataset dataHistPartReco
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooHistPdf::histPdfPartReco
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing dataset dataHistJpsiLeak
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooHistPdf::histPdfJpsiLeak
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing dataset dataHistComb
+[#1] INFO:ObjectHandling -- RooWorkspace::import(combined) importing RooHistPdf::histPdfComb
+
+RooWorkspace(combined) combined contents
+
+variables
+---------
+(Lumi,binWidth_obs_x_B2Kee_0,binWidth_obs_x_B2Kee_1,binWidth_obs_x_B2Kee_2,binWidth_obs_x_B2Kee_3,binWidth_obs_x_B2Kee_4,channelCat,fracOne,fracZero,fractionalErrorJpsiLeak,l1Kee,l1KeeGen,mcNorm_jpsileak,mcNorm_partreco,mcNorm_sigone,mcNorm_sigtwo,mcNorm_sigzero,nComb,nComb_fit,nJpsiLeak,nMC_Comb,nMC_JpsiLeak,nMC_PartReco,nMC_SignalOne,nMC_SignalTwo,nMC_SignalZero,nPartReco,nSignal,nominalLumi,obs_x_B2Kee,weightVar)
+
+p.d.f.s
+-------
+RooRealSumPdf::B2Kee_model[ binWidth_obs_x_B2Kee_0 * L_x_SignalZeroSample_B2Kee_overallSyst_x_Exp + binWidth_obs_x_B2Kee_1 * L_x_SignalOneSample_B2Kee_overallSyst_x_Exp + binWidth_obs_x_B2Kee_2 * L_x_SignalTwoSample_B2Kee_overallSyst_x_Exp + binWidth_obs_x_B2Kee_3 * L_x_PartRecoSample_B2Kee_overallSyst_x_Exp + binWidth_obs_x_B2Kee_4 * L_x_JpsiLeakSample_B2Kee_overallSyst_x_Exp ] = 0.000163595
+RooHistPdf::histPdfComb[ pdfObs=(obs_x_B2Kee) ] = 35.75
+RooHistPdf::histPdfJpsiLeak[ pdfObs=(obs_x_B2Kee) ] = 0.02113
+RooHistPdf::histPdfPartReco[ pdfObs=(obs_x_B2Kee) ] = 0.00388541
+RooHistPdf::histPdfSignalOneGamma[ pdfObs=(obs_x_B2Kee) ] = 0
+RooHistPdf::histPdfSignalTwoGamma[ pdfObs=(obs_x_B2Kee) ] = 0
+RooHistPdf::histPdfSignalZeroGamma[ pdfObs=(obs_x_B2Kee) ] = 0
+RooGaussian::lumiConstraint[ x=Lumi mean=nominalLumi sigma=0.05 ] = 1
+RooProdPdf::model_B2Kee[ lumiConstraint * B2Kee_model(obs_x_B2Kee) ] = 0.000163595
+RooSimultaneous::simPdf[ indexCat=channelCat B2Kee=model_B2Kee ] = 0.000163595
+
+functions
+--------
+RooHistFunc::JpsiLeakSample_B2Kee_nominal[ depList=(obs_x_B2Kee) ] = 0.845199
+RooProduct::JpsiLeakSample_B2Kee_overallNorm_x_sigma_epsilon[ nJpsiLeak * mcNorm_jpsileak * JpsiLeakSample_B2Kee_epsilon ] = 0.00581389
+RooProduct::JpsiLeakSample_B2Kee_overallSyst_x_Exp[ JpsiLeakSample_B2Kee_nominal * JpsiLeakSample_B2Kee_overallNorm_x_sigma_epsilon ] = 0.00491389
+RooProduct::L_x_JpsiLeakSample_B2Kee_overallSyst_x_Exp[ 1 * JpsiLeakSample_B2Kee_overallSyst_x_Exp ] = 0.00491389
+RooProduct::L_x_PartRecoSample_B2Kee_overallSyst_x_Exp[ 1 * PartRecoSample_B2Kee_overallSyst_x_Exp ] = 0.00162989
+RooProduct::L_x_SignalOneSample_B2Kee_overallSyst_x_Exp[ 1 * SignalOneSample_B2Kee_overallSyst_x_Exp ] = 0
+RooProduct::L_x_SignalTwoSample_B2Kee_overallSyst_x_Exp[ 1 * SignalTwoSample_B2Kee_overallSyst_x_Exp ] = 0
+RooProduct::L_x_SignalZeroSample_B2Kee_overallSyst_x_Exp[ 1 * SignalZeroSample_B2Kee_overallSyst_x_Exp ] = 0
+RooHistFunc::PartRecoSample_B2Kee_nominal[ depList=(obs_x_B2Kee) ] = 0.155416
+RooProduct::PartRecoSample_B2Kee_overallNorm_x_sigma_epsilon[ nPartReco * mcNorm_partreco * PartRecoSample_B2Kee_epsilon ] = 0.0104873
+RooProduct::PartRecoSample_B2Kee_overallSyst_x_Exp[ PartRecoSample_B2Kee_nominal * PartRecoSample_B2Kee_overallNorm_x_sigma_epsilon ] = 0.00162989
+RooHistFunc::SignalOneSample_B2Kee_nominal[ depList=(obs_x_B2Kee) ] = 0
+RooProduct::SignalOneSample_B2Kee_overallNorm_x_sigma_epsilon[ nSignal * fracOneRec * mcNorm_sigone * SignalOneSample_B2Kee_epsilon ] = 0.00638939
+RooProduct::SignalOneSample_B2Kee_overallSyst_x_Exp[ SignalOneSample_B2Kee_nominal * SignalOneSample_B2Kee_overallNorm_x_sigma_epsilon ] = 0
+RooHistFunc::SignalTwoSample_B2Kee_nominal[ depList=(obs_x_B2Kee) ] = 0
+RooProduct::SignalTwoSample_B2Kee_overallNorm_x_sigma_epsilon[ nSignal * fracTwo * mcNorm_sigtwo * SignalTwoSample_B2Kee_epsilon ] = 0.0120894
+RooProduct::SignalTwoSample_B2Kee_overallSyst_x_Exp[ SignalTwoSample_B2Kee_nominal * SignalTwoSample_B2Kee_overallNorm_x_sigma_epsilon ] = 0
+RooHistFunc::SignalZeroSample_B2Kee_nominal[ depList=(obs_x_B2Kee) ] = 0
+RooProduct::SignalZeroSample_B2Kee_overallNorm_x_sigma_epsilon[ nSignal * fracZero * mcNorm_sigzero * SignalZeroSample_B2Kee_epsilon ] = 0.0270477
+RooProduct::SignalZeroSample_B2Kee_overallSyst_x_Exp[ SignalZeroSample_B2Kee_nominal * SignalZeroSample_B2Kee_overallNorm_x_sigma_epsilon ] = 0
+RooFormulaVar::fracOneRec[ actualVars=(fracOne,fracZero) formula="(1-fracZero)*fracOne" ] = 0.25
+RooFormulaVar::fracTwo[ actualVars=(fracOne,fracZero) formula="1-fracZero-(1-fracZero)*fracOne" ] = 0.25
+
+datasets
+--------
+RooDataSet::asimovData(obs_x_B2Kee,weightVar,channelCat)
+
+embedded datasets (in pdfs and functions)
+-----------------------------------------
+RooDataHist::SignalZeroSample_B2KeenominalDHist(obs_x_B2Kee)
+RooDataHist::SignalOneSample_B2KeenominalDHist(obs_x_B2Kee)
+RooDataHist::SignalTwoSample_B2KeenominalDHist(obs_x_B2Kee)
+RooDataHist::PartRecoSample_B2KeenominalDHist(obs_x_B2Kee)
+RooDataHist::JpsiLeakSample_B2KeenominalDHist(obs_x_B2Kee)
+RooDataHist::dataHistSignalZeroGamma(obs_x_B2Kee)
+RooDataHist::dataHistSignalOneGamma(obs_x_B2Kee)
+RooDataHist::dataHistSignalTwoGamma(obs_x_B2Kee)
+RooDataHist::dataHistPartReco(obs_x_B2Kee)
+RooDataHist::dataHistJpsiLeak(obs_x_B2Kee)
+RooDataHist::dataHistComb(obs_x_B2Kee)
+
+parameter snapshots
+-------------------
+NominalParamValues = (nominalLumi=1[C],weightVar=0,obs_x_B2Kee=6180,Lumi=1,nSignal=199,fracZero=0.5,mcNorm_sigzero=0.000271836,binWidth_obs_x_B2Kee_0=0.025[C],fracOne=0.5,mcNorm_sigone=0.00012843,binWidth_obs_x_B2Kee_1=0.025[C],mcNorm_sigtwo=0.000243004,binWidth_obs_x_B2Kee_2=0.025[C],nPartReco=92,mcNorm_partreco=0.000113992,binWidth_obs_x_B2Kee_3=0.025[C],nJpsiLeak=16,mcNorm_jpsileak=0.000363368,binWidth_obs_x_B2Kee_4=0.025[C])
+
+named sets
+----------
+ModelConfig_GlobalObservables:(nominalLumi)
+ModelConfig_NuisParams:(Lumi,fracOne,fracZero,mcNorm_jpsileak,mcNorm_partreco,mcNorm_sigone,mcNorm_sigtwo,mcNorm_sigzero,nJpsiLeak,nPartReco)
+ModelConfig_Observables:(obs_x_B2Kee,weightVar,channelCat)
+ModelConfig_POI:(nSignal)
+globalObservables:(nominalLumi)
+observables:(obs_x_B2Kee,weightVar,channelCat)
+
+generic objects
+---------------
+RooStats::ModelConfig::ModelConfig
+
+PDFs prepared!
+PDFs prepared!
+
+
+
+
+
+************************************
+*********** NEW FIT *****************
+*************************
+Generation and fit number 0
+HELLO0
+HELLO0a
+Here
+HELLO2
+Preparing the generation of events 1 2  3  4  5 
+HELLO3
+Variable loaded:
+RooRealVar::obs_x_B2Kee = 6180  L(4880 - 6200) B(33) // [MeV/c^{2}]
+HELLO4
+Generating signal Zero Photon
+Generating signal One Photon
+Generating signal two Photons
+Generating combinatorial
+Generating PartReco
+HELLO5
+Generating Leaking JPsi
+HELLO6
+[#1] INFO:ObjectHandling -- RooWorkspace::import(workspaceGen) importing dataset dataGenSignalZeroGamma
+[#1] INFO:ObjectHandling -- RooWorkspace::import(workspaceGen) importing RooRealVar::obs_x_B2Kee
+[#1] INFO:ObjectHandling -- RooWorkspace::import(workspaceGen) importing dataset dataGenSignalOneGamma
+[#1] INFO:ObjectHandling -- RooWorkspace::import(workspaceGen) importing dataset dataGenSignalTwoGamma
+[#1] INFO:ObjectHandling -- RooWorkspace::import(workspaceGen) importing dataset dataGenComb
+[#1] INFO:ObjectHandling -- RooWorkspace::import(workspaceGen) importing dataset dataGenPartReco
+[#1] INFO:ObjectHandling -- RooWorkspace::import(workspaceGen) importing dataset dataGenJpsiLeak
+HELLO7
+VALUE OF l1Kee IN FIT: -0.000966101 +- 8.91849e-06
+B_plus_M nbins: 33
+CACA2
+CACA2a
+CACA2b
+CACA2c
+CACA2d
+CACA3
+CACA6
+Binned data number of bins: 33
+CACA7
+Evaluating fracTwo... 
+    fracZero = 0.366834
+    fracOne = 0.761905
+    fracTwo = 0.150754
+CACA10
+CACA11
+CACA11b
+[#1] INFO:Minization -- p.d.f. provides expected number of events, including extended term in likelihood.
+[#1] INFO:Minization -- RooProdPdf::getConstraints(RK_kinematic_comb_constrain) omitting term lumiConstraint as constraint term as it does not share any parameters with the other pdfs in product. To force inclusion in likelihood, add an explicit Constrain() argument for the target parameter
+[#1] INFO:Minization --  Including the following contraint terms in minimization: (fracZeroConst,fracOneConst,JpsiLeakConst)
+DEBUG MESSAGE: USING BRIAN'S PATCH
+ **********
+ **    9 **SET STR           2
+ **********
+ NOW USING STRATEGY  2: MAKE SURE MINIMUM TRUE, ERRORS CORRECT  
+ **********
+ **   10 **SET ERR         0.5
+ **********
+ **********
+ **   11 **SET PRINT           1
+ **********
+FITTING: starting with nsignal = 225.551 refit nbr. 0
+ **********
+ **   16 **MIGRAD        3500           1
+ **********
+ FIRST CALL TO USER FUNCTION AT NEW START POINT, WITH IFLAG=4.
+RooAbsTestStatistic::initSimMode: creating slave calculator #0 for state B2Kee (33 dataset entries)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(B2Kee_comb_Int[obs_x_B2Kee]) using numeric integrator RooBinIntegrator to calculate Int(obs_x_B2Kee)
+[#1] INFO:Fitting -- RooAbsTestStatistic::initSimMode: created 1 slave calculators.
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(B2Kee_comb_Int[obs_x_B2Kee]) using numeric integrator RooBinIntegrator to calculate Int(obs_x_B2Kee)
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: fracOne=0.508925, fracZero=0.443775, l1Kee=-0.000967126, nComb=397.103, nJpsiLeak=29.6269, nPartReco=83.0566, nSignal=225.551
+RooGaussian::JpsiLeakConst[ x=nJpsiLeak mean=JpsiLeakMean sigma=JpsiLeakSigma ]
+     getLogVal() top-level p.d.f evaluates to zero @ x=nJpsiLeak=29.6269, mean=JpsiLeakMean=16, sigma=JpsiLeakSigma=0.304992
+
+ START MIGRAD MINIMIZATION.  STRATEGY  2.  CONVERGENCE WHEN EDM .LT. 1.00e-03
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: fracOne=0.508925, fracZero=0.443775, l1Kee=-0.000967126, nComb=397.103, nJpsiLeak=29.6269, nPartReco=83.0566, nSignal=225.551
+RooGaussian::JpsiLeakConst[ x=nJpsiLeak mean=JpsiLeakMean sigma=JpsiLeakSigma ]
+     getLogVal() top-level p.d.f evaluates to zero @ x=nJpsiLeak=29.6269, mean=JpsiLeakMean=16, sigma=JpsiLeakSigma=0.304992
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: fracOne=0.51899, fracZero=0.443775, l1Kee=-0.000967126, nComb=397.103, nJpsiLeak=29.6269, nPartReco=83.0566, nSignal=225.551
+RooGaussian::JpsiLeakConst[ x=nJpsiLeak mean=JpsiLeakMean sigma=JpsiLeakSigma ]
+     getLogVal() top-level p.d.f evaluates to zero @ x=nJpsiLeak=29.6269, mean=JpsiLeakMean=16, sigma=JpsiLeakSigma=0.304992
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: fracOne=0.498856, fracZero=0.443775, l1Kee=-0.000967126, nComb=397.103, nJpsiLeak=29.6269, nPartReco=83.0566, nSignal=225.551
+RooGaussian::JpsiLeakConst[ x=nJpsiLeak mean=JpsiLeakMean sigma=JpsiLeakSigma ]
+     getLogVal() top-level p.d.f evaluates to zero @ x=nJpsiLeak=29.6269, mean=JpsiLeakMean=16, sigma=JpsiLeakSigma=0.304992
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: fracOne=0.608745, fracZero=0.443775, l1Kee=-0.000967126, nComb=397.103, nJpsiLeak=29.6269, nPartReco=83.0566, nSignal=225.551
+RooGaussian::JpsiLeakConst[ x=nJpsiLeak mean=JpsiLeakMean sigma=JpsiLeakSigma ]
+     getLogVal() top-level p.d.f evaluates to zero @ x=nJpsiLeak=29.6269, mean=JpsiLeakMean=16, sigma=JpsiLeakSigma=0.304992
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: fracOne=0.408744, fracZero=0.443775, l1Kee=-0.000967126, nComb=397.103, nJpsiLeak=29.6269, nPartReco=83.0566, nSignal=225.551
+RooGaussian::JpsiLeakConst[ x=nJpsiLeak mean=JpsiLeakMean sigma=JpsiLeakSigma ]
+     getLogVal() top-level p.d.f evaluates to zero @ x=nJpsiLeak=29.6269, mean=JpsiLeakMean=16, sigma=JpsiLeakSigma=0.304992
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: fracOne=0.751839, fracZero=0.443775, l1Kee=-0.000967126, nComb=397.103, nJpsiLeak=29.6269, nPartReco=83.0566, nSignal=225.551
+RooGaussian::JpsiLeakConst[ x=nJpsiLeak mean=JpsiLeakMean sigma=JpsiLeakSigma ]
+     getLogVal() top-level p.d.f evaluates to zero @ x=nJpsiLeak=29.6269, mean=JpsiLeakMean=16, sigma=JpsiLeakSigma=0.304992
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: fracOne=0.263739, fracZero=0.443775, l1Kee=-0.000967126, nComb=397.103, nJpsiLeak=29.6269, nPartReco=83.0566, nSignal=225.551
+RooGaussian::JpsiLeakConst[ x=nJpsiLeak mean=JpsiLeakMean sigma=JpsiLeakSigma ]
+     getLogVal() top-level p.d.f evaluates to zero @ x=nJpsiLeak=29.6269, mean=JpsiLeakMean=16, sigma=JpsiLeakSigma=0.304992
+
+ MINUIT WARNING IN HESSE
+ ============== Second derivative zero for parameter1
+  MNHESS FAILS AND WILL RETURN DIAGONAL MATRIX. 
+ FCN=-1e+30 FROM HESSE     STATUS=FAILED          7 CALLS           8 TOTAL
+                     EDM=14    STRATEGY= 2  ERROR MATRIX UNCERTAINTY 100.0 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  fracOne      5.08925e-01   1.00001e-01   2.01392e-01   4.96545e+00
+   2  fracZero     4.43775e-01   1.00027e-01   2.02717e-01   4.93299e+00
+   3  l1Kee       -9.67126e-04   8.91849e-06   1.00000e-03   1.00000e+03
+   4  nComb        3.97103e+02   8.16639e+01   2.01438e-01   4.96430e+00
+   5  nJpsiLeak    2.96269e+01   6.96607e+00   2.03762e-01   4.90768e+00
+   6  nPartReco    8.30566e+01   1.78993e+01   2.01909e-01   4.95272e+00
+   7  nSignal      2.25551e+02   2.82135e+01   2.01358e-01   4.96628e+00
+                               ERR DEF= 0.5
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (1269.41) to force MIGRAD to back out of this region. Error log follows
+Parameter values: fracOne=0.503891, fracZero=0.438742, l1Kee=-0.000967572, nComb=392.993, nJpsiLeak=29.2764, nPartReco=82.1559, nSignal=224.131
+RooGaussian::JpsiLeakConst[ x=nJpsiLeak mean=JpsiLeakMean sigma=JpsiLeakSigma ]
+     getLogVal() top-level p.d.f evaluates to zero @ x=nJpsiLeak=29.2764, mean=JpsiLeakMean=16, sigma=JpsiLeakSigma=0.304992
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (1269.41) to force MIGRAD to back out of this region. Error log follows
+Parameter values: fracOne=0.508673, fracZero=0.443523, l1Kee=-0.000967148, nComb=396.897, nJpsiLeak=29.6094, nPartReco=83.0115, nSignal=225.48
+RooGaussian::JpsiLeakConst[ x=nJpsiLeak mean=JpsiLeakMean sigma=JpsiLeakSigma ]
+     getLogVal() top-level p.d.f evaluates to zero @ x=nJpsiLeak=29.6094, mean=JpsiLeakMean=16, sigma=JpsiLeakSigma=0.304992
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (1269.41) to force MIGRAD to back out of this region. Error log follows
+Parameter values: fracOne=0.508912, fracZero=0.443762, l1Kee=-0.000967127, nComb=397.093, nJpsiLeak=29.626, nPartReco=83.0543, nSignal=225.548
+RooGaussian::JpsiLeakConst[ x=nJpsiLeak mean=JpsiLeakMean sigma=JpsiLeakSigma ]
+     getLogVal() top-level p.d.f evaluates to zero @ x=nJpsiLeak=29.626, mean=JpsiLeakMean=16, sigma=JpsiLeakSigma=0.304992
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (1269.41) to force MIGRAD to back out of this region. Error log follows
+Parameter values: fracOne=0.508924, fracZero=0.443774, l1Kee=-0.000967126, nComb=397.103, nJpsiLeak=29.6268, nPartReco=83.0565, nSignal=225.551
+RooGaussian::JpsiLeakConst[ x=nJpsiLeak mean=JpsiLeakMean sigma=JpsiLeakSigma ]
+     getLogVal() top-level p.d.f evaluates to zero @ x=nJpsiLeak=29.6268, mean=JpsiLeakMean=16, sigma=JpsiLeakSigma=0.304992
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (1269.41) to force MIGRAD to back out of this region. Error log follows
+Parameter values: fracOne=0.508925, fracZero=0.443775, l1Kee=-0.000967126, nComb=397.103, nJpsiLeak=29.6269, nPartReco=83.0566, nSignal=225.551
+RooGaussian::JpsiLeakConst[ x=nJpsiLeak mean=JpsiLeakMean sigma=JpsiLeakSigma ]
+     getLogVal() top-level p.d.f evaluates to zero @ x=nJpsiLeak=29.6269, mean=JpsiLeakMean=16, sigma=JpsiLeakSigma=0.304992
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (1269.41) to force MIGRAD to back out of this region. Error log follows
+Parameter values: fracOne=0.508925, fracZero=0.443775, l1Kee=-0.000967126, nComb=397.103, nJpsiLeak=29.6269, nPartReco=83.0566, nSignal=225.551
+RooGaussian::JpsiLeakConst[ x=nJpsiLeak mean=JpsiLeakMean sigma=JpsiLeakSigma ]
+     getLogVal() top-level p.d.f evaluates to zero @ x=nJpsiLeak=29.6269, mean=JpsiLeakMean=16, sigma=JpsiLeakSigma=0.304992
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (1269.41) to force MIGRAD to back out of this region. Error log follows
+Parameter values: fracOne=0.508925, fracZero=0.443775, l1Kee=-0.000967126, nComb=397.103, nJpsiLeak=29.6269, nPartReco=83.0566, nSignal=225.551
+RooGaussian::JpsiLeakConst[ x=nJpsiLeak mean=JpsiLeakMean sigma=JpsiLeakSigma ]
+     getLogVal() top-level p.d.f evaluates to zero @ x=nJpsiLeak=29.6269, mean=JpsiLeakMean=16, sigma=JpsiLeakSigma=0.304992
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (1269.41) to force MIGRAD to back out of this region. Error log follows
+Parameter values: fracOne=0.508925, fracZero=0.443775, l1Kee=-0.000967126, nComb=397.103, nJpsiLeak=29.6269, nPartReco=83.0566, nSignal=225.551
+RooGaussian::JpsiLeakConst[ x=nJpsiLeak mean=JpsiLeakMean sigma=JpsiLeakSigma ]
+     getLogVal() top-level p.d.f evaluates to zero @ x=nJpsiLeak=29.6269, mean=JpsiLeakMean=16, sigma=JpsiLeakSigma=0.304992
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (1269.41) to force MIGRAD to back out of this region. Error log follows
+Parameter values: fracOne=0.508925, fracZero=0.443775, l1Kee=-0.000967126, nComb=397.103, nJpsiLeak=29.6269, nPartReco=83.0566, nSignal=225.551
+RooGaussian::JpsiLeakConst[ x=nJpsiLeak mean=JpsiLeakMean sigma=JpsiLeakSigma ]
+     getLogVal() top-level p.d.f evaluates to zero @ x=nJpsiLeak=29.6269, mean=JpsiLeakMean=16, sigma=JpsiLeakSigma=0.304992
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (1269.41) to force MIGRAD to back out of this region. Error log follows
+Parameter values: fracOne=0.508925, fracZero=0.443775, l1Kee=-0.000967126, nComb=397.103, nJpsiLeak=29.6269, nPartReco=83.0566, nSignal=225.551
+RooGaussian::JpsiLeakConst[ x=nJpsiLeak mean=JpsiLeakMean sigma=JpsiLeakSigma ]
+     getLogVal() top-level p.d.f evaluates to zero @ x=nJpsiLeak=29.6269, mean=JpsiLeakMean=16, sigma=JpsiLeakSigma=0.304992
+
+ MIGRAD FAILS TO FIND IMPROVEMENT
+ MACHINE ACCURACY LIMITS FURTHER IMPROVEMENT.
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (1269.41) to force MIGRAD to back out of this region. Error log follows
+Parameter values: fracOne=0.508925, fracZero=0.443775, l1Kee=-0.000967126, nComb=397.103, nJpsiLeak=29.6269, nPartReco=83.0566, nSignal=225.551
+RooGaussian::JpsiLeakConst[ x=nJpsiLeak mean=JpsiLeakMean sigma=JpsiLeakSigma ]
+     getLogVal() top-level p.d.f evaluates to zero @ x=nJpsiLeak=29.6269, mean=JpsiLeakMean=16, sigma=JpsiLeakSigma=0.304992
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (1269.41) to force MIGRAD to back out of this region. Error log follows
+Parameter values: fracOne=0.51899, fracZero=0.443775, l1Kee=-0.000967126, nComb=397.103, nJpsiLeak=29.6269, nPartReco=83.0566, nSignal=225.551
+RooGaussian::JpsiLeakConst[ x=nJpsiLeak mean=JpsiLeakMean sigma=JpsiLeakSigma ]
+     getLogVal() top-level p.d.f evaluates to zero @ x=nJpsiLeak=29.6269, mean=JpsiLeakMean=16, sigma=JpsiLeakSigma=0.304992
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (1269.41) to force MIGRAD to back out of this region. Error log follows
+Parameter values: fracOne=0.498856, fracZero=0.443775, l1Kee=-0.000967126, nComb=397.103, nJpsiLeak=29.6269, nPartReco=83.0566, nSignal=225.551
+RooGaussian::JpsiLeakConst[ x=nJpsiLeak mean=JpsiLeakMean sigma=JpsiLeakSigma ]
+     getLogVal() top-level p.d.f evaluates to zero @ x=nJpsiLeak=29.6269, mean=JpsiLeakMean=16, sigma=JpsiLeakSigma=0.304992
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (1269.41) to force MIGRAD to back out of this region. Error log follows
+Parameter values: fracOne=0.608745, fracZero=0.443775, l1Kee=-0.000967126, nComb=397.103, nJpsiLeak=29.6269, nPartReco=83.0566, nSignal=225.551
+RooGaussian::JpsiLeakConst[ x=nJpsiLeak mean=JpsiLeakMean sigma=JpsiLeakSigma ]
+     getLogVal() top-level p.d.f evaluates to zero @ x=nJpsiLeak=29.6269, mean=JpsiLeakMean=16, sigma=JpsiLeakSigma=0.304992
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (1269.41) to force MIGRAD to back out of this region. Error log follows
+Parameter values: fracOne=0.408744, fracZero=0.443775, l1Kee=-0.000967126, nComb=397.103, nJpsiLeak=29.6269, nPartReco=83.0566, nSignal=225.551
+RooGaussian::JpsiLeakConst[ x=nJpsiLeak mean=JpsiLeakMean sigma=JpsiLeakSigma ]
+     getLogVal() top-level p.d.f evaluates to zero @ x=nJpsiLeak=29.6269, mean=JpsiLeakMean=16, sigma=JpsiLeakSigma=0.304992
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (1269.41) to force MIGRAD to back out of this region. Error log follows
+Parameter values: fracOne=0.751839, fracZero=0.443775, l1Kee=-0.000967126, nComb=397.103, nJpsiLeak=29.6269, nPartReco=83.0566, nSignal=225.551
+RooGaussian::JpsiLeakConst[ x=nJpsiLeak mean=JpsiLeakMean sigma=JpsiLeakSigma ]
+     getLogVal() top-level p.d.f evaluates to zero @ x=nJpsiLeak=29.6269, mean=JpsiLeakMean=16, sigma=JpsiLeakSigma=0.304992
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (1269.41) to force MIGRAD to back out of this region. Error log follows
+Parameter values: fracOne=0.263739, fracZero=0.443775, l1Kee=-0.000967126, nComb=397.103, nJpsiLeak=29.6269, nPartReco=83.0566, nSignal=225.551
+RooGaussian::JpsiLeakConst[ x=nJpsiLeak mean=JpsiLeakMean sigma=JpsiLeakSigma ]
+     getLogVal() top-level p.d.f evaluates to zero @ x=nJpsiLeak=29.6269, mean=JpsiLeakMean=16, sigma=JpsiLeakSigma=0.304992
+
+ MINUIT WARNING IN HESSE
+ ============== Second derivative zero for parameter1
+  MNHESS FAILS AND WILL RETURN DIAGONAL MATRIX. 
+ FCN=1270.41 FROM HESSE     STATUS=FAILED          7 CALLS          26 TOTAL
+                     EDM=14    STRATEGY= 2  ERROR MATRIX UNCERTAINTY 100.0 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  fracOne      5.08925e-01   1.00001e-01  -0.00000e+00   4.96545e+00
+   2  fracZero     4.43775e-01   1.00027e-01  -0.00000e+00   4.93299e+00
+   3  l1Kee       -9.67126e-04   8.91849e-06  -0.00000e+00   1.00000e+03
+   4  nComb        3.97103e+02   8.16639e+01  -0.00000e+00   4.96430e+00
+   5  nJpsiLeak    2.96269e+01   6.96607e+00  -0.00000e+00   4.90768e+00
+   6  nPartReco    8.30566e+01   1.78993e+01  -0.00000e+00   4.95272e+00
+   7  nSignal      2.25551e+02   2.82135e+01  -0.00000e+00   4.96628e+00
+                               ERR DEF= 0.5
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (1508.65) to force MIGRAD to back out of this region. Error log follows
+Parameter values: fracOne=0.0357227, fracZero=0.0145466, l1Kee=-0.00102064, nComb=22.659, nJpsiLeak=0.68488, nPartReco=3.671, nSignal=93.6588
+RooGaussian::JpsiLeakConst[ x=nJpsiLeak mean=JpsiLeakMean sigma=JpsiLeakSigma ]
+     getLogVal() top-level p.d.f evaluates to zero @ x=nJpsiLeak=0.68488, mean=JpsiLeakMean=16, sigma=JpsiLeakSigma=0.304992
+
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=967.961 FROM MIGRAD    STATUS=CONVERGED     526 CALLS         527 TOTAL
+                     EDM=7.26544e-05    STRATEGY= 2      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  fracOne      7.60874e-01   7.65579e-02   3.84418e-03  -3.98270e-03
+   2  fracZero     3.64452e-01   4.22691e-02   1.87217e-03   6.93704e-03
+   3  l1Kee        5.52320e-04   3.27094e-04   4.04116e-04  -2.63598e-01
+   4  nComb        3.69620e+02   4.68434e+01   1.22469e-03  -1.72180e-03
+   5  nJpsiLeak    1.60030e+01   3.04982e-01   2.23707e-04   2.30542e-02
+   6  nPartReco    1.05918e+02   3.03331e+01   4.34307e-03  -1.41464e-04
+   7  nSignal      2.02930e+02   2.72989e+01   3.07726e-03  -2.12985e-02
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  52    NPAR=  7    ERR DEF=0.5
+  5.925e-03 -7.190e-05  1.957e-06  3.463e-01 -6.067e-06  2.324e-01 -1.128e-01 
+ -7.190e-05  1.791e-03  1.004e-06  1.754e-01 -3.254e-06  1.466e-01 -2.821e-02 
+  1.957e-06  1.004e-06  1.070e-07  1.257e-02 -4.001e-08  7.636e-03 -4.925e-03 
+  3.463e-01  1.754e-01  1.257e-02  2.204e+03 -3.883e-03  1.061e+03 -7.725e+02 
+ -6.067e-06 -3.254e-06 -4.001e-08 -3.883e-03  9.302e-02  8.409e-02 -7.465e-03 
+  2.324e-01  1.466e-01  7.636e-03  1.061e+03  8.409e-02  9.591e+02 -2.218e+02 
+ -1.128e-01 -2.821e-02 -4.925e-03 -7.725e+02 -7.465e-03 -2.218e+02  7.550e+02 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5      6      7
+        1  0.11196   1.000 -0.022  0.078  0.096 -0.000  0.097 -0.053
+        2  0.12113  -0.022  1.000  0.073  0.088 -0.000  0.112 -0.024
+        3  0.86380   0.078  0.073  1.000  0.818 -0.000  0.754 -0.548
+        4  0.86930   0.096  0.088  0.818  1.000 -0.000  0.730 -0.599
+        5  0.01680  -0.000 -0.000 -0.000 -0.000  1.000  0.009 -0.001
+        6  0.82135   0.097  0.112  0.754  0.730  0.009  1.000 -0.261
+        7  0.68872  -0.053 -0.024 -0.548 -0.599 -0.001 -0.261  1.000
+ **********
+ **   21 **HESSE        3500
+ **********
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=967.961 FROM HESSE     STATUS=OK             50 CALLS         577 TOTAL
+                     EDM=7.24949e-05    STRATEGY= 2      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                INTERNAL      INTERNAL  
+  NO.   NAME      VALUE            ERROR       STEP SIZE       VALUE   
+   1  fracOne      7.60874e-01   7.65577e-02   7.68836e-04   5.48898e-01
+   2  fracZero     3.64452e-01   4.22675e-02   3.74435e-04  -2.74532e-01
+   3  l1Kee        5.52320e-04   3.27083e-04   8.08233e-05   1.71089e-01
+   4  nComb        3.69620e+02   4.68566e+01   4.89878e-05  -9.49053e-02
+   5  nJpsiLeak    1.60030e+01   3.04982e-01   4.47414e-05  -5.70820e-01
+   6  nPartReco    1.05918e+02   3.02921e+01   1.73723e-04   2.95693e+00
+   7  nSignal      2.02930e+02   2.73370e+01   6.15452e-04  -1.61051e-01
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  52    NPAR=  7    ERR DEF=0.5
+  5.925e-03 -7.233e-05  1.955e-06  3.463e-01 -6.286e-06  2.319e-01 -1.133e-01 
+ -7.233e-05  1.791e-03  9.993e-07  1.748e-01 -3.388e-06  1.459e-01 -2.827e-02 
+  1.955e-06  9.993e-07  1.070e-07  1.257e-02 -4.699e-08  7.619e-03 -4.947e-03 
+  3.463e-01  1.748e-01  1.257e-02  2.205e+03 -4.851e-03  1.059e+03 -7.758e+02 
+ -6.286e-06 -3.388e-06 -4.699e-08 -4.851e-03  9.302e-02  8.336e-02 -7.251e-03 
+  2.319e-01  1.459e-01  7.619e-03  1.059e+03  8.336e-02  9.564e+02 -2.228e+02 
+ -1.133e-01 -2.827e-02 -4.947e-03 -7.758e+02 -7.251e-03 -2.228e+02  7.571e+02 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5      6      7
+        1  0.11195   1.000 -0.022  0.078  0.096 -0.000  0.097 -0.053
+        2  0.12083  -0.022  1.000  0.072  0.088 -0.000  0.111 -0.024
+        3  0.86379   0.078  0.072  1.000  0.818 -0.000  0.753 -0.550
+        4  0.86938   0.096  0.088  0.818  1.000 -0.000  0.729 -0.600
+        5  0.01678  -0.000 -0.000 -0.000 -0.000  1.000  0.009 -0.001
+        6  0.82079   0.097  0.111  0.753  0.729  0.009  1.000 -0.262
+        7  0.68979  -0.053 -0.024 -0.550 -0.600 -0.001 -0.262  1.000
+Fitting nbr 0 done. Hesse: 0 migrad: 0 edm: 7.24949e-05 minNll: 967.961
+Filling tree
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(combPDF_Int[obs_x_B2Kee]) using numeric integrator RooIntegrator1D to calculate Int(obs_x_B2Kee)
+Integral of combPDF: 0.999998
+[#1] INFO:Plotting -- RooTreeData::plotOn: plotting 695 events out of 695 total events
+[#1] INFO:Plotting -- RooSimultaneous::plotOn(totPdf) plot on obs_x_B2Kee represents a slice in the index category (channelCat)
+[#1] INFO:Plotting -- RooAbsReal::plotOn(RK_kinematic_comb_constrain) slice variable channelCat was not projected anyway
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(B2Kee_comb_Int[obs_x_B2Kee]) using numeric integrator RooBinIntegrator to calculate Int(obs_x_B2Kee)
+[#1] INFO:Plotting -- RooSimultaneous::plotOn(totPdf) plot on obs_x_B2Kee represents a slice in the index category (channelCat)
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(RK_kinematic_comb_constrain) directly selected PDF components: (combPDF,combPDF_unnorm)
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(RK_kinematic_comb_constrain) indirectly selected PDF components: (combIntegral,B2Kee_comb)
+[#1] INFO:Plotting -- RooAbsReal::plotOn(RK_kinematic_comb_constrain) slice variable channelCat was not projected anyway
+Warning in <TFile::Append>: Replacing existing TH1: grid_ (Potential memory leak).
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(B2Kee_comb_Int[obs_x_B2Kee]) using numeric integrator RooBinIntegrator to calculate Int(obs_x_B2Kee)
+[#1] INFO:Plotting -- RooSimultaneous::plotOn(totPdf) plot on obs_x_B2Kee represents a slice in the index category (channelCat)
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(RK_kinematic_comb_constrain) directly selected PDF components: (L_x_SignalZeroSample_B2Kee_overallSyst_x_Exp,SignalZeroSample_B2Kee_overallSyst_x_Exp,SignalZeroSample_B2Kee_nominal,SignalZeroSample_B2Kee_overallNorm_x_sigma_epsilon,L_x_SignalOneSample_B2Kee_overallSyst_x_Exp,SignalOneSample_B2Kee_overallSyst_x_Exp,SignalOneSample_B2Kee_nominal,SignalOneSample_B2Kee_overallNorm_x_sigma_epsilon,fracOneRec,L_x_SignalTwoSample_B2Kee_overallSyst_x_Exp,SignalTwoSample_B2Kee_overallSyst_x_Exp,SignalTwoSample_B2Kee_nominal,SignalTwoSample_B2Kee_overallNorm_x_sigma_epsilon,fracTwo,L_x_PartRecoSample_B2Kee_overallSyst_x_Exp,PartRecoSample_B2Kee_overallSyst_x_Exp,PartRecoSample_B2Kee_nominal,PartRecoSample_B2Kee_overallNorm_x_sigma_epsilon,L_x_JpsiLeakSample_B2Kee_overallSyst_x_Exp,JpsiLeakSample_B2Kee_overallSyst_x_Exp,JpsiLeakSample_B2Kee_nominal,JpsiLeakSample_B2Kee_overallNorm_x_sigma_epsilon)
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(RK_kinematic_comb_constrain) indirectly selected PDF components: (B2Kee_comb)
+[#1] INFO:Plotting -- RooAbsReal::plotOn(RK_kinematic_comb_constrain) slice variable channelCat was not projected anyway
+Warning in <TFile::Append>: Replacing existing TH1: grid_ (Potential memory leak).
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(B2Kee_comb_Int[obs_x_B2Kee]) using numeric integrator RooBinIntegrator to calculate Int(obs_x_B2Kee)
+[#1] INFO:Plotting -- RooSimultaneous::plotOn(totPdf) plot on obs_x_B2Kee represents a slice in the index category (channelCat)
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(RK_kinematic_comb_constrain) directly selected PDF components: (L_x_SignalZeroSample_B2Kee_overallSyst_x_Exp,SignalZeroSample_B2Kee_overallSyst_x_Exp,SignalZeroSample_B2Kee_nominal,SignalZeroSample_B2Kee_overallNorm_x_sigma_epsilon,L_x_SignalOneSample_B2Kee_overallSyst_x_Exp,SignalOneSample_B2Kee_overallSyst_x_Exp,SignalOneSample_B2Kee_nominal,SignalOneSample_B2Kee_overallNorm_x_sigma_epsilon,fracOneRec,L_x_SignalTwoSample_B2Kee_overallSyst_x_Exp,SignalTwoSample_B2Kee_overallSyst_x_Exp,SignalTwoSample_B2Kee_nominal,SignalTwoSample_B2Kee_overallNorm_x_sigma_epsilon,fracTwo,L_x_PartRecoSample_B2Kee_overallSyst_x_Exp,PartRecoSample_B2Kee_overallSyst_x_Exp,PartRecoSample_B2Kee_nominal,PartRecoSample_B2Kee_overallNorm_x_sigma_epsilon)
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(RK_kinematic_comb_constrain) indirectly selected PDF components: (B2Kee_comb)
+[#1] INFO:Plotting -- RooAbsReal::plotOn(RK_kinematic_comb_constrain) slice variable channelCat was not projected anyway
+Warning in <TFile::Append>: Replacing existing TH1: grid_ (Potential memory leak).
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(B2Kee_comb_Int[obs_x_B2Kee]) using numeric integrator RooBinIntegrator to calculate Int(obs_x_B2Kee)
+[#1] INFO:Plotting -- RooSimultaneous::plotOn(totPdf) plot on obs_x_B2Kee represents a slice in the index category (channelCat)
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(RK_kinematic_comb_constrain) directly selected PDF components: (L_x_SignalZeroSample_B2Kee_overallSyst_x_Exp,SignalZeroSample_B2Kee_overallSyst_x_Exp,SignalZeroSample_B2Kee_nominal,SignalZeroSample_B2Kee_overallNorm_x_sigma_epsilon,L_x_SignalOneSample_B2Kee_overallSyst_x_Exp,SignalOneSample_B2Kee_overallSyst_x_Exp,SignalOneSample_B2Kee_nominal,SignalOneSample_B2Kee_overallNorm_x_sigma_epsilon,fracOneRec,L_x_SignalTwoSample_B2Kee_overallSyst_x_Exp,SignalTwoSample_B2Kee_overallSyst_x_Exp,SignalTwoSample_B2Kee_nominal,SignalTwoSample_B2Kee_overallNorm_x_sigma_epsilon,fracTwo)
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(RK_kinematic_comb_constrain) indirectly selected PDF components: (B2Kee_comb)
+[#1] INFO:Plotting -- RooAbsReal::plotOn(RK_kinematic_comb_constrain) slice variable channelCat was not projected anyway
+Warning in <TFile::Append>: Replacing existing TH1: grid_ (Potential memory leak).
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(B2Kee_comb_Int[obs_x_B2Kee]) using numeric integrator RooBinIntegrator to calculate Int(obs_x_B2Kee)
+[#1] INFO:Plotting -- RooSimultaneous::plotOn(totPdf) plot on obs_x_B2Kee represents a slice in the index category (channelCat)
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(RK_kinematic_comb_constrain) directly selected PDF components: (L_x_SignalZeroSample_B2Kee_overallSyst_x_Exp,SignalZeroSample_B2Kee_overallSyst_x_Exp,SignalZeroSample_B2Kee_nominal,SignalZeroSample_B2Kee_overallNorm_x_sigma_epsilon)
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(RK_kinematic_comb_constrain) indirectly selected PDF components: (B2Kee_comb)
+[#1] INFO:Plotting -- RooAbsReal::plotOn(RK_kinematic_comb_constrain) slice variable channelCat was not projected anyway
+Warning in <TFile::Append>: Replacing existing TH1: grid_ (Potential memory leak).
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(B2Kee_comb_Int[obs_x_B2Kee]) using numeric integrator RooBinIntegrator to calculate Int(obs_x_B2Kee)
+[#1] INFO:Plotting -- RooSimultaneous::plotOn(totPdf) plot on obs_x_B2Kee represents a slice in the index category (channelCat)
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(RK_kinematic_comb_constrain) directly selected PDF components: (L_x_SignalOneSample_B2Kee_overallSyst_x_Exp,SignalOneSample_B2Kee_overallSyst_x_Exp,SignalOneSample_B2Kee_nominal,SignalOneSample_B2Kee_overallNorm_x_sigma_epsilon,fracOneRec)
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(RK_kinematic_comb_constrain) indirectly selected PDF components: (B2Kee_comb)
+[#1] INFO:Plotting -- RooAbsReal::plotOn(RK_kinematic_comb_constrain) slice variable channelCat was not projected anyway
+Warning in <TFile::Append>: Replacing existing TH1: grid_ (Potential memory leak).
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(B2Kee_comb_Int[obs_x_B2Kee]) using numeric integrator RooBinIntegrator to calculate Int(obs_x_B2Kee)
+[#1] INFO:Plotting -- RooSimultaneous::plotOn(totPdf) plot on obs_x_B2Kee represents a slice in the index category (channelCat)
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(RK_kinematic_comb_constrain) directly selected PDF components: (L_x_SignalTwoSample_B2Kee_overallSyst_x_Exp,SignalTwoSample_B2Kee_overallSyst_x_Exp,SignalTwoSample_B2Kee_nominal,SignalTwoSample_B2Kee_overallNorm_x_sigma_epsilon,fracTwo)
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(RK_kinematic_comb_constrain) indirectly selected PDF components: (B2Kee_comb)
+[#1] INFO:Plotting -- RooAbsReal::plotOn(RK_kinematic_comb_constrain) slice variable channelCat was not projected anyway
+Warning in <TFile::Append>: Replacing existing TH1: grid_ (Potential memory leak).
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(B2Kee_comb_Int[obs_x_B2Kee]) using numeric integrator RooBinIntegrator to calculate Int(obs_x_B2Kee)
+[#1] INFO:Plotting -- RooTreeData::plotOn: plotting 695 events out of 695 total events
+here bins
+deleting binned combinatorial
+deleted!
+HERE toy
+nsignal: 1
+Mean is: 202.93
+I break here...
+CACA 

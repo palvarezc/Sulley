@@ -1,0 +1,28 @@
+
+WITH ERRORS
+
+FCN=69.9363 FROM MINOS     STATUS=SUCCESSFUL    153 CALLS         671 TOTAL   
+                     EDM=0.000199043    STRATEGY= 2      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                  PARABOLIC         MINOS ERRORS                
+  NO.   NAME      VALUE            ERROR      NEGATIVE      POSITIVE           
+   1  Ncomb        8.13677e-03   4.34650e-02                                   
+   2  Npartreco    5.23987e+01   9.20274e+00                                   
+   3  Nsig         5.88209e+01   9.49822e+00  -9.08762e+00   9.91920e+00       
+   4  expoConst    3.02652e-04   9.41691e-04                                   
+                               ERR DEF= 0.5                                    
+
+
+WITHOUR ERRORS
+
+**********                                                                                                                                                  
+ **   31 **MINOS        2000           3                                                                                                                    
+ **********                                                                                                                                                 
+ FCN=-0.830536 FROM MINOS     STATUS=SUCCESSFUL     65 CALLS         499 TOTAL                                                                              
+                     EDM=6.03527e-05    STRATEGY= 2      ERROR MATRIX ACCURATE                                                                              
+  EXT PARAMETER                  PARABOLIC         MINOS ERRORS                                                                                             
+  NO.   NAME      VALUE            ERROR      NEGATIVE      POSITIVE                                                                                        
+   1  Ncomb        5.21661e-02   2.53662e-01                                                                                                                
+   2  Npartreco    5.12863e+01   9.21317e+00                                                                                                                
+   3  Nsig         5.82697e+01   9.44876e+00  -9.02157e+00   9.88167e+00                                                                                    
+   4  expoConst   -5.70982e-06   8.73048e-04                                                                                                                
+                               ERR DEF= 0.5                                                                                                                 

@@ -94,7 +94,8 @@ class FitterUtilsHistFact
                        RooRealVar const& l1KeeGen, RooRealVar const& l2KeeGen, RooRealVar const& l3KeeGen, RooRealVar const& l4KeeGen, RooRealVar const& l5KeeGen , bool constFracs, bool constComb);
 
 
-   void plot_fit_result(string plotsfile, RooSimultaneous &totPdf, RooDataHist *dataGenTot);
+  void plot_fit_result(string plotsfile, RooSimultaneous &totPdf, RooDataHist *dataGenTot,
+                       double nsig, double npartreco, double ncomb, double njpsi);
 
    void PlotShape(RooDataSet& originDataSet, RooDataSet& genDataSet, RooAbsPdf& shape, string plotsfile, string canvName, RooRealVar& B_plus_M, RooRealVar& misPT);
    void PlotShape2D(RooDataSet& originDataSet, RooDataSet& genDataSet, RooAbsPdf& shape, string plotsfile, string canvName, RooRealVar& B_plus_M, RooRealVar& misPT);

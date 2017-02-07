@@ -1,0 +1,1623 @@
+
+[1mRooFit v3.60 -- Developed by Wouter Verkerke and David Kirkby[0m 
+                Copyright (C) 2000-2013 NIKHEF, University of California & Stanford University
+                All rights reserved, please read http://roofit.sourceforge.net/license.txt
+
+98651
+mcN_signal_zero = 1926.13
+mcN_signal_one = 4134.13
+mcN_signal_two = 2251.69
+mcN_partreco = 6788.54
+Aqui
+  1) RooRealVar:: Npartreco = 550
+  2) RooRealVar::      Nsig = 560
+  3) RooRealVar::      fone = 0.484
+  4) RooRealVar::     fzero = 0.368
+**********************************************************************
+ **********
+ **    9 **SET ERR         0.5
+ **********
+ **********
+ **   10 **SET PRINT           1
+ **********
+Minimizing the Minuit (Migrad)
+ **********
+ **   11 **SET STR           2
+ **********
+ NOW USING STRATEGY  2: MAKE SURE MINIMUM TRUE, ERRORS CORRECT  
+ **********
+ **   16 **HESSE        1000
+ **********
+ FIRST CALL TO USER FUNCTION AT NEW START POINT, WITH IFLAG=4.
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=550, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560,Npartreco = 550)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 550,Nsig = 560,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=550, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560,Npartreco = 550)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 550,Nsig = 560,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=578.838, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560,Npartreco = 578.838)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 578.838,Nsig = 560,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=521.898, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560,Npartreco = 521.898)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 521.898,Nsig = 560,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=871.512, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560,Npartreco = 871.512)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 871.512,Nsig = 560,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=302.131, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560,Npartreco = 302.131)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 302.131,Nsig = 560,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=7067.64, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560,Npartreco = 7067.64)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 7067.64,Nsig = 560,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=1387.68, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560,Npartreco = 1387.68)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 1387.68,Nsig = 560,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=75553.4, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560,Npartreco = 75553.4)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 75553.4,Nsig = 560,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=52662.1, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560,Npartreco = 52662.1)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 52662.1,Nsig = 560,fone = 0.484,fzero = 0.368)
+
+ MINUIT WARNING IN HESSE
+ ============== Second derivative zero for parameter1
+  MNHESS FAILS AND WILL RETURN DIAGONAL MATRIX. 
+ FCN=-1e+30 FROM HESSE     STATUS=FAILED          9 CALLS          10 TOTAL
+                     EDM= unknown      STRATEGY= 2  ERROR MATRIX UNCERTAINTY 100.0 per cent
+  EXT PARAMETER                APPROXIMATE     INTERNAL      INTERNAL  
+  NO.   NAME      VALUE            ERROR       STEP SIZE       VALUE   
+   1  Npartreco    5.26621e+04   5.20753e+04   1.21429e-02  -1.52389e+00
+   2  Nsig         5.60000e+02   2.89866e+02   1.22528e-02  -1.52346e+00
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  2    ERR DEF=0.5
+  8.105e+04  0.000e+00 
+  0.000e+00  8.403e+04 
+ERR MATRIX APPROXIMATE
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2
+        1  0.00000   1.000  0.000
+        2  0.00000   0.000  1.000
+ ERR MATRIX APPROXIMATE
+ **********
+ **   21 **MIGRAD        1000           1
+ **********
+ START MIGRAD MINIMIZATION.  STRATEGY  2.  CONVERGENCE WHEN EDM .LT. 1.00e-03
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=550, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 550 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 550 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=578.838, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 578.838 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 578.838 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=521.898, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 521.898 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 521.898 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=871.512, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 871.512 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 871.512 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=302.131, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 302.131 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 302.131 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=7067.64, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 7067.64 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 7067.64 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=1387.68, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 1387.68 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 1387.68 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=75553.4, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 75553.4 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 75553.4 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=52662.1, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 52662.1 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 52662.1 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+ MINUIT WARNING IN HESSE
+ ============== Second derivative zero for parameter1
+  MNHESS FAILS AND WILL RETURN DIAGONAL MATRIX. 
+ FCN=-1e+30 FROM HESSE     STATUS=FAILED          9 CALLS          19 TOTAL
+                     EDM=4    STRATEGY= 2  ERROR MATRIX UNCERTAINTY 100.0 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Npartreco    5.50000e+02   2.84690e+02   1.21429e-02   8.23528e+01
+   2  Nsig         5.60000e+02   2.89866e+02   1.22528e-02   8.16138e+01
+                               ERR DEF= 0.5
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=302.131, Nsig=307.624
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 307.624 +/- 289.866,Npartreco = 302.131 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 302.131 +/- 52075.3,Nsig = 307.624 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=416.858, Nsig=424.437
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 424.437 +/- 289.866,Npartreco = 416.858 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 416.858 +/- 52075.3,Nsig = 424.437 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=481.127, Nsig=489.875
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 489.875 +/- 289.866,Npartreco = 481.127 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 481.127 +/- 52075.3,Nsig = 489.875 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=514.988, Nsig=524.352
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 524.352 +/- 289.866,Npartreco = 514.988 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 514.988 +/- 52075.3,Nsig = 524.352 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=532.35, Nsig=542.029
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 542.029 +/- 289.866,Npartreco = 532.35 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 532.35 +/- 52075.3,Nsig = 542.029 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=541.139, Nsig=550.978
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 550.978 +/- 289.866,Npartreco = 541.139 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 541.139 +/- 52075.3,Nsig = 550.978 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=545.561, Nsig=555.48
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 555.48 +/- 289.866,Npartreco = 545.561 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 545.561 +/- 52075.3,Nsig = 555.48 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=547.778, Nsig=557.738
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 557.738 +/- 289.866,Npartreco = 547.778 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 547.778 +/- 52075.3,Nsig = 557.738 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=548.888, Nsig=558.868
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 558.868 +/- 289.866,Npartreco = 548.888 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 548.888 +/- 52075.3,Nsig = 558.868 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=549.444, Nsig=559.434
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 559.434 +/- 289.866,Npartreco = 549.444 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 549.444 +/- 52075.3,Nsig = 559.434 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=549.722, Nsig=559.717
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 559.717 +/- 289.866,Npartreco = 549.722 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 549.722 +/- 52075.3,Nsig = 559.717 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+ MIGRAD FAILS TO FIND IMPROVEMENT
+ MACHINE ACCURACY LIMITS FURTHER IMPROVEMENT.
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=550, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 550 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 550 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=578.838, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 578.838 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 578.838 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=521.898, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 521.898 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 521.898 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=871.512, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 871.512 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 871.512 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=302.131, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 302.131 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 302.131 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=7067.64, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 7067.64 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 7067.64 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=1387.68, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 1387.68 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 1387.68 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=75553.4, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 75553.4 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 75553.4 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=52662.1, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 52662.1 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 52662.1 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+ MINUIT WARNING IN HESSE
+ ============== Second derivative zero for parameter1
+  MNHESS FAILS AND WILL RETURN DIAGONAL MATRIX. 
+ FCN=-1e+30 FROM HESSE     STATUS=FAILED          9 CALLS          39 TOTAL
+                     EDM=4    STRATEGY= 2  ERROR MATRIX UNCERTAINTY 100.0 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Npartreco    5.50000e+02   2.84690e+02  -0.00000e+00   8.23528e+01
+   2  Nsig         5.60000e+02   2.89866e+02  -0.00000e+00   8.16138e+01
+                               ERR DEF= 0.5
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=302.131, Nsig=307.624
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 307.624 +/- 289.866,Npartreco = 302.131 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 302.131 +/- 52075.3,Nsig = 307.624 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=416.858, Nsig=424.437
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 424.437 +/- 289.866,Npartreco = 416.858 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 416.858 +/- 52075.3,Nsig = 424.437 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=481.127, Nsig=489.875
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 489.875 +/- 289.866,Npartreco = 481.127 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 481.127 +/- 52075.3,Nsig = 489.875 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=514.988, Nsig=524.352
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 524.352 +/- 289.866,Npartreco = 514.988 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 514.988 +/- 52075.3,Nsig = 524.352 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=532.35, Nsig=542.029
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 542.029 +/- 289.866,Npartreco = 532.35 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 532.35 +/- 52075.3,Nsig = 542.029 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=541.139, Nsig=550.978
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 550.978 +/- 289.866,Npartreco = 541.139 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 541.139 +/- 52075.3,Nsig = 550.978 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=545.561, Nsig=555.48
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 555.48 +/- 289.866,Npartreco = 545.561 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 545.561 +/- 52075.3,Nsig = 555.48 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=547.778, Nsig=557.738
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 557.738 +/- 289.866,Npartreco = 547.778 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 547.778 +/- 52075.3,Nsig = 557.738 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=548.888, Nsig=558.868
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 558.868 +/- 289.866,Npartreco = 548.888 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 548.888 +/- 52075.3,Nsig = 558.868 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=549.444, Nsig=559.434
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 559.434 +/- 289.866,Npartreco = 549.444 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 549.444 +/- 52075.3,Nsig = 559.434 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=549.722, Nsig=559.717
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 559.717 +/- 289.866,Npartreco = 549.722 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 549.722 +/- 52075.3,Nsig = 559.717 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+ MIGRAD FAILS TO FIND IMPROVEMENT
+ MACHINE ACCURACY LIMITS FURTHER IMPROVEMENT.
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=550, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 550 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 550 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=578.838, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 578.838 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 578.838 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=521.898, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 521.898 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 521.898 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=871.512, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 871.512 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 871.512 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=302.131, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 302.131 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 302.131 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=7067.64, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 7067.64 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 7067.64 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=1387.68, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 1387.68 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 1387.68 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=75553.4, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 75553.4 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 75553.4 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=52662.1, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 52662.1 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 52662.1 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+ MINUIT WARNING IN HESSE
+ ============== Second derivative zero for parameter1
+  MNHESS FAILS AND WILL RETURN DIAGONAL MATRIX. 
+ FCN=-1e+30 FROM HESSE     STATUS=FAILED          9 CALLS          59 TOTAL
+                     EDM=4    STRATEGY= 2  ERROR MATRIX UNCERTAINTY 100.0 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Npartreco    5.50000e+02   2.84690e+02  -0.00000e+00   8.23528e+01
+   2  Nsig         5.60000e+02   2.89866e+02  -0.00000e+00   8.16138e+01
+                               ERR DEF= 0.5
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=302.131, Nsig=307.624
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 307.624 +/- 289.866,Npartreco = 302.131 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 302.131 +/- 52075.3,Nsig = 307.624 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=416.858, Nsig=424.437
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 424.437 +/- 289.866,Npartreco = 416.858 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 416.858 +/- 52075.3,Nsig = 424.437 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=481.127, Nsig=489.875
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 489.875 +/- 289.866,Npartreco = 481.127 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 481.127 +/- 52075.3,Nsig = 489.875 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=514.988, Nsig=524.352
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 524.352 +/- 289.866,Npartreco = 514.988 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 514.988 +/- 52075.3,Nsig = 524.352 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=532.35, Nsig=542.029
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 542.029 +/- 289.866,Npartreco = 532.35 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 532.35 +/- 52075.3,Nsig = 542.029 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=541.139, Nsig=550.978
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 550.978 +/- 289.866,Npartreco = 541.139 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 541.139 +/- 52075.3,Nsig = 550.978 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=545.561, Nsig=555.48
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 555.48 +/- 289.866,Npartreco = 545.561 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 545.561 +/- 52075.3,Nsig = 555.48 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=547.778, Nsig=557.738
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 557.738 +/- 289.866,Npartreco = 547.778 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 547.778 +/- 52075.3,Nsig = 557.738 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=548.888, Nsig=558.868
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 558.868 +/- 289.866,Npartreco = 548.888 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 548.888 +/- 52075.3,Nsig = 558.868 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=549.444, Nsig=559.434
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 559.434 +/- 289.866,Npartreco = 549.444 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 549.444 +/- 52075.3,Nsig = 559.434 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=549.722, Nsig=559.717
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 559.717 +/- 289.866,Npartreco = 549.722 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 549.722 +/- 52075.3,Nsig = 559.717 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+ MIGRAD FAILS TO FIND IMPROVEMENT
+ MACHINE ACCURACY LIMITS FURTHER IMPROVEMENT.
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=550, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 550 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 550 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=578.838, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 578.838 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 578.838 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=521.898, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 521.898 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 521.898 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=871.512, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 871.512 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 871.512 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=302.131, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 302.131 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 302.131 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=7067.64, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 7067.64 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 7067.64 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=1387.68, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 1387.68 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 1387.68 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=75553.4, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 75553.4 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 75553.4 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=52662.1, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 52662.1 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 52662.1 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+ MINUIT WARNING IN HESSE
+ ============== Second derivative zero for parameter1
+  MNHESS FAILS AND WILL RETURN DIAGONAL MATRIX. 
+ MIGRAD TERMINATED WITHOUT CONVERGENCE.
+ FCN=-1e+30 FROM MIGRAD    STATUS=FAILED         69 CALLS          79 TOTAL
+                     EDM=4    STRATEGY= 2  ERROR MATRIX UNCERTAINTY 100.0 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Npartreco    5.50000e+02   2.84690e+02  -0.00000e+00   8.23528e+01
+   2  Nsig         5.60000e+02   2.89866e+02  -0.00000e+00   8.16138e+01
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  2    ERR DEF=0.5
+  8.105e+04  0.000e+00 
+  0.000e+00  8.403e+04 
+ERR MATRIX APPROXIMATE
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2
+        1  0.00000   1.000  0.000
+        2  0.00000   0.000  1.000
+ ERR MATRIX APPROXIMATE
+ **********
+ **   26 **HESSE        1000
+ **********
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=550, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 550 +/- 284.69)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 550 +/- 284.69,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=578.838, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 578.838 +/- 284.69)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 578.838 +/- 284.69,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=521.898, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 521.898 +/- 284.69)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 521.898 +/- 284.69,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=871.512, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 871.512 +/- 284.69)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 871.512 +/- 284.69,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=302.131, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 302.131 +/- 284.69)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 302.131 +/- 284.69,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=7067.64, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 7067.64 +/- 284.69)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 7067.64 +/- 284.69,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=1387.68, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 1387.68 +/- 284.69)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 1387.68 +/- 284.69,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=75553.4, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 75553.4 +/- 284.69)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 75553.4 +/- 284.69,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=52662.1, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 52662.1 +/- 284.69)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 52662.1 +/- 284.69,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+ MINUIT WARNING IN HESSE
+ ============== Second derivative zero for parameter1
+  MNHESS FAILS AND WILL RETURN DIAGONAL MATRIX. 
+ FCN=-1e+30 FROM HESSE     STATUS=FAILED          9 CALLS          88 TOTAL
+                     EDM=4    STRATEGY= 2  ERROR MATRIX UNCERTAINTY 100.0 per cent
+  EXT PARAMETER                APPROXIMATE     INTERNAL      INTERNAL  
+  NO.   NAME      VALUE            ERROR       STEP SIZE       VALUE   
+   1  Npartreco    5.26621e+04   5.20753e+04  -0.00000e+00  -1.52389e+00
+   2  Nsig         5.60000e+02   2.89866e+02  -0.00000e+00  -1.52346e+00
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  2    ERR DEF=0.5
+  8.105e+04  0.000e+00 
+  0.000e+00  8.403e+04 
+ERR MATRIX APPROXIMATE
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2
+        1  0.00000   1.000  0.000
+        2  0.00000   0.000  1.000
+ ERR MATRIX APPROXIMATE
+4
+ **********
+ **   31 **MINOS        1000           2
+ **********
+ FUNCTION MUST BE MINIMIZED BEFORE CALLING MINOs     
+ START MIGRAD MINIMIZATION.  STRATEGY  2.  CONVERGENCE WHEN EDM .LT. 5.00e-05
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=550, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 550 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 550 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=578.838, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 578.838 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 578.838 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=521.898, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 521.898 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 521.898 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=871.512, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 871.512 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 871.512 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=302.131, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 302.131 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 302.131 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=7067.64, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 7067.64 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 7067.64 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=1387.68, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 1387.68 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 1387.68 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=75553.4, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 75553.4 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 75553.4 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=52662.1, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 52662.1 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 52662.1 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+ MINUIT WARNING IN HESSE
+ ============== Second derivative zero for parameter1
+  MNHESS FAILS AND WILL RETURN DIAGONAL MATRIX. 
+ FCN=-1e+30 FROM HESSE     STATUS=FAILED          9 CALLS          97 TOTAL
+                     EDM=4    STRATEGY= 2  ERROR MATRIX UNCERTAINTY 100.0 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Npartreco    5.50000e+02   2.84690e+02  -0.00000e+00   8.23528e+01
+   2  Nsig         5.60000e+02   2.89866e+02  -0.00000e+00   8.16138e+01
+                               ERR DEF= 0.5
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=302.131, Nsig=307.624
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 307.624 +/- 289.866,Npartreco = 302.131 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 302.131 +/- 52075.3,Nsig = 307.624 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=416.858, Nsig=424.437
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 424.437 +/- 289.866,Npartreco = 416.858 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 416.858 +/- 52075.3,Nsig = 424.437 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=481.127, Nsig=489.875
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 489.875 +/- 289.866,Npartreco = 481.127 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 481.127 +/- 52075.3,Nsig = 489.875 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=514.988, Nsig=524.352
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 524.352 +/- 289.866,Npartreco = 514.988 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 514.988 +/- 52075.3,Nsig = 524.352 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=532.35, Nsig=542.029
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 542.029 +/- 289.866,Npartreco = 532.35 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 532.35 +/- 52075.3,Nsig = 542.029 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=541.139, Nsig=550.978
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 550.978 +/- 289.866,Npartreco = 541.139 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 541.139 +/- 52075.3,Nsig = 550.978 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=545.561, Nsig=555.48
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 555.48 +/- 289.866,Npartreco = 545.561 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 545.561 +/- 52075.3,Nsig = 555.48 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=547.778, Nsig=557.738
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 557.738 +/- 289.866,Npartreco = 547.778 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 547.778 +/- 52075.3,Nsig = 557.738 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=548.888, Nsig=558.868
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 558.868 +/- 289.866,Npartreco = 548.888 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 548.888 +/- 52075.3,Nsig = 558.868 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=549.444, Nsig=559.434
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 559.434 +/- 289.866,Npartreco = 549.444 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 549.444 +/- 52075.3,Nsig = 559.434 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=549.722, Nsig=559.717
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 559.717 +/- 289.866,Npartreco = 549.722 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 549.722 +/- 52075.3,Nsig = 559.717 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+ MIGRAD FAILS TO FIND IMPROVEMENT
+ MACHINE ACCURACY LIMITS FURTHER IMPROVEMENT.
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=550, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 550 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 550 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=578.838, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 578.838 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 578.838 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=521.898, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 521.898 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 521.898 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=871.512, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 871.512 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 871.512 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=302.131, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 302.131 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 302.131 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=7067.64, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 7067.64 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 7067.64 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=1387.68, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 1387.68 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 1387.68 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=75553.4, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 75553.4 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 75553.4 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=52662.1, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 52662.1 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 52662.1 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+ MINUIT WARNING IN HESSE
+ ============== Second derivative zero for parameter1
+  MNHESS FAILS AND WILL RETURN DIAGONAL MATRIX. 
+ FCN=-1e+30 FROM HESSE     STATUS=FAILED          9 CALLS         117 TOTAL
+                     EDM=4    STRATEGY= 2  ERROR MATRIX UNCERTAINTY 100.0 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Npartreco    5.50000e+02   2.84690e+02  -0.00000e+00   8.23528e+01
+   2  Nsig         5.60000e+02   2.89866e+02  -0.00000e+00   8.16138e+01
+                               ERR DEF= 0.5
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=302.131, Nsig=307.624
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 307.624 +/- 289.866,Npartreco = 302.131 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 302.131 +/- 52075.3,Nsig = 307.624 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=416.858, Nsig=424.437
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 424.437 +/- 289.866,Npartreco = 416.858 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 416.858 +/- 52075.3,Nsig = 424.437 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=481.127, Nsig=489.875
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 489.875 +/- 289.866,Npartreco = 481.127 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 481.127 +/- 52075.3,Nsig = 489.875 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=514.988, Nsig=524.352
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 524.352 +/- 289.866,Npartreco = 514.988 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 514.988 +/- 52075.3,Nsig = 524.352 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=532.35, Nsig=542.029
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 542.029 +/- 289.866,Npartreco = 532.35 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 532.35 +/- 52075.3,Nsig = 542.029 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=541.139, Nsig=550.978
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 550.978 +/- 289.866,Npartreco = 541.139 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 541.139 +/- 52075.3,Nsig = 550.978 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=545.561, Nsig=555.48
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 555.48 +/- 289.866,Npartreco = 545.561 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 545.561 +/- 52075.3,Nsig = 555.48 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=547.778, Nsig=557.738
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 557.738 +/- 289.866,Npartreco = 547.778 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 547.778 +/- 52075.3,Nsig = 557.738 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=548.888, Nsig=558.868
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 558.868 +/- 289.866,Npartreco = 548.888 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 548.888 +/- 52075.3,Nsig = 558.868 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=549.444, Nsig=559.434
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 559.434 +/- 289.866,Npartreco = 549.444 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 549.444 +/- 52075.3,Nsig = 559.434 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=549.722, Nsig=559.717
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 559.717 +/- 289.866,Npartreco = 549.722 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 549.722 +/- 52075.3,Nsig = 559.717 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+ MIGRAD FAILS TO FIND IMPROVEMENT
+ MACHINE ACCURACY LIMITS FURTHER IMPROVEMENT.
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=550, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 550 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 550 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=578.838, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 578.838 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 578.838 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=521.898, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 521.898 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 521.898 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=871.512, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 871.512 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 871.512 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=302.131, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 302.131 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 302.131 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=7067.64, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 7067.64 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 7067.64 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=1387.68, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 1387.68 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 1387.68 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=75553.4, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 75553.4 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 75553.4 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=52662.1, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 52662.1 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 52662.1 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+ MINUIT WARNING IN HESSE
+ ============== Second derivative zero for parameter1
+  MNHESS FAILS AND WILL RETURN DIAGONAL MATRIX. 
+ FCN=-1e+30 FROM HESSE     STATUS=FAILED          9 CALLS         137 TOTAL
+                     EDM=4    STRATEGY= 2  ERROR MATRIX UNCERTAINTY 100.0 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Npartreco    5.50000e+02   2.84690e+02  -0.00000e+00   8.23528e+01
+   2  Nsig         5.60000e+02   2.89866e+02  -0.00000e+00   8.16138e+01
+                               ERR DEF= 0.5
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=302.131, Nsig=307.624
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 307.624 +/- 289.866,Npartreco = 302.131 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 302.131 +/- 52075.3,Nsig = 307.624 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=416.858, Nsig=424.437
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 424.437 +/- 289.866,Npartreco = 416.858 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 416.858 +/- 52075.3,Nsig = 424.437 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=481.127, Nsig=489.875
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 489.875 +/- 289.866,Npartreco = 481.127 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 481.127 +/- 52075.3,Nsig = 489.875 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=514.988, Nsig=524.352
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 524.352 +/- 289.866,Npartreco = 514.988 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 514.988 +/- 52075.3,Nsig = 524.352 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=532.35, Nsig=542.029
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 542.029 +/- 289.866,Npartreco = 532.35 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 532.35 +/- 52075.3,Nsig = 542.029 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=541.139, Nsig=550.978
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 550.978 +/- 289.866,Npartreco = 541.139 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 541.139 +/- 52075.3,Nsig = 550.978 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=545.561, Nsig=555.48
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 555.48 +/- 289.866,Npartreco = 545.561 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 545.561 +/- 52075.3,Nsig = 555.48 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=547.778, Nsig=557.738
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 557.738 +/- 289.866,Npartreco = 547.778 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 547.778 +/- 52075.3,Nsig = 557.738 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=548.888, Nsig=558.868
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 558.868 +/- 289.866,Npartreco = 548.888 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 548.888 +/- 52075.3,Nsig = 558.868 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=549.444, Nsig=559.434
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 559.434 +/- 289.866,Npartreco = 549.444 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 549.444 +/- 52075.3,Nsig = 559.434 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=549.722, Nsig=559.717
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 559.717 +/- 289.866,Npartreco = 549.722 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 549.722 +/- 52075.3,Nsig = 559.717 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+ MIGRAD FAILS TO FIND IMPROVEMENT
+ MACHINE ACCURACY LIMITS FURTHER IMPROVEMENT.
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=550, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 550 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 550 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=578.838, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 578.838 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 578.838 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=521.898, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 521.898 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 521.898 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=871.512, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 871.512 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 871.512 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=302.131, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 302.131 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 302.131 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=7067.64, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 7067.64 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 7067.64 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=1387.68, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 1387.68 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 1387.68 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=75553.4, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 75553.4 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 75553.4 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=52662.1, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 52662.1 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 52662.1 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+ MINUIT WARNING IN HESSE
+ ============== Second derivative zero for parameter1
+  MNHESS FAILS AND WILL RETURN DIAGONAL MATRIX. 
+ MIGRAD TERMINATED WITHOUT CONVERGENCE.
+ FCN=-1e+30 FROM MIGRAD    STATUS=FAILED         69 CALLS         157 TOTAL
+                     EDM=4    STRATEGY= 2  ERROR MATRIX UNCERTAINTY 100.0 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Npartreco    5.50000e+02   2.84690e+02  -0.00000e+00   8.23528e+01
+   2  Nsig         5.60000e+02   2.89866e+02  -0.00000e+00   8.16138e+01
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  2    ERR DEF=0.5
+  8.105e+04  0.000e+00 
+  0.000e+00  8.403e+04 
+ERR MATRIX APPROXIMATE
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2
+        1  0.00000   1.000  0.000
+        2  0.00000   0.000  1.000
+ ERR MATRIX APPROXIMATE
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=550, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 550 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 550 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=578.838, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 578.838 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 578.838 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=521.898, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 521.898 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 521.898 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=871.512, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 871.512 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 871.512 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=302.131, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 302.131 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 302.131 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=7067.64, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 7067.64 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 7067.64 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=1387.68, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 1387.68 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 1387.68 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=75553.4, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 75553.4 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 75553.4 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=52662.1, Nsig=560
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 560 +/- 289.866,Npartreco = 52662.1 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 52662.1 +/- 52075.3,Nsig = 560 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+ MINUIT WARNING IN HESSE
+ ============== Second derivative zero for parameter1
+  MNHESS FAILS AND WILL RETURN DIAGONAL MATRIX. 
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=550, Nsig=849.866
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 849.866 +/- 289.866,Npartreco = 550 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 550 +/- 52075.3,Nsig = 849.866 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=871.512, Nsig=849.866
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 849.866 +/- 289.866,Npartreco = 871.512 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 871.512 +/- 52075.3,Nsig = 849.866 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=302.131, Nsig=849.866
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 849.866 +/- 289.866,Npartreco = 302.131 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 302.131 +/- 52075.3,Nsig = 849.866 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=550, Nsig=270.134
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 270.134 +/- 289.866,Npartreco = 550 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 550 +/- 52075.3,Nsig = 270.134 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=7067.64, Nsig=270.134
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 270.134 +/- 289.866,Npartreco = 7067.64 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 7067.64 +/- 52075.3,Nsig = 270.134 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+[#0] WARNING:Minization -- RooMinuitGlue: Minimized function has error status.
+Returning maximum FCN so far (-1e+30) to force MIGRAD to back out of this region. Error log follows
+Parameter values: Npartreco=1387.68, Nsig=270.134
+RooAddPdf::MyModelWithCombinatorial[ Nsig * model_signal + Npartreco * partreco_pdf ]
+     getLogVal() top-level p.d.f evaluates to zero @ !refCoefNorm=(), !pdfs=(model_signal = 0/1,partreco_pdf = 0/1), !coefficients=(Nsig = 270.134 +/- 289.866,Npartreco = 1387.68 +/- 52075.3)
+RooNLLVar::nll_MyModelWithCombinatorial_dataGenTot[ paramSet=(Npartreco,Nsig,fone,fzero) ]
+     function value is NAN @ paramSet=(Npartreco = 1387.68 +/- 52075.3,Nsig = 270.134 +/- 289.866,fone = 0.484,fzero = 0.368)
+
+ FCN=-1e+30 FROM MINOS     STATUS=SUCCESSFUL      6 CALLS         172 TOTAL
+                     EDM=4    STRATEGY= 2  ERROR MATRIX UNCERTAINTY 100.0 per cent
+  EXT PARAMETER                  PARABOLIC         MINOS ERRORS        
+  NO.   NAME      VALUE            ERROR      NEGATIVE      POSITIVE   
+   1  Npartreco    5.50000e+02   5.20753e+04                            
+   2  Nsig         5.60000e+02   2.89866e+02          -inf           inf
+                               ERR DEF= 0.5
+Fit ran with status 0
+Stat error on Nsig is 289.866453
+EDM at end was 4.000000
+RooArgList:: = (Npartreco,Nsig)
+CURRENT PARAMETERS:
+0: Npartreco			 = 550 +/- 52075.3
+1: Nsig			 = 560 +/- 289.866
+
+2x2 matrix is as follows
+
+     |      0    |      1    |
+-------------------------------
+   0 |          1           0 
+   1 |          0           1 
+
+[#0] ERROR:Plotting -- RooAbsPdf::plotOn(MyModelWithCombinatorial) ERROR: component selection expression '*Zero*,*One*,*Two*' does not select any components of p.d.f.
+[#0] ERROR:Plotting -- RooAbsPdf::plotOn(MyModelWithCombinatorial) ERROR: component selection expression '*Zero*' does not select any components of p.d.f.
+[#0] ERROR:Plotting -- RooAbsPdf::plotOn(MyModelWithCombinatorial) ERROR: component selection expression '*One*' does not select any components of p.d.f.
+[#0] ERROR:Plotting -- RooAbsPdf::plotOn(MyModelWithCombinatorial) ERROR: component selection expression '*Two*' does not select any components of p.d.f.
+[#0] ERROR:Plotting -- RooAbsPdf::plotOn(MyModelWithCombinatorial) ERROR: component selection expression '*PartReco*' does not select any components of p.d.f.
+[#0] ERROR:Plotting -- RooAbsPdf::plotOn(MyModelWithCombinatorial) ERROR: component selection expression '*Zero*,*One*,*Two*' does not select any components of p.d.f.
+[#0] ERROR:Plotting -- RooAbsPdf::plotOn(MyModelWithCombinatorial) ERROR: component selection expression '*Zero*' does not select any components of p.d.f.
+[#0] ERROR:Plotting -- RooAbsPdf::plotOn(MyModelWithCombinatorial) ERROR: component selection expression '*One*' does not select any components of p.d.f.
+[#0] ERROR:Plotting -- RooAbsPdf::plotOn(MyModelWithCombinatorial) ERROR: component selection expression '*Two*' does not select any components of p.d.f.
+[#0] ERROR:Plotting -- RooAbsPdf::plotOn(MyModelWithCombinatorial) ERROR: component selection expression '*PartReco*' does not select any components of p.d.f.
+[#0] ERROR:InputArguments -- RooPlot::findObject(frame_obs_x_B2Kee_440c9d0) cannot find object model
+[#0] ERROR:InputArguments -- RooPlot::findObject(frame_obs_x_B2Kee_440c9d0) cannot find object signal
+[#0] ERROR:InputArguments -- RooPlot::findObject(frame_obs_x_B2Kee_440c9d0) cannot find object sigzero_sample
+[#0] ERROR:InputArguments -- RooPlot::findObject(frame_obs_x_B2Kee_440c9d0) cannot find object sigone_sample
+[#0] ERROR:InputArguments -- RooPlot::findObject(frame_obs_x_B2Kee_440c9d0) cannot find object sigtwo_sample
+[#0] ERROR:InputArguments -- RooPlot::findObject(frame_obs_x_B2Kee_440c9d0) cannot find object partreco_sample

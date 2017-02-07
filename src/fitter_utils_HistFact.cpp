@@ -290,7 +290,7 @@ void FitterUtilsHistFact::prepare_PDFs(string trigStr, string weightStr, string 
       string signaltree, string partrecotree, string combtree, string JpsiLeaktree)
 {
 
-  bool templateStat = true;
+  bool templateStat = false;
   
 
   //**********Define variables
@@ -1175,7 +1175,9 @@ void FitterUtilsHistFact::fit(bool wantplot, bool constPartReco,
    int w(12);
    if (hasConverged) out<<setw(w)<<migradRes<<setw(w)<<hesseRes<<setw(w)<<edm<<setw(w)<<nrefit<<endl;
 
-   if(wantplot) plot_fit_result(plotsfile, totPdf, dataGenTot);
+   if(wantplot) plot_fit_result(plotsfile, totPdf, dataGenTot,
+                                nSignal->getVal(), nPartReco->getVal(), 
+                                nComb->getVal()*combIntegral->getVal()*combNorm->getVal(), nJpsiLeak->getVal() );
 
 
    // this should remain commented out
@@ -1252,7 +1254,8 @@ void FitterUtilsHistFact::fit(bool wantplot, bool constPartReco,
 }
 
 
-void FitterUtilsHistFact::plot_fit_result(string plotsfile, RooSimultaneous &totPdf, RooDataHist *dataGenTot)
+void FitterUtilsHistFact::plot_fit_result(string plotsfile, RooSimultaneous &totPdf, RooDataHist *dataGenTot,
+                                          double nsig, double npartreco, double ncomb, double njpsi)
 {
 
    //**************Prepare TFile to save the plots
@@ -1269,6 +1272,9 @@ void FitterUtilsHistFact::plot_fit_result(string plotsfile, RooSimultaneous &tot
 
    RooCategory* idx = (RooCategory*) (&totPdf.indexCat());
    
+   double ntot = nsig+ncomb+npartreco+njpsi;
+   
+
    while((var = (RooRealVar*) iter->Next()))
    {
 
@@ -1278,29 +1284,45 @@ void FitterUtilsHistFact::plot_fit_result(string plotsfile, RooSimultaneous &tot
       dataGenTot->plotOn(frame,Name("Data"),DataError(RooAbsData::Poisson),Cut("channelCat==0"),MarkerSize(0.6),DrawOption("ZP"));
 
 
-      totPdf.plotOn(frame,Name("model"), Slice(*idx),ProjWData(*idx,*dataGenTot),DrawOption("F"),FillColor(kRed),
+      totPdf.plotOn(frame,Name("comb"), Slice(*idx),ProjWData(*idx,*dataGenTot),DrawOption("F"),FillColor(kGray),
                              LineWidth(0));
+
+
+      totPdf.plotOn(frame,Name("comb_line"), Slice(*idx),ProjWData(*idx,*dataGenTot),
+                    LineColor(kRed),
+                    Components("*combPDF*"),LineWidth(2),
+                    Normalization(ntot,RooAbsReal::NumEvent));
+
+
       // resids[i]=frame->pullHist();
-      totPdf.plotOn(frame,Name("comb"), Slice(*idx),ProjWData(*idx,*dataGenTot),
-                             DrawOption("F"),FillColor(kCyan),Components("combPDF*,*Zero*,*One*,*Two*,*PartReco*,*Leak*"),LineWidth(0));
-      dataGenTot->plotOn(frame,Name("Data"),DataError(RooAbsData::Poisson),Cut("channelCat==0"),MarkerSize(0.8),DrawOption("ZP"));
+
+      totPdf.plotOn(frame,Name("jpsileak"), Slice(*idx),ProjWData(*idx,*dataGenTot),
+                    DrawOption("F"),FillColor(kCyan),Components("*Zero*,*One*,*Two*,*PartReco*,*Leak*"),
+                    LineWidth(0), Normalization(ntot,RooAbsReal::NumEvent));
+
 
       totPdf.plotOn(frame,Name("partreco"), Slice(*idx),ProjWData(*idx,*dataGenTot),
-                             DrawOption("F"),FillColor(kMagenta),Components("*Zero*,*One*,*Two*,*PartReco*,*Leak*"),LineWidth(0));
+                    DrawOption("F"),FillColor(kMagenta),Components("*Zero*,*One*,*Two*,*PartReco*"),
+                    LineWidth(0),Normalization(ntot,RooAbsReal::NumEvent));
 
-      totPdf.plotOn(frame,Name("partreco"), Slice(*idx),ProjWData(*idx,*dataGenTot),
-                             DrawOption("F"),FillColor(kYellow),Components("*Zero*,*One*,*Two*,*Leak*"),LineWidth(0));
-      
       totPdf.plotOn(frame,Name("signal"), Slice(*idx),ProjWData(*idx,*dataGenTot),
-                             DrawOption("F"),FillColor(kBlue),Components("*Zero*,*One*,*Two*"),LineWidth(0));
+                    DrawOption("F"),FillColor(kBlue),Components("*Zero*,*One*,*Two*"),
+                    LineWidth(0), Normalization(ntot,RooAbsReal::NumEvent));
+      
       totPdf.plotOn(frame,Name("sigzero"), Slice(*idx),ProjWData(*idx,*dataGenTot),Components("*Zero*"),
-                             LineWidth(1),LineColor(kYellow));
+                    LineWidth(1),LineColor(kYellow),
+                    Normalization(ntot,RooAbsReal::NumEvent));
+
       totPdf.plotOn(frame,Name("sigone"), Slice(*idx),ProjWData(*idx,*dataGenTot),
-                             LineColor(kViolet),Components("*One*"),LineWidth(1));
+                    LineColor(kViolet),Components("*One*"),LineWidth(1),
+                    Normalization(ntot,RooAbsReal::NumEvent));
+
       totPdf.plotOn(frame,Name("sigtwo"), Slice(*idx),ProjWData(*idx,*dataGenTot),
-                             LineColor(kGreen),Components("*Two*"),LineWidth(1));
+                    LineColor(kGreen),Components("*Two*"),LineWidth(1),
+                    Normalization(ntot,RooAbsReal::NumEvent));
       
       
+      dataGenTot->plotOn(frame,Name("Data"),DataError(RooAbsData::Poisson),Cut("channelCat==0"),MarkerSize(0.8),DrawOption("ZP"));
       cout<<"here bins"<<endl;
 
 

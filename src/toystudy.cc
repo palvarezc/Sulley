@@ -38,6 +38,7 @@
 #include "fitter_utils_ExpOfPolyTimesX.h"
 #include"fitter_utils_simultaneous_ExpOfPolyTimesX.h"
 #include "fitter_utils_HistFact.h"
+#include "fitter_utils_HistFact_1D.h"
 #include "TObjectTable.h"
 
 namespace fs = boost::filesystem;
@@ -228,6 +229,7 @@ int main(int argc, char* argv[])
    FitterUtilsExpOfPolyTimesX fuExpOfPoly(nGenSignal,nGenPartReco, nGenComb, nGenJpsiLeak, nGenFracZeroGamma, nGenFracOneGamma, workspacename);
    FitterUtilsSimultaneousExpOfPolyTimesX fuSExpOfPoly(nGenKemu, nGenSignal,nGenPartReco, nGenComb, nGenJpsiLeak, nGenFracZeroGamma, nGenFracOneGamma, workspacename);
    FitterUtilsHistFact fuHistFact(nGenSignal,nGenPartReco, nGenComb, nGenJpsiLeak, nGenFracZeroGamma, nGenFracOneGamma, workspacename);
+   FitterUtilsHistFact1D fuHistFact1D(nGenSignal,nGenPartReco, nGenComb, nGenJpsiLeak, nGenFracZeroGamma, nGenFracOneGamma, workspacename);
 
 
 
@@ -239,6 +241,7 @@ int main(int argc, char* argv[])
       if(fitMode == 5) fuExpOfPoly.prepare_PDFs(trigStr, weightStr, BDTVar, BDTCutVal, fSignal, fPartReco, fComb, fJpsiLeak, minBMass, maxBMass);
       if(fitMode == 6) fuSExpOfPoly.prepare_PDFs(trigStr, weightStr, BDTVar, BDTCutVal, fSignal, fPartReco, fComb, fJpsiLeak, minBMass, maxBMass);
       if(fitMode == 7) fuHistFact.prepare_PDFs(trigStr, weightStr, BDTVar, BDTCutVal, fSignal, fPartReco, fComb, fJpsiLeak, minBMass, maxBMass);
+      if(fitMode == 8) fuHistFact1D.prepare_PDFs(trigStr, weightStr, BDTVar, BDTCutVal, fSignal, fPartReco, fComb, fJpsiLeak, minBMass, maxBMass);
    }
 
    cout<<"PDFs prepared!"<<endl;
@@ -292,9 +295,12 @@ int main(int argc, char* argv[])
       {
          fuHistFact.generate(wantPlots, plotsfile);
          fuHistFact.fit( wantPlots, constPartReco, 0.1, out, &t,  update, plotsfile);
+      }
+      if(fitMode == 8)
+      {
+         fuHistFact1D.generate(wantPlots, plotsfile);
+         fuHistFact1D.fit( wantPlots, constPartReco, 0.1, out, &t,  update, plotsfile);
          cout<<"HERE toy"<<endl;
-
-         
       }
 
       wantPlots = false;
