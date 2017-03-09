@@ -195,10 +195,10 @@ int main(int argc, char* argv[])
    if(!wantHOPCut) extraString = "";
 
 
-  string fSignal("/vols/lhcb/th1011/KeeTuples/MC/HltTOS/Kee_RedoCalo_signalPresel_HltTrigged.root");
+  string fSignal("/vols/lhcb/th1011/KeeTuples/MC/oldTuples/HltTOS/Kee_RedoCalo_signalPresel_HltTrigged.root");
   string fComb("/vols/lhcb/palvare1/B2Kee_Kmumu/Marcin/B2XMuMu_Line_Strip21_Kemu_presel.root");
-  string fJpsiLeak("/vols/lhcb/th1011/KeeTuples/MC/HltTOS/B_JpsiX_2012RedoCalo_presel_KisKorPi_HltTrigged_charmBkg.root");
-  string fPartReco("/vols/lhcb/th1011/KeeTuples/MC/HltTOS/B_JpsiX_2012RedoCalo_presel_KisKorPi_HltTrigged_rareBkg.root");
+  string fJpsiLeak("/vols/lhcb/th1011/KeeTuples/MC/oldTuples/HltTOS/B_JpsiX_2012RedoCalo_presel_KisKorPi_HltTrigged_charmBkg.root");
+  string fPartReco("/vols/lhcb/th1011/KeeTuples/MC/oldTuples/HltTOS/B_JpsiX_2012RedoCalo_presel_KisKorPi_HltTrigged_rareBkg.root");
 
    // string fSignal("/home/hep/th1011/B2KeeData/tuples/strip21/tupleThibaud/newTuples/trigged/B2Kee_Strip21_MC_trigged.root");
    // string fComb("/home/hep/th1011/B2KeeData/tuples/strip21/tupleThibaud/newTuples/trigged/B2Kemu_Strip21_trigged.root");

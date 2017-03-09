@@ -3,18 +3,24 @@
 # Reload control samples from tuples: 0=YES, 1=NO
 #"mode: 1 (1D fit Mvis), 2 (2D fit Mvis x misPT), 3 (2D fit simultaneous with Kemu), 4 (binned), 5 (2D fit Mvis x misPT, RooPolyTimesX fit function),
 # 6: (2D fit Mvis x misPT, RooPolyTimesX fit function, simultaneous with kemu)"
+# 7: (2D fit with HistFactory Mvis x misPT hist)"
+# 8: (1D fit with HistFactory Mvis)"
 RELOAD_CTRL_SAMPLES=0
+# Y_SIG=152
+# Y_PART_RECO=70
+# Y_COMB=77
+# Y_JPSILEAK=6
 Y_SIG=199
 Y_PART_RECO=92
 Y_COMB=440
-Y_JPSILEAK=16
+Y_JPSILEAK=11
 TRIGGER=-1
 N_TOYS=50
 BDT_VAR_NAME="BDTNewu4bR"
-BDT_CUT=0.1428  #-0.0187   0.297
-OUTPUTDIR="/vols/lhcb/palvare1/RK_analysis/Fit_Toys/toy_result_01_26_exp_brem_1D/"
+BDT_CUT=0.7647 #0.1428  #-0.0187   0.297
+OUTPUTDIR="/vols/lhcb/palvare1/RK_analysis/Fit_Toys/Run1/2D_HistFact_stat/"
 CONSTRAINED=0
-MODE=8
+MODE=7
 WANT_HOP_CUT=0 #0: no HOP cut, 1: HOP cut
 MIN_B_MASS=4880
 MAX_B_MASS=6200
@@ -125,7 +131,8 @@ echo -e pdflatex $OUTPUTTABLETEX >> $CLEANUPSCRIPT
 
 if [ $MODE = 1 ]
 then
-   QUEUE="hepshort.q"
+   # QUEUE="hepshort.q"
+   QUEUE="hep.q"
 fi
 
 if [ $MODE = 2 ]
@@ -140,7 +147,8 @@ fi
 
 if [ $MODE = 4 ]
 then
-   QUEUE="hepshort.q"
+   # QUEUE="hepshort.q"
+   QUEUE="hep.q"
 fi
 
 if [ $MODE = 5 ]

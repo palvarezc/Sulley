@@ -81,7 +81,6 @@ void makeTableResults(TTree* t, int nGenSignal, int nGenPartReco, int nGenComb, 
 
    ve.val = hStock->GetMean();
    ve.err = hStock->GetStdDev();
-   cout<<"I break here..."<<endl;
    double fracSig(100*ve.err/ve.val);
    string strSig(roundToError(ve, wantLatex));
 
@@ -197,6 +196,79 @@ void fillTreeResult(TTree* t, RooFitResult* rfr, bool update, int migradRes, int
       if(!update) t->Branch( (name+"_err").c_str(), &vec[nConst+nFloat+i], (name+"_err/D").c_str() );
       if(update) t->SetBranchAddress((name+"_err").c_str(), &vec[nConst+nFloat+i]);
    }
+
+   double edm;
+   edm = TMath::Log10(rfr->edm()); 
+   if(!update) t->Branch("logedm", &edm, "logedm/D");
+   if(update) t->SetBranchAddress("logedm", &edm);
+
+   double status;
+   status = rfr->status(); 
+   if(!update) t->Branch("status", &status, "status/D");
+   if(update) t->SetBranchAddress("status", &status);
+
+   t->Fill();
+}
+
+
+void fillTreeResultSimple(TTree* t, RooArgSet* par_set, RooFitResult* rfr, bool update, int migradRes, int hesseRes,bool  hasConverged)
+{
+
+
+  t->ResetBranchAddresses();
+
+  int nVars(par_set->getSize());
+
+  vector<double> vec(nVars);
+  vector<double> errs(nVars);
+
+  string name;
+  double value, error;
+
+  TIterator *pariter = par_set->createIterator();
+  RooRealVar *pari = (RooRealVar*) pariter->Next();
+
+  int i=0;
+  
+  while (pari)
+  {
+      name = pari->GetName();
+      value = pari->getValV();
+      error = 0;
+      
+      if(!(pari->isConstant())) error = pari->getError();
+      
+      vec[i] = value;
+      errs[i] = error;
+
+      if(!update) t->Branch( name.c_str(), &vec[i], (name+"/D").c_str() );
+      if(update) t->SetBranchAddress(name.c_str(), &vec[i]);
+    
+      if(!update) t->Branch( (name+"_err").c_str(), &errs[i], (name+"_err/D").c_str() );
+      if(update) t->SetBranchAddress((name+"_err").c_str(), &errs[i]);
+
+      pari = (RooRealVar*) pariter->Next();
+      i++;
+      
+  }
+
+
+
+   double minNll(rfr->minNll());
+
+
+   if(!update) t->Branch( "migradRes", &migradRes, "migradRes/I" );
+   if(update) t->SetBranchAddress("migradRes", &migradRes);
+
+   if(!update) t->Branch( "hesseRes", &hesseRes, "hesseRes/I" );
+   if(update) t->SetBranchAddress("hesseRes", &migradRes);
+
+   if(!update) t->Branch( "minNll", &minNll, "minNll/D" );
+   if(update) t->SetBranchAddress("minNll", &minNll);
+
+   if(!update) t->Branch( "hasConverged", &hasConverged, "hasConverged/O" );
+   if(update) t->SetBranchAddress("hasConverged", &hasConverged);
+
 
    double edm;
    edm = TMath::Log10(rfr->edm()); 

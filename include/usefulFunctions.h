@@ -30,6 +30,7 @@ string d2s(double nbr, int nfixed = 0 );
 string roundToError(valError& ve, bool wantLatex = false);
 string roundToError(RooRealVar const& var, bool wantLatex = false);
 void fillTreeResult(TTree* t, RooFitResult* rfr, bool update, int migradRes, int hesseRes,bool  hasConverged);
+void fillTreeResultSimple(TTree* t, RooArgSet* par_set, RooFitResult* rfr, bool update, int migradRes, int hesseRes,bool  hasConverged);
 void makeTableResults(string filename, string treename, int nGenSignal, int nGenPartReco, int nGenComb, int nGenJpsiLeak, ostream& out, bool wantLatex = false);
 void makeTableResults(TTree* t, int nGenSignal, int nGenPartReco, int nGenComb, int nGenJpsiLeak, ostream& out, bool wantLatex = false );
 

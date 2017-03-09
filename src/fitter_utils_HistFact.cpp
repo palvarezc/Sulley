@@ -10,6 +10,7 @@
 #include "RooSimultaneous.h"
 #include "RooRealSumPdf.h"
 #include "RooProduct.h"
+#include "TIterator.h"
 
 string measurementName = "my_measurement";
 string channelName = "B2Kee";
@@ -290,7 +291,7 @@ void FitterUtilsHistFact::prepare_PDFs(string trigStr, string weightStr, string 
       string signaltree, string partrecotree, string combtree, string JpsiLeaktree)
 {
 
-  bool templateStat = false;
+  bool templateStat = true;
   
 
   //**********Define variables
@@ -334,12 +335,20 @@ void FitterUtilsHistFact::prepare_PDFs(string trigStr, string weightStr, string 
   string OneGamma  = "((e_plus_BremMultiplicity+e_minus_BremMultiplicity) > 0.5) && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) < 1.5)";
   string TwoGamma  = "((e_plus_BremMultiplicity+e_minus_BremMultiplicity) > 1.5) && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) < 2.5)";
   
-  string SignalZeroCuts = "("+BDTCutString+" && "+TrigCutString+" && "+MassCutString+" && "+ZeroGamma+")*"+weightStr;
-  string SignalOneCuts = "("+BDTCutString+" && "+TrigCutString+" && "+MassCutString+" && "+OneGamma+")*"+weightStr;
-  string SignalTwoCuts = "("+BDTCutString+" && "+TrigCutString+" && "+MassCutString+" && "+TwoGamma+")*"+weightStr;
-  string PartRecoCuts = "("+BDTCutString+" && "+TrigCutString+" && "+MassCutString+")*"+weightStr;
-  string JpsiLeakCuts = "("+BDTCutString+" && "+TrigCutString+" && "+MassCutString+")*"+weightStr;
+  // string SignalZeroCuts = "("+BDTCutString+" && "+TrigCutString+" && "+MassCutString+" && "+ZeroGamma+")*"+weightStr;
+  // string SignalOneCuts = "("+BDTCutString+" && "+TrigCutString+" && "+MassCutString+" && "+OneGamma+")*"+weightStr;
+  // string SignalTwoCuts = "("+BDTCutString+" && "+TrigCutString+" && "+MassCutString+" && "+TwoGamma+")*"+weightStr;
+  // string PartRecoCuts = "("+BDTCutString+" && "+TrigCutString+" && "+MassCutString+")*"+weightStr;
+  // string JpsiLeakCuts = "("+BDTCutString+" && "+TrigCutString+" && "+MassCutString+")*"+weightStr;
+  // string CombCuts  = BDTCutString+" && "+TrigCutString+" && "+MassCutString+" && K_Kst_isMuon == 0";   
+
+  string SignalZeroCuts = "("+BDTCutString+" && "+TrigCutString+" && "+MassCutString+" && "+ZeroGamma+")";
+  string SignalOneCuts = "("+BDTCutString+" && "+TrigCutString+" && "+MassCutString+" && "+OneGamma+")";
+  string SignalTwoCuts = "("+BDTCutString+" && "+TrigCutString+" && "+MassCutString+" && "+TwoGamma+")";
+  string PartRecoCuts = "("+BDTCutString+" && "+TrigCutString+" && "+MassCutString+")";
+  string JpsiLeakCuts = "("+BDTCutString+" && "+TrigCutString+" && "+MassCutString+")";
   string CombCuts  = BDTCutString+" && "+TrigCutString+" && "+MassCutString+" && K_Kst_isMuon == 0";   
+
   
   vector<string> argsetComb = {"B_plus_DTFM_M_zero", "misPT", "B_plus_M", 
                                BDTVar, trigStr, "e_plus_BremMultiplicity", "e_minus_BremMultiplicity", "K_Kst_isMuon"};
@@ -469,7 +478,7 @@ void FitterUtilsHistFact::prepare_PDFs(string trigStr, string weightStr, string 
   //Setup the jpsi leak
     
   RooStats::HistFactory::Sample jpsileak("JpsiLeakSample");
-  if(templateStat) jpsileak.ActivateStatError();
+  // if(templateStat) jpsileak.ActivateStatError();
   jpsileak.SetHisto(h_JpsiLeak);
   jpsileak.SetNormalizeByTheory(kFALSE);
   jpsileak.AddNormFactor("nJpsiLeak", 1.*nGenJpsiLeak, nGenJpsiLeak-7*sqrt(nGenJpsiLeak), nGenJpsiLeak+7*sqrt(nGenJpsiLeak));
@@ -905,6 +914,7 @@ void FitterUtilsHistFact::fit(bool wantplot, bool constPartReco,
    // model.addPdf(*model_nocomb_pdf,idx->getLabel());  
 
    HistFactorySimultaneous totPdf( model );
+   // HistFactorySimultaneous totPdf( *model_nocomb );
    totPdf.SetNameTitle("totPdf", "totPdf");
    
 
@@ -1163,7 +1173,21 @@ void FitterUtilsHistFact::fit(bool wantplot, bool constPartReco,
    {
      cout<<"Filling tree"<<endl;
 
-     fillTreeResult(t, fitRes,  update, migradRes, hesseRes, hasConverged);
+     // fillTreeResult(t, fitRes,  update, migradRes, hesseRes, hasConverged);
+
+
+     TIterator *pariter = par_set->createIterator();
+     RooRealVar *pari = (RooRealVar*) pariter->Next();
+     while (pari)
+     {
+       cout<<pari->GetName()<<" value = "<<pari->getVal()<<endl;
+       pari = (RooRealVar*) pariter->Next();
+       
+     }
+     
+
+     fillTreeResultSimple(t, par_set,  fitRes,  update, migradRes, hesseRes, hasConverged);
+     
    }
    
    for(unsigned int i(0); i<fitResVec.size(); ++i) delete fitResVec.at(i);
