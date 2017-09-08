@@ -1,163 +1,117 @@
 // Include files 
 #include "Combinatorial.h"
+#include "RooChebychev.h"
+
+Combinatorial::Combinatorial():
+  name(""),
+  fittype(FitType::RooFit1D),
+  ownexp(0)
+{
+}
 
 
-Combinatorial::Combinatorial( string name_, FitType fittype_ ):
+Combinatorial::Combinatorial( string name_, FitType fittype_, string plotsfile_ ):
   name(name_),
-  fittype(fittype),
-  parcreated(0)
+  fittype(fittype_),
+  plotsfile(plotsfile_),
+  ownexp(0)
 {
-
-
 }
 
 
-RooArgSet* Combinatorial::create_parameters()
+void Combinatorial::create_parameters(RooWorkspace* workspace)
 {
 
 
-  // RooArgSet *parameters = new RooArgSet(parsetname.c_str());
-  // RooArgSet *parameters = new RooArgSet();
+  RooArgSet parameters((name+"_parset").c_str()); 
 
-  parameters = new RooArgSet(); 
-
-  if (fittype==FitType::RooFit1D || fittype==FitType::HistFact1D)
+  if (fittype==RooFit1D || fittype==HistFact1D)
   {
-    expoConst = new RooRealVar("expoConst", "expoConst", -1e-3, -1, 1);
-    parameters->add(*expoConst);
+    RooRealVar expoConst("expoConst", "expoConst", -1e-3, -0.006, 0.006);
+    parameters.add(expoConst);
+    workspace->defineSet((name+"_parset").c_str(), parameters, true);
+
+    // RooRealVar expoConst("expoConst", "expoConst", -1.,1.);
+    // parameters.add(expoConst);
+    // workspace->defineSet((name+"_parset").c_str(), parameters, true);
   }
   
-  if (fittype==FitType::RooFit2D_RooPTMVis)
+  if (fittype==RooFit2D_RooPTMVis)
   {
-    expoConst = new RooRealVar("expoConst", "expoConst", -1e-3, -1, 1);
-    T = new RooRealVar("T", "T", 97, 0, 200);
-    n = new RooRealVar("n", "n", 3.5, 1., 5.5);
-    parameters->add(*expoConst);
-    parameters->add(*T);
-    parameters->add(*n);
+    RooRealVar expoConst("expoConst", "expoConst", -1e-3, -0.006, 0.006);
+    RooRealVar T("T", "T", 97, 0, 200);
+    RooRealVar n("n", "n", 3.5, 1., 5.5);
+    parameters.add(expoConst);
+    parameters.add(T);
+    parameters.add(n);
+    workspace->defineSet((name+"_parset").c_str(), parameters, true);
+}
+
+  if (fittype==RooFit2D || fittype==HistFact2D)
+  { 
+    RooRealVar l1Kee("l1Kee", "l1Kee", +2.3e-3, -1e-1, 1e-1);    
+    RooRealVar l2Kee("l2Kee", "l2Kee", +4.9e-3, -1e-1, 1e-1);
+    RooRealVar l3Kee("l3Kee", "l3Kee", -4.1e-7, -1e-5, 1e-5);
+    RooRealVar l4Kee("l4Kee", "l4Kee", -4e-7, -1e-5, 1e-5);
+    RooRealVar l5Kee("l5Kee", "l5Kee", 1e-10, -1e-9, 1e-9);
+    parameters.add(l1Kee);
+    parameters.add(l2Kee);
+    parameters.add(l3Kee);
+    parameters.add(l4Kee);
+    parameters.add(l5Kee);
+    workspace->defineSet((name+"_parset").c_str(), parameters, true);
+    cout<<"parameters created..."<<endl;
   }
 
-  if (fittype==FitType::RooFit2D || fittype==FitType::HistFact2D)
-  {
-    l1Kee = new RooRealVar("l1Kee", "l1Kee", +2.3e-3, -1e-1, 1e-1);    
-    l2Kee = new RooRealVar("l2Kee", "l2Kee", +4.9e-3, -1e-1, 1e-1);
-    l3Kee = new RooRealVar("l3Kee", "l3Kee", -4.1e-7, -1e-5, 1e-5);
-    l4Kee = new RooRealVar("l4Kee", "l4Kee", -4e-7, -1e-5, 1e-5);
-    l5Kee = new RooRealVar("l5Kee", "l5Kee", 1e-10, -1e-9, 1e-9);
-    parameters->add(*l1Kee);
-    parameters->add(*l2Kee);
-    parameters->add(*l3Kee);
-    parameters->add(*l4Kee);
-    parameters->add(*l5Kee);
-  }
+  // workspace->Print();
+
+}
+
+
+void Combinatorial::copy_parameters(Combinatorial *other, RooWorkspace* workspace, bool _ownexp)
+{
+
+  use_own_exp(_ownexp);
   
-  parcreated = true;
-  return parameters;
+  RooArgSet* parameters  = (RooArgSet*) workspace->set((other->get_name()+"_parset").c_str());
+  RooRealVar expoConst(("expoConst_"+name).c_str(), ("expoConst_"+name).c_str(), -1e-3, -0.006, 0.006);
+  // RooRealVar expoConst(("expoConst_"+name).c_str(), ("expoConst_"+name).c_str(), -1.,1.);
 
-}
+  if (ownexp) parameters->add(expoConst);
 
+  workspace->defineSet((name+"_parset").c_str(), *parameters, true);
 
-void Combinatorial::delete_parameters()
-{
-
-  RooRealVar *var;  
-  TIterator *iter = parameters->createIterator();
-
-  while((var = (RooRealVar*) iter->Next()))
-  {
-    delete var;
-  }
-
-  
-  delete parameters;
-  parcreated = false;
+  // workspace->import(expoConst);
+  // workspace->extendSet((name+"_parset").c_str(),("expoConst_"+name).c_str());
 
 }
 
 
 
-void Combinatorial::set_observables(RooArgSet *varset)
-{
-
-  RooRealVar *var;  
-  TIterator *iter = varset->createIterator();
-
-  while((var = (RooRealVar*) iter->Next()))
-  {
-    if ( var->GetName()=="B_plus_M") B_plus_M = var;
-    if ( var->GetName()=="misPT") misPT = var;
-  }
-
-}
-
-void Combinatorial::set_parameters(RooArgSet *varset)
-{
-
-  RooRealVar *var;  
-  TIterator *iter = varset->createIterator();
-
-  while((var = (RooRealVar*) iter->Next()))
-  {
-    if ( var->GetName()=="expoConst") expoConst = var;
-    if ( var->GetName()=="n") n = var;
-    if ( var->GetName()=="T") T = var;
-    if ( var->GetName()=="l1Kee") l1Kee = var;
-    if ( var->GetName()=="l2Kee") l2Kee = var;
-    if ( var->GetName()=="l3Kee") l3Kee = var;
-    if ( var->GetName()=="l4Kee") l4Kee = var;
-    if ( var->GetName()=="l5Kee") l5Kee = var;
-  }
-
-}
-
-
-void Combinatorial::set_parameters_truevalue(RooArgSet *varset)
-{
-
-  RooRealVar *var;
-  TIterator *iter = get_parameters()->createIterator();
-
-  RooRealVar *vartrue;
-  TIterator *itertrue = varset->createIterator();
-
-  string varname, vartruename;
-
-  while((var = (RooRealVar*) iter->Next()))
-  {
-    varname = var->GetName();
-
-    while((vartrue = (RooRealVar*) itertrue->Next()))
-    {
-
-      vartruename = vartrue->GetName();
-      if ( vartruename=="true"+varname) 
-      {
-        
-        var->setVal(vartrue->getValV());
-      }
-    }
-  }
-
-}
-
-// void Combinatorial::fit_to_data(string combfile, string combtree,
-//                  string combcuts, RooArgSet *varset, RooWorkspace *workspace)
+// void Combinatorial::delete_set(RooArgSet *parameters)
 // {
 
-//   RooBinning dumbbinning;
-//   fit_to_data(combfile, combtree, combcuts,varset,workspace,dumbbinning,dumbbinning);
+//   RooRealVar *var;  
+//   TIterator *iter = parameters->createIterator();
 
+//   while((var = (RooRealVar*) iter->Next()))
+//   {
+//     delete var;
+//   }
+  
 // }
-
 
 
 void Combinatorial::build_model_from_data(string combfile, string combtree, string combcuts, 
                                           RooArgSet *varset,RooWorkspace *workspace,
-                                          string binningname)
+                                          bool wantplot, string binningname)
 {
 
-  RooAbsPdf* model = build_model(varset, binningname);
-  
+  cout<<"Hello!"<<endl;
+
+  create_parameters(workspace);
+  RooArgSet* parameters = (RooArgSet*) workspace->set((name+"_parset").c_str());
+  RooAbsPdf* model = build_model(varset, parameters, false, binningname); 
   
   TFile* fComb = new TFile(combfile.c_str());  
   TTree* tComb = (TTree*)fComb->Get(combtree.c_str());
@@ -174,103 +128,87 @@ void Combinatorial::build_model_from_data(string combfile, string combtree, stri
   }
   
 
-  RooDataSet *dataSetComb = new RooDataSet("dataSetComb", "dataSetComb", tComb, *varset, combcuts.c_str());
-  model->fitTo(*dataSetComb);
-  
+  RooDataSet dataSetComb("dataSetComb", "dataSetComb", tComb, *varset, combcuts.c_str());
+  model->fitTo(dataSetComb);
 
-  RooArgSet *parset = model->getParameters(dataSetComb);
-  TIterator *pariter = parset->createIterator();
-  RooRealVar *par = (RooRealVar*) pariter->Next();
-  string parname;
-  
-  workspace->defineSet((name+"_parsettrue").c_str(),"");
+  if(wantplot)
+    {
+      plot(dataSetComb, *model, "calibration");
+    }
 
-  //Save values to workspace
-  while (par)
-  {
-    parname = par->GetName();
-    RooRealVar truepar(("true"+parname).c_str(), ("true"+parname).c_str(), par->getVal());
-    workspace->import(truepar);
-    workspace->extendSet((name+"_parsettrue").c_str(), ("true"+parname).c_str());
-    workspace->import(*par);
-    par = (RooRealVar*) pariter->Next();
-  }
+  workspace->saveSnapshot("pars_for_generation",*parameters,kTRUE) ;
 
-  workspace->defineSet((name+"_parset").c_str(),*parset);
-  workspace->saveSnapshot((name+"_calibration").c_str(),*parset,kTRUE) ;
-
-  delete parset;
-  delete pariter;
-  delete par;
-  delete variter;
-  delete var;
-  delete fComb;  
-  delete dataSetComb;
+  fComb->Close();
   delete model;
 }
 
 
 
-void Combinatorial::generate(string compname, RooArgSet *observables, RooArgSet *parameterstrue,
-                             int nGenComp, RooWorkspace* workspaceGen, bool wantplot)
+void Combinatorial::generate(string compname, RooArgSet *observables, 
+                             int nGenComp, RooWorkspace* workspace, 
+			     RooWorkspace* workspaceGen, bool wantplot, 
+			     string binningname)
 {
 
-  RooAbsPdf *model = build_model(observables);
 
-  set_parameters_truevalue(parameterstrue);
+  RooArgSet *parset = (RooArgSet*) workspace->set((name+"_parset").c_str());
+  workspace->loadSnapshot("pars_for_generationname");
+  RooAbsPdf *model = build_model(observables, parset, false, binningname);
 
   RooAbsPdf::GenSpec* GenSpecComp = model->prepareMultiGen(*observables, RooFit::Extended(1), NumEvents(nGenComp));
 
   cout<<"Generating "<<compname<<endl;
   RooDataSet* dataGenComp = model->generate(*GenSpecComp);
   dataGenComp->SetName(("dataGen"+compname).c_str()); dataGenComp->SetTitle(("dataGen"+compname).c_str());
-
-  // if (m_wantplot)
-  // {
-  //   RooDataSet* dataSetComp = (RooDataSet*)workspace->data("dataSetComp");    
-  //   PlotShape(*dataSetComp, *dataGenComp, *histPdfComp, opts.plotsfile, ("c"+compname).c_str(), varset);
-  // }
   
+  // cout<<"Number of events requested: "<<nGenComp<<endl;
+  // cout<<"Number of events generated: "<<dataGenComp->sumEntries()<<endl;
 
-   
+  if (wantplot)
+  {
+    plot(*dataGenComp, *model, "generated");
+  }   
 
   workspaceGen->import(*dataGenComp);
-
+  
   delete dataGenComp;
   delete GenSpecComp;
   delete model;
 }
 
 
-
-
-
-RooAbsPdf* Combinatorial::build_model(RooArgSet *varset, string binningname, RooArgSet *parset)
+RooAbsPdf* Combinatorial::build_model(RooArgSet *varset, RooArgSet *parset, bool fixpars, string binningname)
 {
 
   RooAbsPdf *model = NULL;
-
-  set_observables(varset);
-
-  if (!parset && !parcreated) parset = create_parameters();
-  if (parset) set_parameters(parset);
+  string expoConstname = "expoConst";
+  if (ownexp) expoConstname += "_"+name;
 
   // Single exponential
-  if (fittype==FitType::RooFit1D || fittype==FitType::HistFact1D)
+  if (fittype==RooFit1D || fittype==HistFact1D)
   {
+    //Get observables
+    RooRealVar * B_plus_M = (RooRealVar*) varset->find("B_plus_M");
+
+    //Get parameters 
+    RooRealVar * expoConst = (RooRealVar*) parset->find(expoConstname.c_str());
+
     if (!B_plus_M || !expoConst)
     {
       cout<<"Varset does not contain variables needed to build the model."<<endl;
       return model;
     }
 
-    if (fittype==FitType::RooFit1D)
+    if (fittype==RooFit1D)
     {
+      cout<<"Going for fittype: "<< "RooFit1D" <<endl;
       model =  new RooExponential(("combPDF_"+name).c_str(), ("combPDF_"+name).c_str(), *B_plus_M, *expoConst);
+      // model =  new RooChebychev(("combPDF_"+name).c_str(), ("combPDF_"+name).c_str(), *B_plus_M, *expoConst);
     }
   
-    if (fittype==FitType::RooFit1D)
+    if (fittype==HistFact1D)
     {
+      cout<<"Going for fittype: "<< "HistFact1D" <<endl;
       model =  new RooExpBinned(("combPDF_"+name).c_str(), ("combPDF_"+name).c_str(), *B_plus_M, *expoConst, 
                                 B_plus_M->getBinning(binningname.c_str()));
     }
@@ -280,8 +218,17 @@ RooAbsPdf* Combinatorial::build_model(RooArgSet *varset, string binningname, Roo
   
   
   // 2D - RooPTMVis
-  if (fittype==FitType::RooFit2D_RooPTMVis)
+  if (fittype==RooFit2D_RooPTMVis)
   {
+
+    //Get observables
+    RooRealVar * B_plus_M = (RooRealVar*) varset->find("B_plus_M");
+    RooRealVar * misPT = (RooRealVar*) varset->find("misPT");
+
+    //Get parameters 
+    RooRealVar * expoConst = (RooRealVar*) parset->find(expoConstname.c_str());
+    RooRealVar * n = (RooRealVar*) parset->find("n");
+    RooRealVar * T = (RooRealVar*) parset->find("T");
 
     if (!B_plus_M || !misPT || !expoConst || !n || !T)
     {
@@ -289,6 +236,13 @@ RooAbsPdf* Combinatorial::build_model(RooArgSet *varset, string binningname, Roo
       return model;
     }
 
+    if(fixpars)
+      {
+	n->setConstant(1);
+	T->setConstant(1);
+      }
+
+    cout<<"Going for fittype: "<< "RooFit2D_RooPTMVis" <<endl;
     model =  new RooPTMVis(("combPDF_"+name).c_str(), ("combPDF_"+name).c_str(), *misPT, *B_plus_M, *T, *n, *expoConst);
 
 
@@ -297,8 +251,22 @@ RooAbsPdf* Combinatorial::build_model(RooArgSet *varset, string binningname, Roo
 
 
   // 2D - RooPolyTimesX
-  if (fittype==FitType::RooFit2D || fittype==FitType::HistFact2D)
+  if (fittype==RooFit2D || fittype==HistFact2D)
   {
+
+
+    //Get observables
+    RooRealVar * B_plus_M = (RooRealVar*) varset->find("B_plus_M");
+    RooRealVar * misPT = (RooRealVar*) varset->find("misPT");
+
+    //Get parameters 
+    string l1Keename = "l1Kee";
+    if (ownexp) l1Keename = "expoConst_"+name;
+    RooRealVar * l1Kee = (RooRealVar*) parset->find(l1Keename.c_str());
+    RooRealVar * l2Kee = (RooRealVar*) parset->find("l2Kee");
+    RooRealVar * l3Kee = (RooRealVar*) parset->find("l3Kee");
+    RooRealVar * l4Kee = (RooRealVar*) parset->find("l4Kee");
+    RooRealVar * l5Kee = (RooRealVar*) parset->find("l5Kee");
 
     if (!B_plus_M || !misPT || !l1Kee || !l2Kee || !l3Kee || !l4Kee || !l5Kee)
     {
@@ -306,24 +274,27 @@ RooAbsPdf* Combinatorial::build_model(RooArgSet *varset, string binningname, Roo
       return model;
     }    
     
-    parameters = new RooArgSet("parameters");
-    parameters->add(*l1Kee);
-    parameters->add(*l2Kee);
-    parameters->add(*l3Kee);
-    parameters->add(*l4Kee);
-    parameters->add(*l5Kee);
+    if(fixpars)
+      {
+	l2Kee->setConstant(1);
+	l3Kee->setConstant(1);
+	l4Kee->setConstant(1);
+	l5Kee->setConstant(1);
+      }
 
-    if (fittype==FitType::RooFit2D)
+    if (fittype==RooFit2D)
     {  
-      model =  new RooExpOfPolyTimesX("combPDF", "combPDF", *B_plus_M, *misPT, *l1Kee, *l2Kee, *l3Kee, *l4Kee, *l5Kee);
+      cout<<"Going for fittype: "<< "RooFit2D" <<endl;
+      model =  new RooExpOfPolyTimesX(("combPDF_"+name).c_str(), ("combPDF_"+name).c_str(), *B_plus_M, *misPT, *l1Kee, *l2Kee, *l3Kee, *l4Kee, *l5Kee);
     }
     
-    if (fittype==FitType::HistFact2D)
+    if (fittype==HistFact2D)
     {
       // RooBinning m_binning = (RooBinning) B_plus_M->getBinning(m_binning_name.c_str()); 
       // RooBinning pT_binning = (RooBinning) misPT->getBinning(pT_binning_name.c_str()); 
 
-      model =  new RooExpOfPolyTimesXBinned("combPDF", "combPDF", *B_plus_M, *misPT, *l1Kee, *l2Kee, *l3Kee, *l4Kee, *l5Kee,
+      cout<<"Going for fittype: "<< "HistFact2D" <<endl;
+      model =  new RooExpOfPolyTimesXBinned(("combPDF_"+name).c_str(), ("combPDF_"+name).c_str(), *B_plus_M, *misPT, *l1Kee, *l2Kee, *l3Kee, *l4Kee, *l5Kee,
                                             B_plus_M->getBinning(binningname.c_str()), 
                                             misPT->getBinning(binningname.c_str()));
     }
@@ -332,6 +303,43 @@ RooAbsPdf* Combinatorial::build_model(RooArgSet *varset, string binningname, Roo
   
   return model;
   
+}
+
+
+void Combinatorial::plot(RooDataSet& dataset, RooAbsPdf& model, string plotname)
+{
+
+   TFile f2(plotsfile.c_str(), "UPDATE");
+
+   RooArgSet *var_set = model.getObservables(dataset);
+   TIterator *iter = var_set->createIterator();
+   RooRealVar *var;
+
+   std::vector<RooPlot*> plots;
+   RooPlot* frame;
+
+   while((var = (RooRealVar*) iter->Next()))
+   {
+
+      frame = var->frame();
+      dataset.plotOn(frame);
+      model.plotOn(frame);
+
+      plots.push_back(frame);
+
+   }  
+
+   if (!(plots.size())) return;
+
+   TCanvas cComb(("cComb_"+name+"_"+plotname).c_str(), ("cComb_"+name+"_"+plotname).c_str(), 600, 800);
+   cComb.Divide(1,2);
+   cComb.cd(1); plots[0]->Draw();
+   if (plots.size()>1){ 
+      cComb.cd(2); plots[1]->Draw();
+   }
+
+   cComb.Write();
+   f2.Close();
 }
 
 

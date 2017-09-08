@@ -16,395 +16,28 @@ string measurementName = "my_measurement";
 string channelName = "B2Kee";
 
 
-FitterUtilsHistFact::FitterUtilsHistFact(int nGenSignal_, int nGenPartReco_, int nGenComb_, int nGenJpsiLeak_, double nGenFracZeroGamma_
-                                         , double nGenFracOneGamma_,
-                                         string workspacename_)
-  :nGenSignal(nGenSignal_), nGenPartReco(nGenPartReco_), nGenComb(nGenComb_), nGenJpsiLeak(nGenJpsiLeak_), 
-   nGenFracZeroGamma(nGenFracZeroGamma_), nGenFracOneGamma(nGenFracOneGamma_), 
-   workspacename(workspacename_), 
-   nMassBins(0), nmisPTBins(40), binWidthMass(40.), binWidthMassBroader(80.), binWidthMassExtended(80.)
+FitterUtilsHistFact::FitterUtilsHistFact(string workspacename_, const Options opts_)
+  :FitterUtils(workspacename_,opts_)   
 {}
 
 
-void FitterUtilsHistFact::initiateParams(RooArgSet* parset)
-{
-   RooRealVar *var;
-   TIterator *iter = parset->createIterator();
-
-   while((var = (RooRealVar*) iter->Next()))
-   {
-      if ( !var->isConstant() ) var->randomize();
-   }
-}
-
-
-void FitterUtilsHistFact::initiateParams(int nGenSignalZeroGamma, int nGenSignalOneGamma, int nGenSignalTwoGamma, RooRealVar& nSignal, RooRealVar& nPartReco, 
-      RooRealVar& nComb, RooRealVar& fracZero, RooRealVar& fracOne, RooRealVar&  nJpsiLeak, bool constPartReco, RooRealVar const& fracPartRecoSigma, 
-      RooRealVar& l1Kee, RooRealVar& l2Kee, RooRealVar& l3Kee, RooRealVar& l4Kee, RooRealVar& l5Kee, 
-                                         RooRealVar const& l1KeeGen, RooRealVar const& l2KeeGen, RooRealVar const& l3KeeGen, RooRealVar const& l4KeeGen, RooRealVar const& l5KeeGen , bool constFracs, bool constComb)
-{
-   TRandom rand;
-   rand.SetSeed();
-
-   int nGenSignal = nGenSignalZeroGamma + nGenSignalOneGamma + nGenSignalTwoGamma;
-
-   double nGenSignal2;
-   double nGenPartReco2;
-   if(!constPartReco)
-   {
-      nGenSignal2 = rand.Uniform(nGenSignal-5*sqrt(nGenSignal), nGenSignal+5*sqrt(nGenSignal));
-      nGenPartReco2 = rand.Uniform(nGenPartReco-5*sqrt(nGenPartReco), nGenPartReco+5*sqrt(nGenPartReco));
-   }
-   if(constPartReco)
-   { 
-      double nGenSigPartReco( nGenSignal+nGenPartReco );
-      double nGenSigPartReco2( rand.Uniform( nGenSigPartReco-5*sqrt(nGenSigPartReco), nGenSigPartReco+5*sqrt(nGenSigPartReco) ) );
-      double fracPartReco1( nGenPartReco/(1.*nGenSignal));
-      double fracPartReco2( rand.Uniform(fracPartReco1-5*fracPartRecoSigma.getVal(), fracPartReco1+5*fracPartRecoSigma.getVal()) ); 
-
-      nGenPartReco2 = fracPartReco2*nGenSigPartReco2 / (1+fracPartReco2); 
-      nGenSignal2 = nGenSigPartReco2 / (1+fracPartReco2); 
-   }
-   double nGenComb2 = rand.Uniform(nGenComb-5*sqrt(nGenComb), nGenComb+5*sqrt(nGenComb));
-   double nGenJpsiLeak2 = rand.Uniform(nGenJpsiLeak-5*sqrt(nGenJpsiLeak), nGenJpsiLeak+5*sqrt(nGenJpsiLeak));
-
-
-   nSignal.setVal(nGenSignal2);
-   nSignal.setRange(TMath::Max(0.,nGenSignal2-10.*sqrt(nGenSignal)) , nGenSignal2+10*sqrt(nGenSignal));
-
-   nPartReco.setVal(nGenPartReco2);
-   nPartReco.setRange(TMath::Max(0.,nGenPartReco2-10.*sqrt(nGenPartReco)), nGenPartReco2+10*sqrt(nGenPartReco));
-
-
-   nComb.setVal(nGenComb2);
-   nComb.setRange(TMath::Max(0.,nGenComb2-20.*sqrt(nGenComb)), nGenComb2+20*sqrt(nGenComb));
-
-   nJpsiLeak.setVal(nGenJpsiLeak2);
-   nJpsiLeak.setRange(TMath::Max(0., nGenJpsiLeak2-10*sqrt(nGenJpsiLeak)), nGenJpsiLeak2+10*sqrt(nGenJpsiLeak));
-
-   double fracGenZero(nGenSignalZeroGamma/(1.*nGenSignal));
-   double fracGenOne(nGenSignalOneGamma/(1.*nGenSignal));
-
-   if (!constFracs)
-   {
-     
-   fracZero.setVal(rand.Gaus(fracGenZero, sqrt(nGenSignalZeroGamma)/(1.*nGenSignal))) ;
-   fracZero.setRange(0., 1.);
-   fracOne.setVal(rand.Gaus(fracGenOne, sqrt(nGenSignalOneGamma)/(1.*nGenSignal))) ;
-   fracOne.setRange(0., 1.);
-   }
-   
-
-   if (!constComb)
-   {
-     
-   l1Kee.setVal(rand.Uniform( l1KeeGen.getVal() - 5*l1KeeGen.getError(), l1KeeGen.getVal() + 5*l1KeeGen.getError() ) );
-   l1Kee.setRange( l1KeeGen.getVal() - 10*l1KeeGen.getError(), l1KeeGen.getVal() + 10*l1KeeGen.getError() );
-
-   l2Kee.setVal(rand.Uniform( l2KeeGen.getVal() - 5*l2KeeGen.getError(), l2KeeGen.getVal() + 5*l2KeeGen.getError() ) );
-   l2Kee.setRange( l2KeeGen.getVal() - 10*l2KeeGen.getError(), l2KeeGen.getVal() + 10*l2KeeGen.getError() );
-
-   l3Kee.setVal(rand.Uniform( l3KeeGen.getVal() - 5*l3KeeGen.getError(), l3KeeGen.getVal() + 5*l3KeeGen.getError() ) );
-   l3Kee.setRange( l3KeeGen.getVal() - 10*l3KeeGen.getError(), l3KeeGen.getVal() + 10*l3KeeGen.getError() );
-
-   l4Kee.setVal(rand.Uniform( l4KeeGen.getVal() - 5*l4KeeGen.getError(), l4KeeGen.getVal() + 5*l4KeeGen.getError() ) );
-   l4Kee.setRange( l4KeeGen.getVal() - 10*l4KeeGen.getError(), l4KeeGen.getVal() + 10*l4KeeGen.getError() );
-
-   l5Kee.setVal(rand.Uniform( l5KeeGen.getVal() - 5*l5KeeGen.getError(), l5KeeGen.getVal() + 5*l5KeeGen.getError() ) );
-   l5Kee.setRange( l5KeeGen.getVal() - 10*l5KeeGen.getError(), l5KeeGen.getVal() + 10*l5KeeGen.getError() );
-   }
-
-}
-
-TH2D* FitterUtilsHistFact::make_base_histogram(string componentName, string componentFile, string componentTree,
-                                              string cut, vector<string> varset, RooRealVar &x, RooRealVar &y, 
-                                              string binningName)
-{  
-
-
-   //***********Get the datasets
-   TFile* fcomponent = new TFile(componentFile.c_str());
-   TTree* tcomponent = (TTree*)fcomponent->Get(componentTree.c_str());
-   
-   TH2D *hcomponent = new TH2D(componentName.c_str(),componentName.c_str(),
-                               x.getBins(binningName.c_str()), x.getMin(binningName.c_str()), x.getMax(binningName.c_str()),
-                               y.getBins(binningName.c_str()), y.getMin(binningName.c_str()), y.getMax(binningName.c_str()));
-
-   // TH2D hcomponent(componentName.c_str(),componentName.c_str(),
-   //                             x.getBins(binningName.c_str()), x.getMin(binningName.c_str()), x.getMax(binningName.c_str()),
-   //                             y.getBins(binningName.c_str()), y.getMin(binningName.c_str()), y.getMax(binningName.c_str()));
-   
-                                        
-   // cout<<x.GetName()<<"["<<x.getBins(binningName.c_str())<<","<<x.getMin(binningName.c_str())<<","<<x.getMax(binningName.c_str())<<endl;
-   // cout<<y.GetName()<<"["<<y.getBins(binningName.c_str())<<","<<y.getMin(binningName.c_str())<<","<<y.getMax(binningName.c_str())<<endl;
-  
-
-   // TH2D* hcomponent = (TH2D*) x.createHistogram(componentName.c_str(),YVar(y),Binning(binningName.c_str()));
-   hcomponent->Sumw2();
-
-   //***********Set only variables needed
-
-   tcomponent->SetBranchStatus("*",0);
-   for(vector<string>::const_iterator i = varset.begin(); i != varset.end(); ++i) {
-     tcomponent->SetBranchStatus((*i).c_str(), 1);
-     // cout <<"Activating.. "<< *i << endl; 
-   }
-
-   string histcontent = y.GetName();
-   histcontent += ":";
-   histcontent += x.GetName();
-   histcontent += ">>";
-   histcontent += hcomponent->GetName();
-   tcomponent->Draw(histcontent.c_str(),cut.c_str(),"qoff");
-   
-   // cout<<"Integral "<<componentName<<" : "<<tcomponent->GetEntries(cut.c_str())<<endl;
-   // cout<<"Integral "<<componentName<<" : "<<hcomponent.GetSumOfWeights()<<endl;
-   
-   
-   hcomponent->SetDirectory(0);
-   delete tcomponent;
-   delete fcomponent;
-
-   return hcomponent;
-   
-   
-
-}
-
-
-
-
-void FitterUtilsHistFact::fit_combinatorial(string combfile, string combtree, string combcuts, vector<string> varset, 
-                                            RooRealVar &B_plus_M, RooRealVar &misPT, RooWorkspace *workspace)
+void FitterUtilsHistFact::prepare_PDFs(int fitmode)
 {
 
-   //****************Get data
+  bool templateStat = opts.templatestat;
+  
+  FitterUtils::prepare_PDFs(fitmode);
 
-   TFile* fComb = new TFile(combfile.c_str());
-   TTree* tComb = (TTree*)fComb->Get(combtree.c_str()); 
-
-   RooRealVar *var;
-   RooArgSet argset;
-   
-   tComb->SetBranchStatus("*",0);
-   for(vector<string>::const_iterator i = varset.begin(); i != varset.end(); ++i) {
-     tComb->SetBranchStatus((*i).c_str(), 1);
-     if (*i=="B_plus_M" || *i=="misPT") continue;
-     var = new RooRealVar((*i).c_str(),(*i).c_str(),-10,10);
-     argset.add(*var);
-   }
-   argset.add(B_plus_M);
-   argset.add(misPT);
-   
-
-   RooDataSet *dataSetComb = new RooDataSet("dataSetComb", "dataSetComb", tComb, argset, combcuts.c_str());
-
-
-   //****************Define model
-   RooRealVar l1Kee("l1Kee", "l1Kee", +2.3e-3, -1e-1, 1e-1);
-   RooRealVar l2Kee("l2Kee", "l2Kee", +4.9e-3, -1e-1, 1e-1);
-   RooRealVar l3Kee("l3Kee", "l3Kee", -4.1e-7, -1e-5, 1e-5);
-   RooRealVar l4Kee("l4Kee", "l4Kee", -4e-7, -1e-5, 1e-5);
-   RooRealVar l5Kee("l5Kee", "l5Kee", 1e-10, -1e-9, 1e-9);
-
-   RooBinning m_binning(nMassBins,B_plus_M.getMin(),B_plus_M.getMax(),"m_binning");
-   RooBinning pT_binning(nmisPTBins,misPT.getMin(),misPT.getMax(),"pT_binning");   
-
-   RooAbsPdf *combPDF;
-   // combPDF =  new RooExpOfPolyTimesXBinned("combPDF", "combPDF", B_plus_M, misPT, l1Kee, l2Kee, l3Kee, l4Kee, l5Kee, 
-   //                                         m_binning, pT_binning);
-   combPDF =  new RooExpOfPolyTimesX("combPDF", "combPDF", B_plus_M, misPT, l1Kee, l2Kee, l3Kee, l4Kee, l5Kee);
-
-   combPDF->fitTo(*dataSetComb); // 
-
-
-   //****************The following is just needed to estimate systematics
-
-   
-   RooRealVar l1KeeSyst("l1KeeSyst", "l1KeeSyst", +2.3e-3, -1e-1, 1e-1);
-   RooRealVar l2KeeSyst("l2KeeSyst", "l2KeeSyst", +4.9e-3, -1e-1, 1e-1);
-   RooRealVar l3KeeSyst("l3KeeSyst", "l3KeeSyst", -4.1e-7, -1e-5, 1e-5);
-   RooRealVar l4KeeSyst("l4KeeSyst", "l4KeeSyst", -4e-7, -1e-5, 1e-5);
-   RooRealVar l5KeeSyst("l5KeeSyst", "l5KeeSyst", 1e-10, -1e-9, 1e-9);
-   RooExpOfPoly systPDF("systPDF", "systPDF", B_plus_M, misPT, l1KeeSyst, l2KeeSyst, l3KeeSyst, l4KeeSyst, l5KeeSyst); 
-   systPDF.fitTo(*dataSetComb); // 
-
-   l1KeeSyst.setConstant(true);
-   l2KeeSyst.setConstant(true);
-   l3KeeSyst.setConstant(true);
-   l4KeeSyst.setConstant(true);
-   l5KeeSyst.setConstant(true);
-
-
-
-   //****************End of systematics
-
-
-   RooRealVar l1KeeGen("l1KeeGen", "l1KeeGen", l1Kee.getVal(), -10, 10);
-   l1KeeGen.setError(l1Kee.getError());
-   l1KeeGen.setConstant(true);
-   RooRealVar l2KeeGen("l2KeeGen", "l2KeeGen", l2Kee.getVal(), -10, 10);
-   l2KeeGen.setError(l2Kee.getError());
-   l2KeeGen.setConstant(true);
-   RooRealVar l3KeeGen("l3KeeGen", "l3KeeGen", l3Kee.getVal(), -10, 10);
-   l3KeeGen.setError(l3Kee.getError());
-   l3KeeGen.setConstant(true);
-   RooRealVar l4KeeGen("l4KeeGen", "l4KeeGen", l4Kee.getVal(), -10, 10);
-   l4KeeGen.setError(l4Kee.getError());
-   l4KeeGen.setConstant(true);
-   RooRealVar l5KeeGen("l5KeeGen", "l5KeeGen", l5Kee.getVal(), -10, 10);
-   l5KeeGen.setError(l5Kee.getError());
-   l5KeeGen.setConstant(true);
-
-
-   //***************Save everything on a workspace
-   workspace->import(l1Kee);
-   workspace->import(l2Kee);
-   workspace->import(l3Kee);
-   workspace->import(l4Kee);
-   workspace->import(l5Kee);
-   workspace->import(l1KeeGen);
-   workspace->import(l2KeeGen);
-   workspace->import(l3KeeGen);
-   workspace->import(l4KeeGen);
-   workspace->import(l5KeeGen);
-   workspace->import(l1KeeSyst);
-   workspace->import(l2KeeSyst);
-   workspace->import(l3KeeSyst);
-   workspace->import(l4KeeSyst);
-   workspace->import(l5KeeSyst);
-
-   
-   delete fComb;
-   delete combPDF;
-
-   delete dataSetComb;
-
-
-
-}
-
-
-void FitterUtilsHistFact::prepare_PDFs(string trigStr, string weightStr, string BDTVar, double BDTcut,
-      string signalfile, string partrecofile, string combfile, string JpsiLeakfile,
-      double minBMass, double maxBMass,
-      string signaltree, string partrecotree, string combtree, string JpsiLeaktree)
-{
-
-  bool templateStat = true;
+  TFile fw(workspacename.c_str(),"UPDATE");
+  RooWorkspace* workspace = (RooWorkspace*)fw.Get("workspace");
+  TH2D* h_SignalZero = (TH2D*) workspace->obj("SignalZeroGamma");
+  TH2D* h_SignalOne = (TH2D*) workspace->obj("SignalOneGamma");
+  TH2D* h_SignalTwo = (TH2D*) workspace->obj("SignalTwoGamma");
+  TH2D* h_PartReco = (TH2D*) workspace->obj("PartReco");
+  TH2D* h_JpsiLeak = (TH2D*) workspace->obj("JpsiLeak");
   
 
-  //**********Define variables
-  
-  // RooRealVar B_plus_DTFM_M_zero("B_plus_DTFM_M_zero", "M_{constr}", 0, 20000, "MeV"); 
-  RooRealVar B_plus_M("B_plus_M", "M_{visible}", minBMass, maxBMass, "MeV");
-  RooRealVar misPT("misPT", "p_{#perp}", 0, 5000, "MeV");
-
-
-  //***********Set Binning
-  nMassBins = floor((maxBMass-minBMass)/(binWidthMass));
-  RooBinning defaultMBins(floor((maxBMass-minBMass)/(binWidthMass)), B_plus_M.getMin(), B_plus_M.getMax() ); 
-  RooBinning defaultMisPTBins(nmisPTBins, misPT.getMin(), misPT.getMax()); 
-  RooBinning broaderMBins(floor((maxBMass-minBMass)/(binWidthMassBroader)), B_plus_M.getMin(), B_plus_M.getMax()); 
-  RooBinning broaderMisPTBins(nmisPTBins, misPT.getMin(), misPT.getMax()); 
-  RooBinning extendedMBins(floor((maxBMass-minBMass)/(binWidthMassExtended)), B_plus_M.getMin(), B_plus_M.getMax()); 
-  RooBinning extendedMisPTBins(nmisPTBins, -2000,5000); 
-
-  B_plus_M.setBinning( defaultMBins);
-  misPT.setBinning( defaultMisPTBins );
-  B_plus_M.setBinning( defaultMBins, "default");
-  misPT.setBinning( defaultMisPTBins, "default");
-  B_plus_M.setBinning( broaderMBins, "broaderBins");
-  misPT.setBinning( broaderMisPTBins, "broaderBins" );
-  B_plus_M.setBinning( extendedMBins, "extended");
-  misPT.setBinning( extendedMisPTBins, "extended" );
-
-  // B_plus_DTFM_M_zero.setBins(100);
-  // RooArgSet obsset(B_plus_M, misPT);
-  
-  
-  //**********Define components
-
-  cout<<"Creating histograms..."<<endl;
-
-  string BDTCutString  = "1"; //"("+BDTVar+">"+d2s(BDTcut)+")";
-  string TrigCutString = "("+trigStr+"  > 0.9)";
-  string MassCutString = "B_plus_M > "+d2s(minBMass)+" && B_plus_M < "+d2s(maxBMass);
-  
-  string ZeroGamma = "((e_plus_BremMultiplicity+e_minus_BremMultiplicity) > -0.5) && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) < 0.5)";
-  string OneGamma  = "((e_plus_BremMultiplicity+e_minus_BremMultiplicity) > 0.5) && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) < 1.5)";
-  string TwoGamma  = "((e_plus_BremMultiplicity+e_minus_BremMultiplicity) > 1.5) && ((e_plus_BremMultiplicity+e_minus_BremMultiplicity) < 2.5)";
-  
-  // string SignalZeroCuts = "("+BDTCutString+" && "+TrigCutString+" && "+MassCutString+" && "+ZeroGamma+")*"+weightStr;
-  // string SignalOneCuts = "("+BDTCutString+" && "+TrigCutString+" && "+MassCutString+" && "+OneGamma+")*"+weightStr;
-  // string SignalTwoCuts = "("+BDTCutString+" && "+TrigCutString+" && "+MassCutString+" && "+TwoGamma+")*"+weightStr;
-  // string PartRecoCuts = "("+BDTCutString+" && "+TrigCutString+" && "+MassCutString+")*"+weightStr;
-  // string JpsiLeakCuts = "("+BDTCutString+" && "+TrigCutString+" && "+MassCutString+")*"+weightStr;
-  // string CombCuts  = BDTCutString+" && "+TrigCutString+" && "+MassCutString+" && K_Kst_isMuon == 0";   
-
-  string SignalZeroCuts = "("+BDTCutString+" && "+TrigCutString+" && "+MassCutString+" && "+ZeroGamma+")";
-  string SignalOneCuts = "("+BDTCutString+" && "+TrigCutString+" && "+MassCutString+" && "+OneGamma+")";
-  string SignalTwoCuts = "("+BDTCutString+" && "+TrigCutString+" && "+MassCutString+" && "+TwoGamma+")";
-  string PartRecoCuts = "("+BDTCutString+" && "+TrigCutString+" && "+MassCutString+")";
-  string JpsiLeakCuts = "("+BDTCutString+" && "+TrigCutString+" && "+MassCutString+")";
-  string CombCuts  = BDTCutString+" && "+TrigCutString+" && "+MassCutString+" && K_Kst_isMuon == 0";   
-
-  
-  vector<string> argsetComb = {"B_plus_DTFM_M_zero", "misPT", "B_plus_M", 
-                               BDTVar, trigStr, "e_plus_BremMultiplicity", "e_minus_BremMultiplicity", "K_Kst_isMuon"};
-  vector<string> argsetPartReco = {"B_plus_DTFM_M_zero", "misPT",  "B_plus_M", 
-                                    BDTVar, trigStr, "e_plus_BremMultiplicity", "e_minus_BremMultiplicity", weightStr};
-  vector<string> argsetJpsiLeak = {"B_plus_DTFM_M_zero", "misPT",  "B_plus_M", 
-                                   BDTVar, trigStr, "e_plus_BremMultiplicity", "e_minus_BremMultiplicity", weightStr};
-  vector<string> argsetSignal = {"misPT",  "B_plus_M", 
-                                 BDTVar, trigStr, "e_plus_BremMultiplicity", "e_minus_BremMultiplicity", weightStr};
-  
-  // TH2D h_SignalZero = make_base_histogram("SignalZero", signalfile, signaltree, SignalZeroCuts, argsetSignal, B_plus_M, misPT, "default");
-  // TH2D h_SignalOne = make_base_histogram("SignalOne", signalfile, signaltree, SignalOneCuts, argsetSignal, B_plus_M, misPT, "default");
-  // TH2D h_SignalTwo = make_base_histogram("SignalTwo", signalfile, signaltree, SignalTwoCuts, argsetSignal, B_plus_M, misPT, "default");
-  // TH2D h_PartReco = make_base_histogram("PartReco", partrecofile, partrecotree, PartRecoCuts, argsetPartReco, B_plus_M, misPT, "default");
-  // TH2D h_JpsiLeak = make_base_histogram("JpsiLeak", JpsiLeakfile, JpsiLeaktree, JpsiLeakCuts, argsetJpsiLeak, B_plus_M, misPT, "default");
-  // TH2D h_JpsiLeakbroader = make_base_histogram("JpsiLeakbroader", JpsiLeakfile, JpsiLeaktree, JpsiLeakCuts, argsetJpsiLeak, B_plus_M, misPT, "broaderBins");
-  // TH2D h_Comb  = make_base_histogram("Comb", combfile, combtree, CombCuts, argsetComb, B_plus_M, misPT, "default");
-  
-    
-  // misPT.setRange(-2000, 5000);
-  // TH2D h_CombExt = make_base_histogram("CombExt", combfile, combtree, CombCuts, argsetComb,  B_plus_M, misPT, "extended");
-  // misPT.setRange(0, 5000);
-
-
-  TH2D* h_SignalZero = make_base_histogram("SignalZero", signalfile, signaltree, SignalZeroCuts, argsetSignal, B_plus_M, misPT, "default");
-  TH2D* h_SignalOne = make_base_histogram("SignalOne", signalfile, signaltree, SignalOneCuts, argsetSignal, B_plus_M, misPT, "default");
-  TH2D* h_SignalTwo = make_base_histogram("SignalTwo", signalfile, signaltree, SignalTwoCuts, argsetSignal, B_plus_M, misPT, "default");
-  TH2D* h_PartReco = make_base_histogram("PartReco", partrecofile, partrecotree, PartRecoCuts, argsetPartReco, B_plus_M, misPT, "default");
-  TH2D* h_JpsiLeak = make_base_histogram("JpsiLeak", JpsiLeakfile, JpsiLeaktree, JpsiLeakCuts, argsetJpsiLeak, B_plus_M, misPT, "default");
-  TH2D* h_JpsiLeakbroader = make_base_histogram("JpsiLeakbroader", JpsiLeakfile, JpsiLeaktree, JpsiLeakCuts, argsetJpsiLeak, B_plus_M, misPT, "broaderBins");
-  TH2D* h_Comb  = make_base_histogram("Comb", combfile, combtree, CombCuts, argsetComb, B_plus_M, misPT, "default");
-  
-  cout<<"h_SignalZero bins: "<<h_SignalZero->GetNbinsX()*h_SignalZero->GetNbinsY()<<endl;
-  cout<<"h_SignalOne bins: "<<h_SignalOne->GetNbinsX()*h_SignalOne->GetNbinsY()<<endl;
-  cout<<"h_SignalTwo bins: "<<h_SignalTwo->GetNbinsX()*h_SignalTwo->GetNbinsY()<<endl;
-  cout<<"h_PartReco bins: "<<h_PartReco->GetNbinsX()*h_PartReco->GetNbinsY()<<endl;
-  cout<<"h_JpsiLeak bins: "<<h_JpsiLeak->GetNbinsX()*h_JpsiLeak->GetNbinsY()<<endl;
-  cout<<"h_Comb bins: "<<h_Comb->GetNbinsX()*h_Comb->GetNbinsY()<<endl;
-  
-
-  misPT.setRange(-2000, 5000);
-  TH2D* h_CombExt = make_base_histogram("CombExt", combfile, combtree, CombCuts, argsetComb,  B_plus_M, misPT, "extended");
-  misPT.setRange(0, 5000);
-  
- double ErrorJpsi(0);
- cout<<"Number of JpsiLeak : "<< h_JpsiLeak->Integral() <<endl;
- cout<<"Number of SignalZero: "<< h_SignalZero->Integral() <<endl;
- cout<<"Number of SignalOne: "<< h_SignalOne->Integral() <<endl;
- cout<<"Number of SignalTwo: "<< h_SignalTwo->Integral() <<endl;
- cout<<"Number of PartReco: "<< h_PartReco->Integral() <<endl;
- cout<<"Number of Comb: "<< h_Comb->Integral() <<endl;
- if (h_JpsiLeak->Integral()>0) ErrorJpsi = 1./sqrt(h_JpsiLeak->Integral());
-  
-  
   //**************Create PDFs
-  
   cout<<"Creating pdfs..."<<endl;
 
   double fzero = 0.368;
@@ -471,7 +104,7 @@ void FitterUtilsHistFact::prepare_PDFs(string trigStr, string weightStr, string 
   partreco.SetNormalizeByTheory(kFALSE);
   partreco.AddNormFactor("nPartReco", 1.*nGenPartReco, nGenPartReco-7*sqrt(nGenPartReco), nGenPartReco+7*sqrt(nGenPartReco));
   partreco.AddNormFactor("mcNorm_partreco", 1./h_PartReco->Integral(), 1e-9, 1.);
-  // if (constPartReco) partreco.AddOverallSys("PartRecoConstraint",0.9,1.1); // Relative to nPartReco
+  // if (opts.constPartReco) partreco.AddOverallSys("PartRecoConstraint",0.9,1.1); // Relative to nPartReco
   chan.AddSample(partreco);
   
 
@@ -496,402 +129,169 @@ void FitterUtilsHistFact::prepare_PDFs(string trigStr, string weightStr, string 
 
 
   //Create the workspace that is going to save the config
-  RooWorkspace *workspace;
-  workspace = RooStats::HistFactory::MakeModelAndMeasurementFast(meas);
-  // workspace = new RooWorkspace("combined");
+  RooWorkspace *workspace_meas;
+  workspace_meas = RooStats::HistFactory::MakeModelAndMeasurementFast(meas);
+
+  // workspace_meas = new RooWorkspace_Meas("combined");
   
   
-  ModelConfig *mc = (ModelConfig*) workspace->obj("ModelConfig"); // Get model (noComb) manually
+  // ModelConfig *mc = (ModelConfig*) workspace_meas->obj("ModelConfig"); // Get model (noComb) manually
    
-  // Lets tell roofit the right names for our histogram variables
-  RooArgSet *obs = (RooArgSet*) mc->GetObservables();
-  RooRealVar *B_plus_M_mod = (RooRealVar*) obs->find(("obs_x_"+channelName).c_str());
-  RooRealVar *misPT_mod = (RooRealVar*) obs->find(("obs_y_"+channelName).c_str());
-  // B_plus_M_mod->SetName("B_plus_M");
-  B_plus_M_mod->SetTitle("B_plus_M");
-  B_plus_M_mod->setUnit("MeV/c^{2}");
-  misPT_mod->SetTitle("misPT");
-  // misPT_mod->SetName("misPT");
-  misPT_mod->setUnit("MeV/c");
+  // // Lets tell roofit the right names for our histogram variables
+  // RooArgSet *obs = (RooArgSet*) mc->GetObservables();
+  // RooRealVar *B_plus_M_mod = (RooRealVar*) obs->find(("obs_x_"+channelName).c_str());
+  // RooRealVar *misPT_mod = (RooRealVar*) obs->find(("obs_y_"+channelName).c_str());
+  // // B_plus_M_mod->SetName("B_plus_M");
+  // B_plus_M_mod->SetTitle("B_plus_M");
+  // B_plus_M_mod->setUnit("MeV/c^{2}");
+  // misPT_mod->SetTitle("misPT");
+  // // misPT_mod->SetName("misPT");
+  // misPT_mod->setUnit("MeV/c");
 
 
 
-  //***************Create combinatorial from fit to data
+  // //***************Create combinatorial from fit to data
+  // // fit_combinatorial(combfile, combtree, CombCuts, argsetComb,
+  // //                   *B_plus_M_mod, *misPT_mod, workspace_meas);
+
+
   // fit_combinatorial(combfile, combtree, CombCuts, argsetComb,
-  //                   *B_plus_M_mod, *misPT_mod, workspace);
-
-  fit_combinatorial(combfile, combtree, CombCuts, argsetComb,
-                    B_plus_M, misPT, workspace);
+  //                   B_plus_M, misPT, workspace_meas);
   
-  RooRealVar nComb("nComb", "#nComb", 1.*nGenComb, nGenComb-7*sqrt(nGenComb), nGenComb+7*sqrt(nGenComb));
-  RooRealVar nComb_fit("nComb_fit", "#nComb_fit", 1.*nGenComb, nGenComb-7*sqrt(nGenComb), nGenComb+7*sqrt(nGenComb));
-  workspace->import(nComb);  
-  workspace->import(nComb_fit);  
-
-
+  RooRealVar nComb("nComb", "#nComb", 1.*opts.nGenComb, opts.nGenComb-7*sqrt(opts.nGenComb), 
+                   opts.nGenComb+7*sqrt(opts.nGenComb));
+  RooRealVar nComb_fit("nComb_fit", "#nComb_fit", 1.*opts.nGenComb, opts.nGenComb-7*sqrt(opts.nGenComb), 
+                       opts.nGenComb+7*sqrt(opts.nGenComb));
+  workspace_meas->import(nComb);  
+  workspace_meas->import(nComb_fit);
 
   //***************Save some extra factors
-  workspace->factory(Form("nMC_SignalZero[%f]",h_SignalZero->Integral()));
-  workspace->factory(Form("nMC_SignalOne[%f]",h_SignalOne->Integral()));
-  workspace->factory(Form("nMC_SignalTwo[%f]",h_SignalTwo->Integral()));
-  workspace->factory(Form("nMC_PartReco[%f]",h_PartReco->Integral()));
-  if (nGenJpsiLeak>1) workspace->factory(Form("nMC_JpsiLeak[%f]",h_JpsiLeak->Integral()));
-  workspace->factory(Form("nMC_Comb[%f]",h_Comb->Integral()));
-  workspace->factory(Form("nMC_CombExt[%f]",h_CombExt->Integral()));
+  // workspace_meas->factory(Form("nMC_SignalZero[%f]",h_SignalZero->Integral()));
+  // workspace_meas->factory(Form("nMC_SignalOne[%f]",h_SignalOne->Integral()));
+  // workspace_meas->factory(Form("nMC_SignalTwo[%f]",h_SignalTwo->Integral()));
+  // workspace_meas->factory(Form("nMC_PartReco[%f]",h_PartReco->Integral()));
+  // if (nGenJpsiLeak>1) workspace_meas->factory(Form("nMC_JpsiLeak[%f]",h_JpsiLeak->Integral()));
+  // workspace_meas->factory(Form("nMC_Comb[%f]",h_Comb->Integral()));
+  // workspace_meas->factory(Form("nMC_CombExt[%f]",h_CombExt->Integral()));
 
 
-  //***************Create RooHistPdfs for generation
-  
-  RooArgList arglist(*B_plus_M_mod, *misPT_mod);
-  // RooArgList arglist(B_plus_M, misPT);
-
-  RooDataHist dataHistSignalZeroGamma("dataHistSignalZeroGamma", "dataHistSignalZeroGamma", arglist, h_SignalZero); 
-  RooDataHist dataHistSignalOneGamma("dataHistSignalOneGamma", "dataHistSignalOneGamma", arglist, h_SignalOne); 
-  RooDataHist dataHistSignalTwoGamma("dataHistSignalTwoGamma", "dataHistSignalTwoGamma", arglist, h_SignalTwo); 
-  RooDataHist dataHistComb("dataHistComb", "dataHistComb", arglist, h_Comb); 
-  RooDataHist dataHistPartReco("dataHistPartReco", "dataHistPartReco", arglist, h_PartReco); 
-  RooDataHist dataHistJpsiLeak("dataHistJpsiLeak", "dataHistJpsiLeak", arglist, h_JpsiLeak); //h_JpsiLeakbroader
-
-   cout<<"Preparing the 3 2D histPdf: 1";
-   RooArgSet argset2(*B_plus_M_mod, *misPT_mod);
-   // RooArgSet argset2(B_plus_M, misPT);
-   // RooHistPdf histPdfSignalZeroGamma("histPdfSignalZeroGamma", "histPdfSignalZeroGamma", argset2, dataHistSignalZeroGamma,2); cout<<" 2";
-   // RooHistPdf histPdfSignalOneGamma("histPdfSignalOneGamma", "histPdfSignalOneGamma", argset2, dataHistSignalOneGamma,2); cout<<" 3";
-   // RooHistPdf histPdfSignalTwoGamma("histPdfSignalTwoGamma", "histPdfSignalTwoGamma", argset2, dataHistSignalTwoGamma,2); cout<<" 4";
-   // RooHistPdf histPdfPartReco("histPdfPartReco", "histPdfPartReco", argset2, dataHistPartReco,2); cout<<" 5";
-   // RooHistPdf histPdfJpsiLeak("histPdfJpsiLeak", "histPdfJpsiLeak", argset2, dataHistJpsiLeak,2); cout<<" 6";
-   // RooHistPdf histPdfComb("histPdfComb", "histPdfComb", argset2, dataHistComb,2);
-
-
-   RooHistPdf histPdfSignalZeroGamma("histPdfSignalZeroGamma", "histPdfSignalZeroGamma", argset2, dataHistSignalZeroGamma); cout<<" 2";
-   RooHistPdf histPdfSignalOneGamma("histPdfSignalOneGamma", "histPdfSignalOneGamma", argset2, dataHistSignalOneGamma); cout<<" 3";
-   RooHistPdf histPdfSignalTwoGamma("histPdfSignalTwoGamma", "histPdfSignalTwoGamma", argset2, dataHistSignalTwoGamma); cout<<" 4";
-   RooHistPdf histPdfPartReco("histPdfPartReco", "histPdfPartReco", argset2, dataHistPartReco); cout<<" 5";
-   RooHistPdf histPdfJpsiLeak("histPdfJpsiLeak", "histPdfJpsiLeak", argset2, dataHistJpsiLeak); cout<<" 6";
-   RooHistPdf histPdfComb("histPdfComb", "histPdfComb", argset2, dataHistComb);
-
-   workspace->import(histPdfSignalZeroGamma);
-   workspace->import(histPdfSignalOneGamma);
-   workspace->import(histPdfSignalTwoGamma);
-   workspace->import(histPdfPartReco);
-   workspace->import(histPdfJpsiLeak);
-   workspace->import(histPdfComb);
-
-   workspace->factory(Form("fractionalErrorJpsiLeak[%f]",ErrorJpsi));
-   workspace->writeToFile(workspacename.c_str());
-
-
-  // deleted by ~Sample
-  // h_SignalZero->SetDirectory(0);
-  // h_SignalOne->SetDirectory(0);
-  // h_SignalTwo->SetDirectory(0);
-  // h_PartReco->SetDirectory(0);
-  // h_JpsiLeak->SetDirectory(0);
-  // h_JpsiLeakbroader->SetDirectory(0);
-  // h_Comb->SetDirectory(0);
-  // h_CombExt->SetDirectory(0);
-
-
-  // delete h_SignalZero;
-  // delete h_SignalOne;
-  // delete h_SignalTwo;
-  // delete h_PartReco;
-  // delete h_JpsiLeak;
-  // delete h_JpsiLeakbroader;
-  // delete h_Comb;
-  // delete h_CombExt;
-
-   workspace->Print();
+  workspace_meas->Print();
+  workspace->merge(*workspace_meas);
+  workspace->Write("", TObject::kOverwrite);
    
-   cout<<"PDFs prepared!"<<endl;
-   delete workspace;  
-
+  cout<<"PDFs prepared!"<<endl;
+  delete workspace_meas;  
+  fw.Close();
 
 }
 
 
-void FitterUtilsHistFact::generate(bool wantPlots, string plotsfile)
+void FitterUtilsHistFact::run_toy(double fracPartReco_const,
+                          ofstream& out, TTree* t, bool update)
 {
-   //***************Get the PDFs from the workspace
 
-   // TFile fw(workspacename.c_str(), "UPDATE");   
-   // RooWorkspace* workspace = (RooWorkspace*)fw.Get("combined");   
-  TFile* fw = TFile::Open(workspacename.c_str(), "UPDATE");   
-   RooWorkspace* workspace = (RooWorkspace*) fw->Get("combined");   
-   RooRealVar *l1KeeGen = workspace->var("l1KeeGen");
-   RooRealVar *l2KeeGen = workspace->var("l2KeeGen");
-   RooRealVar *l3KeeGen = workspace->var("l3KeeGen");
-   RooRealVar *l4KeeGen = workspace->var("l4KeeGen");
-   RooRealVar *l5KeeGen = workspace->var("l5KeeGen");
+  //***************Generate
+  FitterUtils::generate(0);
 
-   cout<<"HELLO0"<<endl;
-   // Get observables
-   ModelConfig *mc = (ModelConfig*) workspace->obj("ModelConfig");
-   RooArgSet *obs = (RooArgSet*) mc->GetObservables();
-   RooRealVar *B_plus_M = (RooRealVar*) obs->find(("obs_x_"+channelName).c_str());
-   RooRealVar *misPT = (RooRealVar*) obs->find(("obs_y_"+channelName).c_str());
-   // B_plus_M->SetName("B_plus_M");
-   B_plus_M->SetTitle("B_plus_M");
-   B_plus_M->setUnit("MeV/c^{2}");
-   // misPT->SetName("misPT");
-   misPT->SetTitle("misPT");
-   misPT->setUnit("MeV/c");
+  TFile fw(workspacename.c_str());
 
-   // Get generation pdfs
-   RooHistPdf *histPdfSignalZeroGamma = (RooHistPdf *) workspace->pdf("histPdfSignalZeroGamma");
-   RooHistPdf *histPdfSignalOneGamma = (RooHistPdf *) workspace->pdf("histPdfSignalOneGamma");
-   RooHistPdf *histPdfSignalTwoGamma = (RooHistPdf *) workspace->pdf("histPdfSignalTwoGamma");
-   RooHistPdf *histPdfPartReco = (RooHistPdf *) workspace->pdf("histPdfPartReco");
-   RooHistPdf *histPdfComb = (RooHistPdf *) workspace->pdf("histPdfComb");
-   RooHistPdf *histPdfJpsiLeak(0);
-   cout<<"HELLO0a"<<endl;
-   histPdfJpsiLeak = (RooHistPdf *) workspace->pdf("histPdfJpsiLeak");
+  //***************Retrieve generated samples
+  RooWorkspace* workspaceGen = (RooWorkspace*)fw.Get("workspaceGen");
+  RooDataSet* dataGenSignalZeroGamma = (RooDataSet*)workspaceGen->data("dataGenSignalZeroGamma");
+  RooDataSet* dataGenSignalOneGamma = (RooDataSet*)workspaceGen->data("dataGenSignalOneGamma");
+  RooDataSet* dataGenSignalTwoGamma = (RooDataSet*)workspaceGen->data("dataGenSignalTwoGamma");
+  RooDataSet* dataGenPartReco = (RooDataSet*)workspaceGen->data("dataGenPartReco");
+  RooDataSet* dataGenComb = (RooDataSet*)workspaceGen->data("dataGenComb");
+  RooDataSet* dataGenJpsiLeak(0);
+  if(opts.nGenJpsiLeak>0) dataGenJpsiLeak = (RooDataSet*)workspaceGen->data("dataGenJpsiLeak");
 
+  //***************Merge datasets
+  RooDataSet* dataGenTot(dataGenPartReco);
+  dataGenTot->append(*dataGenSignalZeroGamma);
+  dataGenTot->append(*dataGenSignalOneGamma);
+  dataGenTot->append(*dataGenSignalTwoGamma);
+  dataGenTot->append(*dataGenComb);
+  if(opts.nGenJpsiLeak>0) dataGenTot->append(*dataGenJpsiLeak);
 
-   cout<<"Here"<<endl;
-   RooAbsPdf *combPDF;
-   RooBinning m_binning(nMassBins,B_plus_M->getMin(),B_plus_M->getMax(),"m_binning");
-   RooBinning pT_binning(nmisPTBins,misPT->getMin(),misPT->getMax(),"pT_binning");   
-   // combPDF =  new RooExpOfPolyTimesXBinned("combPDF", "combPDF", *B_plus_M, *misPT, *l1KeeGen, *l2KeeGen, *l3KeeGen, *l4KeeGen, *l5KeeGen, m_binning, pT_binning);
+  //***************Fit
+  RooWorkspace* workspace = (RooWorkspace*)fw.Get("workspace");
+  fit(dataGenTot, workspace, fracPartReco_const, out, t, update);
 
-   combPDF =  new RooExpOfPolyTimesX("combPDF", "combPDF", *B_plus_M, *misPT, *l1KeeGen, *l2KeeGen, *l3KeeGen, *l4KeeGen, *l5KeeGen);
-
-
-   //***************Prepare generation
-
-   int nGenSignalZeroGamma(floor(nGenFracZeroGamma*nGenSignal));
-   int nGenSignalOneGamma(floor(nGenFracOneGamma*nGenSignal));
-   int nGenSignalTwoGamma(floor(nGenSignal-nGenSignalZeroGamma-nGenSignalOneGamma));
-   cout<<"HELLO2"<<endl;
-
-
-   RooArgSet argset2(*B_plus_M, *misPT);
-
-   cout<<"Preparing the generation of events 1";
-
-   RooRandom::randomGenerator()->SetSeed();
-   RooAbsPdf::GenSpec* GenSpecSignalZeroGamma = histPdfSignalZeroGamma->prepareMultiGen(argset2, RooFit::Extended(1), NumEvents(nGenSignalZeroGamma)); cout<<" 2 ";
-   RooAbsPdf::GenSpec* GenSpecSignalOneGamma = histPdfSignalOneGamma->prepareMultiGen(argset2, RooFit::Extended(1), NumEvents(nGenSignalOneGamma)); cout<<" 3 ";
-   RooAbsPdf::GenSpec* GenSpecSignalTwoGamma = histPdfSignalTwoGamma->prepareMultiGen(argset2, RooFit::Extended(1), NumEvents(nGenSignalTwoGamma)); cout<<" 4 ";
-   RooAbsPdf::GenSpec* GenSpecPartReco =  histPdfPartReco->prepareMultiGen(argset2, RooFit::Extended(1), NumEvents(nGenPartReco)); cout<<" 5 "<<endl;
-   RooAbsPdf::GenSpec* GenSpecComb = combPDF->prepareMultiGen(argset2, RooFit::Extended(1), NumEvents(nGenComb));
-   RooAbsPdf::GenSpec* GenSpecJpsiLeak(0);
-   if(nGenJpsiLeak>1) GenSpecJpsiLeak = histPdfJpsiLeak->prepareMultiGen(argset2, RooFit::Extended(1), NumEvents(nGenJpsiLeak));
-
-   cout<<"HELLO3"<<endl;
-
-
-   cout<<"Variable loaded:"<<endl;
-   B_plus_M->Print();//B_plus_DTFM_M_zero->Print();
-   misPT->Print(); 
-
-   cout<<"HELLO4"<<endl;
-
-   //***************Generate some datasets
-
-   cout<<"Generating signal Zero Photon"<<endl;
-   RooDataSet* dataGenSignalZeroGamma = histPdfSignalZeroGamma->generate(*GenSpecSignalZeroGamma);//(argset, 250, false, true, "", false, true);
-   dataGenSignalZeroGamma->SetName("dataGenSignalZeroGamma"); dataGenSignalZeroGamma->SetTitle("dataGenSignalZeroGamma");
-   cout<<"Generating signal One Photon"<<endl;
-   RooDataSet* dataGenSignalOneGamma = histPdfSignalOneGamma->generate(*GenSpecSignalOneGamma);//(argset, 250, false, true, "", false, true);
-   dataGenSignalOneGamma->SetName("dataGenSignalOneGamma"); dataGenSignalOneGamma->SetTitle("dataGenSignalOneGamma");
-   cout<<"Generating signal two Photons"<<endl;
-   RooDataSet* dataGenSignalTwoGamma = histPdfSignalTwoGamma->generate(*GenSpecSignalTwoGamma);//(argset, 250, false, true, "", false, true);
-   dataGenSignalTwoGamma->SetName("dataGenSignalTwoGamma"); dataGenSignalTwoGamma->SetTitle("dataGenSignalTwoGamma");
-   cout<<"Generating combinatorial"<<endl;
-   RooDataSet* dataGenComb = combPDF->generate(*GenSpecComb);//(argset, 100, false, true, "", false, true);
-   dataGenComb->SetName("dataGenComb"); dataGenComb->SetTitle("dataGenComb");
-   cout<<"Generating PartReco"<<endl;
-   RooDataSet* dataGenPartReco = histPdfPartReco->generate(*GenSpecPartReco);//argset, 160, false, true, "", false, true);
-   dataGenPartReco->SetName("dataGenPartReco"); dataGenPartReco->SetTitle("dataGenPartReco");
-   RooDataSet* dataGenJpsiLeak(0);
-   cout<<"HELLO5"<<endl;
-   if(nGenJpsiLeak>1)
-   {
-      cout<<"Generating Leaking JPsi"<<endl;
-      dataGenJpsiLeak = histPdfJpsiLeak->generate(*GenSpecJpsiLeak);//argset, 160, false, true, "", false, true);
-      dataGenJpsiLeak->SetName("dataGenJpsiLeak"); dataGenJpsiLeak->SetTitle("dataGenJpsiLeak");
-   }
-
-   // cout<<"Hello7: "<<dataSetComb<<" "<<dataGenComb<<" "<<combPDF<<endl;
-   // if(wantPlots) PlotShape(*dataSetComb, *dataGenComb, *combPDF, plotsfile, "cCombKeys", *B_plus_M, *misPT);
-   if(wantPlots) PlotShape(*dataGenComb, *dataGenComb, *combPDF, plotsfile, "cCombKeys", *B_plus_M, *misPT);
-
-   //*************Saving the generated datasets in a workspace
-
-   cout<<"HELLO6"<<endl;
-   RooWorkspace* workspaceGen = new RooWorkspace("workspaceGen", "workspaceGen");
-
-   workspaceGen->import(*dataGenSignalZeroGamma);
-   workspaceGen->import(*dataGenSignalOneGamma);
-   workspaceGen->import(*dataGenSignalTwoGamma);
-   workspaceGen->import(*dataGenComb);
-   workspaceGen->import(*dataGenPartReco);
-   if(nGenJpsiLeak>1) workspaceGen->import(*dataGenJpsiLeak);
-
-   // RooWorkspace workspaceGen("workspaceGen", "workspaceGen");
-
-   // workspaceGen.import(*dataGenSignalZeroGamma);
-   // workspaceGen.import(*dataGenSignalOneGamma);
-   // workspaceGen.import(*dataGenSignalTwoGamma);
-   // workspaceGen.import(*dataGenComb);
-   // workspaceGen.import(*dataGenPartReco);
-   // if(nGenJpsiLeak>1) workspaceGen.import(*dataGenJpsiLeak);
-    
-   
-   fw->cd();
-   workspaceGen->Write("", TObject::kOverwrite);
-
-
-   delete workspaceGen;
-   fw->Close();   
-   delete workspace;
-   delete fw;
-   
-   gROOT->Reset();
-   
-   delete dataGenSignalZeroGamma;
-   delete dataGenSignalOneGamma;
-   delete dataGenSignalTwoGamma;
-   delete dataGenComb;
-   delete dataGenPartReco;
-   delete dataGenJpsiLeak;
-
-   delete GenSpecSignalZeroGamma;
-   delete GenSpecSignalOneGamma;
-   delete GenSpecSignalTwoGamma;
-   delete GenSpecComb;
-   delete GenSpecPartReco;
-   delete combPDF;
-   delete GenSpecJpsiLeak;
-
-   cout<<"HELLO7"<<endl;
-   // delete histPdfSignalZeroGamma; 
-   // delete histPdfSignalOneGamma;
-   // delete histPdfSignalTwoGamma;
-   // delete histPdfPartReco;
-   // delete histPdfComb;
-   // delete histPdfJpsiLeak;
-
-
-
-
+  fw.Close();
 
 
 }
 
+void FitterUtilsHistFact::fit(RooDataSet* dataGenTot_chan, RooWorkspace* workspace,
+                      double fracPartReco_const,
+                      ofstream& out, TTree* t, bool update)
 
-
-
-void FitterUtilsHistFact::fit(bool wantplot, bool constPartReco,
-      double fracPartReco_const,
-      ofstream& out, TTree* t, bool update, string plotsfile)
 {
 
 
-  bool constFracs = 0;  //***************** Define parameters and observables
-  bool constComb = 0;  //***************** Define parameters and observables
+  bool constFracs = 0;  
+  bool constComb = 0;  
 
-   // TFile fw(workspacename.c_str(), "UPDATE");   
-   TFile *fw = new TFile(workspacename.c_str(), "UPDATE");   
-   RooWorkspace* workspace = (RooWorkspace*)fw->Get("combined");   
-   // RooRealVar nSignal("nSignal", "#signal events", 1.*nGenSignal, nGenSignal-7*sqrt(nGenSignal), nGenSignal+7*sqrt(nGenSignal));
-   // RooRealVar nPartReco("nPartReco", "#nPartReco", 1.*nGenPartReco, nGenPartReco-7*sqrt(nGenPartReco), nGenPartReco+7*sqrt(nGenPartReco));
-   // RooRealVar nComb("nComb", "#nComb", 1.*nGenComb, nGenComb-7*sqrt(nGenComb), nGenComb+7*sqrt(nGenComb));
-   // RooRealVar nJpsiLeak("nJpsiLeak", "#nJpsiLeak", 1.*nGenJpsiLeak, nGenJpsiLeak-7*sqrt(nGenJpsiLeak), nGenJpsiLeak+7*sqrt(nGenJpsiLeak));
-   // RooRealVar fracZero("fracZero", "fracZero",0.5,0,1);
-   // RooRealVar fracOne("fracOne", "fracOne",0.5, 0,1);
-   // RooFormulaVar fracPartReco("fracPartReco", "nPartReco/nSignal", RooArgList(nPartReco,nSignal));
-   // RooFormulaVar fracOneRec("fracOneRec", "(1-fracZero)*fracOne", RooArgList(fracZero, fracOne));
-   RooRealVar* nSignal = workspace->var("nSignal");
-   RooRealVar* nPartReco = workspace->var("nPartReco");
-   RooRealVar* nComb = workspace->var("nComb");
-   RooRealVar* nComb_fit = workspace->var("nComb_fit");
-   RooRealVar* fracZero = workspace->var("fracZero");
-   RooRealVar* fracOne = workspace->var("fracOne");
-   RooFormulaVar* fracTwo = (RooFormulaVar*) workspace->obj("fracTwo");
-   RooRealVar* nJpsiLeak;
-   if (nGenJpsiLeak>0)  nJpsiLeak = workspace->var("nJpsiLeak");
-   else nJpsiLeak = new RooRealVar("nJpsiLeak", "#nJpsiLeak", 1.*nGenJpsiLeak, nGenJpsiLeak-7*sqrt(nGenJpsiLeak), nGenJpsiLeak+7*sqrt(nGenJpsiLeak));
-   RooRealVar *l1KeeGen = workspace->var("l1KeeGen");
-   RooRealVar *l2KeeGen = workspace->var("l2KeeGen");
-   RooRealVar *l3KeeGen = workspace->var("l3KeeGen");
-   RooRealVar *l4KeeGen = workspace->var("l4KeeGen");
-   RooRealVar *l5KeeGen = workspace->var("l5KeeGen");
-   RooRealVar *l1Kee = workspace->var("l1Kee");
-   RooRealVar *l2Kee = workspace->var("l2Kee");
-   RooRealVar *l3Kee = workspace->var("l3Kee");
-   RooRealVar *l4Kee = workspace->var("l4Kee");
-   RooRealVar *l5Kee = workspace->var("l5Kee");
-   RooRealVar *l1KeeSyst = workspace->var("l1KeeSyst");
-   RooRealVar *l2KeeSyst = workspace->var("l2KeeSyst");
-   RooRealVar *l3KeeSyst = workspace->var("l3KeeSyst");
-   RooRealVar *l4KeeSyst = workspace->var("l4KeeSyst");
-   RooRealVar *l5KeeSyst = workspace->var("l5KeeSyst");
-   RooRealVar *fractionalErrorJpsiLeak = workspace->var("fractionalErrorJpsiLeak");
-   RooFormulaVar fracPartReco("fracPartReco", "nPartReco/nSignal", RooArgList(*nPartReco,*nSignal));
+  // Get observables
+  ModelConfig *mc = (ModelConfig*) workspace->obj("ModelConfig");
+  RooArgSet *obs = (RooArgSet*) mc->GetObservables();
+  RooRealVar *B_plus_M = (RooRealVar*) obs->find(("obs_x_"+channelName).c_str());
+  RooRealVar *misPT = (RooRealVar*) obs->find(("obs_y_"+channelName).c_str());
+  B_plus_M->SetTitle("B_plus_M");
+  B_plus_M->setUnit("MeV/c^{2}");
+  misPT->SetTitle("misPT");
+  misPT->setUnit("MeV/c");
+  cout<<"B_plus_M nbins: "<<B_plus_M->getBins("default")<<endl;
+  cout<<"misPT nbins: "<<misPT->getBins("default")<<endl;
+  RooArgSet *combparset = (RooArgSet*) workspace->set((combinatorial.get_name()+"_parset").c_str());
 
-   cout<<"VALUE OF l1Kee IN FIT: "<<l1Kee->getVal()<<" +- "<<l1Kee->getError()<<endl;
-   cout<<"VALUE OF l2Kee IN FIT: "<<l2Kee->getVal()<<" +- "<<l2Kee->getError()<<endl;
-   cout<<"VALUE OF l3Kee IN FIT: "<<l3Kee->getVal()<<" +- "<<l3Kee->getError()<<endl;
-   cout<<"VALUE OF l4Kee IN FIT: "<<l4Kee->getVal()<<" +- "<<l4Kee->getError()<<endl;
-   cout<<"VALUE OF l5Kee IN FIT: "<<l5Kee->getVal()<<" +- "<<l5Kee->getError()<<endl;
 
-   // Get observables
-   ModelConfig *mc = (ModelConfig*) workspace->obj("ModelConfig");
-   RooArgSet *obs = (RooArgSet*) mc->GetObservables();
-   RooRealVar *B_plus_M = (RooRealVar*) obs->find(("obs_x_"+channelName).c_str());
-   RooRealVar *misPT = (RooRealVar*) obs->find(("obs_y_"+channelName).c_str());
-   // B_plus_M->SetNameTitle("B_plus_M", "B_plus_M");
-   B_plus_M->SetTitle("B_plus_M");
-   B_plus_M->setUnit("MeV/c^{2}");
-   // misPT->SetNameTitle("misPT", "misPT");
-   misPT->SetTitle("misPT");
-   misPT->setUnit("MeV/c");
+  RooArgSet observables(*B_plus_M);
+  if (opts.fit2D) observables.add(*misPT);
 
-   cout<<"B_plus_M nbins: "<<B_plus_M->getBins("default")<<endl;
-   cout<<"misPT nbins: "<<misPT->getBins("default")<<endl;
-   
-  // //***********Set Binning
   
-  // RooBinning defaultMBins(floor(16), B_plus_M->getMin(), B_plus_M->getMax() ); 
-  // RooBinning defaultMisPTBins(floor(40), misPT->getMin(), misPT->getMax()); 
 
-  // B_plus_M->setBinning( defaultMBins);
-  // misPT->setBinning( defaultMisPTBins );
+  RooRealVar* nSignal = workspace->var("nSignal");
+  RooRealVar* nPartReco = workspace->var("nPartReco");
+  RooRealVar* nComb = workspace->var("nComb");
+  RooRealVar* nComb_fit = workspace->var("nComb_fit");
+  RooRealVar* fracZero = workspace->var("fracZero");
+  RooRealVar* fracOne = workspace->var("fracOne");
+  RooFormulaVar* fracTwo = (RooFormulaVar*) workspace->obj("fracTwo");
+  RooRealVar* nJpsiLeak;
+  if (opts.nGenJpsiLeak>0)  nJpsiLeak = workspace->var("nJpsiLeak");
+  else nJpsiLeak = new RooRealVar("nJpsiLeak", "#nJpsiLeak", 1.*opts.nGenJpsiLeak, opts.nGenJpsiLeak-7*sqrt(opts.nGenJpsiLeak), opts.nGenJpsiLeak+7*sqrt(opts.nGenJpsiLeak));
+  
+  RooRealVar *fractionalErrorJpsiLeak = workspace->var("fractionalErrorJpsiLeak");
+  RooFormulaVar fracPartReco("fracPartReco", "nPartReco/nSignal", RooArgList(*nPartReco,*nSignal));
 
 
   //***************** Build model
    
-   // Get HistFactory pdf (no combinatorial)
-   RooSimultaneous *model_nocomb = (RooSimultaneous*)mc->GetPdf();
-   RooArgList obsTerms;
-   RooArgList pois_constraints;
-   FactorizeHistFactoryPdf(*obs, *model_nocomb, obsTerms, pois_constraints);
+  // Get HistFactory pdf (no combinatorial)
+  RooSimultaneous *model_nocomb = (RooSimultaneous*)mc->GetPdf();
+  RooArgList obsTerms;
+  RooArgList pois_constraints;
+  FactorizeHistFactoryPdf(*obs, *model_nocomb, obsTerms, pois_constraints);
 
-   RooRealSumPdf* model_nocomb_pdf = ( RooRealSumPdf*) obsTerms.first();
+  RooRealSumPdf* model_nocomb_pdf = ( RooRealSumPdf*) obsTerms.first();
    
-   RooArgList *model_nocomb_pdf_coefList = (RooArgList*) model_nocomb_pdf->coefList().Clone();
-   RooArgList *model_nocomb_pdf_funcList = (RooArgList*) model_nocomb_pdf->funcList().Clone();
+  RooArgList *model_nocomb_pdf_coefList = (RooArgList*) model_nocomb_pdf->coefList().Clone();
+  RooArgList *model_nocomb_pdf_funcList = (RooArgList*) model_nocomb_pdf->funcList().Clone();
 
 
-   // Define combinatorial model
-   RooBinning m_binning(nMassBins,B_plus_M->getMin(),B_plus_M->getMax(),"m_binning");
-   RooBinning pT_binning(nmisPTBins,misPT->getMin(),misPT->getMax(),"pT_binning");
-   RooExpOfPolyTimesXBinned *combPDF_unnorm =  new RooExpOfPolyTimesXBinned("combPDF_unnorm", "combPDF_unnorm", 
-                                                                            *B_plus_M, *misPT, *l1Kee, *l2KeeGen, *l3KeeGen, *l4KeeGen, *l5KeeGen,
-                                                                            m_binning, pT_binning);
-
-   RooAbsReal *combIntegral = combPDF_unnorm->createIntegral(RooArgSet(*B_plus_M, *misPT));
-   combIntegral->SetNameTitle("combIntegral","combIntegral");
-   // RooFormulaVar *combNorm = new RooFormulaVar("combNorm","1./combIntegral",RooArgList(*combIntegral));
-   RooRealVar *combNorm = new RooRealVar("combNorm","combNorm",1./combIntegral->getVal());
-   // RooRealVar *combNorm = new RooRealVar("combNorm","combNorm",1.);
-   RooProduct *combPDF = new RooProduct("combPDF","combPDF",RooArgList(*combPDF_unnorm,*combNorm));  
+  // Define combinatorial model
+  RooAbsPdf *combPDF_unnorm = combinatorial.build_model(&observables, combparset);
+  RooAbsReal *combIntegral = combPDF_unnorm->createIntegral(RooArgSet(*B_plus_M, *misPT));
+  combIntegral->SetNameTitle("combIntegral","combIntegral");
+  // RooFormulaVar *combNorm = new RooFormulaVar("combNorm","1./combIntegral",RooArgList(*combIntegral));
+  RooRealVar *combNorm = new RooRealVar("combNorm","combNorm",1./combIntegral->getVal());
+  // RooRealVar *combNorm = new RooRealVar("combNorm","combNorm",1.);
+  RooProduct *combPDF = new RooProduct("combPDF","combPDF",RooArgList(*combPDF_unnorm,*combNorm));  
    
 
-   model_nocomb_pdf_coefList->add(*nComb);
-   model_nocomb_pdf_funcList->add(*combPDF); //normalization
+  model_nocomb_pdf_coefList->add(*nComb);
+  model_nocomb_pdf_funcList->add(*combPDF); //normalization
 
    // Combined model
    RooRealSumPdf *model_pdf = new RooRealSumPdf((channelName+"_comb").c_str(),(channelName+"_comb").c_str(),
@@ -920,25 +320,11 @@ void FitterUtilsHistFact::fit(bool wantplot, bool constPartReco,
 
    //***************** Get data
 
-   cout<<"CACA2"<<endl;
-   RooWorkspace* workspaceGen = (RooWorkspace*)fw->Get("workspaceGen");
-   cout<<"CACA2a"<<endl;
-   RooDataSet* dataGenSignalZeroGamma = (RooDataSet*)workspaceGen->data("dataGenSignalZeroGamma");
-   cout<<"CACA2b"<<endl;
-   RooDataSet* dataGenSignalOneGamma = (RooDataSet*)workspaceGen->data("dataGenSignalOneGamma");
-   RooDataSet* dataGenSignalTwoGamma = (RooDataSet*)workspaceGen->data("dataGenSignalTwoGamma");
-   RooDataSet* dataGenPartReco = (RooDataSet*)workspaceGen->data("dataGenPartReco");
-   cout<<"CACA2c"<<endl;
-   RooDataSet* dataGenComb = (RooDataSet*)workspaceGen->data("dataGenComb");
-   cout<<"CACA2d"<<endl;
-   RooDataSet* dataGenJpsiLeak(0);
-   if(nGenJpsiLeak>1) dataGenJpsiLeak = (RooDataSet*)workspaceGen->data("dataGenJpsiLeak");
-
 
    cout<<"CACA3"<<endl;
 
 
-   // if(wantplot)
+   // if(m_wantplot)
    // {
    //    //**************Must get the datasets
 
@@ -961,18 +347,10 @@ void FitterUtilsHistFact::fit(bool wantplot, bool constPartReco,
    //    PlotShape(*dataSetComb, *dataGenComb, *histPdfComb, plotsfile, "cCombTemplate", *B_plus_M, *misPT);
 
    // cout<<"CACA5"<<endl;
-   //    if(nGenJpsiLeak>1) PlotShape(*dataSetJpsiLeak, *dataGenJpsiLeak, *histPdfJpsiLeak, plotsfile, "cJpsiLeak", *B_plus_M, *misPT);
+   //    if(opts.nGenJpsiLeak>1) PlotShape(*dataSetJpsiLeak, *dataGenJpsiLeak, *histPdfJpsiLeak, plotsfile, "cJpsiLeak", *B_plus_M, *misPT);
    // }
 
    //***************Merge datasets
-
-   cout<<"CACA6"<<endl;
-   RooDataSet* dataGenTot_chan(dataGenPartReco);
-   dataGenTot_chan->append(*dataGenSignalZeroGamma);
-   dataGenTot_chan->append(*dataGenSignalOneGamma);
-   dataGenTot_chan->append(*dataGenSignalTwoGamma);
-   dataGenTot_chan->append(*dataGenComb);
-   if(nGenJpsiLeak>1) dataGenTot_chan->append(*dataGenJpsiLeak);
 
    RooDataHist *dataGenTot_chan_bin = dataGenTot_chan->binnedClone();
    RooDataHist *dataGenTot = new RooDataHist("dataGenTot","dataGenTot",RooArgSet(*B_plus_M, *misPT),
@@ -989,15 +367,15 @@ void FitterUtilsHistFact::fit(bool wantplot, bool constPartReco,
   ((RooRealVar*)(mc->GetNuisanceParameters()->find("mcNorm_sigone")))->setConstant(kTRUE);
   ((RooRealVar*)(mc->GetNuisanceParameters()->find("mcNorm_sigtwo")))->setConstant(kTRUE);
   ((RooRealVar*)(mc->GetNuisanceParameters()->find("mcNorm_partreco")))->setConstant(kTRUE);
-  if(nGenJpsiLeak>1) ((RooRealVar*)(mc->GetNuisanceParameters()->find("mcNorm_jpsileak")))->setConstant(kTRUE);
+  if(opts.nGenJpsiLeak>1) ((RooRealVar*)(mc->GetNuisanceParameters()->find("mcNorm_jpsileak")))->setConstant(kTRUE);
   ((RooRealVar*)(mc->GetNuisanceParameters()->find("Lumi")))->setConstant(kTRUE);
-  // l1Kee->setConstant(kTRUE);
-  l2Kee->setConstant(kTRUE);
-  l3Kee->setConstant(kTRUE);
-  l4Kee->setConstant(kTRUE);
-  l5Kee->setConstant(kTRUE);
+  // ((RooRealVar*)(mc->GetNuisanceParameters()->find("l1Kee")))->setConstant(kTRUE);
+  ((RooRealVar*)(mc->GetNuisanceParameters()->find("l2Kee")))->setConstant(kTRUE);
+  ((RooRealVar*)(mc->GetNuisanceParameters()->find("l3Kee")))->setConstant(kTRUE);
+  ((RooRealVar*)(mc->GetNuisanceParameters()->find("l4Kee")))->setConstant(kTRUE);
+  ((RooRealVar*)(mc->GetNuisanceParameters()->find("l5Kee")))->setConstant(kTRUE);
   
-  // nJpsiLeak->setVal(nGenJpsiLeak);
+  // nJpsiLeak->setVal(opts.nGenJpsiLeak);
   // nJpsiLeak->setConstant(kTRUE);
   
    cout<<"CACA7"<<endl;
@@ -1006,31 +384,31 @@ void FitterUtilsHistFact::fit(bool wantplot, bool constPartReco,
    //**************** Constrain the fraction of zero and one photon
 
 
-   int nGenSignalZeroGamma(floor(nGenFracZeroGamma*nGenSignal));
-   int nGenSignalOneGamma(floor(nGenFracOneGamma*nGenSignal));
-   int nGenSignalTwoGamma(floor(nGenSignal-nGenSignalZeroGamma-nGenSignalOneGamma));
+   int nGenSignalZeroGamma(floor(opts.nGenFracZeroGamma*opts.nGenSignal));
+   int nGenSignalOneGamma(floor(opts.nGenFracOneGamma*opts.nGenSignal));
+   int nGenSignalTwoGamma(floor(opts.nGenSignal-nGenSignalZeroGamma-nGenSignalOneGamma));
 
-   RooRealVar fracZeroConstMean("fracZeroConstMean", "fracZeroConstMean", nGenSignalZeroGamma*1./nGenSignal);
-   RooRealVar fracZeroConstSigma("fracZeroConstSigma", "fracZeroConstSigma", sqrt(nGenSignalZeroGamma)/nGenSignal);
-   RooGaussian fracZeroConst("fracZeroConst", "fracZeroConst", *fracZero, fracZeroConstMean, fracZeroConstSigma); 
+   RooRealVar fracZeroMean("fracZeroMean", "fracZeroMean", nGenSignalZeroGamma*1./opts.nGenSignal);
+   RooRealVar fracZeroSigma("fracZeroSigma", "fracZeroSigma", sqrt(nGenSignalZeroGamma)/opts.nGenSignal);
+   RooGaussian fracZeroConst("fracZeroConst", "fracZeroConst", *fracZero, fracZeroMean, fracZeroSigma); 
 
-   RooRealVar fracOneConstMean("fracOneConstMean", "fracOneConstMean", nGenSignalOneGamma*1./nGenSignal/(1-fracZeroConstMean.getVal()));
-   RooRealVar fracOneConstSigma("fracOneConstSigma", "fracOneConstSigma", sqrt(nGenSignalOneGamma)/nGenSignal/(1-fracZeroConstMean.getVal()));
-   RooGaussian fracOneConst("fracOneConst", "fracOneConst", *fracOne, fracOneConstMean, fracOneConstSigma);
+   RooRealVar fracOneMean("fracOneMean", "fracOneMean", 
+                               nGenSignalOneGamma*1./opts.nGenSignal/(1-fracZeroMean.getVal()));
+   RooRealVar fracOneSigma("fracOneSigma", "fracOneSigma", 
+                                sqrt(nGenSignalOneGamma)/opts.nGenSignal/(1-fracZeroMean.getVal()));
+   RooGaussian fracOneConst("fracOneConst", "fracOneConst", *fracOne, fracOneMean, fracOneSigma); 
 
-
-   RooRealVar fracPartRecoMean("fracPartRecoMean", "fracPartRecoMean", nGenPartReco/(1.*nGenSignal));
+   RooRealVar fracPartRecoMean("fracPartRecoMean", "fracPartRecoMean", opts.nGenPartReco/(1.*opts.nGenSignal));
    RooRealVar fracPartRecoSigma("fracPartRecoSigma", "fracPartRecoSigma", fracPartReco_const*fracPartRecoMean.getVal());
-
    RooGaussian fracPartRecoConst("fracPartRecoConst", "fracPartRecoConst", fracPartReco, fracPartRecoMean, fracPartRecoSigma);
 
-   RooRealVar JpsiLeakMean("JpsiLeakMean", "JpsiLeakMean", nGenJpsiLeak);
-   RooRealVar JpsiLeakSigma("JpsiLeakSigma", "JpsiLeakSigma", nGenJpsiLeak*fractionalErrorJpsiLeak->getVal());
-   RooGaussian JpsiLeakConst("JpsiLeakConst", "JpsiLeakConst", *nJpsiLeak, JpsiLeakMean, JpsiLeakSigma); 
+   RooRealVar nJpsiLeakMean("nJpsiLeakMean", "nJpsiLeakMean", opts.nGenJpsiLeak);
+   RooRealVar nJpsiLeakSigma("nJpsiLeakSigma", "nJpsiLeakSigma", opts.nGenJpsiLeak*fractionalErrorJpsiLeak->getVal());
+   RooGaussian nJpsiLeakConst("nJpsiLeakConst", "nJpsiLeakConst", *nJpsiLeak, nJpsiLeakMean, nJpsiLeakSigma); 
    
 
-   fracZero->setVal(fracZeroConstMean.getVal());
-   fracOne->setVal(fracOneConstMean.getVal());
+   fracZero->setVal(fracZeroMean.getVal());
+   fracOne->setVal(fracOneMean.getVal());
    
    
    cout<<"Evaluating fracTwo... "<<endl;
@@ -1042,7 +420,7 @@ void FitterUtilsHistFact::fit(bool wantplot, bool constPartReco,
    //Extra TEST CONSTRAINT
 
 
-   //RooRealVar combConstMean("combConstMean", "combConstMean", nGenComb);
+   //RooRealVar combConstMean("combConstMean", "combConstMean", opts.nGenComb);
    //RooRealVar combConstSigma("combConstSigma", "combConstSigma", 7.7);
    //RooGaussian combConst("combConst", "combConst", nComb, combConstMean, combConstSigma);
 
@@ -1051,17 +429,28 @@ void FitterUtilsHistFact::fit(bool wantplot, bool constPartReco,
    RooAbsReal::defaultIntegratorConfig()->setEpsAbs(1e-8) ;
    RooAbsReal::defaultIntegratorConfig()->setEpsRel(1e-8) ;
 
-   RooArgSet *par_set = totPdf.getParameters(dataGenTot);
-
-   cout<<"CACA11"<<endl;
-
-   initiateParams(nGenSignalZeroGamma, nGenSignalOneGamma, nGenSignalTwoGamma, 
-          *nSignal, *nPartReco, *nComb, *fracZero, *fracOne, *nJpsiLeak,  constPartReco, fracPartRecoSigma,
-                  *l1Kee, *l2Kee, *l3Kee, *l4Kee, *l5Kee, *l1KeeGen, *l2KeeGen, *l3KeeGen, *l4KeeGen, *l5KeeGen, constFracs, constComb);
+   RooArgSet *par_set = totPdf.getParameters(*dataGenTot);
+   RooArgSet par_set_const;
 
    RooArgSet constraints(fracZeroConst, fracOneConst);
-   if (constPartReco) constraints.add(fracPartRecoConst);
-   if (nGenJpsiLeak>1) constraints.add(JpsiLeakConst);
+   par_set_const.add(fracZeroMean);
+   par_set_const.add(fracZeroSigma);
+   par_set_const.add(fracOneMean);
+   par_set_const.add(fracOneSigma);
+   if (opts.constPartReco) 
+     {
+       constraints.add(fracPartRecoConst);
+       par_set_const.add(fracPartRecoMean);
+       par_set_const.add(fracPartRecoSigma);
+     }
+   if(opts.nGenJpsiLeak>0) 
+     {
+       constraints.add(nJpsiLeakConst);
+       par_set_const.add(nJpsiLeakMean);
+       par_set_const.add(nJpsiLeakSigma);
+     }
+
+   initiateParams(*par_set, constraints, par_set_const);
 
    RooArgList* gammas = new RooArgList();
    ParamHistFunc* param_func=NULL;
@@ -1109,9 +498,12 @@ void FitterUtilsHistFact::fit(bool wantplot, bool constPartReco,
 
    for(int i(0); (i<15) && !hasConverged ; ++i)
    {
-      initiateParams(nGenSignalZeroGamma, nGenSignalOneGamma, nGenSignalTwoGamma, 
-          *nSignal, *nPartReco, *nComb, *fracZero, *fracOne, *nJpsiLeak,  constPartReco, fracPartRecoSigma,
-                     *l1Kee, *l2Kee, *l3Kee, *l4Kee, *l5Kee, *l1KeeGen, *l2KeeGen, *l3KeeGen, *l4KeeGen, *l5KeeGen, constFracs, constComb);
+
+   initiateParams(*par_set, constraints, par_set_const);
+
+      // initiateParams(nGenSignalZeroGamma, nGenSignalOneGamma, nGenSignalTwoGamma, 
+      //     *nSignal, *nPartReco, *nComb, *fracZero, *fracOne, *nJpsiLeak,  opts.constPartReco, fracPartRecoSigma,
+      //                *l1Kee, *l2Kee, *l3Kee, *l4Kee, *l5Kee, *l1KeeGen, *l2KeeGen, *l3KeeGen, *l4KeeGen, *l5KeeGen, constFracs, constComb);
 
       cout<<"FITTING: starting with nsignal = "<<nSignal->getValV()<<" refit nbr. "<<i<<endl;
       //if(fitRes != NULL && fitRes != 0) delete fitRes;
@@ -1199,7 +591,7 @@ void FitterUtilsHistFact::fit(bool wantplot, bool constPartReco,
    int w(12);
    if (hasConverged) out<<setw(w)<<migradRes<<setw(w)<<hesseRes<<setw(w)<<edm<<setw(w)<<nrefit<<endl;
 
-   if(wantplot) plot_fit_result(plotsfile, totPdf, dataGenTot,
+   if(m_wantplot) plot_fit_result(opts.plotsfile, totPdf, dataGenTot,
                                 nSignal->getVal(), nPartReco->getVal(), 
                                 nComb->getVal()*combIntegral->getVal()*combNorm->getVal(), nJpsiLeak->getVal() );
 
@@ -1256,13 +648,13 @@ void FitterUtilsHistFact::fit(bool wantplot, bool constPartReco,
      
    // }
    
-   fw->Close();
-   delete fw;
+   // fw->Close();
+   // delete fw;
    //delete and return
    delete nll;
    delete par_set;
-   delete workspace;
-   delete workspaceGen;
+   // delete workspace;
+   // delete workspaceGen;
    cout<<"deleting binned combinatorial"<<endl;
    delete combPDF_unnorm;
    cout<<"deleted!"<<endl;
@@ -1415,3 +807,81 @@ void FitterUtilsHistFact::PlotShape2D(RooDataSet& originDataSet, RooDataSet& gen
    f2.Close();
 }
 
+
+void FitterUtilsHistFact::initiateParams(int nGenSignalZeroGamma, int nGenSignalOneGamma, int nGenSignalTwoGamma, RooRealVar& nSignal, RooRealVar& nPartReco, 
+      RooRealVar& nComb, RooRealVar& fracZero, RooRealVar& fracOne, RooRealVar&  nJpsiLeak, bool constPartReco, RooRealVar const& fracPartRecoSigma, 
+      RooRealVar& l1Kee, RooRealVar& l2Kee, RooRealVar& l3Kee, RooRealVar& l4Kee, RooRealVar& l5Kee, 
+                                         RooRealVar const& l1KeeGen, RooRealVar const& l2KeeGen, RooRealVar const& l3KeeGen, RooRealVar const& l4KeeGen, RooRealVar const& l5KeeGen , bool constFracs, bool constComb)
+{
+   TRandom rand;
+   rand.SetSeed();
+
+   int nGenSignal = nGenSignalZeroGamma + nGenSignalOneGamma + nGenSignalTwoGamma;
+
+   double nGenSignal2;
+   double nGenPartReco2;
+   if(!constPartReco)
+   {
+      nGenSignal2 = rand.Uniform(nGenSignal-5*sqrt(nGenSignal), nGenSignal+5*sqrt(nGenSignal));
+      nGenPartReco2 = rand.Uniform(nGenPartReco-5*sqrt(nGenPartReco), nGenPartReco+5*sqrt(nGenPartReco));
+   }
+   if(constPartReco)
+   { 
+      double nGenSigPartReco( nGenSignal+nGenPartReco );
+      double nGenSigPartReco2( rand.Uniform( nGenSigPartReco-5*sqrt(nGenSigPartReco), nGenSigPartReco+5*sqrt(nGenSigPartReco) ) );
+      double fracPartReco1( nGenPartReco/(1.*nGenSignal));
+      double fracPartReco2( rand.Uniform(fracPartReco1-5*fracPartRecoSigma.getVal(), fracPartReco1+5*fracPartRecoSigma.getVal()) ); 
+
+      nGenPartReco2 = fracPartReco2*nGenSigPartReco2 / (1+fracPartReco2); 
+      nGenSignal2 = nGenSigPartReco2 / (1+fracPartReco2); 
+   }
+   double nGenComb2 = rand.Uniform(nGenComb-5*sqrt(nGenComb), nGenComb+5*sqrt(nGenComb));
+   double nGenJpsiLeak2 = rand.Uniform(nGenJpsiLeak-5*sqrt(nGenJpsiLeak), nGenJpsiLeak+5*sqrt(nGenJpsiLeak));
+
+
+   nSignal.setVal(nGenSignal2);
+   nSignal.setRange(TMath::Max(0.,nGenSignal2-10.*sqrt(nGenSignal)) , nGenSignal2+10*sqrt(nGenSignal));
+
+   nPartReco.setVal(nGenPartReco2);
+   nPartReco.setRange(TMath::Max(0.,nGenPartReco2-10.*sqrt(nGenPartReco)), nGenPartReco2+10*sqrt(nGenPartReco));
+
+
+   nComb.setVal(nGenComb2);
+   nComb.setRange(TMath::Max(0.,nGenComb2-20.*sqrt(nGenComb)), nGenComb2+20*sqrt(nGenComb));
+
+   nJpsiLeak.setVal(nGenJpsiLeak2);
+   nJpsiLeak.setRange(TMath::Max(0., nGenJpsiLeak2-10*sqrt(nGenJpsiLeak)), nGenJpsiLeak2+10*sqrt(nGenJpsiLeak));
+
+   double fracGenZero(nGenSignalZeroGamma/(1.*nGenSignal));
+   double fracGenOne(nGenSignalOneGamma/(1.*nGenSignal));
+
+   if (!constFracs)
+   {
+     
+   fracZero.setVal(rand.Gaus(fracGenZero, sqrt(nGenSignalZeroGamma)/(1.*nGenSignal))) ;
+   fracZero.setRange(0., 1.);
+   fracOne.setVal(rand.Gaus(fracGenOne, sqrt(nGenSignalOneGamma)/(1.*nGenSignal))) ;
+   fracOne.setRange(0., 1.);
+   }
+   
+
+   if (!constComb)
+   {
+     
+   l1Kee.setVal(rand.Uniform( l1KeeGen.getVal() - 5*l1KeeGen.getError(), l1KeeGen.getVal() + 5*l1KeeGen.getError() ) );
+   l1Kee.setRange( l1KeeGen.getVal() - 10*l1KeeGen.getError(), l1KeeGen.getVal() + 10*l1KeeGen.getError() );
+
+   l2Kee.setVal(rand.Uniform( l2KeeGen.getVal() - 5*l2KeeGen.getError(), l2KeeGen.getVal() + 5*l2KeeGen.getError() ) );
+   l2Kee.setRange( l2KeeGen.getVal() - 10*l2KeeGen.getError(), l2KeeGen.getVal() + 10*l2KeeGen.getError() );
+
+   l3Kee.setVal(rand.Uniform( l3KeeGen.getVal() - 5*l3KeeGen.getError(), l3KeeGen.getVal() + 5*l3KeeGen.getError() ) );
+   l3Kee.setRange( l3KeeGen.getVal() - 10*l3KeeGen.getError(), l3KeeGen.getVal() + 10*l3KeeGen.getError() );
+
+   l4Kee.setVal(rand.Uniform( l4KeeGen.getVal() - 5*l4KeeGen.getError(), l4KeeGen.getVal() + 5*l4KeeGen.getError() ) );
+   l4Kee.setRange( l4KeeGen.getVal() - 10*l4KeeGen.getError(), l4KeeGen.getVal() + 10*l4KeeGen.getError() );
+
+   l5Kee.setVal(rand.Uniform( l5KeeGen.getVal() - 5*l5KeeGen.getError(), l5KeeGen.getVal() + 5*l5KeeGen.getError() ) );
+   l5Kee.setRange( l5KeeGen.getVal() - 10*l5KeeGen.getError(), l5KeeGen.getVal() + 10*l5KeeGen.getError() );
+   }
+
+}

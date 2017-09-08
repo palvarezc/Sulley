@@ -15,6 +15,8 @@
 #include "RooDataSet.h"
 #include "RooWorkspace.h"
 #include "Utils.h"
+#include "TCanvas.h"
+#include "RooPlot.h"
 
 /** @class Combinatorial Combinatorial.h include/Combinatorial.h
  *  
@@ -33,69 +35,40 @@ class Combinatorial {
 public: 
 
   Combinatorial();
-  Combinatorial(string name, FitType fittype );
-  virtual ~Combinatorial( )
-  {
-    // if(model!=0 && model!=NULL) delete model;
-    if(parcreated) delete_parameters();
-    
-  }
+  Combinatorial(string name_, FitType fittype_, string plotsfile_ );
+  virtual ~Combinatorial(){};
 
   void build_model_from_data(string combfile, string combtree,
                              string combcuts, RooArgSet *varset, RooWorkspace *workspace,
-                             string binningname=0);
+                             bool wantplot=false, string binningname="default");
   
-  // void fit_to_data(string combfile, string combtree,
-  //                  string combcuts, RooArgSet *varset, RooWorkspace *workspace);
-
-  RooArgSet* get_parameters()
-  {
-    return parameters;    
-  }
-
-
   string get_name()
   {
     return name;    
   }
 
-  // RooAbsPdf* get_model()
-  // {
-  //   return model;
-  // }
+  void use_own_exp(bool _ownexp)
+  {
+    ownexp = _ownexp;
+  }
 
+  /* void delete_set(RooArgSet *parameters); */
 
-  void delete_parameters();
+  RooAbsPdf* build_model(RooArgSet *varset, RooArgSet *parset, bool fixpars=false, string binningname="default");
 
-  RooAbsPdf* build_model(RooArgSet *varset,  string binningname=0, RooArgSet *parset = NULL);
-  void generate(string compname, RooArgSet *observables, RooArgSet *parameterstrue, 
-                int nGenComp, RooWorkspace* workspaceGen, bool wantplot=0);
+  void generate(string compname, RooArgSet *observables, 
+                int nGenComp, RooWorkspace* workspace, 
+		RooWorkspace* workspaceGen, bool wantplot=0,
+		string binningname="default");
+
+  void create_parameters(RooWorkspace* workspace);  
+  void copy_parameters(Combinatorial *other, RooWorkspace* workspace, bool _ownexp);
+  void plot(RooDataSet& dataset, RooAbsPdf& model, string plotname);
   
-
-private:
-
   string name;
+  string plotsfile;
   FitType fittype;
-  // RooAbsPdf *model;
-  RooArgSet *parameters;
-  bool parcreated;
-
-  RooRealVar *B_plus_M;
-  RooRealVar *misPT;
-  RooRealVar *expoConst;
-  RooRealVar *n;
-  RooRealVar *T;
-  RooRealVar *l1Kee;
-  RooRealVar *l2Kee;
-  RooRealVar *l3Kee;
-  RooRealVar *l4Kee;
-  RooRealVar *l5Kee;
-
-  void set_observables(RooArgSet *observables);
-  void set_parameters(RooArgSet *varset);
-  void set_parameters_truevalue(RooArgSet *varset);
-  RooArgSet* create_parameters();
-  
+  bool ownexp;
   
 };
 

@@ -14,7 +14,7 @@
 #include "RooAbsCategory.h"
 #include "TF1.h"
 #include "TH2D.h"
-#include "RooBinning.h"
+#include "RooAbsBinning.h"
 
 class RooExpOfPolyTimesXBinned : public RooAbsPdf {
 public:
@@ -27,8 +27,8 @@ public:
                            RooAbsReal& _l3,
                            RooAbsReal& _l4,
                            RooAbsReal& _l5,
-                           RooBinning& _m_binning,   
-                           RooBinning& _pT_binning);
+                           RooAbsBinning& _m_binning,   
+                           RooAbsBinning& _pT_binning);
   RooExpOfPolyTimesXBinned(const RooExpOfPolyTimesXBinned& other, const char* name=0) ;
   virtual TObject* clone(const char* newname) const { return new RooExpOfPolyTimesXBinned(*this,newname); }
   inline virtual ~RooExpOfPolyTimesXBinned() { 

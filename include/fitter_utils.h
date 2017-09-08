@@ -1,6 +1,7 @@
 #ifndef FITTER_UTILS_H
 #define FITTER_UTILS_H
 
+#include "Utils.h"
 #include<iostream>
 #include<TMath.h>
 #include<TFile.h>
@@ -36,51 +37,122 @@
 #include "RooPTMVis.h"
 #include "usefulFunctions.h"
 #include "RooNumIntConfig.h"
+#include "RooBinning.h"
+#include "Combinatorial.h"
+#include "RooExtendPdf.h"
+#include "RooSimultaneous.h"
+#include "RooCBShape.h"
 
 using namespace std;
 using namespace RooFit;
+using namespace Sulley;
 
 class FitterUtils
 {
 
-   public:
+public:
 
-   FitterUtils(int nGenSignal_, int nGenPartReco_, int nGenComb_, int nGenJpsiLeak_, double nGenFracZeroGamma_, double nGenFracOneGamma_, bool fit2D_, string workspacename_);
+  FitterUtils( string name, const Options &opts_);
+  
 
-  void prepare_PDFs(string trigStr, string weightStr, string BDTVar, double BDTcut,
-         string signalfile, string partrecofile, string combinatorialfile, string JpsiLeakfile,
-         double minBMass = 4880, double maxBMass = 5700,
-         string signaltree = "DecayTree", string partrecotree = "DecayTree", string combinatorialtree = "DecayTree", string JpsiLeaktree = "DecayTree");
+  void prepare_PDFs(int fitmode);  
+  void prepare_PDFs_ee();  
+  void prepare_PDFs_mumu();  
+
+  void generate(int fitmode);
+  void generate_ee();
+  void generate_mumu();
+
+  void run_toy(double fracPartReco_const, 
+	       ofstream& out, 
+	       TTree* t, 
+	       bool update,
+	       int fitmode);
+
+  void fit_ee(RooDataSet* dataset_ee, 
+	      RooDataSet* dataset_Kemu, 
+	      RooWorkspace* workspace,
+	      double fracPartReco_const, 
+	      ofstream& out, 
+	      TTree* t, 
+	      bool update);
+
+  void fit_mumu(RooDataSet* datasetTot, 
+		RooWorkspace* workspace,
+		double fracPartReco_const, 
+		ofstream& out, 
+		TTree* t, 
+		bool update);
+
+  void fit_RK(RooDataSet* dataset_ee, 
+	      RooDataSet* dataset_mumu, 
+	      RooDataSet* dataset_Kemu, 
+	      RooWorkspace* workspace_ee,
+	      RooWorkspace* workspace_mumu,
+	      double fracPartReco_const, 
+	      ofstream& out, 
+	      TTree* t, 
+	      bool update);
+
+  void enablePlotting() 
+  {
+    m_wantplot = true;
+  }
+
+  void disablePlotting() 
+  {
+    m_wantplot = false;
+  }
+  
 
 
-   void generate();
-   void fit(bool wantplot, bool constPartReco,
-         double fracPartReco_const, ofstream& out, TTree* t, bool update, string plotsfile);
+
+  void initiateParams(RooArgSet parset, RooArgSet constraints = RooArgSet(), RooArgSet parset_const = RooArgSet());
+
+   void initiateParams(RooRealVar const& expoConstGen,
+                       RooRealVar& nSignal, RooRealVar& nPartReco, 
+                       RooRealVar& nComb, RooRealVar& fracZero, 
+                       RooRealVar& fracOne, RooRealVar& expoConst, 
+                       RooRealVar&  nJpsiLeak, bool constPartReco, RooRealVar const& fracPartRecoSigma);
 
 
-   protected:
 
-   void initiateParams(RooArgSet* parset);
+  double prepare_component_PDF_ee(string filename, string treename,
+				  string compname, string cuts, 
+				  RooArgSet varset, RooWorkspace *workspace,
+				  string binningname);
 
-   void initiateParams(int nGenSignalZeroGamma, int nGenSignalOneGamma, int nGenSignalTwoGamma, RooRealVar const& expoConstGen,
-         RooRealVar& nSignal, RooRealVar& nPartReco, 
-         RooRealVar& nComb, RooRealVar& fracZero, RooRealVar& fracOne, RooRealVar& expoConst, RooRealVar&  nJpsiLeak, bool constPartReco, RooRealVar const& fracPartRecoSigma);
-
-   void plot_fit_result(string plotsfile, RooAbsPdf &totPdf, RooDataSet dataGenTot);
-
-   void PlotShape(RooDataSet& originDataSet, RooDataSet& genDataSet, RooAbsPdf& shape, string plotsfile, string canvName, RooRealVar& B_plus_M, RooRealVar& misPT);
-   void PlotShape2D(RooDataSet& originDataSet, RooDataSet& genDataSet, RooAbsPdf& shape, string plotsfile, string canvName, RooRealVar& B_plus_M, RooRealVar& misPT);
-   void PlotShape1D(RooDataSet& originDataSet, RooDataSet& genDataSet, RooAbsPdf& shape, string plotsfile, string canvName, RooRealVar& B_plus_M);
+  double prepare_component_PDF_mumu(string filename, string treename,
+				  string compname, string cuts, 
+				  RooArgSet varset, RooWorkspace *workspace,
+				  string binningname);
+    
 
 
-   int nGenSignal;
-   int nGenPartReco;
-   int nGenComb;
-   int nGenJpsiLeak;
-   double nGenFracZeroGamma;  
-   double nGenFracOneGamma;
-   bool fit2D;
-   string workspacename;
+   void plot_fit_result(RooAbsPdf &totPdf, RooDataSet dataGenTot);
+   void plot_mumu_fit_result(RooAbsPdf &totPdf, RooDataSet dataGenTot);
+  void plot_kemu_fit_result(RooAbsPdf &totKemuPdf, RooDataSet datasetKemu);
+  
+   void PlotShape(RooDataSet& originDataSet, RooDataSet& genDataSet, RooAbsPdf& shape, string plotsfile, 
+                  string canvName, RooArgSet varset);
+   void PlotShape2D(RooDataSet& originDataSet, RooDataSet& genDataSet, RooAbsPdf& shape, string plotsfile, 
+                    string canvName, RooRealVar& B_plus_M, RooRealVar& misPT);
+   void PlotShape1D(RooDataSet& originDataSet, RooDataSet& genDataSet, RooAbsPdf& shape, string plotsfile, 
+                    string canvName, RooRealVar& B_plus_M);
+
+
+  // void fit_combinatorial(string combcuts, RooArgSet *varset, RooWorkspace *workspace);
+  
+  void generate_component(string compname, RooArgSet varset, int nGenComp,
+                          RooWorkspace* workspace, RooWorkspace* workspaceGen);
+
+
+  string name;
+  Combinatorial combinatorial;
+  Combinatorial Kemu;
+  string defaultbinningname;
+  Options opts;
+  bool m_wantplot;
 
 };
 

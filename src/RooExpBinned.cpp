@@ -21,7 +21,7 @@
  RooExpBinned::RooExpBinned(const char *name, const char *title, 
                         RooAbsReal& _m,
                         RooAbsReal& _l1,
-                        RooBinning& _m_binning) :
+                        RooAbsBinning& _m_binning) :
    RooAbsPdf(name,title), 
    m("m","m",this,_m),
    l1("l1","l1",this,_l1),

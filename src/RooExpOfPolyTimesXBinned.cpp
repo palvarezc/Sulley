@@ -26,8 +26,8 @@
                         RooAbsReal& _l3,
                         RooAbsReal& _l4,
                         RooAbsReal& _l5,
-                        RooBinning& _m_binning,
-                        RooBinning& _pT_binning                                                    
+                        RooAbsBinning& _m_binning,
+                        RooAbsBinning& _pT_binning                                                    
                         // Int_t _m_nbins,
                         // Int_t _pT_nbins,
                         // // Double_t _m_min,

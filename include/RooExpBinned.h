@@ -14,7 +14,7 @@
 #include "RooAbsCategory.h"
 #include "TF1.h"
 #include "TH1D.h"
-#include "RooBinning.h"
+#include "RooAbsBinning.h"
 
 class RooExpBinned : public RooAbsPdf {
 public:
@@ -22,7 +22,7 @@ public:
   RooExpBinned(const char *name, const char *title,
                            RooAbsReal& _m,
                            RooAbsReal& _l1,
-                           RooBinning& _m_binning);
+                           RooAbsBinning& _m_binning);
   RooExpBinned(const RooExpBinned& other, const char* name=0) ;
   virtual TObject* clone(const char* newname) const { return new RooExpBinned(*this,newname); }
   inline virtual ~RooExpBinned() { 

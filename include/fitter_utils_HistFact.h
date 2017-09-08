@@ -52,46 +52,45 @@
 #include "RooStats/HistFactory/HistFactoryModelUtils.h"
 #include "RooStats/HistFactory/RooBarlowBeestonLL.h"
 
+#include "fitter_utils.h"
+#include "Combinatorial.h"
+
 using namespace std;
 using namespace RooFit;
+using namespace Sulley;
 using namespace RooStats ;
 using namespace HistFactory ;
 
-class FitterUtilsHistFact
+class FitterUtilsHistFact: public FitterUtils
 {
 
    public:
 
-  FitterUtilsHistFact(int nGenSignal_, int nGenPartReco_, int nGenComb_, int nGenJpsiLeak_, double nGenFracZeroGamma_, double nGenFracOneGamma_, string workspacename_);
+  FitterUtilsHistFact(string workspacename_, const Options opts_);
 
-  void prepare_PDFs(string trigStr, string weightStr, string BDTVar, double BDTcut,
-         string signalfile, string partrecofile, string combinatorialfile, string JpsiLeakfile,
-         double minBMass = 4880, double maxBMass = 5700,
-         string signaltree = "DecayTree", string partrecotree = "DecayTree", string combinatorialtree = "DecayTree", string JpsiLeaktree = "DecayTree");
-
-
-   void generate(bool wantPlots = false, string plotsfile = "toErase.root");
-   void fit(bool wantplot, bool constPartReco,
-         double fracPartReco_const, ofstream& out, TTree* t, bool update, string plotsfile);
-
-
-  TH2D* make_base_histogram(string componentName, string componentFile, string componentTree,
-                      // string cut, string weight, RooArgSet varset, RooRealVar &x, RooRealVar &y, string binningName)
-                      string cut, vector<string> varset, RooRealVar &x, RooRealVar &y, 
-                      string binningName);
+  void prepare_PDFs(int fitmode);
   
-  void fit_combinatorial(string combfile, string combtree, string combcuts, vector<string> argsetcomb, 
-                         RooRealVar &B_plus_M, RooRealVar &misPT, RooWorkspace *workspace);
+
+
+  void run_toy(double fracPartReco_const,
+               ofstream& out, TTree* t, bool update);
   
+
+  void fit(RooDataSet* dataGenTot_chan, RooWorkspace* workspace,
+           double fracPartReco_const,
+           ofstream& out, TTree* t, bool update);
 
    protected:
 
-   void initiateParams(RooArgSet* parset);
+  void initiateParams(RooArgSet parset, RooArgSet constraints, RooArgSet parset_const){FitterUtils::initiateParams(parset,constraints,parset_const);};
 
-   void initiateParams(int nGenSignalZeroGamma, int nGenSignalOneGamma, int nGenSignalTwoGamma, RooRealVar& nSignal, RooRealVar& nPartReco,
-         RooRealVar& nComb, RooRealVar& fracZero, RooRealVar& fracOne, RooRealVar&  nJpsiLeak, bool constPartReco, RooRealVar const& fracPartRecoSigma,
-         RooRealVar& l1Kee, RooRealVar& l2Kee, RooRealVar& l3Kee, RooRealVar& l4Kee, RooRealVar& l5Kee,
-                       RooRealVar const& l1KeeGen, RooRealVar const& l2KeeGen, RooRealVar const& l3KeeGen, RooRealVar const& l4KeeGen, RooRealVar const& l5KeeGen , bool constFracs, bool constComb);
+  void initiateParams(int nGenSignalZeroGamma, int nGenSignalOneGamma, int nGenSignalTwoGamma, 
+                      RooRealVar& nSignal, RooRealVar& nPartReco,
+                      RooRealVar& nComb, RooRealVar& fracZero, RooRealVar& fracOne, 
+                      RooRealVar&  nJpsiLeak, bool constPartReco, RooRealVar const& fracPartRecoSigma,
+                      RooRealVar& l1Kee, RooRealVar& l2Kee, RooRealVar& l3Kee, RooRealVar& l4Kee, RooRealVar& l5Kee,
+                      RooRealVar const& l1KeeGen, RooRealVar const& l2KeeGen, RooRealVar const& l3KeeGen, 
+                      RooRealVar const& l4KeeGen, RooRealVar const& l5KeeGen , bool constFracs, bool constComb);
 
 
   void plot_fit_result(string plotsfile, RooSimultaneous &totPdf, RooDataHist *dataGenTot,
@@ -116,7 +115,8 @@ class FitterUtilsHistFact
   double nGenFracOneGamma;
   string workspacename;
   
-
+  Combinatorial Kemu;
+  
 
 };
 
