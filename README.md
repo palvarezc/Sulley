@@ -1,4 +1,7 @@
 # Sulley
+
+THIS PROJECT IS NO LONGER ACTIVE. GO TO https://gitlab.cern.ch/alvarezc/Sulley
+
 Fitting monster.
 
 The main classes are:
